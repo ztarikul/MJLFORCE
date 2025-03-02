@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function TopNavigation() {
   return (
     <div className="page-main-header">
       <div className="main-header-right row m-0">
         <div className="main-header-left">
           <div className="logo-wrapper">
-            <Link to="/">
+            <Link to="">
               <img
                 className="img-fluid"
                 src="../assets/images/logo/logo.png"
@@ -16,7 +16,7 @@ export default function Header() {
             </Link>
           </div>
           <div className="dark-logo-wrapper">
-            <Link to="/">
+            <Link to="">
               <img
                 className="img-fluid"
                 src="../assets/images/logo/dark-logo.png"
@@ -169,7 +169,7 @@ export default function Header() {
                   </div>
                 </li>
                 <li className="text-center">
-                  <Link className="f-w-700" to="/">
+                  <Link className="f-w-700" to="">
                     See All{" "}
                   </Link>
                 </li>
@@ -177,7 +177,7 @@ export default function Header() {
             </li>
             <li className="onhover-dropdown p-0">
               <button className="btn btn-primary-light" type="button">
-                <Link to="/">
+                <Link to="">
                   <i data-feather="log-out"></i>Log out
                 </Link>
               </button>

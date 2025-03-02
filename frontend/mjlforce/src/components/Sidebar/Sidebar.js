@@ -1,21 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Sider() {
+export default function Sidebar() {
   return (
     <header className="main-nav">
       <div className="sidebar-user text-center">
-        <a className="setting-primary" href="javascript:void(0)">
+        <Link className="setting-primary" to="javascript:void(0)">
           <i data-feather="settings"></i>
-        </a>
+        </Link>
         <img
           className="img-90 rounded-circle"
           src="../assets/images/dashboard/1.png"
           alt=""
         />
 
-        <a href="user-profile.html">
+        <Link to="user-profile.html">
           <h6 className="mt-2 f-14 f-w-600">Emay Walter</h6>
-        </a>
+        </Link>
         <p className="mb-0 font-roboto">Sales and Marketing - Automotive</p>
         <ul>
           <li>
@@ -57,56 +58,56 @@ export default function Sider() {
                 </div>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="home"></i>
                   <span>Dashboard</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="index.html">Default</a>
+                    <Link to="index.html">Default</Link>
                   </li>
                   <li>
-                    <a href="dashboard-02.html">Ecommerce</a>
+                    <Link to="dashboard-02.html">Ecommerce</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="airplay"></i>
                   <span>Widgets</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="general-widget.html">General</a>
+                    <Link to="general-widget.html">General</Link>
                   </li>
                   <li>
-                    <a href="chart-widget.html">Chart</a>
+                    <Link to="chart-widget.html">Chart</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layout"></i>
                   <span>Page layout</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="box-layout.html">Boxed</a>
+                    <Link to="box-layout.html">Boxed</Link>
                   </li>
                   <li>
-                    <a href="layout-rtl.html">RTL</a>
+                    <Link to="layout-rtl.html">RTL</Link>
                   </li>
                   <li>
-                    <a href="layout-dark.html">Dark</a>
+                    <Link to="layout-dark.html">Dark</Link>
                   </li>
                   <li>
-                    <a href="footer-light.html">Footer Light</a>
+                    <Link to="footer-light.html">Footer Light</Link>
                   </li>
                   <li>
-                    <a href="footer-dark.html">Footer Dark</a>
+                    <Link to="footer-dark.html">Footer Dark</Link>
                   </li>
                   <li>
-                    <a href="footer-fixed.html">Footer Fixed</a>
+                    <Link to="footer-fixed.html">Footer Fixed</Link>
                   </li>
                 </ul>
               </li>
@@ -116,288 +117,288 @@ export default function Sider() {
                 </div>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="box"></i>
                   <span>Ui Kits</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="state-color.html">State color</a>
+                    <Link to="state-color.html">State color</Link>
                   </li>
                   <li>
-                    <a href="typography.html">Typography</a>
+                    <Link to="typography.html">Typography</Link>
                   </li>
                   <li>
-                    <a href="avatars.html">Avatars</a>
+                    <Link to="avatars.html">Avatars</Link>
                   </li>
                   <li>
-                    <a href="helper-classNamees.html">helper classNamees</a>
+                    <Link to="helper-classNamees.html">helper classNamees</Link>
                   </li>
                   <li>
-                    <a href="grid.html">Grid</a>
+                    <Link to="grid.html">Grid</Link>
                   </li>
                   <li>
-                    <a href="tag-pills.html">Tag & pills</a>
+                    <Link to="tag-pills.html">Tag & pills</Link>
                   </li>
                   <li>
-                    <a href="progress-bar.html">Progress</a>
+                    <Link to="progress-bar.html">Progress</Link>
                   </li>
                   <li>
-                    <a href="modal.html">Modal</a>
+                    <Link to="modal.html">Modal</Link>
                   </li>
                   <li>
-                    <a href="alert.html">Alert</a>
+                    <Link to="alert.html">Alert</Link>
                   </li>
                   <li>
-                    <a href="popover.html">Popover</a>
+                    <Link to="popover.html">Popover</Link>
                   </li>
                   <li>
-                    <a href="tooltip.html">Tooltip</a>
+                    <Link to="tooltip.html">Tooltip</Link>
                   </li>
                   <li>
-                    <a href="loader.html">Spinners</a>
+                    <Link to="loader.html">Spinners</Link>
                   </li>
                   <li>
-                    <a href="dropdown.html">Dropdown</a>
+                    <Link to="dropdown.html">Dropdown</Link>
                   </li>
                   <li>
-                    <a href="according.html">Accordion</a>
+                    <Link to="according.html">Accordion</Link>
                   </li>
                   <li>
-                    <a className="submenu-title" href="javascript:void(0)">
+                    <Link className="submenu-title" to="javascript:void(0)">
                       Tabs
                       <span className="sub-arrow">
                         <i className="fa fa-chevron-right"></i>
                       </span>
-                    </a>
+                    </Link>
                     <ul className="nav-sub-childmenu submenu-content">
                       <li>
-                        <a href="tab-bootstrap.html">Bootstrap Tabs</a>
+                        <Link to="tab-bootstrap.html">Bootstrap Tabs</Link>
                       </li>
                       <li>
-                        <a href="tab-material.html">Line Tabs</a>
+                        <Link to="tab-material.html">Line Tabs</Link>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <a href="navs.html">Navs</a>
+                    <Link to="navs.html">Navs</Link>
                   </li>
                   <li>
-                    <a href="box-shadow.html">Shadow</a>
+                    <Link to="box-shadow.html">Shadow</Link>
                   </li>
                   <li>
-                    <a href="list.html">Lists</a>
+                    <Link to="list.html">Lists</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="folder-plus"></i>
                   <span>Bonus Ui</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="scrollable.html">Scrollable</a>
+                    <Link to="scrollable.html">Scrollable</Link>
                   </li>
                   <li>
-                    <a href="tree.html">Tree view</a>
+                    <Link to="tree.html">Tree view</Link>
                   </li>
                   <li>
-                    <a href="bootstrap-notify.html">Bootstrap Notify</a>
+                    <Link to="bootstrap-notify.html">Bootstrap Notify</Link>
                   </li>
                   <li>
-                    <a href="rating.html">Rating</a>
+                    <Link to="rating.html">Rating</Link>
                   </li>
                   <li>
-                    <a href="dropzone.html">dropzone</a>
+                    <Link to="dropzone.html">dropzone</Link>
                   </li>
                   <li>
-                    <a href="tour.html">Tour</a>
+                    <Link to="tour.html">Tour</Link>
                   </li>
                   <li>
-                    <a href="sweet-alert2.html">SweetAlert2</a>
+                    <Link to="sweet-alert2.html">SweetAlert2</Link>
                   </li>
                   <li>
-                    <a href="modal-animated.html">Animated Modal</a>
+                    <Link to="modal-animated.html">Animated Modal</Link>
                   </li>
                   <li>
-                    <a href="owl-carousel.html">Owl Carousel</a>
+                    <Link to="owl-carousel.html">Owl Carousel</Link>
                   </li>
                   <li>
-                    <a href="ribbons.html">Ribbons</a>
+                    <Link to="ribbons.html">Ribbons</Link>
                   </li>
                   <li>
-                    <a href="pagination.html">Pagination</a>
+                    <Link to="pagination.html">Pagination</Link>
                   </li>
                   <li>
-                    <a href="steps.html">Steps</a>
+                    <Link to="steps.html">Steps</Link>
                   </li>
                   <li>
-                    <a href="breadcrumb.html">Breadcrumb</a>
+                    <Link to="breadcrumb.html">Breadcrumb</Link>
                   </li>
                   <li>
-                    <a href="range-slider.html">Range Slider</a>
+                    <Link to="range-slider.html">Range Slider</Link>
                   </li>
                   <li>
-                    <a href="image-cropper.html">Image cropper</a>
+                    <Link to="image-cropper.html">Image cropper</Link>
                   </li>
                   <li>
-                    <a href="sticky.html">Sticky </a>
+                    <Link to="sticky.html">Sticky </Link>
                   </li>
                   <li>
-                    <a href="basic-card.html">Basic Card</a>
+                    <Link to="basic-card.html">Basic Card</Link>
                   </li>
                   <li>
-                    <a href="creative-card.html">Creative Card</a>
+                    <Link to="creative-card.html">Creative Card</Link>
                   </li>
                   <li>
-                    <a href="tabbed-card.html">Tabbed Card</a>
+                    <Link to="tabbed-card.html">Tabbed Card</Link>
                   </li>
                   <li>
-                    <a href="dragable-card.html">Draggable Card</a>
+                    <Link to="dragable-card.html">Draggable Card</Link>
                   </li>
                   <li>
-                    <a className="submenu-title" href="javascript:void(0)">
+                    <Link className="submenu-title" to="javascript:void(0)">
                       Timeline
                       <span className="sub-arrow">
                         <i className="fa fa-chevron-right"></i>
                       </span>
-                    </a>
+                    </Link>
                     <ul className="nav-sub-childmenu submenu-content">
                       <li>
-                        <a href="timeline-v-1.html">Timeline 1</a>
+                        <Link to="timeline-v-1.html">Timeline 1</Link>
                       </li>
                       <li>
-                        <a href="timeline-v-2.html">Timeline 2</a>
+                        <Link to="timeline-v-2.html">Timeline 2</Link>
                       </li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="edit-3"></i>
                   <span>Builders</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="form-builder-1.html">Form Builder 1</a>
+                    <Link to="form-builder-1.html">Form Builder 1</Link>
                   </li>
                   <li>
-                    <a href="form-builder-2.html">Form Builder 2</a>
+                    <Link to="form-builder-2.html">Form Builder 2</Link>
                   </li>
                   <li>
-                    <a href="pagebuild.html">Page Builder</a>
+                    <Link to="pagebuild.html">Page Builder</Link>
                   </li>
                   <li>
-                    <a href="button-builder.html">Button Builder</a>
+                    <Link to="button-builder.html">Button Builder</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="cloud-drizzle"></i>
                   <span>Animation</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="animate.html">Animate</a>
+                    <Link to="animate.html">Animate</Link>
                   </li>
                   <li>
-                    <a href="scroll-reval.html">Scroll Reveal</a>
+                    <Link to="scroll-reval.html">Scroll Reveal</Link>
                   </li>
                   <li>
-                    <a href="AOS.html">AOS animation</a>
+                    <Link to="AOS.html">AOS animation</Link>
                   </li>
                   <li>
-                    <a href="tilt.html">Tilt Animation</a>
+                    <Link to="tilt.html">Tilt Animation</Link>
                   </li>
                   <li>
-                    <a href="wow.html">Wow Animation</a>
+                    <Link to="wow.html">Wow Animation</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="command"></i>
                   <span>Icons</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="flag-icon.html">Flag icon</a>
+                    <Link to="flag-icon.html">Flag icon</Link>
                   </li>
                   <li>
-                    <a href="font-awesome.html">Fontawesome Icon</a>
+                    <Link to="font-awesome.html">Fontawesome Icon</Link>
                   </li>
                   <li>
-                    <a href="ico-icon.html">Ico Icon</a>
+                    <Link to="ico-icon.html">Ico Icon</Link>
                   </li>
                   <li>
-                    <a href="themify-icon.html">Thimify Icon</a>
+                    <Link to="themify-icon.html">Thimify Icon</Link>
                   </li>
                   <li>
-                    <a href="feather-icon.html">Feather icon</a>
+                    <Link to="feather-icon.html">Feather icon</Link>
                   </li>
                   <li>
-                    <a href="whether-icon.html">Whether Icon </a>
+                    <Link to="whether-icon.html">Whether Icon </Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="cloud"></i>
                   <span>Buttons</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="buttons.html">Default Style</a>
+                    <Link to="buttons.html">Default Style</Link>
                   </li>
                   <li>
-                    <a href="buttons-flat.html">Flat Style</a>
+                    <Link to="buttons-flat.html">Flat Style</Link>
                   </li>
                   <li>
-                    <a href="buttons-edge.html">Edge Style</a>
+                    <Link to="buttons-edge.html">Edge Style</Link>
                   </li>
                   <li>
-                    <a href="raised-button.html">Raised Style</a>
+                    <Link to="raised-button.html">Raised Style</Link>
                   </li>
                   <li>
-                    <a href="button-group.html">Button Group</a>
+                    <Link to="button-group.html">Button Group</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="bar-chart"></i>
                   <span>Charts</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="chart-apex.html">Apex Chart</a>
+                    <Link to="chart-apex.html">Apex Chart</Link>
                   </li>
                   <li>
-                    <a href="chart-google.html">Google Chart</a>
+                    <Link to="chart-google.html">Google Chart</Link>
                   </li>
                   <li>
-                    <a href="chart-sparkline.html">Sparkline chart</a>
+                    <Link to="chart-sparkline.html">Sparkline chart</Link>
                   </li>
                   <li>
-                    <a href="chart-flot.html">Flot Chart</a>
+                    <Link to="chart-flot.html">Flot Chart</Link>
                   </li>
                   <li>
-                    <a href="chart-knob.html">Knob Chart</a>
+                    <Link to="chart-knob.html">Knob Chart</Link>
                   </li>
                   <li>
-                    <a href="chart-morris.html">Morris Chart</a>
+                    <Link to="chart-morris.html">Morris Chart</Link>
                   </li>
                   <li>
-                    <a href="chartjs.html">Chatjs Chart</a>
+                    <Link to="chartjs.html">Chatjs Chart</Link>
                   </li>
                   <li>
-                    <a href="chartist.html">Chartist Chart</a>
+                    <Link to="chartist.html">Chartist Chart</Link>
                   </li>
                   <li>
-                    <a href="chart-peity.html">Peity Chart</a>
+                    <Link to="chart-peity.html">Peity Chart</Link>
                   </li>
                 </ul>
               </li>
@@ -407,80 +408,82 @@ export default function Sider() {
                 </div>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="sliders"></i>
                   <span>Form Controls </span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="form-validation.html">Form Validation</a>
+                    <Link to="form-validation.html">Form Validation</Link>
                   </li>
                   <li>
-                    <a href="base-input.html">Base Inputs</a>
+                    <Link to="base-input.html">Base Inputs</Link>
                   </li>
                   <li>
-                    <a href="radio-checkbox-control.html">Checkbox & Radio</a>
+                    <Link to="radio-checkbox-control.html">
+                      Checkbox & Radio
+                    </Link>
                   </li>
                   <li>
-                    <a href="input-group.html">Input Groups</a>
+                    <Link to="input-group.html">Input Groups</Link>
                   </li>
                   <li>
-                    <a href="megaoptions.html">Mega Options </a>
+                    <Link to="megaoptions.html">Mega Options </Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="package"></i>
                   <span>Form Widgets</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="datepicker.html">Datepicker</a>
+                    <Link to="datepicker.html">Datepicker</Link>
                   </li>
                   <li>
-                    <a href="time-picker.html">Timepicker</a>
+                    <Link to="time-picker.html">Timepicker</Link>
                   </li>
                   <li>
-                    <a href="datetimepicker.html">Datetimepicker</a>
+                    <Link to="datetimepicker.html">Datetimepicker</Link>
                   </li>
                   <li>
-                    <a href="daterangepicker.html">Daterangepicker</a>
+                    <Link to="daterangepicker.html">Daterangepicker</Link>
                   </li>
                   <li>
-                    <a href="touchspin.html">Touchspin</a>
+                    <Link to="touchspin.html">Touchspin</Link>
                   </li>
                   <li>
-                    <a href="select2.html">Select2</a>
+                    <Link to="select2.html">Select2</Link>
                   </li>
                   <li>
-                    <a href="switch.html">Switch</a>
+                    <Link to="switch.html">Switch</Link>
                   </li>
                   <li>
-                    <a href="typeahead.html">Typeahead</a>
+                    <Link to="typeahead.html">Typeahead</Link>
                   </li>
                   <li>
-                    <a href="clipboard.html">Clipboard </a>
+                    <Link to="clipboard.html">Clipboard </Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layout"></i>
                   <span>Form layout</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="default-form.html">Default Forms</a>
+                    <Link to="default-form.html">Default Forms</Link>
                   </li>
                   <li>
-                    <a href="form-wizard.html">Form Wizard 1</a>
+                    <Link to="form-wizard.html">Form Wizard 1</Link>
                   </li>
                   <li>
-                    <a href="form-wizard-two.html">Form Wizard 2</a>
+                    <Link to="form-wizard-two.html">Form Wizard 2</Link>
                   </li>
                   <li>
-                    <a href="form-wizard-three.html">Form Wizard 3</a>
+                    <Link to="form-wizard-three.html">Form Wizard 3</Link>
                   </li>
                 </ul>
               </li>
@@ -490,100 +493,108 @@ export default function Sider() {
                 </div>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="server"></i>
                   <span>Bootstrap Tables </span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="bootstrap-basic-table.html">Basic Tables</a>
+                    <Link to="bootstrap-basic-table.html">Basic Tables</Link>
                   </li>
                   <li>
-                    <a href="bootstrap-sizing-table.html">Sizing Tables</a>
+                    <Link to="bootstrap-sizing-table.html">Sizing Tables</Link>
                   </li>
                   <li>
-                    <a href="bootstrap-border-table.html">Border Tables</a>
+                    <Link to="bootstrap-border-table.html">Border Tables</Link>
                   </li>
                   <li>
-                    <a href="bootstrap-styling-table.html">Styling Tables</a>
+                    <Link to="bootstrap-styling-table.html">
+                      Styling Tables
+                    </Link>
                   </li>
                   <li>
-                    <a href="table-components.html">Table components</a>
+                    <Link to="table-components.html">Table components</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="database"></i>
                   <span>Data Tables </span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="datatable-basic-init.html">Basic Init</a>
+                    <Link to="datatable-basic-init.html">Basic Init</Link>
                   </li>
                   <li>
-                    <a href="datatable-advance.html">Advance Init</a>
+                    <Link to="datatable-advance.html">Advance Init</Link>
                   </li>
                   <li>
-                    <a href="datatable-styling.html">Styling</a>
+                    <Link to="datatable-styling.html">Styling</Link>
                   </li>
                   <li>
-                    <a href="datatable-AJAX.html">AJAX</a>
+                    <Link to="datatable-AJAX.html">AJAX</Link>
                   </li>
                   <li>
-                    <a href="datatable-server-side.html">Server Side</a>
+                    <Link to="datatable-server-side.html">Server Side</Link>
                   </li>
                   <li>
-                    <a href="datatable-plugin.html">Plug-in</a>
+                    <Link to="datatable-plugin.html">Plug-in</Link>
                   </li>
                   <li>
-                    <a href="datatable-API.html">API</a>
+                    <Link to="datatable-API.html">API</Link>
                   </li>
                   <li>
-                    <a href="datatable-data-source.html">Data Sources</a>
+                    <Link to="datatable-data-source.html">Data Sources</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="hard-drive"></i>
                   <span>Ex. Data Tables </span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="datatable-ext-autofill.html">Auto Fill</a>
+                    <Link to="datatable-ext-autofill.html">Auto Fill</Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-basic-button.html">Basic Button</a>
+                    <Link to="datatable-ext-basic-button.html">
+                      Basic Button
+                    </Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-col-reorder.html">Column Reorder</a>
+                    <Link to="datatable-ext-col-reorder.html">
+                      Column Reorder
+                    </Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-fixed-header.html">Fixed Header</a>
+                    <Link to="datatable-ext-fixed-header.html">
+                      Fixed Header
+                    </Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-key-table.html">Key Table</a>
+                    <Link to="datatable-ext-key-table.html">Key Table</Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-responsive.html">Responsive</a>
+                    <Link to="datatable-ext-responsive.html">Responsive</Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-row-reorder.html">Row Reorder</a>
+                    <Link to="datatable-ext-row-reorder.html">Row Reorder</Link>
                   </li>
                   <li>
-                    <a href="datatable-ext-scroller.html">Scroller </a>
+                    <Link to="datatable-ext-scroller.html">Scroller </Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="jsgrid-table.html"
+                  to="jsgrid-table.html"
                 >
                   <i data-feather="file-text"></i>
                   <span>Js Grid Table</span>
-                </a>
+                </Link>
               </li>
               <li className="sidebar-main-title">
                 <div>
@@ -591,173 +602,173 @@ export default function Sider() {
                 </div>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="box"></i>
                   <span>Project </span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="projects.html">Project List</a>
+                    <Link to="projects.html">Project List</Link>
                   </li>
                   <li>
-                    <a href="projectcreate.html">Create new </a>
+                    <Link to="projectcreate.html">Create new </Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="file-manager.html"
+                  to="file-manager.html"
                 >
                   <i data-feather="git-pull-request"></i>
                   <span>File manager</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title link-nav" href="kanban.html">
+                <Link className="nav-link menu-title link-nav" to="kanban.html">
                   <i data-feather="monitor"></i>
                   <span>kanban Board</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="shopping-bag"></i>
                   <span>Ecommerce</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="product.html">Product</a>
+                    <Link to="product.html">Product</Link>
                   </li>
                   <li>
-                    <a href="product-page.html">Product page</a>
+                    <Link to="product-page.html">Product page</Link>
                   </li>
                   <li>
-                    <a href="list-products.html">Product list</a>
+                    <Link to="list-products.html">Product list</Link>
                   </li>
                   <li>
-                    <a href="payment-details.html">Payment Details</a>
+                    <Link to="payment-details.html">Payment Details</Link>
                   </li>
                   <li>
-                    <a href="order-history.html">Order History</a>
+                    <Link to="order-history.html">Order History</Link>
                   </li>
                   <li>
-                    <a href="invoice-template.html">Invoice</a>
+                    <Link to="invoice-template.html">Invoice</Link>
                   </li>
                   <li>
-                    <a href="cart.html">Cart</a>
+                    <Link to="cart.html">Cart</Link>
                   </li>
                   <li>
-                    <a href="list-wish.html">Wishlist</a>
+                    <Link to="list-wish.html">Wishlist</Link>
                   </li>
                   <li>
-                    <a href="checkout.html">Checkout</a>
+                    <Link to="checkout.html">Checkout</Link>
                   </li>
                   <li>
-                    <a href="pricing.html">Pricing</a>
+                    <Link to="pricing.html">Pricing</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="mail"></i>
                   <span>Email</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="email_inbox.html">Mail Inbox</a>
+                    <Link to="email_inbox.html">Mail Inbox</Link>
                   </li>
                   <li>
-                    <a href="email_read.html">Read mail</a>
+                    <Link to="email_read.html">Read mail</Link>
                   </li>
                   <li>
-                    <a href="email_compose.html">Compose</a>
+                    <Link to="email_compose.html">Compose</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="message-circle"></i>
                   <span>Chat</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="chat.html">Chat App</a>
+                    <Link to="chat.html">Chat App</Link>
                   </li>
                   <li>
-                    <a href="chat-video.html">Video chat</a>
+                    <Link to="chat-video.html">Video chat</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="users"></i>
                   <span>Users</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="user-profile.html">Users Profile</a>
+                    <Link to="user-profile.html">Users Profile</Link>
                   </li>
                   <li>
-                    <a href="edit-profile.html">Users Edit</a>
+                    <Link to="edit-profile.html">Users Edit</Link>
                   </li>
                   <li>
-                    <a href="user-cards.html">Users Cards</a>
+                    <Link to="user-cards.html">Users Cards</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="bookmark.html"
+                  to="bookmark.html"
                 >
                   <i data-feather="heart"></i>
                   <span>Bookmarks</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="contacts.html"
+                  to="contacts.html"
                 >
                   <i data-feather="list"></i>
                   <span>Contacts</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title link-nav" href="task.html">
+                <Link className="nav-link menu-title link-nav" to="task.html">
                   <i data-feather="check-square"></i>
                   <span>Tasks</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="calendar-basic.html"
+                  to="calendar-basic.html"
                 >
                   <i data-feather="calendar"></i>
                   <span>Calender </span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="social-app.html"
+                  to="social-app.html"
                 >
                   <i data-feather="zap"></i>
                   <span>Social App</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title link-nav" href="to-do.html">
+                <Link className="nav-link menu-title link-nav" to="to-do.html">
                   <i data-feather="clock"></i>
                   <span>To-Do</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title link-nav" href="search.html">
+                <Link className="nav-link menu-title link-nav" to="search.html">
                   <i data-feather="search"></i>
                   <span>Search Result</span>
-                </a>
+                </Link>
               </li>
               <li className="sidebar-main-title">
                 <div>
@@ -765,46 +776,46 @@ export default function Sider() {
                 </div>
               </li>
               <li>
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="landing-page.html"
+                  to="landing-page.html"
                 >
                   <i data-feather="navigation-2"></i>
                   <span>Landing page</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="sample-page.html"
+                  to="sample-page.html"
                 >
                   <i data-feather="file"></i>
                   <span>Sample page</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="internationalization.html"
+                  to="internationalization.html"
                 >
                   <i data-feather="aperture"></i>
                   <span>Internationalization</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="http://admin.pixelstrap.com/viho/starter-kit/index.html"
+                  to="http://admin.pixelstrap.com/viho/starter-kit/index.html"
                 >
                   <i data-feather="anchor"></i>
                   <span>Starter kit </span>
-                </a>
+                </Link>
               </li>
               <li className="mega-menu">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layers"></i>
                   <span>Others</span>
-                </a>
+                </Link>
                 <div className="mega-menu-container menu-content">
                   <div className="container">
                     <div className="row">
@@ -816,24 +827,24 @@ export default function Sider() {
                           <div className="submenu-content opensubmegamenu">
                             <ul>
                               <li>
-                                <a href="error-page1.html" target="_blank">
+                                <Link to="error-page1.html" target="_blank">
                                   Error page 1
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="error-page2.html" target="_blank">
+                                <Link to="error-page2.html" target="_blank">
                                   Error page 2
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="error-page3.html" target="_blank">
+                                <Link to="error-page3.html" target="_blank">
                                   Error page 3
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="error-page4.html" target="_blank">
+                                <Link to="error-page4.html" target="_blank">
                                   Error page 4
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </div>
@@ -847,72 +858,74 @@ export default function Sider() {
                           <div className="submenu-content opensubmegamenu">
                             <ul>
                               <li>
-                                <a href="login.html" target="_blank">
+                                <Link to="login.html" target="_blank">
                                   Login Simple
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="login_one.html" target="_blank">
+                                <Link to="login_one.html" target="_blank">
                                   Login with bg image
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="login_two.html" target="_blank">
+                                <Link to="login_two.html" target="_blank">
                                   Login with image two
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a
-                                  href="login-bs-validation.html"
+                                <Link
+                                  to="login-bs-validation.html"
                                   target="_blank"
                                 >
                                   Login With validation
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a
-                                  href="login-bs-tt-validation.html"
+                                <Link
+                                  to="login-bs-tt-validation.html"
                                   target="_blank"
                                 >
                                   Login with tooltip
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a
-                                  href="login-sa-validation.html"
+                                <Link
+                                  to="login-sa-validation.html"
                                   target="_blank"
                                 >
                                   Login with sweetalert
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="sign-up.html" target="_blank">
+                                <Link to="sign-up.html" target="_blank">
                                   Register Simple
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="sign-up-one.html" target="_blank">
+                                <Link to="sign-up-one.html" target="_blank">
                                   Register with Bg Image
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="sign-up-two.html" target="_blank">
+                                <Link to="sign-up-two.html" target="_blank">
                                   Register with Bg video
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="unlock.html">Unlock User</a>
+                                <Link to="unlock.html">Unlock User</Link>
                               </li>
                               <li>
-                                <a href="forget-password.html">
+                                <Link to="forget-password.html">
                                   Forget Password
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="creat-password.html">Creat Password</a>
+                                <Link to="creat-password.html">
+                                  Creat Password
+                                </Link>
                               </li>
                               <li>
-                                <a href="maintenance.html">Maintenance</a>
+                                <Link to="maintenance.html">Maintenance</Link>
                               </li>
                             </ul>
                           </div>
@@ -926,17 +939,17 @@ export default function Sider() {
                           <div className="submenu-content opensubmegamenu">
                             <ul>
                               <li>
-                                <a href="comingsoon.html">Coming Simple</a>
+                                <Link to="comingsoon.html">Coming Simple</Link>
                               </li>
                               <li>
-                                <a href="comingsoon-bg-video.html">
+                                <Link to="comingsoon-bg-video.html">
                                   Coming with Bg video
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="comingsoon-bg-img.html">
+                                <Link to="comingsoon-bg-img.html">
                                   Coming with Bg Image
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </div>
@@ -950,32 +963,34 @@ export default function Sider() {
                           <div className="submenu-content opensubmegamenu">
                             <ul>
                               <li>
-                                <a href="basic-template.html">Basic Email</a>
+                                <Link to="basic-template.html">
+                                  Basic Email
+                                </Link>
                               </li>
                               <li>
-                                <a href="email-header.html">
+                                <Link to="email-header.html">
                                   Basic With Header
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="template-email.html">
+                                <Link to="template-email.html">
                                   Ecomerce Template
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="template-email-2.html">
+                                <Link to="template-email-2.html">
                                   Email Template 2
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="ecommerce-templates.html">
+                                <Link to="ecommerce-templates.html">
                                   Ecommerce Email
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="email-order-success.html">
+                                <Link to="email-order-success.html">
                                   Order Success
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </div>
@@ -991,148 +1006,148 @@ export default function Sider() {
                 </div>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="image"></i>
                   <span>Gallery</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="gallery.html">Gallery Grid</a>
+                    <Link to="gallery.html">Gallery Grid</Link>
                   </li>
                   <li>
-                    <a href="gallery-with-description.html">
+                    <Link to="gallery-with-description.html">
                       Gallery Grid Desc
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="gallery-masonry.html">Masonry Gallery</a>
+                    <Link to="gallery-masonry.html">Masonry Gallery</Link>
                   </li>
                   <li>
-                    <a href="masonry-gallery-with-disc.html">
+                    <Link to="masonry-gallery-with-disc.html">
                       Masonry with Desc
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="gallery-hover.html">Hover Effects</a>
+                    <Link to="gallery-hover.html">Hover Effects</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="edit"></i>
                   <span>Blog</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="blog.html">Blog Details</a>
+                    <Link to="blog.html">Blog Details</Link>
                   </li>
                   <li>
-                    <a href="blog-single.html">Blog Single</a>
+                    <Link to="blog-single.html">Blog Single</Link>
                   </li>
                   <li>
-                    <a href="add-post.html">Add Post</a>
+                    <Link to="add-post.html">Add Post</Link>
                   </li>
                 </ul>
               </li>
               <li>
-                <a className="nav-link menu-title link-nav" href="faq.html">
+                <Link className="nav-link menu-title link-nav" to="faq.html">
                   <i data-feather="help-circle"></i>
                   <span>FAQ</span>
-                </a>
+                </Link>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="user-check"></i>
                   <span>Job Search</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="job-cards-view.html">Cards view</a>
+                    <Link to="job-cards-view.html">Cards view</Link>
                   </li>
                   <li>
-                    <a href="job-list-view.html">List View</a>
+                    <Link to="job-list-view.html">List View</Link>
                   </li>
                   <li>
-                    <a href="job-details.html">Job Details</a>
+                    <Link to="job-details.html">Job Details</Link>
                   </li>
                   <li>
-                    <a href="job-apply.html">Apply</a>
+                    <Link to="job-apply.html">Apply</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layers"></i>
                   <span>Learning</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="learning-list-view.html">Learning List</a>
+                    <Link to="learning-list-view.html">Learning List</Link>
                   </li>
                   <li>
-                    <a href="learning-detailed.html">Detailed Course</a>
+                    <Link to="learning-detailed.html">Detailed Course</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="map"></i>
                   <span>Maps</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="map-js.html">Maps JS</a>
+                    <Link to="map-js.html">Maps JS</Link>
                   </li>
                   <li>
-                    <a href="vector-map.html">Vector Maps</a>
+                    <Link to="vector-map.html">Vector Maps</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="git-pull-request"></i>
                   <span>Editors</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="summernote.html">Summer Note</a>
+                    <Link to="summernote.html">Summer Note</Link>
                   </li>
                   <li>
-                    <a href="ckeditor.html">CK editor</a>
+                    <Link to="ckeditor.html">CK editor</Link>
                   </li>
                   <li>
-                    <a href="simple-MDE.html">MDE editor</a>
+                    <Link to="simple-MDE.html">MDE editor</Link>
                   </li>
                   <li>
-                    <a href="ace-code-editor.html">ACE code editor</a>
+                    <Link to="ace-code-editor.html">ACE code editor</Link>
                   </li>
                 </ul>
               </li>
               <li className="dropdown">
-                <a className="nav-link menu-title" href="javascript:void(0)">
+                <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="database"></i>
                   <span>Knowledgebase</span>
-                </a>
+                </Link>
                 <ul className="nav-submenu menu-content">
                   <li>
-                    <a href="knowledgebase.html">Knowledgebase</a>
+                    <Link to="knowledgebase.html">Knowledgebase</Link>
                   </li>
                   <li>
-                    <a href="knowledge-category.html">Knowledge category</a>
+                    <Link to="knowledge-category.html">Knowledge category</Link>
                   </li>
                   <li>
-                    <a href="knowledge-detail.html">Knowledge detail</a>
+                    <Link to="knowledge-detail.html">Knowledge detail</Link>
                   </li>
                 </ul>
               </li>
               <li>
-                <a
+                <Link
                   className="nav-link menu-title link-nav"
-                  href="support-ticket.html"
+                  to="support-ticket.html"
                 >
                   <i data-feather="headphones"></i>
                   <span>Support Ticket</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
