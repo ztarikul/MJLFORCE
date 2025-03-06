@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AlignCenter } from "react-feather";
 
-export default function TopNavigation() {
+export default function TopNavigation(props) {
   return (
     <div className="page-main-header">
       <div className="main-header-right row m-0">
@@ -25,11 +26,16 @@ export default function TopNavigation() {
             </Link>
           </div>
           <div className="toggle-sidebar">
-            <i
+            {/* <i
               className="status_toggle middle"
               data-feather="align-center"
               id="sidebar-toggle"
-            ></i>
+            ></i> */}
+            <AlignCenter
+              size={32}
+              color="#24695c"
+              onClick={props.toggleSideBar}
+            />
           </div>
         </div>
         <div className="left-menu-header col">

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   return (
-    <header className="main-nav">
+    <header className={`main-nav ${!props.isOpenSideBar ? "close_icon" : ""}`}>
       <div className="sidebar-user text-center">
         <Link className="setting-primary" to="javascript:void(0)">
           <i data-feather="settings"></i>
