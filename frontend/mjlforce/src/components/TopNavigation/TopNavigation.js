@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AlignCenter } from "react-feather";
+import { AlignCenter, MoreHorizontal } from "react-feather";
 
 export default function TopNavigation(props) {
+  const [isOpenNavmenu, setIsOpenNavmenu] = useState(false);
+
+  const toggleNavMenu = () => {
+    setIsOpenNavmenu((prev) => !prev);
+  };
+
   return (
     <div className="page-main-header">
       <div className="main-header-right row m-0">
@@ -57,7 +63,7 @@ export default function TopNavigation(props) {
           </ul>
         </div>
         <div className="nav-right col pull-right right-menu p-0">
-          <ul className="nav-menus">
+          <ul className={`nav-menus ${isOpenNavmenu ? "open" : ""}`}>
             <li className="onhover-dropdown">
               <div className="notification-box">
                 <i data-feather="bell"></i>
@@ -183,7 +189,7 @@ export default function TopNavigation(props) {
             </li>
             <li className="onhover-dropdown p-0">
               <button className="btn btn-primary-light" type="button">
-                <Link to="">
+                <Link to="/login">
                   <i data-feather="log-out"></i>Log out
                 </Link>
               </button>
@@ -191,7 +197,11 @@ export default function TopNavigation(props) {
           </ul>
         </div>
         <div className="d-lg-none mobile-toggle pull-right w-auto">
-          <i data-feather="more-horizontal"></i>
+          <MoreHorizontal
+            size={24}
+            color="currentColor"
+            onClick={toggleNavMenu}
+          />
         </div>
       </div>
     </div>
