@@ -16,7 +16,11 @@ export default function HomePage() {
       <div className="page-wrapper compact-wrapper" id="pageWrapper">
         <TopNavigation toggleSideBar={toggleSideBar} />
         <div className="page-body-wrapper sidebar-icon">
-          <Sidebar isOpenSideBar={isOpenSideBar} />
+          <Sidebar
+            className="sidebar-transition"
+            isOpenSideBar={isOpenSideBar}
+          />
+
           <div className="page-body">
             <h1>I am Main</h1>
           </div>

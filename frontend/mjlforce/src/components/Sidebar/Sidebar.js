@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Home as HomeIcon, Settings as SettingsIcon } from "react-feather";
+
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faAngleRight, faUser, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function Sidebar(props) {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu(activeMenu === menu ? null : menu);
+  };
+
   return (
-    <header className={`main-nav ${!props.isOpenSideBar ? "close_icon" : ""}`}>
+    <header className={`main-nav  ${!props.isOpenSideBar ? "close_icon" : ""}`}>
       <div className="sidebar-user text-center">
         <Link className="setting-primary" to="javascript:void(0)">
-          <i data-feather="settings"></i>
+          <SettingsIcon className="feather" size={24} color="currentColor" />
         </Link>
         <img
           className="img-90 rounded-circle"
           src="../assets/images/dashboard/1.png"
           alt=""
         />
+        <div class="badge-bottom">
+          <span class="badge badge-primary">New</span>
+        </div>
 
         <Link to="user-profile.html">
           <h6 className="mt-2 f-14 f-w-600">Emay Walter</h6>
@@ -60,14 +71,32 @@ export default function Sidebar(props) {
                 </div>
               </li>
               <li className="dropdown">
-                <Link className="nav-link menu-title" to="javascript:void(0)">
-                  <i data-feather="home"></i>
+                <Link
+                  className="nav-link menu-title"
+                  onClick={() => handleMenuClick("dashboard")}
+                >
+                  <HomeIcon
+                    className="feather"
+                    size={24}
+                    color="currentColor"
+                  />
                   <span>Dashboard</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i
+                      className={
+                        activeMenu === "dashboard"
+                          ? "fa fa-angle-down"
+                          : "fa fa-angle-right"
+                      }
+                    ></i>
                   </div>
                 </Link>
-                <ul className="nav-submenu menu-content">
+                <ul
+                  className="nav-submenu menu-content"
+                  style={{
+                    display: activeMenu === "dashboard" ? "block" : "none",
+                  }}
+                >
                   <li>
                     <Link to="index.html">Default</Link>
                   </li>
@@ -80,8 +109,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="airplay"></i>
                   <span>Widgets</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -97,8 +126,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layout"></i>
                   <span>Page layout</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -131,8 +160,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="box"></i>
                   <span>Ui Kits</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -209,8 +238,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="folder-plus"></i>
                   <span>Bonus Ui</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -296,8 +325,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="edit-3"></i>
                   <span>Builders</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -319,8 +348,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="cloud-drizzle"></i>
                   <span>Animation</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -345,8 +374,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="command"></i>
                   <span>Icons</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -374,8 +403,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="cloud"></i>
                   <span>Buttons</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -400,8 +429,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="bar-chart"></i>
                   <span>Charts</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -443,8 +472,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="sliders"></i>
                   <span>Form Controls </span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -471,8 +500,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="package"></i>
                   <span>Form Widgets</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -509,8 +538,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layout"></i>
                   <span>Form layout</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -537,8 +566,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="server"></i>
                   <span>Bootstrap Tables </span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -565,8 +594,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="database"></i>
                   <span>Data Tables </span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -600,8 +629,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="hard-drive"></i>
                   <span>Ex. Data Tables </span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -644,8 +673,8 @@ export default function Sidebar(props) {
                 >
                   <i data-feather="file-text"></i>
                   <span>Js Grid Table</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -658,8 +687,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="box"></i>
                   <span>Project </span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -678,8 +707,8 @@ export default function Sidebar(props) {
                 >
                   <i data-feather="git-pull-request"></i>
                   <span>File manager</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -687,8 +716,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title link-nav" to="kanban.html">
                   <i data-feather="monitor"></i>
                   <span>kanban Board</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -696,8 +725,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="shopping-bag"></i>
                   <span>Ecommerce</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -737,8 +766,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="mail"></i>
                   <span>Email</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -757,8 +786,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="message-circle"></i>
                   <span>Chat</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -774,8 +803,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="users"></i>
                   <span>Users</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -797,8 +826,8 @@ export default function Sidebar(props) {
                 >
                   <i data-feather="heart"></i>
                   <span>Bookmarks</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -809,8 +838,8 @@ export default function Sidebar(props) {
                 >
                   <i data-feather="list"></i>
                   <span>Contacts</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -818,8 +847,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title link-nav" to="task.html">
                   <i data-feather="check-square"></i>
                   <span>Tasks</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -830,8 +859,8 @@ export default function Sidebar(props) {
                 >
                   <i data-feather="calendar"></i>
                   <span>Calender </span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
               </li>
@@ -901,8 +930,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layers"></i>
                   <span>Others</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <div className="mega-menu-container menu-content">
@@ -1098,8 +1127,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="image"></i>
                   <span>Gallery</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -1128,8 +1157,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="edit"></i>
                   <span>Blog</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -1154,8 +1183,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="user-check"></i>
                   <span>Job Search</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -1177,8 +1206,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="layers"></i>
                   <span>Learning</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -1194,8 +1223,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="map"></i>
                   <span>Maps</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -1211,8 +1240,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="git-pull-request"></i>
                   <span>Editors</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
@@ -1234,8 +1263,8 @@ export default function Sidebar(props) {
                 <Link className="nav-link menu-title" to="javascript:void(0)">
                   <i data-feather="database"></i>
                   <span>Knowledgebase</span>
-                  <div class="according-menu">
-                    <i class="fa fa-angle-right"></i>
+                  <div className="according-menu">
+                    <i className="fa fa-angle-right"></i>
                   </div>
                 </Link>
                 <ul className="nav-submenu menu-content">
