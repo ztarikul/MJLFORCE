@@ -57,13 +57,6 @@ export default function LoginPage() {
                     Sign in
                   </button>
                 </div>
-
-                <p>
-                  Don't have account?
-                  <a className="ms-2" href="log-in.html">
-                    Create Account
-                  </a>
-                </p>
               </form>
             </div>
           </div>
