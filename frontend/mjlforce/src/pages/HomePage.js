@@ -6,8 +6,7 @@ import Footer from "../components/Footer/Footer";
 import PageLoader from "../utils/PageLoader";
 import { Aperture as ApertureIcon, Map as MapIcon } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CheckInIcon } from "../icons/checkInIcon.svg";
-
+import checkIcon from "../icons/check.png";
 export default function HomePage() {
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
@@ -140,65 +139,75 @@ export default function HomePage() {
 
                 <div className="col-xl-6 col-md-3 col-sm-6 box-col-3 des-xl-25 rate-sec">
                   <div className="card income-card card-secondary">
-                    <div className="card-body text-center">
-                      <div className="round-box"></div>
-                      <h5>2,03,59</h5>
-                      {/* <FontAwesomeIcon icon="coffee" rotation={90} /> */}
-                      <CheckInIcon width={50} height={50} />
-                      <p>Our Annual losses</p>
-                      <a
-                        className="btn-arrow arrow-secondary"
-                        href="javascript:void(0)"
-                      >
-                        <i className="toprightarrow-secondary fa fa-arrow-up me-2"></i>
-                        90.54%
-                      </a>
-                      <div className="parrten"></div>
-                    </div>
+                    <Link>
+                      <div className="card-body text-center">
+                        <div className="round-box"></div>
+                        <img
+                          src={checkIcon}
+                          alt="check-in-location"
+                          width="60"
+                          height="60"
+                        />
+                        <h5 className="mt-2">09:09 AM</h5>
+                        <p>New Market, Jessore</p>
+                        <a
+                          className="btn-arrow arrow-secondary"
+                          href="javascript:void(0)"
+                        >
+                          <i className="toprightarrow-secondary  me-2"></i>
+                          Attendance Status
+                        </a>
+                        <div className="parrten"></div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
 
                 <div className="col-xs-6 col-xl-3 col-lg-6">
-                  <div className="card o-hidden border-0">
-                    <div className="bg-primary b-r-4 card-body">
-                      <div className="media static-top-widget">
-                        <div className="align-self-center text-center">
-                          <ApertureIcon size={24} color="currentColor" />
-                        </div>
-                        <div className="media-body">
-                          {/* <span className="m-0">Visit</span> */}
-                          <h4 className="mb-0 counter">VISIT</h4>
+                  <Link>
+                    <div className="card o-hidden border-0">
+                      <div className="bg-primary b-r-4 card-body">
+                        <div className="media static-top-widget">
+                          <div className="align-self-center text-center">
+                            <ApertureIcon size={24} color="currentColor" />
+                          </div>
+                          <div className="media-body">
+                            {/* <span className="m-0">Visit</span> */}
+                            <h4 className="mb-0 counter">VISIT</h4>
 
-                          <ApertureIcon
-                            className="icon-bg"
-                            size={24}
-                            color="currentColor"
-                          />
+                            <ApertureIcon
+                              className="icon-bg"
+                              size={24}
+                              color="currentColor"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
                 <div className="col-xs-6 col-xl-3 col-lg-6">
-                  <div className="card o-hidden border-0">
-                    <div className="bg-secondary b-r-4 card-body">
-                      <div className="media static-top-widget">
-                        <div className="align-self-center text-center">
-                          <MapIcon size={24} color="currentColor" />
-                        </div>
-                        <div className="media-body">
-                          {/* <span className="m-0">Visit</span> */}
-                          <h4 className="mb-0 counter">VISIT</h4>
+                  <Link>
+                    <div className="card o-hidden border-0">
+                      <div className="bg-secondary b-r-4 card-body">
+                        <div className="media static-top-widget">
+                          <div className="align-self-center text-center">
+                            <MapIcon size={24} color="currentColor" />
+                          </div>
+                          <div className="media-body">
+                            {/* <span className="m-0">Visit</span> */}
+                            <h4 className="mb-0 counter">VISIT</h4>
 
-                          <MapIcon
-                            className="icon-bg"
-                            size={24}
-                            color="currentColor"
-                          />
+                            <MapIcon
+                              className="icon-bg"
+                              size={24}
+                              color="currentColor"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
