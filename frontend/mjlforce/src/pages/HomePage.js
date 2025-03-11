@@ -5,6 +5,8 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import Footer from "../components/Footer/Footer";
 import PageLoader from "../utils/PageLoader";
 import { Aperture as ApertureIcon, Map as MapIcon } from "react-feather";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CheckInIcon } from "../icons/checkInIcon.svg";
 
 export default function HomePage() {
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
@@ -38,6 +40,124 @@ export default function HomePage() {
           <div className="page-body">
             <div className="container-fluid general-widget">
               <div className="row">
+                <div className="col-xl-6 col-md-6 box-col-6 des-xl-50">
+                  <div className="card profile-greeting">
+                    <div className="card-header">
+                      <div className="header-top">
+                        <div className="setting-list bg-primary position-unset">
+                          <ul className="list-unstyled setting-option">
+                            <li>
+                              <div className="setting-white">
+                                <i className="icon-settings"></i>
+                              </div>
+                            </li>
+                            <li>
+                              <i className="view-html fa fa-code font-white"></i>
+                            </li>
+                            <li>
+                              <i className="icofont icofont-maximize full-card font-white"></i>
+                            </li>
+                            <li>
+                              <i className="icofont icofont-minus minimize-card font-white"></i>
+                            </li>
+                            <li>
+                              <i className="icofont icofont-refresh reload-card font-white"></i>
+                            </li>
+                            <li>
+                              <i className="icofont icofont-error close-card font-white"></i>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body text-center p-t-0">
+                      <h3 className="font-light">
+                        Welcome Back, Mr. Sales Person
+                      </h3>
+                      <p>
+                        Good Morning! You haven't started your day on the
+                        system. By starting your day, your attendance status
+                        will be calculated from the current location
+                      </p>
+                      <button className="btn btn-light">Start Day</button>
+                    </div>
+                    <div className="confetti">
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="confetti-piece"></div>
+                      <div className="code-box-copy">
+                        <button
+                          className="code-box-copy__btn btn-clipboard"
+                          data-clipboard-target="#profile-greeting"
+                          title="Copy"
+                        >
+                          <i className="icofont icofont-copy-alt"></i>
+                        </button>
+                        <pre>
+                          <code className="language-html" id="profile-greeting">
+                            {" "}
+                            &lt;div class="card profile-greeting"&gt; &lt;div
+                            class="card-header"&gt; &lt;div
+                            class="header-top"&gt; &lt;div class="setting-list
+                            bg-primary"&gt; &lt;ul class="list-unstyled
+                            setting-option"&gt; &lt;li&gt;&lt;div
+                            class="setting-white"&gt;&lt;i
+                            class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;&lt;/li&gt;
+                            &lt;li&gt;&lt;i class="view-html fa fa-code
+                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
+                            class="icofont icofont-maximize full-card
+                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
+                            class="icofont icofont-minus minimize-card
+                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
+                            class="icofont icofont-refresh reload-card
+                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
+                            class="icofont icofont-error close-card
+                            font-white"&gt; &lt;/i&gt;&lt;/li&gt; &lt;/ul&gt;
+                            &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div
+                            class="card-body text-center"&gt; &lt;h3
+                            class="font-light"&gt;Wellcome Back,
+                            John!!&lt;/h3&gt; &lt;p&gt;Lorem ipsum is simply
+                            dummy text of the printing and typesetting
+                            industry.Lorem ipsum has been&lt;/p&gt; &lt;button
+                            class="btn btn-light"&gt;Update &lt;/button&gt;
+                            &lt;/div&gt; &lt;/div&gt;
+                          </code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-xl-6 col-md-3 col-sm-6 box-col-3 des-xl-25 rate-sec">
+                  <div className="card income-card card-secondary">
+                    <div className="card-body text-center">
+                      <div className="round-box"></div>
+                      <h5>2,03,59</h5>
+                      {/* <FontAwesomeIcon icon="coffee" rotation={90} /> */}
+                      <CheckInIcon width={50} height={50} />
+                      <p>Our Annual losses</p>
+                      <a
+                        className="btn-arrow arrow-secondary"
+                        href="javascript:void(0)"
+                      >
+                        <i className="toprightarrow-secondary fa fa-arrow-up me-2"></i>
+                        90.54%
+                      </a>
+                      <div className="parrten"></div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="col-xs-6 col-xl-3 col-lg-6">
                   <div className="card o-hidden border-0">
                     <div className="bg-primary b-r-4 card-body">
