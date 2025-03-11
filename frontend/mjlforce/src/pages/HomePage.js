@@ -7,6 +7,7 @@ import PageLoader from "../utils/PageLoader";
 import { Aperture as ApertureIcon, Map as MapIcon } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import checkIcon from "../icons/check.png";
+import checkInLateIcon from "../icons/checkInLate.png";
 export default function HomePage() {
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
@@ -103,34 +104,10 @@ export default function HomePage() {
                           <i className="icofont icofont-copy-alt"></i>
                         </button>
                         <pre>
-                          <code className="language-html" id="profile-greeting">
-                            {" "}
-                            &lt;div class="card profile-greeting"&gt; &lt;div
-                            class="card-header"&gt; &lt;div
-                            class="header-top"&gt; &lt;div class="setting-list
-                            bg-primary"&gt; &lt;ul class="list-unstyled
-                            setting-option"&gt; &lt;li&gt;&lt;div
-                            class="setting-white"&gt;&lt;i
-                            class="icon-settings"&gt;&lt;/i&gt;&lt;/div&gt;&lt;/li&gt;
-                            &lt;li&gt;&lt;i class="view-html fa fa-code
-                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
-                            class="icofont icofont-maximize full-card
-                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
-                            class="icofont icofont-minus minimize-card
-                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
-                            class="icofont icofont-refresh reload-card
-                            font-white"&gt;&lt;/i&gt;&lt;/li&gt; &lt;li&gt;&lt;i
-                            class="icofont icofont-error close-card
-                            font-white"&gt; &lt;/i&gt;&lt;/li&gt; &lt;/ul&gt;
-                            &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div
-                            class="card-body text-center"&gt; &lt;h3
-                            class="font-light"&gt;Wellcome Back,
-                            John!!&lt;/h3&gt; &lt;p&gt;Lorem ipsum is simply
-                            dummy text of the printing and typesetting
-                            industry.Lorem ipsum has been&lt;/p&gt; &lt;button
-                            class="btn btn-light"&gt;Update &lt;/button&gt;
-                            &lt;/div&gt; &lt;/div&gt;
-                          </code>
+                          <code
+                            className="language-html"
+                            id="profile-greeting"
+                          ></code>
                         </pre>
                       </div>
                     </div>
