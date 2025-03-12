@@ -1,10 +1,50 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./App.css";
 
 import AppRouter from "./router/AppRouter";
+import TopNavigation from "./components/TopNavigation/TopNavigation";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Footer from "./components/Footer/Footer";
+import PageLoader from "./utils/PageLoader";
 
 function App() {
-  return <AppRouter />;
+  const [isOpenSideBar, setIsOpenSideBar] = useState(true);
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const toggleSideBar = () => {
+    setIsOpenSideBar((prev) => !prev);
+  };
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
+  return (
+    <Fragment>
+      <div className="page-wrapper compact-wrapper" id="pageWrapper">
+        <TopNavigation toggleSideBar={toggleSideBar} />
+        <div className="page-body-wrapper sidebar-icon">
+          <Sidebar
+            className="sidebar-transition"
+            isOpenSideBar={isOpenSideBar}
+          />
+
+          <div className="page-body">
+            <AppRouter />
+          </div>
+
+          <Footer />
+        </div>
+      </div>
+    </Fragment>
+  );
 }
 
 export default App;
