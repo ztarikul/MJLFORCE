@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AlignCenter, MoreHorizontal } from "react-feather";
+import {
+  AlignCenter,
+  MoreHorizontal,
+  Bell,
+  MessageSquare,
+} from "react-feather";
 
 export default function TopNavigation(props) {
   const [isOpenNavmenu, setIsOpenNavmenu] = useState(false);
@@ -66,7 +71,7 @@ export default function TopNavigation(props) {
           <ul className={`nav-menus ${isOpenNavmenu ? "open" : ""}`}>
             <li className="onhover-dropdown">
               <div className="notification-box">
-                <i data-feather="bell"></i>
+                <Bell />
                 <span className="dot-animated"></span>
               </div>
               <ul className="notification-dropdown onhover-show-div">
@@ -130,7 +135,7 @@ export default function TopNavigation(props) {
               </div>
             </li>
             <li className="onhover-dropdown">
-              <i data-feather="message-square"></i>
+              <MessageSquare />
               <ul className="chat-dropdown onhover-show-div">
                 <li>
                   <div className="media">
