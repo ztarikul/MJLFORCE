@@ -129,11 +129,7 @@ export default function TopNavigation(props) {
                 </li>
               </ul>
             </li>
-            <li>
-              <div className="mode">
-                <i className="fa fa-moon-o"></i>
-              </div>
-            </li>
+
             <li className="onhover-dropdown">
               <MessageSquare />
               <ul className="chat-dropdown onhover-show-div">
