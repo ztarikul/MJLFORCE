@@ -8,6 +8,12 @@ import { Aperture as ApertureIcon, Map as MapIcon } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import checkIcon from "../icons/check.png";
 import checkInLateIcon from "../icons/checkInLate.png";
+import visitIcon from "../icons/visitIcon.png";
+import shipToPartyIcon from "../icons/ship-to-party.png";
+import shipToPartyVerifyIcon from "../icons/ship-to-party-verify.png";
+import reportsIcon from "../icons/reports.png";
+import campaignIcon from "../icons/campaign.png";
+
 export default function HomePage() {
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
@@ -146,7 +152,12 @@ export default function HomePage() {
                       <div className="bg-primary b-r-4 card-body">
                         <div className="media static-top-widget">
                           <div className="align-self-center text-center">
-                            <ApertureIcon size={24} color="currentColor" />
+                            <img
+                              src={visitIcon}
+                              alt="check-in-location"
+                              width="60"
+                              height="60"
+                            />
                           </div>
                           <div className="media-body">
                             {/* <span className="m-0">Visit</span> */}
@@ -163,19 +174,112 @@ export default function HomePage() {
                     </div>
                   </Link>
                 </div>
+
                 <div className="col-xs-6 col-xl-3 col-lg-6">
                   <Link>
                     <div className="card o-hidden border-0">
-                      <div className="bg-secondary b-r-4 card-body">
+                      <div className="bg-primary b-r-4 card-body">
                         <div className="media static-top-widget">
                           <div className="align-self-center text-center">
-                            <MapIcon size={24} color="currentColor" />
+                            <img
+                              src={shipToPartyIcon}
+                              alt="check-in-location"
+                              width="60"
+                              height="60"
+                            />
                           </div>
                           <div className="media-body">
-                            {/* <span className="m-0">Visit</span> */}
-                            <h4 className="mb-0 counter">VISIT</h4>
+                            <span className="m-0">Create</span>
+                            <h4 className="mb-0 counter">SHIP-TO-PARTY</h4>
 
-                            <MapIcon
+                            <ApertureIcon
+                              className="icon-bg"
+                              size={24}
+                              color="currentColor"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+
+                <div className="col-xs-6 col-xl-3 col-lg-6">
+                  <Link>
+                    <div className="card o-hidden border-0">
+                      <div className="bg-primary b-r-4 card-body">
+                        <div className="media static-top-widget">
+                          <div className="align-self-center text-center">
+                            <img
+                              src={shipToPartyVerifyIcon}
+                              alt="check-in-location"
+                              width="60"
+                              height="60"
+                            />
+                          </div>
+                          <div className="media-body">
+                            <span className="m-0">Verify</span>
+                            <h4 className="mb-0 counter">SHIP-TO-PARTY</h4>
+
+                            <ApertureIcon
+                              className="icon-bg"
+                              size={24}
+                              color="currentColor"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+
+                <div className="col-xs-6 col-xl-3 col-lg-6">
+                  <Link>
+                    <div className="card o-hidden border-0">
+                      <div className="bg-primary b-r-4 card-body">
+                        <div className="media static-top-widget">
+                          <div className="align-self-center text-center">
+                            <img
+                              src={reportsIcon}
+                              alt="check-in-location"
+                              width="60"
+                              height="60"
+                            />
+                          </div>
+                          <div className="media-body">
+                            {/* <span className="m-0">Verify</span> */}
+                            <h4 className="mb-0 counter">Reports</h4>
+
+                            <ApertureIcon
+                              className="icon-bg"
+                              size={24}
+                              color="currentColor"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+
+                <div className="col-xs-6 col-xl-3 col-lg-6">
+                  <Link>
+                    <div className="card o-hidden border-0">
+                      <div className="bg-primary b-r-4 card-body">
+                        <div className="media static-top-widget">
+                          <div className="align-self-center text-center">
+                            <img
+                              src={campaignIcon}
+                              alt="check-in-location"
+                              width="60"
+                              height="60"
+                            />
+                          </div>
+                          <div className="media-body">
+                            <span className="m-0">On going</span>
+                            <h4 className="mb-0 counter">Campaign</h4>
+
+                            <ApertureIcon
                               className="icon-bg"
                               size={24}
                               color="currentColor"
