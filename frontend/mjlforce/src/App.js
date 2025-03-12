@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./App.css";
-
 import AppRouter from "./router/AppRouter";
 import TopNavigation from "./components/TopNavigation/TopNavigation";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -8,7 +6,7 @@ import Footer from "./components/Footer/Footer";
 import PageLoader from "./utils/PageLoader";
 
 function App() {
-  const [isOpenSideBar, setIsOpenSideBar] = useState(true);
+  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {

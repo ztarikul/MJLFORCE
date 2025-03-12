@@ -1,11 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import TopNavigation from "../components/TopNavigation/TopNavigation";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Footer from "../components/Footer/Footer";
-import PageLoader from "../utils/PageLoader";
-import { Aperture as ApertureIcon, Map as MapIcon } from "react-feather";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { Aperture as ApertureIcon } from "react-feather";
 import checkIcon from "../icons/check.png";
 import checkInLateIcon from "../icons/checkInLate.png";
 import visitIcon from "../icons/visitIcon.png";
@@ -15,24 +11,6 @@ import reportsIcon from "../icons/reports.png";
 import campaignIcon from "../icons/campaign.png";
 
 export default function HomePage() {
-  const [isOpenSideBar, setIsOpenSideBar] = useState(true);
-  const [pageLoading, setPageLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setPageLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const toggleSideBar = () => {
-    setIsOpenSideBar((prev) => !prev);
-  };
-
-  if (pageLoading) {
-    return <PageLoader />;
-  }
   return (
     <div className="container-fluid general-widget">
       <div className="row">
@@ -118,13 +96,10 @@ export default function HomePage() {
                 />
                 <h5 className="mt-2">09:09 AM</h5>
                 <p>New Market, Jessore</p>
-                <a
-                  className="btn-arrow arrow-secondary"
-                  href="javascript:void(0)"
-                >
+                <p className="btn-arrow arrow-secondary">
                   <i className="toprightarrow-secondary  me-2"></i>
                   Attendance Status
-                </a>
+                </p>
                 <div className="parrten"></div>
               </div>
             </Link>

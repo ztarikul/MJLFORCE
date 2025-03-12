@@ -182,7 +182,7 @@ export default function TopNavigation(props) {
                   </div>
                 </li>
                 <li className="text-center">
-                  <Link className="f-w-700" to="">
+                  <Link className="f-w-700" to="#">
                     See All{" "}
                   </Link>
                 </li>

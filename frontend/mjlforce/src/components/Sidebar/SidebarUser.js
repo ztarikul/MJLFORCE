@@ -13,8 +13,8 @@ export default function SidebarUser() {
         src="../assets/images/dashboard/1.png"
         alt=""
       />
-      <div class="badge-bottom">
-        <span class="badge badge-primary">New</span>
+      <div className="badge-bottom">
+        <span className="badge badge-primary">New</span>
       </div>
 
       <Link to="user-profile.html">

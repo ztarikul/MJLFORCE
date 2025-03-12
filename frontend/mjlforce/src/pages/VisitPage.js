@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ExistingForm from "../components/Visit/ExistingForm";
 
 export default function VisitPage() {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu(activeMenu === menu ? null : menu);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -18,76 +25,62 @@ export default function VisitPage() {
                   role="tablist"
                 >
                   <li className="nav-item">
-                    <a
-                      className="nav-link"
+                    <Link
                       id="top-home-secondary"
                       data-bs-toggle="tab"
-                      href="#top-homesecondary"
+                      className={`nav-link ${
+                        activeMenu === "existing" ? "active" : ""
+                      }`}
+                      onClick={() => handleMenuClick("existing")}
                       role="tab"
                       aria-controls="top-home"
                       aria-selected="false"
                     >
                       <i class="icofont icofont-database"></i>
                       Existing
-                    </a>
+                    </Link>
                     <div className="material-border"></div>
                   </li>
                   <li className="nav-item">
-                    <a
-                      className="nav-link active"
+                    <Link
+                      className={`nav-link ${
+                        activeMenu === "new" ? "active" : ""
+                      }`}
+                      onClick={() => handleMenuClick("new")}
                       id="profile-top-secondary"
                       data-bs-toggle="tab"
-                      href="#top-profilesecondary"
                       role="tab"
                       aria-controls="top-profilesecondary"
                       aria-selected="true"
                     >
                       <i class="icofont icofont-ui-add"></i>
                       New
-                    </a>
+                    </Link>
                     <div className="material-border"></div>
                   </li>
                   <li className="nav-item">
-                    <a
-                      className="nav-link"
+                    <Link
+                      className={`nav-link ${
+                        activeMenu === "others" ? "active" : ""
+                      }`}
+                      onClick={() => handleMenuClick("others")}
                       id="contact-top-secondary"
                       data-bs-toggle="tab"
-                      href="#top-contactsecondary"
                       role="tab"
                       aria-controls="top-contactsecondary"
                       aria-selected="false"
                     >
                       <i class="icofont icofont-list"></i>
                       Others
-                    </a>
+                    </Link>
                     <div className="material-border"></div>
                   </li>
                 </ul>
+
                 <div className="tab-content" id="top-tabContentsecondary">
-                  <div
-                    className="tab-pane fade"
-                    id="top-homesecondary"
-                    role="tabpanel"
-                    aria-labelledby="top-home-tab"
-                  >
-                    <p>here</p>
-                  </div>
-                  <div
-                    className="tab-pane fade active show"
-                    id="top-profilesecondary"
-                    role="tabpanel"
-                    aria-labelledby="profile-top-tab"
-                  >
-                    <p>here</p>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="top-contactsecondary"
-                    role="tabpanel"
-                    aria-labelledby="contact-top-tab"
-                  >
-                    <p>here</p>
-                  </div>
+                  {activeMenu === "existing" && <ExistingForm />}
+                  {activeMenu === "new" && <p>new</p>}
+                  {activeMenu === "others" && <p>Othesr</p>}
                 </div>
               </div>
             </div>
