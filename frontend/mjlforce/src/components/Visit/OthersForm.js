@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-export default function ExistingForm() {
-  useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top when component mounts
-  }, []);
-
+export default function OthersForm() {
   return (
     <form className="form theme-form">
       <div className="card-body">

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ExistingForm from "../components/Visit/ExistingForm";
+import NewForm from "../components/Visit/NewForm";
+import OthersForm from "../components/Visit/OthersForm";
 
 export default function VisitPage() {
-  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeMenu, setActiveMenu] = useState("existing");
 
   const handleMenuClick = (menu) => {
     setActiveMenu(activeMenu === menu ? null : menu);
@@ -79,8 +81,8 @@ export default function VisitPage() {
 
                 <div className="tab-content" id="top-tabContentsecondary">
                   {activeMenu === "existing" && <ExistingForm />}
-                  {activeMenu === "new" && <p>new</p>}
-                  {activeMenu === "others" && <p>Othesr</p>}
+                  {activeMenu === "new" && <NewForm />}
+                  {activeMenu === "others" && <OthersForm />}
                 </div>
               </div>
             </div>
