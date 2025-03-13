@@ -8,6 +8,7 @@ import PageLoader from "./utils/PageLoader";
 function App() {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
+  const [isUserLoggedIn, setUserLoggedIn] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,21 +27,25 @@ function App() {
   }
   return (
     <Fragment>
-      <div className="page-wrapper compact-wrapper" id="pageWrapper">
-        <TopNavigation toggleSideBar={toggleSideBar} />
-        <div className="page-body-wrapper sidebar-icon">
-          <Sidebar
-            className="sidebar-transition"
-            isOpenSideBar={isOpenSideBar}
-          />
+      {isUserLoggedIn ? (
+        <div className="page-wrapper compact-wrapper" id="pageWrapper">
+          <TopNavigation toggleSideBar={toggleSideBar} />
+          <div className="page-body-wrapper sidebar-icon">
+            <Sidebar
+              className="sidebar-transition"
+              isOpenSideBar={isOpenSideBar}
+            />
 
-          <div className="page-body">
-            <AppRouter />
+            <div className="page-body">
+              <AppRouter isUserLoggedIn={isUserLoggedIn} />
+            </div>
+
+            <Footer />
           </div>
-
-          <Footer />
         </div>
-      </div>
+      ) : (
+        <AppRouter isUserLoggedIn={isUserLoggedIn} />
+      )}
     </Fragment>
   );
 }
