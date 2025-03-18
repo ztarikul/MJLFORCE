@@ -6,7 +6,7 @@ export default function Auth() {
   const navigate = useNavigate();
 
   const getToken = () => {
-    const tokenString = sessionStorage.getItem("Token");
+    const tokenString = sessionStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
     return userToken;
   };
@@ -43,7 +43,7 @@ export default function Auth() {
   });
 
   return {
-    setToken: setToken,
+    setToken: saveToken,
     token,
     user,
     getToken,

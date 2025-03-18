@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Auth from "../auth/Auth";
 
 export default function LoginPage() {
+  const { http, setToken } = Auth();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const submitForm = () => {
+    http
+      .post("/login", { username: username, password: password })
+      .then((res) => {
+        console.log(res.data.user, res.data.access_token);
+        setToken(res.data.user, res.data.access_token);
+      });
+  };
+
   return (
     <section>
       <div className="container-fluid p-0">
@@ -12,16 +26,18 @@ export default function LoginPage() {
                 <h4>Login</h4>
                 <h6>Welcome back! Log in to your account.</h6>
                 <div className="form-group">
-                  <label>Email Address</label>
+                  <label>Username</label>
                   <div className="input-group">
                     <span className="input-group-text">
                       <i className="icon-email"></i>
                     </span>
                     <input
                       className="form-control"
-                      type="email"
+                      type="text"
                       required=""
-                      placeholder="Test@gmail.com"
+                      placeholder="Your Lamsys Username"
+                      name="username"
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
                 </div>
@@ -34,9 +50,10 @@ export default function LoginPage() {
                     <input
                       className="form-control"
                       type="password"
-                      name="login[password]"
+                      name="password"
                       required=""
                       placeholder="*********"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <div className="show-hide">
                       <span className="show"> </span>
@@ -53,7 +70,11 @@ export default function LoginPage() {
                   </Link>
                 </div>
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block" type="submit">
+                  <button
+                    className="btn btn-primary btn-block"
+                    type="button"
+                    onClick={submitForm}
+                  >
                     Sign in
                   </button>
                 </div>

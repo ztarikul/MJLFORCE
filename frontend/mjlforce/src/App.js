@@ -4,11 +4,13 @@ import TopNavigation from "./components/TopNavigation/TopNavigation";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Footer from "./components/Footer/Footer";
 import PageLoader from "./utils/PageLoader";
+import Auth from "./auth/Auth";
 
 function App() {
+  const { token, logout } = Auth();
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
-  const [isUserLoggedIn, setUserLoggedIn] = useState(true);
+  const [isUserLoggedIn, setUserLoggedIn] = useState(token ? true : false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
