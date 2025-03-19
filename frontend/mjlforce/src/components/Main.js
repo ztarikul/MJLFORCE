@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopNavigation from "./TopNavigation/TopNavigation";
 import Sidebar from "./Sidebar/Sidebar";
 import Footer from "./Footer/Footer";
 
 export default function Main({ children }) {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top when component mounts
+  }, []);
+
   const toggleSideBar = () => {
     setIsOpenSideBar((prev) => !prev);
   };

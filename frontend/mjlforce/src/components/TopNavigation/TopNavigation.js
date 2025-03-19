@@ -7,8 +7,17 @@ import {
   MessageSquare,
 } from "react-feather";
 
+import Auth from "../../auth/Auth";
+
 export default function TopNavigation(props) {
   const [isOpenNavmenu, setIsOpenNavmenu] = useState(false);
+  const { token, logout } = Auth();
+
+  const logoutUser = () => {
+    if (token != undefined) {
+      logout();
+    }
+  };
 
   const toggleNavMenu = () => {
     setIsOpenNavmenu((prev) => !prev);
@@ -19,7 +28,7 @@ export default function TopNavigation(props) {
       <div className="main-header-right row m-0">
         <div className="main-header-left">
           <div className="logo-wrapper">
-            <Link to="">
+            <Link to="/">
               <img
                 className="img-fluid"
                 src="../assets/images/logo/logo.png"
@@ -190,7 +199,7 @@ export default function TopNavigation(props) {
             </li>
             <li className="onhover-dropdown p-0">
               <button className="btn btn-primary-light" type="button">
-                <Link to="/login">
+                <Link onClick={logoutUser}>
                   <i data-feather="log-out"></i>Log out
                 </Link>
               </button>

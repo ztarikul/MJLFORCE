@@ -11,7 +11,7 @@ export default function LoginPage() {
     http
       .post("/login", { username: username, password: password })
       .then((res) => {
-        console.log(res.data.user, res.data.access_token);
+        console.log(res);
         setToken(res.data.user, res.data.access_token);
       });
   };
