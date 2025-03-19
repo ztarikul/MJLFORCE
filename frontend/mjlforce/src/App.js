@@ -8,7 +8,7 @@ import Auth from "./auth/Auth";
 
 function App() {
   const { token, logout } = Auth();
-  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+
   const [pageLoading, setPageLoading] = useState(true);
   const [isUserLoggedIn, setUserLoggedIn] = useState(token ? true : false);
 
@@ -20,36 +20,10 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleSideBar = () => {
-    setIsOpenSideBar((prev) => !prev);
-  };
-
   if (pageLoading) {
     return <PageLoader />;
   }
-  return (
-    <Fragment>
-      {isUserLoggedIn ? (
-        <div className="page-wrapper compact-wrapper" id="pageWrapper">
-          <TopNavigation toggleSideBar={toggleSideBar} />
-          <div className="page-body-wrapper sidebar-icon">
-            <Sidebar
-              className="sidebar-transition"
-              isOpenSideBar={isOpenSideBar}
-            />
-
-            <div className="page-body">
-              <AppRouter isUserLoggedIn={isUserLoggedIn} />
-            </div>
-
-            <Footer />
-          </div>
-        </div>
-      ) : (
-        <AppRouter isUserLoggedIn={isUserLoggedIn} />
-      )}
-    </Fragment>
-  );
+  return <AppRouter />;
 }
 
 export default App;
