@@ -40,7 +40,7 @@ export default function VisitPage() {
                         aria-controls="top-home"
                         aria-selected="false"
                       >
-                        <i class="icofont icofont-database"></i>
+                        <i className="icofont icofont-database"></i>
                         Existing
                       </Link>
                       <div className="material-border"></div>
@@ -57,7 +57,7 @@ export default function VisitPage() {
                         aria-controls="top-profilesecondary"
                         aria-selected="true"
                       >
-                        <i class="icofont icofont-ui-add"></i>
+                        <i className="icofont icofont-ui-add"></i>
                         New
                       </Link>
                       <div className="material-border"></div>
@@ -74,7 +74,7 @@ export default function VisitPage() {
                         aria-controls="top-contactsecondary"
                         aria-selected="false"
                       >
-                        <i class="icofont icofont-list"></i>
+                        <i className="icofont icofont-list"></i>
                         Others
                       </Link>
                       <div className="material-border"></div>

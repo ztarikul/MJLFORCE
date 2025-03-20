@@ -2,9 +2,9 @@ import React from "react";
 
 export default function PageLoader() {
   return (
-    <div class="loader-wrapper">
-      <div class="theme-loader">
-        <div class="loader-p"></div>
+    <div className="loader-wrapper">
+      <div className="theme-loader">
+        <div className="loader-p"></div>
       </div>
     </div>
   );
