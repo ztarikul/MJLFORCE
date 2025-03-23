@@ -16,7 +16,7 @@ export default function VisitPage() {
     <Main>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xl-6 xl-100 col-lg-12 box-col-12">
+          <div className="col-xl-12 xl-100 col-lg-12 box-col-12">
             <div className="card">
               {/* <div className="card-header">
                     <h5 className="pull-left">Material tab with color</h5>
