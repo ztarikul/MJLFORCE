@@ -22,7 +22,7 @@ export default function NewForm() {
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="group">
                 Group
               </label>
               <input
@@ -37,7 +37,7 @@ export default function NewForm() {
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="officeAddress">
                 Office Address
               </label>
               <input
@@ -52,15 +52,10 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="division">
                 Division
               </label>
-              <select
-                className="form-select"
-                id="division"
-                name="division"
-                multiple=""
-              >
+              <select className="form-select" id="division" name="division">
                 <option>Dhaka</option>
                 <option>Barishal</option>
                 <option>Khulna</option>
@@ -72,7 +67,7 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="district">
                 District
               </label>
               <select
@@ -92,15 +87,10 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="thana">
                 Upazilla/Thana
               </label>
-              <select
-                className="form-select"
-                id="thana"
-                name="thana"
-                multiple=""
-              >
+              <select className="form-select" id="thana" name="thana">
                 <option>Dhaka</option>
                 <option>Barishal</option>
                 <option>Khulna</option>
@@ -112,14 +102,13 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="postOffice">
                 Post Office
               </label>
               <select
                 className="form-select"
                 id="post_office"
                 name="post_office"
-                multiple=""
               >
                 <option>Dhaka</option>
                 <option>Barishal</option>
@@ -132,7 +121,7 @@ export default function NewForm() {
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="bin">
                 BIN
               </label>
               <input
@@ -147,7 +136,7 @@ export default function NewForm() {
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="contactPerson">
                 Contact Person
               </label>
               <input
@@ -155,125 +144,128 @@ export default function NewForm() {
                 id="contact_person"
                 type="text"
                 name="contact_person"
-                placeholder="Office Address"
+                placeholder="C/O"
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label
+                className="form-label"
+                htmlFor="mobileNumberOfContactPerson"
+              >
                 Mobile Phone(Contact Person)
               </label>
               <input
                 className="form-control"
-                id="contact_person"
-                type="text"
-                name="contact_person"
-                placeholder="Office Address"
+                id="mobile_co"
+                type="tel"
+                name="mobile_co"
+                placeholder="Mobile Number"
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="ceoMdOwner">
                 CEO/MD/Owner Name
               </label>
               <input
                 className="form-control"
-                id="contact_person"
+                id="owner_name"
                 type="text"
-                name="contact_person"
-                placeholder="Office Address"
+                name="owner_name"
+                placeholder=""
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="ownerTelephone">
                 Telephone
               </label>
               <input
                 className="form-control"
-                id="contact_person"
+                id="owner_telephone"
                 type="text"
-                name="contact_person"
-                placeholder="Office Address"
+                name="owner_telephone"
+                placeholder="Owner Telephone"
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="ownerMobile">
                 Mobile Phone
               </label>
               <input
                 className="form-control"
-                id="contact_person"
+                id="owner_mobile"
                 type="text"
-                name="contact_person"
-                placeholder="Office Address"
+                name="owner_mobile"
+                placeholder="Owner Mobile"
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="ownerEmail">
                 Email
               </label>
               <input
                 className="form-control"
-                id="contact_person"
+                id="owner_email"
                 type="text"
-                name="contact_person"
-                placeholder="Office Address"
+                name="owner_email"
+                placeholder="Owner Email"
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="customerType">
                 Customer Type
               </label>
               <input
                 className="form-control"
-                id="contact_person"
+                id="customer_type"
                 type="text"
-                name="contact_person"
-                placeholder="Office Address"
+                name="customer_type"
+                placeholder=""
               />
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
+              <label className="form-label" htmlFor="paymentType">
                 Payment Type
               </label>
               <div className="form-group m-t-5 m-checkbox-inline mb-0 custom-radio-ml">
                 <div className="checkbox checkbox-dark">
-                  <input id="cheque" type="checkbox" />
+                  <input id="cheque" type="checkbox" name="pt_cheque" />
                   <label for="cheque">Cheque</label>
                 </div>
                 <div className="checkbox checkbox-dark">
-                  <input id="cash" type="checkbox" />
+                  <input id="cash" type="checkbox" name="pt_cash" />
                   <label for="cash">Cash</label>
                 </div>
                 <div className="checkbox checkbox-dark">
-                  <input id="po" type="checkbox" />
+                  <input id="po" type="checkbox" name="pt_po" />
                   <label for="po">PO</label>
                 </div>
                 <div className="checkbox checkbox-dark">
-                  <input id="dd" type="checkbox" />
+                  <input id="dd" type="checkbox" name="pt_dd" />
                   <label for="dd">DD</label>
                 </div>
                 <div className="checkbox checkbox-dark">
-                  <input id="transfer" type="checkbox" />
+                  <input id="transfer" type="checkbox" name="pt_transfer" />
                   <label for="transfer">Transfer</label>
                 </div>
               </div>
@@ -282,15 +274,10 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="salesTerritory">
                 Sales Territoty
               </label>
-              <select
-                className="form-select"
-                id="post_office"
-                name="post_office"
-                multiple=""
-              >
+              <select className="form-select" id="territory" name="territory">
                 <option>Dhaka South</option>
                 <option>Dhata North</option>
                 <option>Khulna</option>
@@ -301,14 +288,13 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="tradeCategory">
                 Trade Category
               </label>
               <select
                 className="form-select"
-                id="post_office"
-                name="post_office"
-                multiple=""
+                id="trade_category"
+                name="trade_category"
               >
                 <option>Energy</option>
                 <option>General Manufacturing</option>
@@ -320,14 +306,13 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
+              <label className="form-label" htmlFor="tradeSubCategory">
                 Trade Sub Category
               </label>
               <select
                 className="form-select"
-                id="post_office"
-                name="post_office"
-                multiple=""
+                id="trade_s_category"
+                name="trade_s_category"
               >
                 <option>Energy</option>
                 <option>General Manufacturing</option>
@@ -340,8 +325,12 @@ export default function NewForm() {
             <div className="mb-3">
               <div className="form-group m-t-5 m-checkbox-inline mb-0 custom-radio-ml">
                 <div className="checkbox checkbox-dark">
-                  <input id="special_discount" type="checkbox" />
-                  <label for="special_discount">
+                  <input
+                    id="special_discount"
+                    name="special_discount"
+                    type="checkbox"
+                  />
+                  <label htmlFor="special_discount">
                     Select if customer is eligible for any specific discount or
                     payment terms
                   </label>
@@ -352,15 +341,13 @@ export default function NewForm() {
 
           <div className="col-md-4">
             <div>
-              <label
-                className="form-label"
-                htmlFor="exampleFormControlTextarea4"
-              >
+              <label className="form-label" htmlFor="remarks">
                 Remarks
               </label>
               <textarea
                 className="form-control"
-                id="exampleFormControlTextarea4"
+                id="remarks"
+                name="remarks"
                 rows="3"
               ></textarea>
             </div>
@@ -368,7 +355,7 @@ export default function NewForm() {
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="submit">
+        <button className="btn btn-primary" type="button">
           Submit
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />
