@@ -23,8 +23,12 @@ export default function LoginPage() {
           <div className="col-12">
             <div className="login-card">
               <form className="theme-form login-form">
-                <h4>Login</h4>
-                <h6>Welcome back! Log in to your account.</h6>
+                <img
+                  className="img-fluid mb-2"
+                  src="../assets/images/login/4.png"
+                  alt=""
+                />
+
                 <div className="form-group">
                   <label>Username</label>
                   <div className="input-group">

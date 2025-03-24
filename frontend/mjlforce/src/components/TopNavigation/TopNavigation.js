@@ -31,7 +31,7 @@ export default function TopNavigation(props) {
             <Link to="/">
               <img
                 className="img-fluid"
-                src="../assets/images/logo/logo.png"
+                src="../assets/images/logo/mjlforceLogo.png"
                 alt=""
               />
             </Link>
