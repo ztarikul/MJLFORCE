@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('card_id')->nullable()->unique();
             $table->string('emp_code')->nullable()->unique();
             $table->string('sap_code')->nullable()->unique();
             $table->string('image')->nullable()->unique();
