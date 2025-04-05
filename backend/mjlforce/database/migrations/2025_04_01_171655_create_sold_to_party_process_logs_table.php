@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('sold_to_party_process_logs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('sold_to_party_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            //chk_to / chk_from = [1=> employee, 2=>SV, 3=>MIS, 4=>SAP]
+            $table->integer('chk_from')->nullable();
+            $table->integer('chk_to')->nullable();
+            $table->string('remarks')->nullable();
+            $table->boolean('activeStatus')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('sold_to_party_process_logs');
+    }
+};
