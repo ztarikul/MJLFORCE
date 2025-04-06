@@ -5,68 +5,145 @@ export default function ExistingForm() {
     <form className="form theme-form">
       <div className="card-body">
         <div className="row">
-          <div className="col">
+          <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="exampleFormControlInput1">
-                Email address
-              </label>
-              <input
-                className="form-control"
-                id="exampleFormControlInput1"
-                type="email"
-                placeholder="name@example.com"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <div className="mb-3">
-              <label className="form-label" htmlFor="exampleInputPassword2">
-                Password
-              </label>
-              <input
-                className="form-control"
-                id="exampleInputPassword2"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col">
-            <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlSelect3">
-                Example multiple select
+                Customer Name
               </label>
               <select
-                className="form-select digits"
-                id="exampleFormControlSelect3"
-                multiple=""
+                className="form-select"
+                id="account_name"
+                name="account_name"
               >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option>Brb energy limited</option>
+                <option>M.K Motors</option>
+                <option>M/S Bosu Enterprise</option>
+                <option>M/S Bosu Enterprise</option>
+                <option>M/S Sagor Enterprise</option>
               </select>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <div>
-              <label
-                className="form-label"
-                htmlFor="exampleFormControlTextarea4"
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="group">
+                Customer Site
+              </label>
+              <select
+                className="form-select"
+                id="account_name"
+                name="account_name"
               >
-                Example textarea
+                <option>Brb energy limited</option>
+                <option>M.K Motors</option>
+                <option>M/S Bosu Enterprise</option>
+                <option>M/S Bosu Enterprise</option>
+                <option>M/S Sagor Enterprise</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="officeAddress">
+                Visit Purpose
+              </label>
+              <select
+                className="form-select"
+                id="visit_purpose"
+                name="visit_purpose"
+              >
+                <option>New Order</option>
+                <option>Feedback</option>
+                <option>Routine Visit</option>
+                <option>Customer Query</option>
+                <option>MARCOM Activity</option>
+                <option>Inspevtion</option>
+                <option>Survey</option>
+                <option>Training</option>
+                <option>Seminer</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="division">
+                Visit Purpose - Other
+              </label>
+              <input
+                className="form-control"
+                id="visit_purpose_other"
+                type="text"
+                name="visit_purpose_other"
+                placeholder=""
+              />
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="sales_performance">
+                Sales Performance
+              </label>
+              <select
+                className="form-select"
+                id="sales_performance"
+                name="sales_performance"
+                multiple=""
+              >
+                <option>Poor</option>
+                <option>Good</option>
+                <option>Very Good</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="stock_ver">
+                Stock Verification
+              </label>
+              <select
+                className="form-select"
+                id="stock_ver"
+                name="stock_ver"
+                multiple=""
+              >
+                <option>Nill</option>
+                <option>Moderate</option>
+                <option>Sufficient</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="sales_performance">
+                Merketing Materials Display
+              </label>
+              <select
+                className="form-select"
+                id="sales_performance"
+                name="sales_performance"
+                multiple=""
+              >
+                <option>Satisfactory</option>
+                <option>Unsatisfactory</option>
+                <option>N/A</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div>
+              <label className="form-label" htmlFor="remarks">
+                Remarks
               </label>
               <textarea
                 className="form-control"
-                id="exampleFormControlTextarea4"
+                id="remarks"
+                name="remarks"
                 rows="3"
               ></textarea>
             </div>
@@ -74,7 +151,7 @@ export default function ExistingForm() {
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="submit">
+        <button className="btn btn-primary" type="button">
           Submit
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />
