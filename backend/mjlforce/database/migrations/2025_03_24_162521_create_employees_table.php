@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('card_id')->nullable()->unique();
             $table->string('emp_code')->nullable()->unique();
             $table->string('sap_code')->nullable()->unique();
+            $table->string('gender')->nullable()->comment('1=>male, 2=>female, 3=>others');
             $table->string('image')->nullable()->unique();
             $table->string('mobile')->nullable()->unique();
             $table->string('email')->nullable()->unique();

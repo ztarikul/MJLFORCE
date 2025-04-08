@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -87,6 +88,7 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => 60 * 60,
             'user' => auth()->user(),
+            'employee' => auth()->user()->employee()->select('id', 'user_id', 'name', 'card_id', 'sap_code')->first(),
         ]);
     }
 
