@@ -88,7 +88,7 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => 60 * 60,
             'user' => auth()->user(),
-            'employee' => auth()->user()->employee()->select('id', 'user_id', 'name', 'card_id', 'sap_code')->first(),
+           
         ]);
     }
 

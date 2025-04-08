@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Designation;
+use App\Models\BusinessTeam;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
@@ -15,4 +17,13 @@ class Employee extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function designation(){
+        return $this->belongsTo(Designation::class);
+    }
+    public function businessTeam(){
+        return $this->belongsTo(BusinessTeam::class);
+    }
+
+
 }

@@ -28,10 +28,10 @@ return new class extends Migration
             $table->string('legacy_acc_code')->nullable()->comment('BUTOOO-BPEXT'); //External BP number
             $table->string('country')->nullable()->comment('ADRC-COUNTRY');
             $table->unsignedInteger('region')->nullable()->comment('ADRC-REGION');
-            $table->foreignId('region_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('region_id')->constrained();
 
             $table->string('district')->nullable()->comment('ADRC-CITY1');
-            $table->foreignId('district_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade'); //non sap
+            $table->foreignId('loc_district_id')->nullable()->constrained(); //non sap
 
             $table->string('address', 60)->nullable()->comment('ADRC-STREET');
             $table->string('ceo')->nullable()->comment('ADRC-NAME_CO');
@@ -69,7 +69,7 @@ return new class extends Migration
             $table->unsignedInteger('tax_classification')->nullable()->comment('KNVI-TAXKD'); //1
 
             $table->string('territory')->nullable()->comment('KNVV-BZIRK');
-            $table->foreignId('territory_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('territory_id')->constrained();
             $table->string('customer_group')->nullable()->comment('KNVV');
             $table->string('trade_category')->nullable()->comment('KNVV-KVGR1');
             $table->string('trade_sub_category')->nullable()->comment('KNVV-KVGR2');
@@ -80,11 +80,9 @@ return new class extends Migration
             $table->string('attr_2')->nullable()->comment('KNVV-KATR2'); //For Future Use
             $table->string('attr_3')->nullable()->comment('KNVV-KATR3'); //For Future Use
             $table->string('attr_4')->nullable()->comment('KNVV-KATR4'); //For Future Use
-            $table->string('attr_4')->nullable()->comment('KNVV-KATR5'); //For Future Use
             $table->string('factory_address_2')->nullable()->comment('ADRC-STR_SUPPL2'); //Not use
 
-            $table->foreignId('employee_id')->constrained()->onUpdate('cascade');
-
+            $table->foreignId('employee_id')->constrained();
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
             $table->integer('status')->default(0);
             $table->boolean('activeStatus')->default(1);

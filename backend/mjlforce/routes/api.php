@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
         Route::post('/me', [AuthController::class, 'me']);
+        Route::get('/welcome_dashboad', [HomeController::class, 'welcomeDashboard']);
+        Route::get('/sidebar_user', [HomeController::class, 'sidebarUser']);
     });
 
 
