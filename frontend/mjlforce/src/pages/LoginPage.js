@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../auth/Auth";
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
   const { http, setToken } = Auth();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [errors, setErrors] = useState({});
 
   const submitForm = () => {
     http
@@ -13,6 +15,19 @@ export default function LoginPage() {
       .then((res) => {
         console.log(res);
         setToken(res.data.user, res.data.access_token);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.status === 401) {
+          // setErrors(error.response.data.error);
+          Swal.fire({
+            title: "Login Failed!",
+            text: error.response.data.error || "Something went wrong.",
+            icon: "error",
+          });
+        } else {
+          setErrors(error.response.data.errors);
+        }
       });
   };
 
@@ -44,6 +59,11 @@ export default function LoginPage() {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
+                  {errors.username && (
+                    <span className="" style={{ color: "red" }}>
+                      {errors.username[0]}
+                    </span>
+                  )}
                 </div>
                 <div className="form-group">
                   <label>Password</label>
@@ -59,10 +79,16 @@ export default function LoginPage() {
                       placeholder="*********"
                       onChange={(e) => setPassword(e.target.value)}
                     />
+
                     <div className="show-hide">
                       <span className="show"> </span>
                     </div>
                   </div>
+                  {errors.password && (
+                    <span className="" style={{ color: "red" }}>
+                      {errors.password[0]}
+                    </span>
+                  )}
                 </div>
                 <div className="form-group">
                   <div className="checkbox">
