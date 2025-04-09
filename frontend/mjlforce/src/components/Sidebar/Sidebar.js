@@ -1,12 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Home as HomeIcon, Settings as SettingsIcon } from "react-feather";
 import SidebarUser from "./SidebarUser";
+import Auth from "../../auth/Auth";
 
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faAngleRight, faUser, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function Sidebar(props) {
+  const { http } = Auth();
+  const [employeeData, setEmployeeData] = useState({});
+
+  useEffect(() => {
+    const fetchEmployeeData = async () => {
+      http
+        .get("/sidebar_user")
+        .then((res) => {
+          setEmployeeData(res.data.employee);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    };
+
+    fetchEmployeeData();
+  }, []);
+
   const [activeMenu, setActiveMenu] = useState(null);
 
   const handleMenuClick = (menu) => {
@@ -15,7 +34,7 @@ export default function Sidebar(props) {
 
   return (
     <header className={`main-nav  ${!props.isOpenSideBar ? "close_icon" : ""}`}>
-      <SidebarUser />
+      <SidebarUser employeeData={employeeData} />
       <nav>
         <div className="main-navbar">
           <div className="left-arrow" id="left-arrow">

@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Settings as SettingsIcon } from "react-feather";
-import Auth from "../../auth/Auth";
 
-export default function SidebarUser() {
-  const { http } = Auth();
-  const [sidebarEmp, setSidebarEmp] = useState({});
-  useEffect(() => {
-    http.get("/sidebar_user").then((res) => {
-      console.log("sidebar", res.data.employee);
-      setSidebarEmp(res.data.employee);
-    });
-  }, []);
+export default function SidebarUser(props) {
   return (
     <div className="sidebar-user text-center">
       <Link className="setting-primary" to="javascript:void(0)">
@@ -27,10 +18,11 @@ export default function SidebarUser() {
       </div>
 
       <Link to="user-profile.html">
-        <h6 className="mt-2 f-14 f-w-600">{sidebarEmp.name}</h6>
+        <h6 className="mt-2 f-14 f-w-600">{props.employeeData?.name}</h6>
       </Link>
       <p className="mb-0 font-roboto">
-        {sidebarEmp.designation.name} - {sidebarEmp.business_team.name}
+        {props.employeeData.designation?.name} -{" "}
+        {props.employeeData.business_team?.name}
       </p>
       <ul>
         <li>
