@@ -11,30 +11,41 @@ import reportsIcon from "../icons/reports.png";
 import campaignIcon from "../icons/campaign.png";
 import Main from "../components/Main";
 import Auth from "../auth/Auth";
+import PageLoader from "../utils/PageLoader";
 
 export default function HomePage() {
   const { http } = Auth();
   const [employee, setEmployee] = useState({});
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-    http.get("/welcome_dashboad").then((res) => {
-      setEmployee(res.data.employee);
-    });
+    const welcomeCardData = async () => {
+      await http.get("/welcome_dashboad").then((res) => {
+        setEmployee(res.data.employee);
+        setPageLoading(false);
+      });
+    };
+    welcomeCardData();
   }, []);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
 
     if (hour >= 5 && hour < 12) {
-      return "Good Morning";
+      return "Good Morning!";
     } else if (hour >= 12 && hour < 17) {
-      return "Good Noon";
+      return "Good Noon!";
     } else if (hour >= 17 && hour < 21) {
-      return "Good Evening";
+      return "Good Evening!";
     } else {
-      return "Good Night";
+      return "Good Night!";
     }
   };
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
+
   return (
     <Main>
       <div className="container-fluid general-widget">
