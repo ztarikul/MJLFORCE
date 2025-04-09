@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('/me', [AuthController::class, 'me']);
         Route::get('/welcome_dashboad', [HomeController::class, 'welcomeDashboard']);
         Route::get('/sidebar_user', [HomeController::class, 'sidebarUser']);
+        Route::post('/startday_attendance', [HomeController::class, 'startdayAttendance']);
+        Route::get('/attendance_history', [HomeController::class, 'attendanceHistory']);
     });
 
 

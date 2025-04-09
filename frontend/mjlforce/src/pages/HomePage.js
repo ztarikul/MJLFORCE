@@ -12,20 +12,44 @@ import campaignIcon from "../icons/campaign.png";
 import Main from "../components/Main";
 import Auth from "../auth/Auth";
 import PageLoader from "../utils/PageLoader";
+import { getCurrentLocation } from "../utils/getCurrentLocation";
 
 export default function HomePage() {
   const { http } = Auth();
   const [employee, setEmployee] = useState({});
+  const [isStartedDay, setIsStartedDay] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
+  const [coords, setCoords] = useState({ lat: null, long: null });
 
   useEffect(() => {
     const welcomeCardData = async () => {
-      await http.get("/welcome_dashboad").then((res) => {
-        setEmployee(res.data.employee);
-        setPageLoading(false);
-      });
+      await http
+        .get("/welcome_dashboad")
+        .then((res) => {
+          console.log(res);
+          setEmployee(res.data.employee);
+          setPageLoading(false);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     };
+
+    const getAttendanceHistory = async () => {
+      await http
+        .get("/attendance_history")
+        .then((res) => {
+          if (res.data) {
+            setIsStartedDay(true);
+          }
+        })
+        .catch((res) => {
+          console.log("err", res);
+        });
+    };
+
     welcomeCardData();
+    getAttendanceHistory();
   }, []);
 
   const getGreeting = () => {
@@ -40,6 +64,26 @@ export default function HomePage() {
     } else {
       return "Good Night!";
     }
+  };
+
+  const startDaySubmit = () => {
+    getCurrentLocation()
+      .then((location) => {
+        setCoords({ lat: location.latitude, long: location.longitude });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    http
+      .post("/startday_attendance", {
+        employee_id: employee.id,
+        card_id: employee.card_id,
+        lat: coords.lat,
+        long: coords.long,
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   if (pageLoading) {
@@ -91,7 +135,9 @@ export default function HomePage() {
                       system. By starting your day, your attendance status will
                       be calculated from the current location
                     </p>
-                    <button className="btn btn-light">Start Day</button>
+                    <button className="btn btn-light" onClick={startDaySubmit}>
+                      Start Day
+                    </button>
                   </div>
                   <div className="confetti">
                     <div className="confetti-piece"></div>

@@ -250,23 +250,23 @@ export default function NewForm() {
               <div className="form-group m-t-5 m-checkbox-inline mb-0 custom-radio-ml">
                 <div className="checkbox checkbox-dark">
                   <input id="cheque" type="checkbox" name="pt_cheque" />
-                  <label for="cheque">Cheque</label>
+                  <label htmlFor="cheque">Cheque</label>
                 </div>
                 <div className="checkbox checkbox-dark">
                   <input id="cash" type="checkbox" name="pt_cash" />
-                  <label for="cash">Cash</label>
+                  <label htmlFor="cash">Cash</label>
                 </div>
                 <div className="checkbox checkbox-dark">
                   <input id="po" type="checkbox" name="pt_po" />
-                  <label for="po">PO</label>
+                  <label htmlFor="po">PO</label>
                 </div>
                 <div className="checkbox checkbox-dark">
                   <input id="dd" type="checkbox" name="pt_dd" />
-                  <label for="dd">DD</label>
+                  <label htmlFor="dd">DD</label>
                 </div>
                 <div className="checkbox checkbox-dark">
                   <input id="transfer" type="checkbox" name="pt_transfer" />
-                  <label for="transfer">Transfer</label>
+                  <label htmlFor="transfer">Transfer</label>
                 </div>
               </div>
             </div>
