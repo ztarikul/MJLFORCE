@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('in_out')->nullable();
             $table->decimal('lat', 9, 6)->nullable();
             $table->decimal('long', 9, 6)->nullable();
+            $table->string('street_name')->nullable();
             $table->string('verification')->nullable();
             $table->timestamps();
         });

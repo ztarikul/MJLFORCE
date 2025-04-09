@@ -17,7 +17,20 @@ import { getCurrentLocation } from "../utils/getCurrentLocation";
 export default function HomePage() {
   const { http } = Auth();
   const [employee, setEmployee] = useState({});
-  const [isStartedDay, setIsStartedDay] = useState(false);
+  const [isStartedDay, setIsStartedDay] = useState({
+    in_time: null,
+    out_time: null,
+    lat: null,
+    long: null,
+    status: false,
+  });
+  const [isEndedDay, setIsEndededDay] = useState({
+    in_time: null,
+    out_time: null,
+    lat: null,
+    long: null,
+    status: false,
+  });
   const [pageLoading, setPageLoading] = useState(true);
   const [coords, setCoords] = useState({ lat: null, long: null });
 
@@ -39,8 +52,27 @@ export default function HomePage() {
       await http
         .get("/attendance_history")
         .then((res) => {
+          console.log(res);
           if (res.data) {
-            setIsStartedDay(true);
+            const inTime = res.data.find((item) => item.in_out === 1);
+
+            if (inTime.length != 0) {
+              setIsStartedDay({
+                in_time: inTime.time,
+                lat: inTime.lat,
+                long: inTime.long,
+                status: true,
+              });
+            }
+            const outTime = res.data.find((item) => item.in_out === 0);
+            if (outTime.length != 0) {
+              setIsEndededDay({
+                out_time: outTime.time,
+                lat: outTime.lat,
+                long: outTime.long,
+                status: true,
+              });
+            }
           }
         })
         .catch((res) => {
@@ -51,6 +83,10 @@ export default function HomePage() {
     welcomeCardData();
     getAttendanceHistory();
   }, []);
+
+  const getStreetName = (lat, long) => {
+    const token = "pk.c0650c565137fc14c7357d022f922689";
+  };
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -94,8 +130,8 @@ export default function HomePage() {
     <Main>
       <div className="container-fluid general-widget">
         <div className="row">
-          {employee ? (
-            <Fragment>
+          <Fragment>
+            {!isStartedDay.status ? (
               <div className="col-xl-6 col-md-6 box-col-6 des-xl-50">
                 <div className="card profile-greeting">
                   <div className="card-header">
@@ -171,6 +207,7 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+            ) : (
               <div className="col-xl-6 col-md-3 col-sm-6 box-col-3 des-xl-25 rate-sec">
                 <div className="card income-card card-secondary">
                   <Link>
@@ -182,22 +219,26 @@ export default function HomePage() {
                         width="60"
                         height="60"
                       />
-                      <h5 className="mt-2">09:09 AM</h5>
-                      <p>New Market, Jessore</p>
+                      <h5 className="mt-2">{isStartedDay.in_time}</h5>
+                      <p></p>
                       <p className="btn-arrow arrow-secondary">
                         <i className="toprightarrow-secondary  me-2"></i>
                         Attendance Status
                       </p>
                       <div className="parrten"></div>
-                      <button className="btn btn-dark">End Day</button>
+                      {!isEndedDay.status ? (
+                        <button className="btn btn-dark">End Day</button>
+                      ) : (
+                        <button className="btn btn-light">
+                          Day Ended @{isEndedDay.out_time}
+                        </button>
+                      )}
                     </div>
                   </Link>
                 </div>
               </div>
-            </Fragment>
-          ) : (
-            ""
-          )}
+            )}
+          </Fragment>
 
           <div className="col-xs-6 col-xl-3 col-lg-6">
             <Link to="/visit">

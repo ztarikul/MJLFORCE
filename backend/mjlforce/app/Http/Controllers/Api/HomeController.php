@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,21 +24,30 @@ class HomeController extends Controller
 
     public function startdayAttendance(Request $request){
         
-        $attendanceHistory = new AttendanceHistory();
-        $attendanceHistory->card_id = $request->card_id;
-        $attendanceHistory->date = Carbon::now()->toDateString();
-        $attendanceHistory->time = Carbon::now()->toTimeString();
-        $attendanceHistory->in_out = 1;
-        $attendanceHistory->lat = $request->lat;
-        $attendanceHistory->long = $request->long;
-        $attendanceHistory->save();
-        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly'], 201);
+        $lat = $request->lat;
+        $long = $request->long;
+        // $attendanceHistory = new AttendanceHistory();
+        // $attendanceHistory->card_id = $request->card_id;
+        // $attendanceHistory->date = Carbon::now()->toDateString();
+        // $attendanceHistory->time = Carbon::now()->toTimeString();
+        // $attendanceHistory->in_out = 1;
+        // $attendanceHistory->lat = $request->lat;
+        // $attendanceHistory->long = $request->long;
+
+
+
+        $apiKey = "pk.c0650c565137fc14c7357d022f922689";
+        $apiUrl = "https://us1.locationiq.com/v1/reverse?key={$apiKey}&lat={$lat}&lon=-{$long}&format=json";
+        $client =  new Client();
+        $response = $client->get($apiUrl);
+        // $attendanceHistory->save();
+        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly', 'response' => $response], 201);
     }
 
     public function attendanceHistory(){
 
-        $employee = Employee::select('id', 'name', 'card_id')->find(1);
-        $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->first();
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
+        $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->get();
 
         return response()->json($attendanceHistory);
     }
