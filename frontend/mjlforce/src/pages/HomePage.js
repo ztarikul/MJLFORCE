@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import { Aperture as ApertureIcon } from "react-feather";
 import checkIcon from "../icons/check.png";
 import checkInLateIcon from "../icons/checkInLate.png";
@@ -12,6 +11,7 @@ import campaignIcon from "../icons/campaign.png";
 import Main from "../components/Main";
 import Auth from "../auth/Auth";
 import PageLoader from "../utils/PageLoader";
+import Swal from "sweetalert2";
 import { getCurrentLocation } from "../utils/getCurrentLocation";
 
 export default function HomePage() {
@@ -41,7 +41,6 @@ export default function HomePage() {
         .then((res) => {
           console.log(res);
           setEmployee(res.data.employee);
-          setPageLoading(false);
         })
         .catch((res) => {
           console.log(res);
@@ -56,7 +55,7 @@ export default function HomePage() {
           if (res.data) {
             const inTime = res.data.find((item) => item.in_out === 1);
 
-            if (inTime.length != 0) {
+            if (inTime) {
               setIsStartedDay({
                 in_time: inTime.time,
                 lat: inTime.lat,
@@ -65,7 +64,8 @@ export default function HomePage() {
               });
             }
             const outTime = res.data.find((item) => item.in_out === 0);
-            if (outTime.length != 0) {
+
+            if (outTime) {
               setIsEndededDay({
                 out_time: outTime.time,
                 lat: outTime.lat,
@@ -74,6 +74,7 @@ export default function HomePage() {
               });
             }
           }
+          setPageLoading(false);
         })
         .catch((res) => {
           console.log("err", res);
@@ -119,6 +120,19 @@ export default function HomePage() {
       })
       .then((res) => {
         console.log(res);
+        Swal.fire({
+          title: "Checked In!",
+          text: res.data.msg || "Something went wrong.",
+          icon: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "Location Failed!",
+          text: error.response.data.msg || "Something went wrong.",
+          icon: "error",
+        });
       });
   };
 

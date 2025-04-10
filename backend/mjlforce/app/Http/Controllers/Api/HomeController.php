@@ -23,9 +23,13 @@ class HomeController extends Controller
     }
 
     public function startdayAttendance(Request $request){
+
         
-        $lat = $request->lat;
-        $long = $request->long;
+        if($request->lat == null || $request->long == null){
+            return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
+        }
+
+        
         // $attendanceHistory = new AttendanceHistory();
         // $attendanceHistory->card_id = $request->card_id;
         // $attendanceHistory->date = Carbon::now()->toDateString();
@@ -36,12 +40,12 @@ class HomeController extends Controller
 
 
 
-        $apiKey = "pk.c0650c565137fc14c7357d022f922689";
-        $apiUrl = "https://us1.locationiq.com/v1/reverse?key={$apiKey}&lat={$lat}&lon=-{$long}&format=json";
-        $client =  new Client();
-        $response = $client->get($apiUrl);
+        // $apiKey = "pk.c0650c565137fc14c7357d022f922689";
+        // $apiUrl = "https://us1.locationiq.com/v1/reverse?key={$apiKey}&lat={$lat}&lon=-{$long}&format=json";
+        // $client =  new Client();
+        // $response = $client->get($apiUrl);
         // $attendanceHistory->save();
-        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly', 'response' => $response], 201);
+        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly'], 201);
     }
 
     public function attendanceHistory(){
