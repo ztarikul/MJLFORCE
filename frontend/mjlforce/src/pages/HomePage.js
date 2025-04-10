@@ -85,10 +85,6 @@ export default function HomePage() {
     getAttendanceHistory();
   }, []);
 
-  const getStreetName = (lat, long) => {
-    const token = "pk.c0650c565137fc14c7357d022f922689";
-  };
-
   const getGreeting = () => {
     const hour = new Date().getHours();
 
@@ -120,11 +116,11 @@ export default function HomePage() {
       })
       .then((res) => {
         console.log(res);
-        Swal.fire({
-          title: "Checked In!",
-          text: res.data.msg || "Something went wrong.",
-          icon: "success",
-        });
+        // Swal.fire({
+        //   title: "Checked In!",
+        //   text: res.data.msg || "Something went wrong.",
+        //   icon: "success",
+        // });
       })
       .catch((error) => {
         console.log(error);

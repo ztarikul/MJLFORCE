@@ -29,7 +29,9 @@ class HomeController extends Controller
             return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
         }
 
-        
+        $lat = $request->lat;
+        $long = $request->long;
+
         // $attendanceHistory = new AttendanceHistory();
         // $attendanceHistory->card_id = $request->card_id;
         // $attendanceHistory->date = Carbon::now()->toDateString();
@@ -40,12 +42,24 @@ class HomeController extends Controller
 
 
 
-        // $apiKey = "pk.c0650c565137fc14c7357d022f922689";
-        // $apiUrl = "https://us1.locationiq.com/v1/reverse?key={$apiKey}&lat={$lat}&lon=-{$long}&format=json";
-        // $client =  new Client();
-        // $response = $client->get($apiUrl);
+        $apiKey = "pk.c0650c565137fc14c7357d022f922689";
+        $apiUrl = "http://us1.locationiq.com/v1/reverse?key=pk.c0650c565137fc14c7357d022f922689&lat=23.784206&lon=90.416823&format=json";
+
+        $client = new Client();
+        $response = $client->post('http://us1.locationiq.com/v1/reverse', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer pk.c0650c565137fc14c7357d022f922689',
+            ],
+            'json' => [
+                'lat' => '23.784206',
+                'lon' => '90.416823',
+            ],
+        ]);
+
+        $locationResponse = json_decode($response->getBody(), true);
         // $attendanceHistory->save();
-        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly'], 201);
+        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly', 'location_name' => $locationResponse], 201);
     }
 
     public function attendanceHistory(){
