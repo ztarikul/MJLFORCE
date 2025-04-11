@@ -42,6 +42,29 @@ export default function Auth() {
     },
   });
 
+  http.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response) {
+        const { status } = error.response;
+
+        if (status === 401) {
+          // Unauthenticated
+          console.warn("Unauthorized — redirecting to login");
+          // Optionally, redirect:
+          logout();
+        }
+
+        if (status === 403) {
+          // Forbidden
+          alert("You are not allowed to access this resource.");
+        }
+      }
+
+      return Promise.reject(error);
+    }
+  );
+
   return {
     setToken: saveToken,
     token,

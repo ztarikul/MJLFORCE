@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use Carbon\Carbon;
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -23,43 +24,42 @@ class HomeController extends Controller
     }
 
     public function startdayAttendance(Request $request){
+        $msg = "";
+        try{
+            $lat = $request->lat;
+            $long = $request->long;
+    
+            if($lat == null || $long == null){
+                return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
+            }
+    
+          
+            $attendanceHistory = new AttendanceHistory();
+            $attendanceHistory->card_id = $request->card_id;
+            $attendanceHistory->date = Carbon::now()->toDateString();
+            $attendanceHistory->time = Carbon::now()->toTimeString();
+            $attendanceHistory->in_out = 1;
+            $attendanceHistory->lat = $request->lat;
+            $attendanceHistory->long = $request->long;
+    
 
-        
-        if($request->lat == null || $request->long == null){
-            return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
+            $locationResponse = getReverseGeoLocation($lat, $long);
+            if(isset($locationResponse->original) && $locationResponse->original['error']){
+                $attendanceHistory->verification = $locationResponse->original['status'] . "api error";
+                $attendanceHistory->street_name =  "Not Found!";
+            }else{
+                $attendanceHistory->verification = "succeess";
+                $attendanceHistory->street_name =  $locationResponse['display_name'];
+            }
+            $attendanceHistory->save();
+            $msg = 'Attendance placed successfuly';
+        }catch(Exception $e){
+            $msg = $e->getMessage();
         }
+       
 
-        $lat = $request->lat;
-        $long = $request->long;
-
-        // $attendanceHistory = new AttendanceHistory();
-        // $attendanceHistory->card_id = $request->card_id;
-        // $attendanceHistory->date = Carbon::now()->toDateString();
-        // $attendanceHistory->time = Carbon::now()->toTimeString();
-        // $attendanceHistory->in_out = 1;
-        // $attendanceHistory->lat = $request->lat;
-        // $attendanceHistory->long = $request->long;
-
-
-
-        $apiKey = "pk.c0650c565137fc14c7357d022f922689";
-        $apiUrl = "http://us1.locationiq.com/v1/reverse?key=pk.c0650c565137fc14c7357d022f922689&lat=23.784206&lon=90.416823&format=json";
-
-        $client = new Client();
-        $response = $client->post('http://us1.locationiq.com/v1/reverse', [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer pk.c0650c565137fc14c7357d022f922689',
-            ],
-            'json' => [
-                'lat' => '23.784206',
-                'lon' => '90.416823',
-            ],
-        ]);
-
-        $locationResponse = json_decode($response->getBody(), true);
-        // $attendanceHistory->save();
-        return response()->json(['status' => 1, 'msg' => 'Attendance placed successfuly', 'location_name' => $locationResponse], 201);
+       
+        return response()->json(['status' => 1, 'msg' => $msg, 'location_name' => $locationResponse], 201);
     }
 
     public function attendanceHistory(){

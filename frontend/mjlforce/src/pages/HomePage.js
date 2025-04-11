@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 import { getCurrentLocation } from "../utils/getCurrentLocation";
 
 export default function HomePage() {
-  const { http } = Auth();
+  const { http, logout } = Auth();
   const [employee, setEmployee] = useState({});
   const [isStartedDay, setIsStartedDay] = useState({
     in_time: null,
@@ -23,6 +23,7 @@ export default function HomePage() {
     lat: null,
     long: null,
     status: false,
+    street_name: null,
   });
   const [isEndedDay, setIsEndededDay] = useState({
     in_time: null,
@@ -30,57 +31,59 @@ export default function HomePage() {
     lat: null,
     long: null,
     status: false,
+    street_name: null,
   });
   const [pageLoading, setPageLoading] = useState(true);
   const [coords, setCoords] = useState({ lat: null, long: null });
 
-  useEffect(() => {
-    const welcomeCardData = async () => {
-      await http
-        .get("/welcome_dashboad")
-        .then((res) => {
-          console.log(res);
-          setEmployee(res.data.employee);
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    };
+  const welcomeCardData = async () => {
+    await http
+      .get("/welcome_dashboad")
+      .then((res) => {
+        console.log(res);
+        setEmployee(res.data.employee);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
 
-    const getAttendanceHistory = async () => {
-      await http
-        .get("/attendance_history")
-        .then((res) => {
-          console.log(res);
-          if (res.data) {
-            const inTime = res.data.find((item) => item.in_out === 1);
+  const getAttendanceHistory = async () => {
+    await http
+      .get("/attendance_history")
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          const inTime = res.data.find((item) => item.in_out === 1);
 
-            if (inTime) {
-              setIsStartedDay({
-                in_time: inTime.time,
-                lat: inTime.lat,
-                long: inTime.long,
-                status: true,
-              });
-            }
-            const outTime = res.data.find((item) => item.in_out === 0);
-
-            if (outTime) {
-              setIsEndededDay({
-                out_time: outTime.time,
-                lat: outTime.lat,
-                long: outTime.long,
-                status: true,
-              });
-            }
+          if (inTime) {
+            setIsStartedDay({
+              in_time: inTime.time,
+              lat: inTime.lat,
+              long: inTime.long,
+              status: true,
+              street_name: inTime.street_name,
+            });
           }
-          setPageLoading(false);
-        })
-        .catch((res) => {
-          console.log("err", res);
-        });
-    };
+          const outTime = res.data.find((item) => item.in_out === 0);
 
+          if (outTime) {
+            setIsEndededDay({
+              out_time: outTime.time,
+              lat: outTime.lat,
+              long: outTime.long,
+              status: true,
+              street_name: outTime.street_name,
+            });
+          }
+        }
+        setPageLoading(false);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+  useEffect(() => {
     welcomeCardData();
     getAttendanceHistory();
   }, []);
@@ -116,11 +119,12 @@ export default function HomePage() {
       })
       .then((res) => {
         console.log(res);
-        // Swal.fire({
-        //   title: "Checked In!",
-        //   text: res.data.msg || "Something went wrong.",
-        //   icon: "success",
-        // });
+        Swal.fire({
+          title: "Checked In!",
+          text: res.data.msg || "Something went wrong.",
+          icon: "success",
+        });
+        getAttendanceHistory();
       })
       .catch((error) => {
         console.log(error);
@@ -230,7 +234,9 @@ export default function HomePage() {
                         height="60"
                       />
                       <h5 className="mt-2">{isStartedDay.in_time}</h5>
-                      <p></p>
+
+                      <p className="mt-1">{isStartedDay.street_name}</p>
+
                       <p className="btn-arrow arrow-secondary">
                         <i className="toprightarrow-secondary  me-2"></i>
                         Attendance Status
