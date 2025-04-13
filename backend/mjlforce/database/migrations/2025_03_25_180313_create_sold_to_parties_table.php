@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('region_id')->constrained();
 
             $table->string('district')->nullable()->comment('ADRC-CITY1');
-            $table->foreignId('loc_district_id')->nullable()->constrained(); //non sap
+
 
             $table->string('address', 60)->nullable()->comment('ADRC-STREET');
             $table->string('ceo')->nullable()->comment('ADRC-NAME_CO');
@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique()->comment('ADR6-SMTP_ADDR');
             $table->string('other_url')->nullable()->comment('ADR12-URL_ADDR');
             $table->string('postal_code')->nullable()->comment('ADRC-POST-CODE1');
+            
             
             $table->string('contact_person_name')->nullable()->comment('ADRC_NAME_CO');
             $table->string('contact_person_tel')->nullable()->comment('ADRC-TEL_NUMBER');
@@ -82,6 +83,12 @@ return new class extends Migration
             $table->string('attr_4')->nullable()->comment('KNVV-KATR4'); //For Future Use
             $table->string('factory_address_2')->nullable()->comment('ADRC-STR_SUPPL2'); //Not use
 
+            $table->foreignId('loc_division_id')->nullable()->constrained();//non sap
+            $table->foreignId('loc_district_id')->nullable()->constrained(); //non sap
+            $table->foreignId('loc_upazila_id')->nullable()->constrained(); //non sap
+            $table->foreignId('loc_post_office_id')->nullable()->constrained();//non sap
+            
+            $table->string('image')->nullable();
             $table->foreignId('employee_id')->constrained();
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
             $table->integer('status')->default(0);

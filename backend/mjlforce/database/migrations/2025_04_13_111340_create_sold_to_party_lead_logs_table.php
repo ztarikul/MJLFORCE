@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sold_to_party_process_logs', function (Blueprint $table) {
+        Schema::create('sold_to_party_lead_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sold_to_party_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            //chk_to / chk_from = [1=> employee, 2=>SV, 3=>MIS, 4=>SAP]
-            $table->integer('chk_from')->nullable();
-            $table->integer('chk_to')->nullable();
-            // status [1=> pending, 2=> approved. 3 => rejected];
-            $table->integer('status')->nullable();
+            $table->foreignId('lead_stage_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('stage')->nullable();
             $table->string('remarks')->nullable();
             $table->boolean('activeStatus')->default(true);
             $table->timestamps();
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sold_to_party_process_logs');
+        Schema::dropIfExists('sold_to_party_lead_logs');
     }
 };

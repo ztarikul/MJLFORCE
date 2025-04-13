@@ -1,7 +1,7 @@
 <?php
 
 use GuzzleHttp\Client;
-use Exception;
+
 
 
 if (! function_exists('getReverseGeoLocation')) {

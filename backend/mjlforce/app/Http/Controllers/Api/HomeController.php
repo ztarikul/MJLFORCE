@@ -7,7 +7,6 @@ use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use Carbon\Carbon;
 use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

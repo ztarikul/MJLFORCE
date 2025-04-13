@@ -1,13 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Auth from "../../auth/Auth";
 
 export default function NewForm() {
+  const { http, logout } = Auth();
+
+  const [fetchData, setFetchdata] = useState({});
+
+  const fetchFormData = async () => {
+    await http
+      .get("/visit_new_s2p")
+      .then((res) => {
+        console.log(res);
+        setFetchdata(res.data);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
+  useEffect(() => {
+    fetchFormData();
+  }, []);
+
+  const [formData, setFormData] = useState({
+    account_name: "",
+    group: "",
+    office_address: "",
+    loc_division: null,
+    loc_district: null,
+    loc_thana: null,
+    post_office: null,
+    bin: null,
+    contact_person: null,
+    mobile_co: null,
+    owner_name: null,
+    owner_telephone: null,
+    owner_mobile: null,
+    owner_email: null,
+    customer_type: null,
+    pt_cheque: null,
+    pt_cash: null,
+    pt_po: null,
+    pt_dd: null,
+    pt_transfer: null,
+    territory: null,
+    trade_category: null,
+    trade_s_category: null,
+    special_discount: null,
+    remarks: null,
+  });
+
   return (
     <form className="form theme-form">
       <div className="card-body">
         <div className="row">
           <div className="col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="exampleFormControlInput1">
+              <label className="form-label" htmlFor="customer_name">
                 Customer Name
               </label>
               <input
@@ -52,28 +101,30 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="division">
+              <label className="form-label" htmlFor="loc_division">
                 Division
               </label>
-              <select className="form-select" id="division" name="division">
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+              <select
+                className="form-select"
+                id="loc_division"
+                name="loc_division"
+              >
+                {fetchData.divisions.map((division, index) => (
+                  <option key={index}>{division.name}</option>
+                ))}
               </select>
             </div>
           </div>
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="district">
+              <label className="form-label" htmlFor="loc_district">
                 District
               </label>
               <select
                 className="form-select"
-                id="district"
-                name="district"
+                id="loc_district"
+                name="loc_district"
                 multiple=""
               >
                 <option>Dhaka</option>
@@ -87,10 +138,10 @@ export default function NewForm() {
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
-              <label className="form-label" htmlFor="thana">
+              <label className="form-label" htmlFor="loc_thana">
                 Upazilla/Thana
               </label>
-              <select className="form-select" id="thana" name="thana">
+              <select className="form-select" id="loc_thana" name="loc_thana">
                 <option>Dhaka</option>
                 <option>Barishal</option>
                 <option>Khulna</option>

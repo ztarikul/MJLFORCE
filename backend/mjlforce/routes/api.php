@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CmaController;
 use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('/sidebar_user', [HomeController::class, 'sidebarUser']);
         Route::post('/startday_attendance', [HomeController::class, 'startdayAttendance']);
         Route::get('/attendance_history', [HomeController::class, 'attendanceHistory']);
+
+        Route::get('/visit_new_s2p', [CmaController::class, 'visitNewSoldToPary']);
     });
 
 
