@@ -2,26 +2,7 @@ import React, { useEffect, useState } from "react";
 import Auth from "../../auth/Auth";
 
 export default function NewForm() {
-  const { http, logout } = Auth();
-
-  const [fetchData, setFetchdata] = useState({});
-
-  const fetchFormData = async () => {
-    await http
-      .get("/visit_new_s2p")
-      .then((res) => {
-        console.log(res);
-        setFetchdata(res.data);
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-  };
-
-  useEffect(() => {
-    fetchFormData();
-  }, []);
-
+  const { http } = Auth();
   const [formData, setFormData] = useState({
     account_name: "",
     group: "",
@@ -49,6 +30,39 @@ export default function NewForm() {
     special_discount: null,
     remarks: null,
   });
+  const [fetchData, setFetchdata] = useState({
+    divisions: [],
+    districts: [],
+    upazilas: [],
+    postOffice: [],
+  });
+  const [districts, setDistricts] = useState({});
+  const [upazilas, setUpazilas] = useState({});
+
+  const fetchFormData = async () => {
+    await http
+      .get("/visit_new_s2p")
+      .then((res) => {
+        console.log(res);
+        setFetchdata(res.data);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
+  useEffect(() => {
+    fetchFormData();
+  }, []);
+
+  const divisionChangeHnadler = (event) => {
+    const selectedId = parseInt(event.target.value);
+    const selectedDistricts = fetchData.districts.filter(
+      (district) => district.loc_division_id === selectedId
+    );
+
+    setDistricts(selectedDistricts);
+  };
 
   return (
     <form className="form theme-form">
@@ -108,9 +122,12 @@ export default function NewForm() {
                 className="form-select"
                 id="loc_division"
                 name="loc_division"
+                onChange={divisionChangeHnadler}
               >
-                {fetchData.divisions.map((division, index) => (
-                  <option key={index}>{division.name}</option>
+                {fetchData.divisions.map((division) => (
+                  <option key={division.id} value={division.id}>
+                    {division.name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -125,13 +142,12 @@ export default function NewForm() {
                 className="form-select"
                 id="loc_district"
                 name="loc_district"
-                multiple=""
               >
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+                {districts?.map((district) => (
+                  <option key={district.id} value={district.id}>
+                    {district.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
