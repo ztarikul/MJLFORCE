@@ -35,6 +35,7 @@ export default function NewForm() {
     districts: [],
     upazilas: [],
     postOffice: [],
+    salesTerritories: [],
   });
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
@@ -44,7 +45,6 @@ export default function NewForm() {
     await http
       .get("/visit_new_s2p")
       .then((res) => {
-        console.log(res);
         setFetchdata(res.data);
       })
       .catch((res) => {
@@ -61,7 +61,6 @@ export default function NewForm() {
     const selectedDistricts = fetchData.districts.filter(
       (district) => district.loc_division_id === selectedId
     );
-
     setDistricts(selectedDistricts);
   };
 
@@ -373,10 +372,12 @@ export default function NewForm() {
                 Sales Territoty
               </label>
               <select className="form-select" id="territory" name="territory">
-                <option>Dhaka South</option>
-                <option>Dhata North</option>
-                <option>Khulna</option>
-                <option>Chittagong</option>
+                <option value="">Please Select</option>
+                {fetchData.salesTerritories.map((territory) => (
+                  <option key={territory.id} value={territory.id}>
+                    {territory.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
