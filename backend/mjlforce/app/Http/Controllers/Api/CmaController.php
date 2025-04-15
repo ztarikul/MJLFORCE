@@ -15,9 +15,9 @@ class CmaController extends Controller
     public function visitNewSoldToPary(){
         $divisions = LocDivision::select('id', 'name')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->get();
-        $upazillas = LocUpazila::select('id', 'name')->get();
-        $postOffice = LocPostOffice::select('id', 'post_office')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->get();
 
-        return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazillas' => $upazillas, 'postOffice' => $postOffice], 200);
+        return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice], 200);
     } 
 }

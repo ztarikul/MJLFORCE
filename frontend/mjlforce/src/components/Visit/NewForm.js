@@ -36,8 +36,9 @@ export default function NewForm() {
     upazilas: [],
     postOffice: [],
   });
-  const [districts, setDistricts] = useState({});
-  const [upazilas, setUpazilas] = useState({});
+  const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
+  const [postOffice, setPostOffice] = useState([]);
 
   const fetchFormData = async () => {
     await http
@@ -62,6 +63,23 @@ export default function NewForm() {
     );
 
     setDistricts(selectedDistricts);
+  };
+
+  const districtChangeHnadler = (event) => {
+    const selectedId = parseInt(event.target.value);
+    const selectedUpazilas = fetchData.upazilas.filter(
+      (upazila) => upazila.loc_district_id === selectedId
+    );
+    setUpazilas(selectedUpazilas);
+  };
+
+  const upazilaChangeHnadler = (event) => {
+    const selectedId = parseInt(event.target.value);
+
+    const selectedPostOffices = fetchData.postOffice.filter(
+      (office) => office.loc_upazila_id === selectedId
+    );
+    setPostOffice(selectedPostOffices);
   };
 
   return (
@@ -124,6 +142,7 @@ export default function NewForm() {
                 name="loc_division"
                 onChange={divisionChangeHnadler}
               >
+                <option value="">Please Select</option>
                 {fetchData.divisions.map((division) => (
                   <option key={division.id} value={division.id}>
                     {division.name}
@@ -142,8 +161,10 @@ export default function NewForm() {
                 className="form-select"
                 id="loc_district"
                 name="loc_district"
+                onChange={districtChangeHnadler}
               >
-                {districts?.map((district) => (
+                <option value="">Please Select</option>
+                {districts.map((district) => (
                   <option key={district.id} value={district.id}>
                     {district.name}
                   </option>
@@ -157,12 +178,18 @@ export default function NewForm() {
               <label className="form-label" htmlFor="loc_thana">
                 Upazilla/Thana
               </label>
-              <select className="form-select" id="loc_thana" name="loc_thana">
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+              <select
+                className="form-select"
+                id="loc_thana"
+                name="loc_thana"
+                onChange={upazilaChangeHnadler}
+              >
+                <option value="">Please Select</option>
+                {upazilas.map((upazila) => (
+                  <option key={upazila.id} value={upazila.id}>
+                    {upazila.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -177,11 +204,12 @@ export default function NewForm() {
                 id="post_office"
                 name="post_office"
               >
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+                <option value="">Please Select</option>
+                {postOffice.map((office) => (
+                  <option key={office.id} value={office.id}>
+                    {office.post_office}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
