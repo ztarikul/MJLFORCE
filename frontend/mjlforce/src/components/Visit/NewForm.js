@@ -22,7 +22,7 @@ export default function NewForm() {
     territory: null,
     trade_category: null,
     trade_s_category: null,
-    special_discount: null,
+    special_discount: false,
     remarks: null,
   });
 
@@ -57,10 +57,10 @@ export default function NewForm() {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -466,6 +466,7 @@ export default function NewForm() {
                     id="special_discount"
                     name="special_discount"
                     type="checkbox"
+                    checked={formData.special_discount}
                     onChange={handleChange}
                   />
                   <label htmlFor="special_discount">
