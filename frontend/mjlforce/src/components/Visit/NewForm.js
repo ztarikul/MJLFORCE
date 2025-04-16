@@ -19,27 +19,27 @@ export default function NewForm() {
     owner_mobile: null,
     owner_email: null,
     customer_type: null,
-    pt_cheque: null,
-    pt_cash: null,
-    pt_po: null,
-    pt_dd: null,
-    pt_transfer: null,
     territory: null,
     trade_category: null,
     trade_s_category: null,
     special_discount: null,
     remarks: null,
   });
+
   const [fetchData, setFetchdata] = useState({
     divisions: [],
     districts: [],
     upazilas: [],
     postOffice: [],
     salesTerritories: [],
+    tradeCategories: [],
+    tradeSubCategories: [],
   });
+
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
   const [postOffice, setPostOffice] = useState([]);
+  const [tradeSubCategories, setTradeSubCategories] = useState([]);
 
   const fetchFormData = async () => {
     await http
@@ -56,7 +56,33 @@ export default function NewForm() {
     fetchFormData();
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+
+    http
+      .post("/store_s2p", formData)
+      .then((res) => {
+        console.log(res.data); // Handle success response
+      })
+      .catch((error) => {
+        console.error(error); // Handle error response
+      });
+  };
+
   const divisionChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     const selectedId = parseInt(event.target.value);
     const selectedDistricts = fetchData.districts.filter(
       (district) => district.loc_division_id === selectedId
@@ -65,6 +91,11 @@ export default function NewForm() {
   };
 
   const districtChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     const selectedId = parseInt(event.target.value);
     const selectedUpazilas = fetchData.upazilas.filter(
       (upazila) => upazila.loc_district_id === selectedId
@@ -73,16 +104,33 @@ export default function NewForm() {
   };
 
   const upazilaChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     const selectedId = parseInt(event.target.value);
-
     const selectedPostOffices = fetchData.postOffice.filter(
       (office) => office.loc_upazila_id === selectedId
     );
     setPostOffice(selectedPostOffices);
   };
 
+  const tradeCategoryChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    const selectedId = parseInt(event.target.value);
+    const selectedtradeSubCategories = fetchData.tradeSubCategories.filter(
+      (subCat) => subCat.trade_category_id === selectedId
+    );
+    setTradeSubCategories(selectedtradeSubCategories);
+  };
+
   return (
-    <form className="form theme-form">
+    <form className="form theme-form" onSubmit={formSubmit}>
       <div className="card-body">
         <div className="row">
           <div className="col-md-4">
@@ -96,6 +144,7 @@ export default function NewForm() {
                 type="text"
                 name="account_name"
                 placeholder="xyz group limited"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -111,6 +160,7 @@ export default function NewForm() {
                 type="text"
                 name="group"
                 placeholder="Group"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -126,6 +176,7 @@ export default function NewForm() {
                 type="text"
                 name="office_address"
                 placeholder="Office Address"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -202,6 +253,7 @@ export default function NewForm() {
                 className="form-select"
                 id="post_office"
                 name="post_office"
+                onChange={handleChange}
               >
                 <option value="">Please Select</option>
                 {postOffice.map((office) => (
@@ -224,6 +276,7 @@ export default function NewForm() {
                 type="text"
                 name="bin"
                 placeholder="BIN Number"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -239,6 +292,7 @@ export default function NewForm() {
                 type="text"
                 name="contact_person"
                 placeholder="C/O"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -257,6 +311,7 @@ export default function NewForm() {
                 type="tel"
                 name="mobile_co"
                 placeholder="Mobile Number"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -272,6 +327,7 @@ export default function NewForm() {
                 type="text"
                 name="owner_name"
                 placeholder=""
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -287,6 +343,7 @@ export default function NewForm() {
                 type="text"
                 name="owner_telephone"
                 placeholder="Owner Telephone"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -302,6 +359,7 @@ export default function NewForm() {
                 type="text"
                 name="owner_mobile"
                 placeholder="Owner Mobile"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -317,6 +375,7 @@ export default function NewForm() {
                 type="text"
                 name="owner_email"
                 placeholder="Owner Email"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -332,37 +391,8 @@ export default function NewForm() {
                 type="text"
                 name="customer_type"
                 placeholder=""
+                onChange={handleChange}
               />
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="mb-3">
-              <label className="form-label" htmlFor="paymentType">
-                Payment Type
-              </label>
-              <div className="form-group m-t-5 m-checkbox-inline mb-0 custom-radio-ml">
-                <div className="checkbox checkbox-dark">
-                  <input id="cheque" type="checkbox" name="pt_cheque" />
-                  <label htmlFor="cheque">Cheque</label>
-                </div>
-                <div className="checkbox checkbox-dark">
-                  <input id="cash" type="checkbox" name="pt_cash" />
-                  <label htmlFor="cash">Cash</label>
-                </div>
-                <div className="checkbox checkbox-dark">
-                  <input id="po" type="checkbox" name="pt_po" />
-                  <label htmlFor="po">PO</label>
-                </div>
-                <div className="checkbox checkbox-dark">
-                  <input id="dd" type="checkbox" name="pt_dd" />
-                  <label htmlFor="dd">DD</label>
-                </div>
-                <div className="checkbox checkbox-dark">
-                  <input id="transfer" type="checkbox" name="pt_transfer" />
-                  <label htmlFor="transfer">Transfer</label>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -371,7 +401,12 @@ export default function NewForm() {
               <label className="form-label" htmlFor="salesTerritory">
                 Sales Territoty
               </label>
-              <select className="form-select" id="territory" name="territory">
+              <select
+                className="form-select"
+                id="territory"
+                name="territory"
+                onChange={handleChange}
+              >
                 <option value="">Please Select</option>
                 {fetchData.salesTerritories.map((territory) => (
                   <option key={territory.id} value={territory.id}>
@@ -391,11 +426,14 @@ export default function NewForm() {
                 className="form-select"
                 id="trade_category"
                 name="trade_category"
+                onChange={tradeCategoryChangeHnadler}
               >
-                <option>Energy</option>
-                <option>General Manufacturing</option>
-                <option>Process</option>
-                <option>Inland Marine</option>
+                <option value="">Please Select</option>
+                {fetchData.tradeCategories.map((tradeCategory) => (
+                  <option key={tradeCategory.id} value={tradeCategory.id}>
+                    {tradeCategory.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -409,11 +447,14 @@ export default function NewForm() {
                 className="form-select"
                 id="trade_s_category"
                 name="trade_s_category"
+                onChange={handleChange}
               >
-                <option>Energy</option>
-                <option>General Manufacturing</option>
-                <option>Process</option>
-                <option>Inland Marine</option>
+                <option value="">Please Select</option>
+                {tradeSubCategories.map((subCat) => (
+                  <option key={subCat.id} value={subCat.id}>
+                    {subCat.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -425,6 +466,7 @@ export default function NewForm() {
                     id="special_discount"
                     name="special_discount"
                     type="checkbox"
+                    onChange={handleChange}
                   />
                   <label htmlFor="special_discount">
                     Select if customer is eligible for any specific discount or
@@ -445,13 +487,14 @@ export default function NewForm() {
                 id="remarks"
                 name="remarks"
                 rows="3"
+                onChange={handleChange}
               ></textarea>
             </div>
           </div>
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="button">
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />

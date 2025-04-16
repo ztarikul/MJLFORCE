@@ -8,6 +8,8 @@ use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\Territory;
+use App\Models\TradeCategory;
+use App\Models\TradeSubCategory;
 use Illuminate\Http\Request;
 
 class CmaController extends Controller
@@ -19,7 +21,12 @@ class CmaController extends Controller
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->get();
         $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->get();
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
-
-        return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories], 200);
+        $tradeCategories = TradeCategory::select('id', 'name')->get();
+        $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
+        return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories], 200);
     } 
+
+    public function storeSoldToParty(Request $request){
+        return response()->json($request);
+    }
 }
