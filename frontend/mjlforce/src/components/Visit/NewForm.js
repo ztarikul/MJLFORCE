@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Auth from "../../auth/Auth";
 
 export default function NewForm() {
@@ -18,11 +18,19 @@ export default function NewForm() {
     owner_telephone: null,
     owner_mobile: null,
     owner_email: null,
-    customer_type: null,
+    customer_type: [
+      { id: 1, name: "Domestic", sap_code: "Z001" },
+      { id: 2, name: "Marine Bonded", sap_code: "Z002" },
+      { id: 3, name: "Export(Deemed)", sap_code: "Z002" },
+      { id: 4, name: "Service (Oil Tanker)", sap_code: "Z004" },
+      { id: 6, name: "Service(Rent)", sap_code: "Z005" },
+      { id: 7, name: "OTC", sap_code: "Z011" },
+      { id: 8, name: "Other Customer", sap_code: "Z014" },
+    ],
     territory: null,
     trade_category: null,
     trade_s_category: null,
-    special_discount: false,
+    special_discount: null,
     remarks: null,
   });
 
@@ -41,8 +49,8 @@ export default function NewForm() {
   const [postOffice, setPostOffice] = useState([]);
   const [tradeSubCategories, setTradeSubCategories] = useState([]);
 
-  const fetchFormData = async () => {
-    await http
+  const fetchFormData = useCallback(() => {
+    http
       .get("/visit_new_s2p")
       .then((res) => {
         setFetchdata(res.data);
@@ -50,17 +58,17 @@ export default function NewForm() {
       .catch((res) => {
         console.log(res);
       });
-  };
+  }, [http]);
 
   useEffect(() => {
     fetchFormData();
-  }, []);
+  }, [fetchFormData]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
@@ -385,14 +393,18 @@ export default function NewForm() {
               <label className="form-label" htmlFor="customerType">
                 Customer Type
               </label>
-              <input
-                className="form-control"
+              <select
+                className="form-select"
                 id="customer_type"
-                type="text"
                 name="customer_type"
-                placeholder=""
-                onChange={handleChange}
-              />
+              >
+                <option value="">Please Select</option>
+                {formData.customer_type.map((type) => (
+                  <option key={type.id} value={type.sap_code}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -466,7 +478,6 @@ export default function NewForm() {
                     id="special_discount"
                     name="special_discount"
                     type="checkbox"
-                    checked={formData.special_discount}
                     onChange={handleChange}
                   />
                   <label htmlFor="special_discount">
