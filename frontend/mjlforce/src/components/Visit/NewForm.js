@@ -14,6 +14,7 @@ export default function NewForm() {
     bin: null,
     contact_person: null,
     mobile_co: null,
+    telephone_co: null,
     owner_name: null,
     owner_telephone: null,
     owner_mobile: null,
@@ -319,6 +320,25 @@ export default function NewForm() {
                 type="tel"
                 name="mobile_co"
                 placeholder="Mobile Number"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label
+                className="form-label"
+                htmlFor="mobileNumberOfContactPerson"
+              >
+                Telephone(Contact Person)
+              </label>
+              <input
+                className="form-control"
+                id="mobile_co"
+                type="tel"
+                name="telephone_co"
+                placeholder="Telephone"
                 onChange={handleChange}
               />
             </div>
