@@ -21,8 +21,8 @@ export default function SidebarUser(props) {
         <h6 className="mt-2 f-14 f-w-600">{props.employeeData?.name}</h6>
       </Link>
       <p className="mb-0 font-roboto">
-        {props.employeeData.designation?.name} -{" "}
-        {props.employeeData.business_team?.name}
+        {props.employeeData?.designation?.name} -{" "}
+        {props.employeeData?.business_team?.name}
       </p>
       <ul>
         <li>

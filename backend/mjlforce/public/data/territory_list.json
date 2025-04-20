@@ -1,0 +1,334 @@
+[
+  {
+    "name": "Bagerhat",
+    "sap_code": "000001"
+  },
+  {
+    "name": "Bandarban",
+    "sap_code": "000071"
+  },
+  {
+    "name": "Barguna",
+    "sap_code": "000068"
+  },
+  {
+    "name": "Barishal",
+    "sap_code": "000002"
+  },
+  {
+    "name": "Bhola",
+    "sap_code": "000065"
+  },
+  {
+    "name": "Bogura",
+    "sap_code": "000003"
+  },
+  {
+    "name": "Brahmanbaria",
+    "sap_code": "000004"
+  },
+  {
+    "name": "Chandpur",
+    "sap_code": "000005"
+  },
+  {
+    "name": "Chapai Nawabhganj",
+    "sap_code": "000006"
+  },
+  {
+    "name": "Chattogram",
+    "sap_code": "000007"
+  },
+  {
+    "name": "Chuadanga",
+    "sap_code": "000008"
+  },
+  {
+    "name": "Cox's Bazar",
+    "sap_code": "000061"
+  },
+  {
+    "name": "Cumilla",
+    "sap_code": "000009"
+  },
+  {
+    "name": "Dana Eng.",
+    "sap_code": "000010"
+  },
+  {
+    "name": "Dhaka",
+    "sap_code": "000011"
+  },
+  {
+    "name": "Dhaka",
+    "sap_code": "000012"
+  },
+  {
+    "name": "Dhaka Center",
+    "sap_code": "000013"
+  },
+  {
+    "name": "Dhaka Central",
+    "sap_code": "000014"
+  },
+  {
+    "name": "Dhaka EPZ",
+    "sap_code": "000015"
+  },
+  {
+    "name": "Dhaka North",
+    "sap_code": "000016"
+  },
+  {
+    "name": "Dhaka North I",
+    "sap_code": "000017"
+  },
+  {
+    "name": "Dhaka North II",
+    "sap_code": "000018"
+  },
+  {
+    "name": "Dhaka North III",
+    "sap_code": "000019"
+  },
+  {
+    "name": "Dhaka South",
+    "sap_code": "000020"
+  },
+  {
+    "name": "Dhaka South",
+    "sap_code": "000021"
+  },
+  {
+    "name": "Dhaka South I",
+    "sap_code": "000022"
+  },
+  {
+    "name": "Dhaka South II",
+    "sap_code": "000023"
+  },
+  {
+    "name": "Dhaka South III",
+    "sap_code": "000024"
+  },
+  {
+    "name": "Dhamrai",
+    "sap_code": "000025"
+  },
+  {
+    "name": "Dinajpur",
+    "sap_code": "000026"
+  },
+  {
+    "name": "Faridpur",
+    "sap_code": "000027"
+  },
+  {
+    "name": "Feni",
+    "sap_code": "000028"
+  },
+  {
+    "name": "Gaibandha",
+    "sap_code": "000029"
+  },
+  {
+    "name": "Gazipur",
+    "sap_code": "000030"
+  },
+  {
+    "name": "Gopalganj",
+    "sap_code": "000074"
+  },
+  {
+    "name": "Habiganj",
+    "sap_code": "000031"
+  },
+  {
+    "name": "Jamalpur",
+    "sap_code": "000032"
+  },
+  {
+    "name": "Jessore",
+    "sap_code": "000033"
+  },
+  {
+    "name": "Jhalokati",
+    "sap_code": "000069"
+  },
+  {
+    "name": "Jhinaidah",
+    "sap_code": "000034"
+  },
+  {
+    "name": "Joypurhat",
+    "sap_code": "000083"
+  },
+  {
+    "name": "Khagrachhari",
+    "sap_code": "000072"
+  },
+  {
+    "name": "Khulna",
+    "sap_code": "000035"
+  },
+  {
+    "name": "Khulna",
+    "sap_code": "000036"
+  },
+  {
+    "name": "Kishoreganj",
+    "sap_code": "000037"
+  },
+  {
+    "name": "Kurigram",
+    "sap_code": "000064"
+  },
+  {
+    "name": "Kushtia",
+    "sap_code": "000038"
+  },
+  {
+    "name": "Lalmonirhat",
+    "sap_code": "000081"
+  },
+  {
+    "name": "Laxmipur",
+    "sap_code": "000063"
+  },
+  {
+    "name": "Madaripur",
+    "sap_code": "000075"
+  },
+  {
+    "name": "Magura",
+    "sap_code": "000067"
+  },
+  {
+    "name": "Manikganj",
+    "sap_code": "000039"
+  },
+  {
+    "name": "Meherpur",
+    "sap_code": "000040"
+  },
+  {
+    "name": "Mongla",
+    "sap_code": "000041"
+  },
+  {
+    "name": "Moulabibazar",
+    "sap_code": "000042"
+  },
+  {
+    "name": "Munshiganj",
+    "sap_code": "000043"
+  },
+  {
+    "name": "Mymensingh",
+    "sap_code": "000044"
+  },
+  {
+    "name": "Naogaon",
+    "sap_code": "000045"
+  },
+  {
+    "name": "Narail",
+    "sap_code": "000066"
+  },
+  {
+    "name": "Narayanganj",
+    "sap_code": "000046"
+  },
+  {
+    "name": "Narsingdi",
+    "sap_code": "000047"
+  },
+  {
+    "name": "Natore",
+    "sap_code": "000048"
+  },
+  {
+    "name": "Netrokona",
+    "sap_code": "000078"
+  },
+  {
+    "name": "Nilphamari",
+    "sap_code": "000049"
+  },
+  {
+    "name": "Noakhali",
+    "sap_code": "000050"
+  },
+  {
+    "name": "Pabna",
+    "sap_code": "000051"
+  },
+  {
+    "name": "Panchagarh",
+    "sap_code": "000080"
+  },
+  {
+    "name": "Patuakhali",
+    "sap_code": "000052"
+  },
+  {
+    "name": "Pirojpur",
+    "sap_code": "000070"
+  },
+  {
+    "name": "Rajbari",
+    "sap_code": "000062"
+  },
+  {
+    "name": "Rajshahi",
+    "sap_code": "000053"
+  },
+  {
+    "name": "Rangamati",
+    "sap_code": "000073"
+  },
+  {
+    "name": "Rangpur",
+    "sap_code": "000054"
+  },
+  {
+    "name": "Satkhira",
+    "sap_code": "000077"
+  },
+  {
+    "name": "Savar",
+    "sap_code": "000055"
+  },
+  {
+    "name": "Shariatpur",
+    "sap_code": "000076"
+  },
+  {
+    "name": "Shirajganj",
+    "sap_code": "000056"
+  },
+  {
+    "name": "Sirajganj",
+    "sap_code": "000082"
+  },
+  {
+    "name": "Sunamganj",
+    "sap_code": "000057"
+  },
+  {
+    "name": "Sylhet",
+    "sap_code": "000058"
+  },
+  {
+    "name": "Tangail",
+    "sap_code": "000059"
+  },
+  {
+    "name": "Thakurgaon",
+    "sap_code": "000079"
+  },
+  {
+    "name": "Tongi",
+    "sap_code": "000060"
+  }
+]

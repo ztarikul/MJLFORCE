@@ -178,7 +178,7 @@ export default function HomePage() {
                   </div>
                   <div className="card-body text-center p-t-0">
                     <h3 className="font-light">
-                      Welcome Back, {employee.name}
+                      Welcome Back, {employee?.name}
                     </h3>
                     <p>
                       {getGreeting()} You haven't started your day on the

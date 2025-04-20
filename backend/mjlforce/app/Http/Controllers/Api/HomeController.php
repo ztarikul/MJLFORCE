@@ -62,9 +62,16 @@ class HomeController extends Controller
     }
 
     public function attendanceHistory(){
-
-        $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
-        $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->get();
+        $attendanceHistory = [];
+        try{
+            $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
+            if(!empty($employee)){
+                $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->get();
+            }
+        }catch(Exception $e){
+            
+        }
+        
 
         return response()->json($attendanceHistory);
     }

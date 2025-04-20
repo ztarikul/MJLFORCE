@@ -89,6 +89,8 @@ return new class extends Migration
             $table->foreignId('loc_post_office_id')->nullable()->constrained();//non sap
             
             $table->string('image')->nullable();
+            $table->decimal('lat', 9, 6)->nullable();
+            $table->decimal('long', 9, 6)->nullable();
             $table->foreignId('employee_id')->constrained();
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
             $table->integer('status')->default(0);
