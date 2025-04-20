@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('trade_sub_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId('trade_category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('trade_category_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('code')->unique()->nullable();
             $table->string('sap_code')->unique()->nullable();
             $table->string('description')->nullable();

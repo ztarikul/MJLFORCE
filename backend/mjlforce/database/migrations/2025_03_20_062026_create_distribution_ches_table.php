@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('distribution_ches', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId('customer_group_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('code')->unique()->nullable();
             $table->string('sap_code')->unique()->nullable();
             $table->string('description')->nullable();

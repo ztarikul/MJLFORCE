@@ -14,7 +14,7 @@ class TerritoriesSeeder extends Seeder
     public function run(): void
     {
         //
-        $json = file_get_contents(public_path('data/territoty_list.json'));
+        $json = file_get_contents(public_path('data/territory_list.json'));
         $data = json_decode($json, true);
 
         foreach($data as $territory){

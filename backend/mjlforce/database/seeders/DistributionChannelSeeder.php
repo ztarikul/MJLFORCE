@@ -17,47 +17,47 @@ class DistributionChannelSeeder extends Seeder
             [
                 'name' => "Industrial",
                 'sap_code' => "10",
-                'customer_group_id' => 1
+                
             ],
             [
                 'name' => "Direct",
                 'sap_code' => "15",
-                'customer_group_id' => 2
+                
             ],
             [
                 'name' => "Distributor",
                 'sap_code' => "14",
-                'customer_group_id' => 3
+                
             ],
             [
                 'name' => "Export-Deemed",
                 'sap_code' => "20",
-                'customer_group_id' => 4
+                
             ],
             [
                 'name' => "Export",
-                'sap_code' => "10",
-                'customer_group_id' => 5
+                'sap_code' => null,
+                
             ],
             [
                 'name' => "Marine",
-                'sap_code' => 6
+                'sap_code' => "30"
             ],
             [
                 'name' => "Retail Offline",
-                'sap_code' => 7
+                'sap_code' => "11"
             ],
             [
                 'name' => "Wholesale",
-                'sap_code' => 8
+                'sap_code' => "13"
             ],
             [
                 'name' => "Retail Online",
-                'sap_code' => 9
+                'sap_code' => "12"
             ],
             [
                 'name' => "MJL Online",
-                'sap_code' => 9
+                'sap_code' => "16"
             ]
         ];
 
