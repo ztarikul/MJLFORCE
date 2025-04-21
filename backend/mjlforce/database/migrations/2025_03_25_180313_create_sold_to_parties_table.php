@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('sold_to_parties', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_code')->nullable()->unique()->comment('KNA1-KUNNR'); // 11 series Number from sap
-            $table->integer('customer_acc_group')->nullable()->comment('KNA1-KTOKD'); // Z001 = s2p Z009 = sh2p
+            $table->string('customer_acc_group')->nullable()->comment('KNA1-KTOKD'); // Z001 = s2p Z009 = sh2p
             $table->integer('company_code')->nullable()->comment('KNB1-BUKRS'); 
             $table->integer('sales_org')->nullable()->comment('KNVV-VKORG'); //1100
             $table->integer('distribution_ch')->nullable()->comment('KNVV-VTWEG');
-            $table->integer('sales_division')->nullable()->comment('KNVV-SPART'); // 00 => common 
+            $table->string('sales_division')->nullable()->comment('KNVV-SPART'); // 00 => common 
 
 
             $table->string('acc_name', 40)->nullable()->comment('ADRC-NAME1');
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('legacy_acc_code')->nullable()->comment('BUTOOO-BPEXT'); //External BP number
             $table->string('country')->nullable()->comment('ADRC-COUNTRY');
             $table->unsignedInteger('region')->nullable()->comment('ADRC-REGION');
-            $table->foreignId('region_id')->constrained();
+            $table->foreignId('region_id')->nullable()->constrained();
 
             $table->string('district')->nullable()->comment('ADRC-CITY1');
 
@@ -91,7 +91,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->decimal('lat', 9, 6)->nullable();
             $table->decimal('long', 9, 6)->nullable();
-            $table->foreignId('employee_id')->constrained();
+            $table->foreignId('employee_id')->nullable()->constrained();
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
             $table->integer('status')->default(0);
             $table->boolean('activeStatus')->default(1);

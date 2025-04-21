@@ -72,7 +72,7 @@ class CmaController extends Controller
             $soldToParty->region = null;
             $soldToParty->region_id = null;
             $soldToParty->district = LocDistrict::find($request->loc_district)->name;
-            $soldToParty->address = $request->address;
+            $soldToParty->address = $request->office_address;
             $soldToParty->ceo = $request->ceo;
             // $soldToParty->address_2 = $request->address_2;
             // $soldToParty->address_3 = $request->address_3; // rest address after 60 char
@@ -107,7 +107,7 @@ class CmaController extends Controller
             $soldToParty->territory = Territory::find($request->territory)->name;
             $soldToParty->territory_id = $request->territory; //non sap
 
-            $soldToParty->customer_group = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->csutomerGroup->sap_code;
+            $soldToParty->customer_group = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->customerGroup()->first()->sap_code;
             $soldToParty->trade_category = TradeCategory::find($request->trade_category)->sap_code;
             $soldToParty->trade_sub_category = TradeSubCategory::find($request->trade_s_category)->sap_code;
             // $soldToParty->customer_group_3 = $request->customer_group_3;
@@ -119,14 +119,14 @@ class CmaController extends Controller
             // $soldToParty->attr_4 = $request->attr_4;
             // $soldToParty->factory_address_2 = $request->factory_address_2;
 
-            $soldToParty->loc_division_id = $request->loc_division_id;
-            $soldToParty->loc_district_id = $request->loc_district_id;
-            $soldToParty->loc_upazila_id = $request->loc_upazila_id;
-            $soldToParty->loc_post_office_id = $request->loc_post_office_id;
+            $soldToParty->loc_division_id = $request->loc_division;
+            $soldToParty->loc_district_id = $request->loc_district;
+            $soldToParty->loc_upazila_id = $request->loc_upazila;
+            $soldToParty->loc_post_office_id = $request->post_office;
             $soldToParty->image = $request->image;
             $soldToParty->lat = $request->lat;
             $soldToParty->long = $request->long;
-            $soldToParty->employee_id =  auth()->user()->employee->sap_code;
+            $soldToParty->employee_id =  null;
 
 
             // $soldToParty->remarks = $request->remarks;
