@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('sold_to_party_sales_areas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sold_to_party_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('distribution_ch_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('customer_group_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('trade_category_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('trade_sub_category_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
-            
             $table->timestamps();
         });
     }

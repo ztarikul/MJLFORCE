@@ -19,15 +19,7 @@ export default function NewForm() {
     owner_telephone: null,
     owner_mobile: null,
     owner_email: null,
-    customer_type: [
-      { id: 1, name: "Domestic", sap_code: "Z001" },
-      { id: 2, name: "Marine Bonded", sap_code: "Z002" },
-      { id: 3, name: "Export(Deemed)", sap_code: "Z002" },
-      { id: 4, name: "Service (Oil Tanker)", sap_code: "Z004" },
-      { id: 6, name: "Service(Rent)", sap_code: "Z005" },
-      { id: 7, name: "OTC", sap_code: "Z011" },
-      { id: 8, name: "Other Customer", sap_code: "Z014" },
-    ],
+    customer_type: null,
     territory: null,
     trade_category: null,
     trade_s_category: null,
@@ -43,6 +35,7 @@ export default function NewForm() {
     salesTerritories: [],
     tradeCategories: [],
     tradeSubCategories: [],
+    customerTypes: [],
   });
 
   const [districts, setDistricts] = useState([]);
@@ -54,16 +47,17 @@ export default function NewForm() {
     http
       .get("/visit_new_s2p")
       .then((res) => {
+        console.log(res.data);
         setFetchdata(res.data);
       })
       .catch((res) => {
         console.log(res);
       });
-  }, [http]);
+  }, []);
 
   useEffect(() => {
     fetchFormData();
-  }, [fetchFormData]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -136,6 +130,13 @@ export default function NewForm() {
       (subCat) => subCat.trade_category_id === selectedId
     );
     setTradeSubCategories(selectedtradeSubCategories);
+  };
+  const customerTypeHandler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -417,9 +418,10 @@ export default function NewForm() {
                 className="form-select"
                 id="customer_type"
                 name="customer_type"
+                onChange={handleChange}
               >
                 <option value="">Please Select</option>
-                {formData.customer_type.map((type) => (
+                {fetchData.customerTypes.map((type) => (
                   <option key={type.id} value={type.sap_code}>
                     {type.name}
                   </option>
