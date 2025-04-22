@@ -127,9 +127,9 @@ class CmaController extends Controller
             $soldToParty->lat = $request->lat;
             $soldToParty->long = $request->long;
             $soldToParty->employee_id =  null;
+            $soldToParty->is_eligible_discount = $request->special_discount === "on" ? true : false;
 
-
-            // $soldToParty->remarks = $request->remarks;
+            $soldToParty->remarks = $request->remarks;
             $soldToParty->created_by = auth()->user()->id;
             $soldToParty->hostname = gethostname();
             $soldToParty->save();

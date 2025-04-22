@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Auth from "../../auth/Auth";
+import Swal from "sweetalert2";
 
 export default function NewForm() {
   const { http } = Auth();
@@ -57,7 +58,7 @@ export default function NewForm() {
 
   useEffect(() => {
     fetchFormData();
-  }, []);
+  }, [fetchFormData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,15 +70,55 @@ export default function NewForm() {
 
   const formSubmit = async (e) => {
     e.preventDefault();
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to submit the form?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "Cancel",
+    });
 
-    http
-      .post("/store_s2p", formData)
-      .then((res) => {
-        console.log(res.data); // Handle success response
-      })
-      .catch((error) => {
-        console.error(error); // Handle error response
-      });
+    if (result.isConfirmed) {
+      http
+        .post("/store_s2p", formData)
+        .then((res) => {
+          console.log(res.data); // Handle success response
+          Swal.fire({
+            title: "Submitted!",
+            text: "Your form has been submitted.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          setFormData({
+            account_name: "",
+            group: "",
+            office_address: "",
+            loc_division: "",
+            loc_district: "",
+            loc_thana: "",
+            post_office: "",
+            bin: "",
+            contact_person: "",
+            mobile_co: "",
+            telephone_co: "",
+            owner_name: "",
+            owner_telephone: "",
+            owner_mobile: "",
+            owner_email: "",
+            customer_type: "",
+            territory: "",
+            trade_category: "",
+            trade_s_category: "",
+            special_discount: "",
+            remarks: "",
+          });
+        })
+        .catch((error) => {
+          console.error(error); // Handle error response
+        });
+    }
   };
 
   const divisionChangeHnadler = (event) => {
@@ -153,6 +194,7 @@ export default function NewForm() {
                 id="account_name"
                 type="text"
                 name="account_name"
+                value={formData.account_name}
                 placeholder="xyz group limited"
                 onChange={handleChange}
               />
@@ -169,6 +211,7 @@ export default function NewForm() {
                 id="group"
                 type="text"
                 name="group"
+                value={formData.group}
                 placeholder="Group"
                 onChange={handleChange}
               />
@@ -185,6 +228,7 @@ export default function NewForm() {
                 id="office_address"
                 type="text"
                 name="office_address"
+                value={formData.office_address}
                 placeholder="Office Address"
                 onChange={handleChange}
               />
@@ -200,6 +244,7 @@ export default function NewForm() {
                 className="form-select"
                 id="loc_division"
                 name="loc_division"
+                value={formData.loc_division}
                 onChange={divisionChangeHnadler}
               >
                 <option value="">Please Select</option>
@@ -221,6 +266,7 @@ export default function NewForm() {
                 className="form-select"
                 id="loc_district"
                 name="loc_district"
+                value={formData.loc_district}
                 onChange={districtChangeHnadler}
               >
                 <option value="">Please Select</option>
@@ -242,6 +288,7 @@ export default function NewForm() {
                 className="form-select"
                 id="loc_thana"
                 name="loc_thana"
+                value={formData.loc_thana}
                 onChange={upazilaChangeHnadler}
               >
                 <option value="">Please Select</option>
@@ -263,6 +310,7 @@ export default function NewForm() {
                 className="form-select"
                 id="post_office"
                 name="post_office"
+                value={formData.post_office}
                 onChange={handleChange}
               >
                 <option value="">Please Select</option>
@@ -285,6 +333,7 @@ export default function NewForm() {
                 id="bin"
                 type="text"
                 name="bin"
+                value={formData.bin}
                 placeholder="BIN Number"
                 onChange={handleChange}
               />
@@ -302,6 +351,7 @@ export default function NewForm() {
                 type="text"
                 name="contact_person"
                 placeholder="C/O"
+                value={formData.contact_person}
                 onChange={handleChange}
               />
             </div>
@@ -320,6 +370,7 @@ export default function NewForm() {
                 id="mobile_co"
                 type="tel"
                 name="mobile_co"
+                value={formData.mobile_co}
                 placeholder="Mobile Number"
                 onChange={handleChange}
               />
@@ -339,6 +390,7 @@ export default function NewForm() {
                 id="mobile_co"
                 type="tel"
                 name="telephone_co"
+                value={formData.telephone_co}
                 placeholder="Telephone"
                 onChange={handleChange}
               />
@@ -355,6 +407,7 @@ export default function NewForm() {
                 id="owner_name"
                 type="text"
                 name="owner_name"
+                value={formData.owner_name}
                 placeholder=""
                 onChange={handleChange}
               />
@@ -371,6 +424,7 @@ export default function NewForm() {
                 id="owner_telephone"
                 type="text"
                 name="owner_telephone"
+                value={formData.owner_telephone}
                 placeholder="Owner Telephone"
                 onChange={handleChange}
               />
@@ -387,6 +441,7 @@ export default function NewForm() {
                 id="owner_mobile"
                 type="text"
                 name="owner_mobile"
+                value={formData.owner_mobile}
                 placeholder="Owner Mobile"
                 onChange={handleChange}
               />
@@ -403,6 +458,7 @@ export default function NewForm() {
                 id="owner_email"
                 type="text"
                 name="owner_email"
+                value={formData.owner_email}
                 placeholder="Owner Email"
                 onChange={handleChange}
               />
@@ -418,6 +474,7 @@ export default function NewForm() {
                 className="form-select"
                 id="customer_type"
                 name="customer_type"
+                value={formData.customer_type}
                 onChange={handleChange}
               >
                 <option value="">Please Select</option>
@@ -439,6 +496,7 @@ export default function NewForm() {
                 className="form-select"
                 id="territory"
                 name="territory"
+                value={formData.territory}
                 onChange={handleChange}
               >
                 <option value="">Please Select</option>
@@ -460,6 +518,7 @@ export default function NewForm() {
                 className="form-select"
                 id="trade_category"
                 name="trade_category"
+                value={formData.trade_category}
                 onChange={tradeCategoryChangeHnadler}
               >
                 <option value="">Please Select</option>
@@ -481,6 +540,7 @@ export default function NewForm() {
                 className="form-select"
                 id="trade_s_category"
                 name="trade_s_category"
+                value={formData.trade_s_category}
                 onChange={handleChange}
               >
                 <option value="">Please Select</option>
@@ -500,6 +560,7 @@ export default function NewForm() {
                     id="special_discount"
                     name="special_discount"
                     type="checkbox"
+                    value={formData.special_discount}
                     onChange={handleChange}
                   />
                   <label htmlFor="special_discount">
@@ -521,6 +582,7 @@ export default function NewForm() {
                 id="remarks"
                 name="remarks"
                 rows="3"
+                value={formData.remarks}
                 onChange={handleChange}
               ></textarea>
             </div>
