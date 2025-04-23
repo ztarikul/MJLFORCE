@@ -14,6 +14,8 @@ import PageLoader from "../utils/PageLoader";
 import Swal from "sweetalert2";
 import { getCurrentLocation } from "../utils/getCurrentLocation";
 
+import TargetCharts from "../components/Charts/TargetCharts";
+
 export default function HomePage() {
   const { http, logout } = Auth();
   const [employee, setEmployee] = useState({});
@@ -256,6 +258,9 @@ export default function HomePage() {
             )}
           </Fragment>
 
+          <div className="col-xs-6 col-xl-3 col-lg-6">
+            <TargetCharts />
+          </div>
           <div className="col-xs-6 col-xl-3 col-lg-6">
             <Link to="/visit">
               <div className="card o-hidden border-0">

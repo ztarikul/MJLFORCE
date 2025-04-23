@@ -628,7 +628,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -637,7 +637,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2025_03_17_063252_create_permission_tables',1),(5,'2025_03_17_070232_create_personal_access_tokens_table',1),(6,'2025_03_20_051500_create_loc_divisions_table',1),(7,'2025_03_20_051501_create_loc_districts_table',1),(8,'2025_03_20_051502_create_loc_upazilas_table',1),(9,'2025_03_20_051503_create_loc_post_offices_table',1),(10,'2025_03_20_051515_create_designations_table',1),(11,'2025_03_20_055435_create_business_teams_table',1),(12,'2025_03_20_062025_create_customer_groups_table',1),(13,'2025_03_20_062026_create_distribution_ches_table',1),(14,'2025_03_20_062027_create_regions_table',1),(15,'2025_03_20_062733_create_territories_table',1),(16,'2025_03_20_062734_create_territory_districts_table',1),(17,'2025_03_20_063314_create_trade_categories_table',1),(18,'2025_03_20_063315_create_trade_sub_categories_table',1),(19,'2025_03_20_063316_create_customer_types_table',1),(20,'2025_03_20_063518_create_complaint_types_table',1),(21,'2025_03_20_063743_create_visit_purposes_table',1),(22,'2025_03_24_162521_create_employees_table',1),(23,'2025_03_25_052354_create_attendance_histories_table',1),(24,'2025_03_25_180313_create_sold_to_parties_table',1),(25,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(26,'2025_04_13_111335_create_lead_stages_table',1),(27,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(29,'2025_04_20_175501_create_sold_to_party_sales_areas_table',2);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2025_03_17_063252_create_permission_tables',1),(5,'2025_03_17_070232_create_personal_access_tokens_table',1),(6,'2025_03_20_051500_create_loc_divisions_table',1),(7,'2025_03_20_051501_create_loc_districts_table',1),(8,'2025_03_20_051502_create_loc_upazilas_table',1),(9,'2025_03_20_051503_create_loc_post_offices_table',1),(10,'2025_03_20_051515_create_designations_table',1),(11,'2025_03_20_055435_create_business_teams_table',1),(12,'2025_03_20_062025_create_customer_groups_table',1),(13,'2025_03_20_062026_create_distribution_ches_table',1),(14,'2025_03_20_062027_create_regions_table',1),(15,'2025_03_20_062733_create_territories_table',1),(16,'2025_03_20_062734_create_territory_districts_table',1),(17,'2025_03_20_063314_create_trade_categories_table',1),(18,'2025_03_20_063315_create_trade_sub_categories_table',1),(19,'2025_03_20_063316_create_customer_types_table',1),(36,'2025_03_20_063518_create_complaint_types_table',2),(37,'2025_03_20_063743_create_visit_purposes_table',2),(38,'2025_03_24_162521_create_employees_table',2),(39,'2025_03_25_052354_create_attendance_histories_table',2),(40,'2025_03_25_180313_create_sold_to_parties_table',2),(41,'2025_04_01_171655_create_sold_to_party_process_logs_table',2),(42,'2025_04_13_111335_create_lead_stages_table',2),(43,'2025_04_13_111340_create_sold_to_party_lead_logs_table',2),(44,'2025_04_20_175501_create_sold_to_party_sales_areas_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -906,11 +906,11 @@ DROP TABLE IF EXISTS `sold_to_parties`;
 CREATE TABLE `sold_to_parties` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `customer_code` int DEFAULT NULL COMMENT 'KNA1-KUNNR',
-  `customer_acc_group` int DEFAULT NULL COMMENT 'KNA1-KTOKD',
+  `customer_acc_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1-KTOKD',
   `company_code` int DEFAULT NULL COMMENT 'KNB1-BUKRS',
   `sales_org` int DEFAULT NULL COMMENT 'KNVV-VKORG',
   `distribution_ch` int DEFAULT NULL COMMENT 'KNVV-VTWEG',
-  `sales_division` int DEFAULT NULL COMMENT 'KNVV-SPART',
+  `sales_division` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-SPART',
   `acc_name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-NAME1',
   `acc_name2` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-NAME2',
   `search_term` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-SORT1',
@@ -918,7 +918,7 @@ CREATE TABLE `sold_to_parties` (
   `legacy_acc_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BUTOOO-BPEXT',
   `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-COUNTRY',
   `region` int unsigned DEFAULT NULL COMMENT 'ADRC-REGION',
-  `region_id` bigint unsigned NOT NULL,
+  `region_id` bigint unsigned DEFAULT NULL,
   `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-CITY1',
   `address` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STREET',
   `ceo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-NAME_CO',
@@ -970,8 +970,10 @@ CREATE TABLE `sold_to_parties` (
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lat` decimal(9,6) DEFAULT NULL,
   `long` decimal(9,6) DEFAULT NULL,
-  `employee_id` bigint unsigned NOT NULL,
+  `employee_id` bigint unsigned DEFAULT NULL,
   `status` int NOT NULL DEFAULT '0',
+  `remarks` text COLLATE utf8mb4_unicode_ci,
+  `is_eligible_discount` tinyint(1) NOT NULL DEFAULT '0',
   `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int DEFAULT NULL,
   `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -997,7 +999,7 @@ CREATE TABLE `sold_to_parties` (
   CONSTRAINT `sold_to_parties_loc_upazila_id_foreign` FOREIGN KEY (`loc_upazila_id`) REFERENCES `loc_upazilas` (`id`),
   CONSTRAINT `sold_to_parties_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`),
   CONSTRAINT `sold_to_parties_territory_id_foreign` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1006,6 +1008,7 @@ CREATE TABLE `sold_to_parties` (
 
 LOCK TABLES `sold_to_parties` WRITE;
 /*!40000 ALTER TABLE `sold_to_parties` DISABLE KEYS */;
+INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z001',1100,1100,10,'00','test customer',NULL,NULL,NULL,NULL,'BD',NULL,NULL,'Gazipur','Gazipur Chowrasta, Dhaka',NULL,NULL,NULL,NULL,'3665765','123123',NULL,'test@test.com',NULL,'1122','mr ceo','23423','234234','xyz',NULL,'1312312',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dhaka',15,'01','001','001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,1,NULL,NULL,NULL,NULL,0,'test remarks',1,1,1,'HQ-IT-MPC-Zihad','2025-04-22 04:46:48','2025-04-22 04:46:48',NULL),(4,NULL,'Z001',1100,1100,10,'00','tesasd',NULL,NULL,NULL,NULL,'BD',NULL,NULL,'Gazipur','fdg',NULL,NULL,NULL,NULL,'366576532','1231232',NULL,'tes2t@test.com',NULL,'1122','asd','2342323','23423423','asda',NULL,'131231223',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Gazipur',32,'01','001','001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,1,NULL,NULL,NULL,NULL,0,'bdgbsd',1,1,1,'HQ-IT-MPC-Zihad','2025-04-22 05:08:58','2025-04-22 05:08:58',NULL),(5,NULL,'Z001',1100,1100,10,'00','new test',NULL,NULL,NULL,NULL,'BD',NULL,NULL,'Gazipur','Gazipur Chowrasta, Dhaka',NULL,NULL,NULL,NULL,'565','565',NULL,'terea@gmail.com',NULL,'1122','Mr ceo','3556','565','er',NULL,'435255',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Gazipur',32,'01','001','002',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,1,NULL,NULL,NULL,NULL,0,'etert',0,1,1,'HQ-IT-MPC-Zihad','2025-04-22 07:58:23','2025-04-22 07:58:23',NULL),(6,NULL,'Z002',1100,1100,10,'00','test3',NULL,NULL,NULL,NULL,'BD',NULL,NULL,'Gazipur','Gazipur Chowrasta, Dhaka',NULL,NULL,NULL,NULL,'787','787',NULL,'78@test.com',NULL,'1122','Mr ceo','787','787','asda',NULL,'788',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Gazipur',32,'01','001','002',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,1,NULL,NULL,NULL,NULL,0,'fsgs',0,1,1,'HQ-IT-MPC-Zihad','2025-04-22 08:07:18','2025-04-22 08:07:18',NULL),(7,NULL,'Z001',1100,1100,10,'00','test add',NULL,NULL,NULL,NULL,'BD',NULL,NULL,'Gazipur','123456789012345678901234567890123456789012345678901234567890',NULL,'1234567890123456789012345678901234567890','1234567890123456789012345678901234567890',NULL,'333','333',NULL,'add@test.com',NULL,'1122','add','444','333','add',NULL,'333',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dhaka',15,'01','001','001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL,1,NULL,NULL,NULL,NULL,0,'add',1,1,1,'HQ-IT-MPC-Zihad','2025-04-23 04:22:47','2025-04-23 04:22:47',NULL);
 /*!40000 ALTER TABLE `sold_to_parties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1340,4 +1343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-21 17:52:56
+-- Dump completed on 2025-04-23 16:56:09
