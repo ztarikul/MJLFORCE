@@ -27,3 +27,25 @@ if (! function_exists('getReverseGeoLocation')) {
     }
 }
 
+function splitByLastCharBeforeLimit($string, $limit, $char) {
+    if (strlen($string) <= $limit) {
+        return [$string, ''];
+    }
+
+    // Get the substring up to the limit
+    $snippet = substr($string, 0, $limit);
+
+    // Find the position of the last comma
+    $lastCommaPos = strrpos($snippet, $char);
+
+    if ($lastCommaPos === false) {
+        // No comma found, just split at the limit
+        return [substr($string, 0, $limit), substr($string, $limit)];
+    }
+
+    // Split at the last comma
+    $firstPart = substr($string, 0, $lastCommaPos);
+    $secondPart = ltrim(substr($string, $lastCommaPos + 1)); // trim leading space
+    return [$firstPart, $secondPart];
+}
+

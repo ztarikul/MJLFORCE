@@ -72,10 +72,13 @@ class CmaController extends Controller
             $soldToParty->region = null;
             $soldToParty->region_id = null;
             $soldToParty->district = LocDistrict::find($request->loc_district)->name;
-            $soldToParty->address = $request->office_address;
+            list($address1, $address2) = splitByLastCharBeforeLimit($request->office_address, 60, ",");
+            $soldToParty->address = $address1;
             $soldToParty->ceo = $request->ceo;
-            // $soldToParty->address_2 = $request->address_2;
-            // $soldToParty->address_3 = $request->address_3; // rest address after 60 char
+            list($address2, $address3) = splitByLastCharBeforeLimit($address2, 40, ",");
+            $soldToParty->address_2 = $address2;
+            list($address3, $address4) = splitByLastCharBeforeLimit($address3, 40, ",");
+            $soldToParty->address_3 = $address3; // rest address after 60 char
             // $soldToParty->lang = null;
             $soldToParty->phone = $request->owner_telephone;
             $soldToParty->mobile_phone = $request->owner_mobile;
