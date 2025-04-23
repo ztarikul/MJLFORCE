@@ -1,65 +1,75 @@
 import React from "react";
 import Chart from "react-apexcharts";
 export default function TargetCharts() {
-  const options = {
+  const chartOptions = {
     chart: {
-      height: 350,
-      type: "line",
+      type: "bar",
     },
-    stroke: {
-      width: [0, 4],
-    },
-    title: {
-      text: "Sales + Target",
+    plotOptions: {
+      bar: {
+        distributed: true,
+        horizontal: true,
+        columnWidth: "50%",
+        endingShape: "rounded",
+      },
     },
     dataLabels: {
-      enabled: true,
-      enabledOnSeries: [1], // enable only on line (with markers)
+      enabled: true, // This enables data labels on bars
     },
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    xaxis: {
-      type: "category",
-    },
-    markers: {
-      size: 6,
-      colors: ["#FF4560"],
-      strokeColors: "#fff",
-      strokeWidth: 2,
-      hover: {
-        size: 8,
-      },
-    },
-    yaxis: [
-      {
-        title: {
-          text: "Sales",
-        },
-      },
-      {
-        opposite: true,
-        title: {
-          text: "Target",
-        },
-      },
+    colors: [
+      "#FF4560",
+      "#00E396",
+      "#FEB019",
+      "#00E396",
+      "#00E396",
+      "#00E396",
+      "#00E396",
+      "#00E396",
+      "#00E396",
+      "#00E396",
+      "#00E396",
+      "#00E396",
     ],
+    xaxis: {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sept",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+    },
+    title: {
+      text: "Sales vs Target Achievement (%) 2025",
+      align: "center",
+    },
+    legend: {
+      show: false, // Disable the legend
+    },
   };
 
-  const series = [
+  const chartSeries = [
     {
       name: "Sales",
-      type: "column",
-      data: [539226, 378762, 462345, 401372, 583084, 708446],
-    },
-    {
-      name: "Target",
-      type: "line",
-      data: [239419, 239419, 239419, 239419, 239419, 239419],
+      data: [85, 65, 80, 71, 96, 78, 0, 0, 0, 0, 0, 0],
     },
   ];
 
   return (
-    <div className="w-full max-w-xl mx-auto">
-      <Chart options={options} series={series} type="line" height={350} />
+    <div className="p-4">
+      <Chart
+        options={chartOptions}
+        series={chartSeries}
+        type="bar"
+        height={350}
+      />
     </div>
   );
 }
