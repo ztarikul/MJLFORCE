@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('loc_upazilas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('loc_district_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('bn_name')->nullable();
             $table->boolean('activeStatus')->default(true);
             $table->timestamps();

@@ -63,8 +63,9 @@ class CmaController extends Controller
             $soldToParty->sales_org = "1100";	
             $soldToParty->distribution_ch = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->distributionCh->sap_code ;   
             $soldToParty->sales_division = "00";    //Common
-            $soldToParty->acc_name = $request->account_name;
-            // $soldToParty->acc_name2 = $request->name;
+            list($acc_name1, $acc_name2) = splitByLastCharBeforeLimit($request->account_name, 40, " ");
+            $soldToParty->acc_name = $acc_name1;
+            $soldToParty->acc_name2 = $acc_name2;
             // $soldToParty->search_term = $request->name;
             // $soldToParty->search_term2 = $request->name;
             // $soldToParty->legacy_acc_code = null;

@@ -363,10 +363,8 @@ export default function HomePage() {
                       />
                     </div>
                     <div className="media-body">
-                      {/* <span className="m-0">Verify</span> */}
-                      <h4 className="mb-0 counter">
-                        Sales Vs Target Achievement
-                      </h4>
+                      <span className="m-0">Sales Vs Target</span>
+                      <h4 className="mb-0 counter">Achievement</h4>
                       <ApertureIcon
                         className="icon-bg"
                         size={24}
