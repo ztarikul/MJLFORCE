@@ -5,6 +5,7 @@ import LoginPage from "../pages/LoginPage";
 import VisitPage from "../pages/VisitPage";
 import AuthMiddleware from "../middleware/AuthMiddleware";
 import ShipToParty from "../components/ShipToParty/ShipToParty";
+import SalesTarget from "../components/SalesTarget/SalesTarget";
 
 export default function AppRouter(props) {
   const routes = (
@@ -31,6 +32,14 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <ShipToParty />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/sales_target"
+        element={
+          <AuthMiddleware>
+            <SalesTarget />
           </AuthMiddleware>
         }
       />

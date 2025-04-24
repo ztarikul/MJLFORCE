@@ -6,7 +6,8 @@ import checkInLateIcon from "../icons/checkInLate.png";
 import visitIcon from "../icons/visitIcon.png";
 import shipToPartyIcon from "../icons/ship-to-party.png";
 import shipToPartyVerifyIcon from "../icons/ship-to-party-verify.png";
-import reportsIcon from "../icons/reports.png";
+import reportsIcon from "../icons/report.png";
+import salesTarget from "../icons/salesTarget.png";
 import campaignIcon from "../icons/campaign.png";
 import Main from "../components/Main";
 import Auth from "../auth/Auth";
@@ -336,6 +337,36 @@ export default function HomePage() {
                       <span className="m-0">Verify</span>
                       <h4 className="mb-0 counter">SHIP-TO-PARTY</h4>
 
+                      <ApertureIcon
+                        className="icon-bg"
+                        size={24}
+                        color="currentColor"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          <div className="col-xs-6 col-xl-3 col-lg-6">
+            <Link to="/sales_target">
+              <div className="card o-hidden border-0">
+                <div className="bg-primary b-r-4 card-body">
+                  <div className="media static-top-widget">
+                    <div className="align-self-center text-center">
+                      <img
+                        src={salesTarget}
+                        alt="check-in-location"
+                        width="60"
+                        height="60"
+                      />
+                    </div>
+                    <div className="media-body">
+                      {/* <span className="m-0">Verify</span> */}
+                      <h4 className="mb-0 counter">
+                        Sales Vs Target Achievement
+                      </h4>
                       <ApertureIcon
                         className="icon-bg"
                         size={24}
