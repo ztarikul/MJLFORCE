@@ -1,9 +1,13 @@
 import React from "react";
 import Main from "../Main";
+import TargetCharts from "../Charts/TargetCharts";
 
 export default function SalesTarget() {
   return (
     <Main>
+      <div className="col-12 col-xl-12 col-lg-12">
+        <TargetCharts />
+      </div>
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-12">
