@@ -7,6 +7,7 @@ import AuthMiddleware from "../middleware/AuthMiddleware";
 import ShipToParty from "../components/ShipToParty/ShipToParty";
 import SalesTarget from "../components/SalesTarget/SalesTarget";
 import Campaign from "../components/Campaign/Campaign";
+import PromotionalItems from "../components/Campaign/PromotionalItems";
 
 export default function AppRouter(props) {
   const routes = (
@@ -49,6 +50,14 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <Campaign />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/promotional_items"
+        element={
+          <AuthMiddleware>
+            <PromotionalItems />
           </AuthMiddleware>
         }
       />
