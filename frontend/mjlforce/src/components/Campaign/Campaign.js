@@ -17,12 +17,11 @@ export default function Campaign() {
                 to="/promotional_items"
               >
                 <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">50/6 Promotional Offer</h5>
+                  <h5 className="mb-1">Promotional Offer</h5>
                   <small>112 days ago</small>
                 </div>
                 <p className="mb-1">
-                  06 quantity free with 50 quantity. This offer will be valid
-                  with for all Wholesaler
+                  This offer will be valid with for all Wholesaler
                 </p>
                 <small>Duration: 01.01.2025 - 31.12.2025</small>
               </Link>

@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materials', function (Blueprint $table) {
+        Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('sap_code')->nullable()->unique();
-            $table->string('sku')->nullable();
-            $table->string('unit')->nullable();
-            $table->float('l_price')->nullable();
+            $table->string('title');
+            $table->string('sap_code')->nullable();
             $table->string('description')->nullable();
-            $table->boolean('activeStatus')->default(true);
+            $table->date('start_from')->nullable();
+            $table->date('end_to')->nullable();
+            $table->integer('type')->nullable();
+            $table->boolean('activeStatus')->default(1);
             $table->integer('created_by')->nullable();
             $table->string('hostname')->nullable();
             $table->timestamps();
-         
+          
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materials');
+        Schema::dropIfExists('promotions');
     }
 };
