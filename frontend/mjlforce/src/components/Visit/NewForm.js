@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Auth from "../../auth/Auth";
 import Swal from "sweetalert2";
+import { getCurrentLocation } from "../../utils/getCurrentLocation";
 
 export default function NewForm() {
   const { http } = Auth();
@@ -8,24 +9,26 @@ export default function NewForm() {
     account_name: "",
     group: "",
     office_address: "",
-    loc_division: null,
-    loc_district: null,
-    loc_thana: null,
-    post_office: null,
-    bin: null,
-    contact_person: null,
-    mobile_co: null,
-    telephone_co: null,
-    owner_name: null,
-    owner_telephone: null,
-    owner_mobile: null,
-    owner_email: null,
-    customer_type: null,
-    territory: null,
-    trade_category: null,
-    trade_s_category: null,
-    special_discount: null,
-    remarks: null,
+    loc_division: "",
+    loc_district: "",
+    loc_thana: "",
+    post_office: "",
+    bin: "",
+    contact_person: "",
+    mobile_co: "",
+    telephone_co: "",
+    owner_name: "",
+    owner_telephone: "",
+    owner_mobile: "",
+    owner_email: "",
+    customer_type: "",
+    territory: "",
+    trade_category: "",
+    trade_s_category: "",
+    special_discount: "",
+    remarks: "",
+    long: "",
+    lat: "",
   });
 
   const [fetchData, setFetchdata] = useState({
@@ -66,10 +69,26 @@ export default function NewForm() {
       ...prev,
       [name]: value,
     }));
+
+    if (!formData.lat && !formData.long) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          setFormData((prev) => ({
+            ...prev,
+            long: location.longitude,
+            lat: location.latitude,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const formSubmit = async (e) => {
     e.preventDefault();
+
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "Do you want to submit the form?",
@@ -81,7 +100,11 @@ export default function NewForm() {
 
     if (result.isConfirmed) {
       http
-        .post("/store_s2p", formData)
+        .post("/store_s2p", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
           console.log(res.data); // Handle success response
           Swal.fire({
@@ -475,7 +498,7 @@ export default function NewForm() {
                 id="customer_type"
                 name="customer_type"
                 value={formData.customer_type}
-                onChange={handleChange}
+                onChange={customerTypeHandler}
               >
                 <option value="">Please Select</option>
                 {fetchData.customerTypes.map((type) => (

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('sap_code')->nullable()->unique();
             $table->string('sku')->nullable();
             $table->string('unit')->nullable();
-            $table->float('l_price')->nullable();
             $table->string('description')->nullable();
             $table->boolean('activeStatus')->default(true);
             $table->integer('created_by')->nullable();

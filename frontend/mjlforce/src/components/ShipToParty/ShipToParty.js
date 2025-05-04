@@ -1,5 +1,6 @@
 import React from "react";
 import Main from "../Main";
+import { getCurrentLocation } from "../../utils/getCurrentLocation";
 
 export default function ShipToParty() {
   return (

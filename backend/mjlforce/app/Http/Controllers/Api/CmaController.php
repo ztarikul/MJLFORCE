@@ -53,7 +53,7 @@ class CmaController extends Controller
         // ]);
         $msg = "";
         $responseCode = 0;
-        // return response()->json($request);
+        return response()->json($request);
         try{
 
             $soldToParty = new SoldToParty();
