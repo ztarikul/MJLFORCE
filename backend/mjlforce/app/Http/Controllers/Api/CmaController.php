@@ -47,7 +47,11 @@ class CmaController extends Controller
             'loc_division' => 'required',
             'loc_district' => 'required',
             'loc_thana' => 'required',
+<<<<<<< HEAD
             // 'post_office' => 'required',
+=======
+            'post_office' => 'required',
+>>>>>>> c47449096569e83e84d2d1e583e2aa7bc111dc1d
             'bin' => 'required',
             'contact_person' => 'required',
             'mobile_co' => 'required',
