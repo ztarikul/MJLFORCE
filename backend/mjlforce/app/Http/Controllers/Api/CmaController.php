@@ -47,7 +47,7 @@ class CmaController extends Controller
             'loc_division' => 'required',
             'loc_district' => 'required',
             'loc_thana' => 'required',
-            'post_office' => 'required',
+            // 'post_office' => 'required',
             'bin' => 'required',
             'contact_person' => 'required',
             'mobile_co' => 'required',
@@ -95,7 +95,7 @@ class CmaController extends Controller
             // $soldToParty->fax = null;
             $soldToParty->email = $request->owner_email;
             // $soldToParty->other_url = null;
-            $soldToParty->postal_code = LocPostOffice::find($request->post_office)->post_code;
+            $soldToParty->postal_code = $request->post_office ? LocPostOffice::find($request->post_office)->post_code : null;
             $soldToParty->contact_person_name = $request->contact_person;
             $soldToParty->contact_person_tel = $request->telephone_co;
             $soldToParty->contact_person_mobile = $request->mobile_co;
@@ -139,13 +139,13 @@ class CmaController extends Controller
             $soldToParty->image = $request->image;
             $soldToParty->lat = $request->lat;
             $soldToParty->long = $request->long;
-            $soldToParty->employee_id =  null;
+            $soldToParty->employee_id =  auth()->user()->employee->id;
             $soldToParty->is_eligible_discount = $request->special_discount === "on" ? true : false;
 
             $soldToParty->remarks = $request->remarks;
             $soldToParty->created_by = auth()->user()->id;
             $soldToParty->hostname = gethostname();
-            // $soldToParty->save();
+            $soldToParty->save();
   
             $msg = 'Sold To Party created successfully';
         }catch(Exception $e){
