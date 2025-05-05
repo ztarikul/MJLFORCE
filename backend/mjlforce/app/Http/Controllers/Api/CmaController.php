@@ -39,22 +39,31 @@ class CmaController extends Controller
     } 
 
     public function storeSoldToParty(Request $request){
-
-        // $request->validate([
-        //     'name' => 'required',
-        //     'address' => 'required',
-        //     'division_id' => 'required',
-        //     'district_id' => 'required',
-        //     'upazila_id' => 'required',
-        //     'post_office_id' => 'required',
-        //     'territory_id' => 'required',
-        //     'trade_category_id' => 'required',
-        //     'trade_sub_category_id' => 'required',
-        // ]);
         $msg = "";
-        $responseCode = 0;
-        return response()->json($request);
+        
+        $request->validate([
+            'account_name' => 'required',
+            'office_address' => 'required',
+            'loc_division' => 'required',
+            'loc_district' => 'required',
+            'loc_thana' => 'required',
+            'post_office' => 'required',
+            'bin' => 'required',
+            'contact_person' => 'required',
+            'mobile_co' => 'required',
+            'telephone_co' => 'required',
+            'owner_name' => 'required',
+            'owner_telephone' => 'required',
+            'owner_mobile' => 'required',
+            'customer_type' => 'required',
+            'territory' => 'required',
+            'trade_category' => 'required',
+            'trade_s_category' => 'required',
+            'remarks' => 'nullable|string|max:500',
+
+        ]);
         try{
+   
 
             $soldToParty = new SoldToParty();
             $soldToParty->customer_code = null;
@@ -136,19 +145,17 @@ class CmaController extends Controller
             $soldToParty->remarks = $request->remarks;
             $soldToParty->created_by = auth()->user()->id;
             $soldToParty->hostname = gethostname();
-            $soldToParty->save();
-            $responseCode = 201;
+            // $soldToParty->save();
+  
             $msg = 'Sold To Party created successfully';
         }catch(Exception $e){
             $msg = $e->getMessage();
-            $responseCode = 400;
+            
 
         }
         return response()->json([
             'message' => $msg,
-            'soldToParty' => $soldToParty,
-
-        ], $responseCode);
+        ]);
 
 
     }

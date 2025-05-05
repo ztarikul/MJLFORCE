@@ -30,6 +30,7 @@ export default function NewForm() {
     long: "",
     lat: "",
   });
+  const [errors, setErrors] = useState({});
 
   const [fetchData, setFetchdata] = useState({
     divisions: [],
@@ -139,7 +140,10 @@ export default function NewForm() {
           });
         })
         .catch((error) => {
-          console.error(error); // Handle error response
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
         });
     }
   };
@@ -222,6 +226,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.account_name && (
+              <span className="" style={{ color: "red" }}>
+                {errors.account_name[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -239,6 +248,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.group && (
+              <span className="" style={{ color: "red" }}>
+                {errors.group[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -256,6 +270,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.office_address && (
+              <span className="" style={{ color: "red" }}>
+                {errors.office_address[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -278,6 +297,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.loc_division && (
+              <span className="" style={{ color: "red" }}>
+                {errors.loc_division[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -300,6 +324,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.loc_district && (
+              <span className="" style={{ color: "red" }}>
+                {errors.loc_district[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -322,6 +351,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.loc_thana && (
+              <span className="" style={{ color: "red" }}>
+                {errors.loc_thana[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -344,6 +378,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.post_office && (
+              <span className="" style={{ color: "red" }}>
+                {errors.post_office[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -361,6 +400,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.bin && (
+              <span className="" style={{ color: "red" }}>
+                {errors.bin[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -378,6 +422,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.contact_person && (
+              <span className="" style={{ color: "red" }}>
+                {errors.contact_person[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -398,6 +447,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.mobile_co && (
+              <span className="" style={{ color: "red" }}>
+                {errors.mobile_co[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -418,6 +472,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.mobile_co && (
+              <span className="" style={{ color: "red" }}>
+                {errors.mobile_co[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -435,6 +494,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.owner_name && (
+              <span className="" style={{ color: "red" }}>
+                {errors.owner_name[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -452,6 +516,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.owner_telephone && (
+              <span className="" style={{ color: "red" }}>
+                {errors.owner_telephone[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -469,6 +538,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.owner_mobile && (
+              <span className="" style={{ color: "red" }}>
+                {errors.owner_mobile[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -486,6 +560,11 @@ export default function NewForm() {
                 onChange={handleChange}
               />
             </div>
+            {errors.owner_email && (
+              <span className="" style={{ color: "red" }}>
+                {errors.owner_email[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -508,6 +587,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.customer_type && (
+              <span className="" style={{ color: "red" }}>
+                {errors.customer_type[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -530,6 +614,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.territory && (
+              <span className="" style={{ color: "red" }}>
+                {errors.territory[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -552,6 +641,11 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.trade_category && (
+              <span className="" style={{ color: "red" }}>
+                {errors.trade_category[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -574,7 +668,13 @@ export default function NewForm() {
                 ))}
               </select>
             </div>
+            {errors.trade_s_category && (
+              <span className="" style={{ color: "red" }}>
+                {errors.trade_s_category[0]}
+              </span>
+            )}
           </div>
+
           <div className="col-md-4">
             <div className="mb-3">
               <div className="form-group m-t-5 m-checkbox-inline mb-0 custom-radio-ml">
@@ -593,6 +693,11 @@ export default function NewForm() {
                 </div>
               </div>
             </div>
+            {errors.special_discount && (
+              <span className="" style={{ color: "red" }}>
+                {errors.special_discount[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -609,6 +714,11 @@ export default function NewForm() {
                 onChange={handleChange}
               ></textarea>
             </div>
+            {errors.remarks && (
+              <span className="" style={{ color: "red" }}>
+                {errors.remarks[0]}
+              </span>
+            )}
           </div>
         </div>
       </div>
