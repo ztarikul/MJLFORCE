@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Designation;
 use App\Models\BusinessTeam;
 use App\Models\AttendanceHistory;
+use App\Models\SoldToParty;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -26,6 +27,9 @@ class Employee extends Model
         return $this->belongsTo(BusinessTeam::class);
     }
 
+    public function soldToParties(){
+        return $this->hasMany(SoldToParty::class);
+    }
 
     public function attendanceHistory(){
         // return $this->hasMany(Comment::class, 'foreign_key', 'local_key');

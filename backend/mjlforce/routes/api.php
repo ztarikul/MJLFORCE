@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
         Route::get('/visit_new_s2p', [CmaController::class, 'visitNewSoldToPary']);
         Route::post('/store_s2p', [CmaController::class, 'storeSoldToParty']);
+        Route::get('/leads', [HomeController::class, 'leads']);
     });
 
 

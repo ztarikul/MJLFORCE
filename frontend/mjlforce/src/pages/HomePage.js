@@ -10,6 +10,7 @@ import reportsIcon from "../icons/report.png";
 import salesTarget from "../icons/salesTarget.png";
 import campaignIcon from "../icons/campaign.png";
 import complainIcon from "../icons/complain.png";
+import leadsIcon from "../icons/leads.png";
 import Main from "../components/Main";
 import Auth from "../auth/Auth";
 import PageLoader from "../utils/PageLoader";
@@ -19,7 +20,7 @@ import { getCurrentLocation } from "../utils/getCurrentLocation";
 import TargetCharts from "../components/Charts/TargetCharts";
 
 export default function HomePage() {
-  const { http, logout } = Auth();
+  const { http } = Auth();
   const [employee, setEmployee] = useState({});
   const [isStartedDay, setIsStartedDay] = useState({
     in_time: null,
@@ -332,8 +333,37 @@ export default function HomePage() {
                       />
                     </div>
                     <div className="media-body">
-                      <span className="m-0">Verify</span>
+                      <span className="m-0">Verify (2)</span>
                       <h4 className="mb-0 counter">SHIP-TO-PARTY</h4>
+
+                      <ApertureIcon
+                        className="icon-bg"
+                        size={24}
+                        color="currentColor"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          <div className="col-xs-6 col-xl-3 col-lg-6">
+            <Link to="/leads">
+              <div className="card o-hidden border-0">
+                <div className="bg-primary b-r-4 card-body">
+                  <div className="media static-top-widget">
+                    <div className="align-self-center text-center">
+                      <img
+                        src={leadsIcon}
+                        alt="check-in-location"
+                        width="60"
+                        height="60"
+                      />
+                    </div>
+                    <div className="media-body">
+                      <span className="m-0">Customer (2)</span>
+                      <h4 className="mb-0 counter">LEADS </h4>
 
                       <ApertureIcon
                         className="icon-bg"

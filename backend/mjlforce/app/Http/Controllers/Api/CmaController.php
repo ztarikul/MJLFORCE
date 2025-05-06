@@ -8,6 +8,7 @@ use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\SoldToParty;
+use App\Models\SoldToPartyProcessLog;
 use App\Models\SoldToPartySalesArea;
 use App\Models\Territory;
 use App\Models\TradeCategory;
@@ -145,9 +146,20 @@ class CmaController extends Controller
             $soldToParty->remarks = $request->remarks;
             $soldToParty->created_by = auth()->user()->id;
             $soldToParty->hostname = gethostname();
-            // $soldToParty->save();
+            $soldToParty->save();
   
             $msg = 'Sold To Party created successfully';
+
+
+
+            SoldToPartyProcessLog::create([
+                'sold_to_party_id' => $soldToParty->id,
+                'chk_from' => 1,
+                'chk_to' => 2, //Leads
+                'status' => 1,
+                'remarks' => "Leads Processing",
+            ]);
+            
         }catch(Exception $e){
             $msg = $e->getMessage();
             

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sold_to_party_process_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sold_to_party_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            //chk_to / chk_from = [1=> employee, 2=>SV, 3=>MIS, 4=>SAP]
+            //chk_to / chk_from = [1=> employee, 2=> Leads,  3=>SV, 4=>MIS, 5=>SAP]
             $table->integer('chk_from')->nullable();
             $table->integer('chk_to')->nullable();
             // status [1=> pending, 2=> approved. 3 => rejected];
