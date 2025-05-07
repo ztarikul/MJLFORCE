@@ -79,11 +79,11 @@ class HomeController extends Controller
     public function leads(){
        $leads = [];
         try{
-            $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
+            $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
             if(!empty($employee)){
                 $leads =  $employee->soldToParties()->whereHas('processLogs',  function($query){
                     $query->where('chk_to', 2)->where('status', 1)->orderBy('created_at', 'desc');
-                })->get(['id', 'acc_name']);
+                })->get(['id', 'acc_name', 'address', 'created_at']);
             }
         }catch(Exception $e){
             

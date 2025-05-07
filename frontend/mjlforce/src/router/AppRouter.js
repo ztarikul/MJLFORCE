@@ -9,6 +9,7 @@ import SalesTarget from "../components/SalesTarget/SalesTarget";
 import Campaign from "../components/Campaign/Campaign";
 import PromotionalItems from "../components/Campaign/PromotionalItems";
 import Leads from "../components/Leads/Leads";
+import LeadsProcess from "../components/Leads/LeadsProcess";
 
 export default function AppRouter(props) {
   const routes = (
@@ -59,6 +60,14 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <Leads />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/leads_process/:id"
+        element={
+          <AuthMiddleware>
+            <LeadsProcess />
           </AuthMiddleware>
         }
       />

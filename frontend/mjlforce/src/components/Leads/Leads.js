@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import Main from "../Main";
 import { Link } from "react-router-dom";
 import Auth from "../../auth/Auth";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import PageLoader from "../../utils/PageLoader";
+dayjs.extend(relativeTime);
 
 export default function Leads() {
   const { http } = Auth();
   const [leads, setLeads] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const fetchLeads = async () => {
     await http
@@ -13,6 +18,7 @@ export default function Leads() {
       .then((res) => {
         console.log(res);
         setLeads(res.data.leads);
+        setPageLoading(false);
       })
       .catch((res) => {
         console.log(res);
@@ -22,6 +28,10 @@ export default function Leads() {
   useEffect(() => {
     fetchLeads();
   }, []);
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
 
   return (
     <Main>
@@ -35,17 +45,15 @@ export default function Leads() {
               {leads && leads.length > 0 ? (
                 leads.map((lead) => (
                   <Link
-                    className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active"
-                    to="/"
+                    to={`/leads_process/${lead.id}`}
                     key={lead.id}
+                    className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active"
                   >
                     <div className="d-flex w-100 justify-content-between">
                       <h5 className="mb-1">{lead.acc_name}</h5>
-                      <small>112 days ago</small>
+                      <small>{dayjs(lead.created_at).fromNow()}</small>
                     </div>
-                    <p className="mb-1">
-                      This offer will be valid with for all Wholesaler
-                    </p>
+                    <p className="mb-1">{lead.address}</p>
                     <small></small>
                   </Link>
                 ))
