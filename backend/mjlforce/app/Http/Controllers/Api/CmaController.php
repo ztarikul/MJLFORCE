@@ -135,7 +135,7 @@ class CmaController extends Controller
 
             $soldToParty->loc_division_id = $request->loc_division;
             $soldToParty->loc_district_id = $request->loc_district;
-            $soldToParty->loc_upazila_id = $request->loc_upazila;
+            $soldToParty->loc_upazila_id = $request->loc_thana;
             $soldToParty->loc_post_office_id = $request->post_office;
             $soldToParty->image = $request->image;
             $soldToParty->lat = $request->lat;
@@ -170,5 +170,32 @@ class CmaController extends Controller
         ]);
 
 
+    }
+
+
+    public function leadsProcess(Request $request){
+        $id = $request->query('id');  
+        $divisions = LocDivision::select('id', 'name')->get();
+        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->get();
+        $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
+        $tradeCategories = TradeCategory::select('id', 'name')->get();
+        $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
+        $customerTypes = [
+            ['id' => 1, 'name' => "Domestic", 'sap_code' => "Z001"],
+            ['id' => 2, 'name' => "Marine Bonded", 'sap_code' => "Z002"],
+            ['id' => 3, 'name' => "Export(Deemed)", 'sap_code' => "Z002"],
+            ['id' => 4, 'name' => "Service (Oil Tanker)", 'sap_code' => "Z004"],
+            ['id' => 6, 'name' => "Service(Rent)", 'sap_code' => "Z005"],
+            ['id' => 7, 'name' => "OTC", 'sap_code' => "Z011"],
+            ['id' => 8, 'name' => "Other Customer", 'sap_code' => "Z014"],
+        ];
+
+
+        $soldToParty = SoldToParty::with('division', 'district', 'upazila', 'post_office')->find($id);
+
+
+        return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes], 200);
     }
 }
