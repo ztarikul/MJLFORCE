@@ -13,7 +13,7 @@ class LocPostOffice extends Model
 
     protected $guarded = [];
 
-    public function upazila()
+    public function LocUpazila()
     {
         return $this->belongsTo(LocUpazila::class);
     }

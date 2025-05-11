@@ -85,7 +85,7 @@ class CmaController extends Controller
             $soldToParty->district = LocDistrict::find($request->loc_district)->name;
             list($address1, $address2) = splitByLastCharBeforeLimit($request->office_address, 60, ",");
             $soldToParty->address = $address1;
-            $soldToParty->ceo = $request->ceo;
+            $soldToParty->ceo = $request->owner_name;
             list($address2, $address3) = splitByLastCharBeforeLimit($address2, 40, ",");
             $soldToParty->address_2 = $address2;
             list($address3, $address4) = splitByLastCharBeforeLimit($address3, 40, ",");
@@ -193,7 +193,7 @@ class CmaController extends Controller
         ];
 
 
-        $soldToParty = SoldToParty::with('division', 'district', 'upazila', 'post_office')->find($id);
+        $soldToParty = SoldToParty::with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice'])->find($id);
 
 
         return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes], 200);

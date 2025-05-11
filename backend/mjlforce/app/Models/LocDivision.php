@@ -12,7 +12,7 @@ class LocDivision extends Model
 
     protected $guarded = [];
 
-    public function districts()
+    public function LocDistricts()
     {
         return $this->hasMany(LocDistrict::class);
     }

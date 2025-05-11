@@ -26,16 +26,16 @@ class SoldToParty extends Model
         return $this->hasMany(SoldToPartyProcessLog::class);
     }
 
-    public function division(){
+    public function locDivision(){
         return $this->belongsTo(LocDivision::class);
     }
-    public function district(){
+    public function LocDistrict(){
         return $this->belongsTo(LocDistrict::class);
     }
-    public function upazila(){
+    public function LocUpazila(){
         return $this->belongsTo(LocUpazila::class);
     }
-    public function post_office(){
+    public function LocPostOffice(){
         return $this->belongsTo(LocPostOffice::class);
     }
 

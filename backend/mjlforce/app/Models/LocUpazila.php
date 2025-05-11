@@ -13,12 +13,12 @@ class LocUpazila extends Model
     //
     protected $guarded = [];
 
-    public function post_offices()
+    public function LocPostOffices()
     {
         return $this->hasMany(LocPostOffice::class);
     }
 
-    public function district()
+    public function LocDistrict()
     {
         return $this->belongsTo(LocDistrict::class);
     }

@@ -12,12 +12,12 @@ class LocDistrict extends Model
     //
     protected $guarded = [];
 
-    public function upazilas()
+    public function LocUpazilas()
     {
         return $this->hasMany(LocUpazila::class);
     }
 
-    public function division()
+    public function LocDivision()
     {
         return $this->belongsTo(LocDivision::class);
     }
