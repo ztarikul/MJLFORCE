@@ -20,8 +20,8 @@ export default function LeadsProcess() {
     owner_mobile: "",
     owner_email: "",
     customer_type: "",
-    territory: "",
-    trade_category: "",
+    territory: [],
+    trade_category: [],
     trade_s_category: "",
     special_discount: "",
     remarks: "",
@@ -83,6 +83,17 @@ export default function LeadsProcess() {
           loc_district: res.data.soldToParty.loc_district,
           loc_upazila: res.data.soldToParty.loc_upazila,
           loc_post_office: res.data.soldToParty.loc_post_office,
+        });
+
+        setFetchdata({
+          divisions: res.data.divisions,
+          districts: res.data.districts,
+          upazilas: res.data.upazilas,
+          postOffice: res.data.postOffice,
+          salesTerritories: res.data.salesTerritories,
+          tradeCategories: res.data.tradeCategories,
+          tradeSubCategories: res.data.tradeSubCategories,
+          customerTypes: res.data.customerTypes,
         });
       })
       .catch((res) => {
@@ -628,10 +639,11 @@ export default function LeadsProcess() {
                           className="form-select"
                           id="territory"
                           name="territory"
-                          value={formData.territory}
                           onChange={handleChange}
                         >
-                          <option value="">Please Select</option>
+                          <option value={formData.territory.id}>
+                            {formData.territory.name}
+                          </option>
                           {fetchData.salesTerritories.map((territory) => (
                             <option key={territory.id} value={territory.id}>
                               {territory.name}
@@ -655,10 +667,11 @@ export default function LeadsProcess() {
                           className="form-select"
                           id="trade_category"
                           name="trade_category"
-                          value={formData.trade_category}
                           onChange={tradeCategoryChangeHnadler}
                         >
-                          <option value="">Please Select</option>
+                          <option value={formData.trade_category.id}>
+                            {formData.trade_category.name}
+                          </option>
                           {fetchData.tradeCategories.map((tradeCategory) => (
                             <option
                               key={tradeCategory.id}

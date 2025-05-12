@@ -10,6 +10,8 @@ use App\Models\LocDivision;
 use App\Models\LocDistrict;
 use App\Models\LocUpazila;
 use App\Models\LocPostOffice;
+use App\Models\Territory;
+use App\Models\TradeCategory;;
 
 class SoldToParty extends Model
 {
@@ -38,6 +40,16 @@ class SoldToParty extends Model
     public function LocPostOffice(){
         return $this->belongsTo(LocPostOffice::class);
     }
+    public function territory(){
+        return $this->belongsTo(Territory::class);
+    }
+
+    public function tradeCategory(){
+        return $this->belongsTo(TradeCategory::class,'trade_category', 'sap_code');
+    }
+
+
+
 
 
 
