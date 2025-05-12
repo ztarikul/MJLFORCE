@@ -64,7 +64,6 @@ export default function LeadsProcess() {
           account_name: res.data.soldToParty.acc_name,
           group: res.data.soldToParty.group,
           office_address: res.data.soldToParty.address,
-
           bin: res.data.soldToParty.bin_no,
           contact_person: res.data.soldToParty.contact_person_name,
           mobile_co: res.data.soldToParty.contact_person_mobile,
