@@ -50,7 +50,7 @@ export default function NewForm() {
 
   const fetchFormData = useCallback(() => {
     http
-      .get("/leads_process")
+      .get("/visit_new_s2p")
       .then((res) => {
         console.log(res.data);
         setFetchdata(res.data);

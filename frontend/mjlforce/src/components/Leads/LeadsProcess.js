@@ -136,7 +136,7 @@ export default function LeadsProcess() {
 
     if (result.isConfirmed) {
       http
-        .post("/store_s2p", formData, {
+        .post("/updateLeadProcess", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -260,12 +260,19 @@ export default function LeadsProcess() {
                           className="form-select"
                           id="lead_stage"
                           name="lead_stage"
-                          value={formData.lead_stage?.stage}
                           onChange={handleChange}
                         >
-                          {fetchData.leadStages?.map((stage) => (
+                          {formData.lead_stage_logs.id ? (
+                            <option value={formData.lead_stage_logs.id}>
+                              {formData.lead_stage_logs.stage}
+                            </option>
+                          ) : (
+                            <option value="">Please Select</option>
+                          )}
+
+                          {fetchData.leadStages.map((stage) => (
                             <option key={stage.id} value={stage.id}>
-                              {stage.name}
+                              {stage.stage}
                             </option>
                           ))}
                         </select>
