@@ -12,6 +12,8 @@ use App\Models\LocUpazila;
 use App\Models\LocPostOffice;
 use App\Models\Territory;
 use App\Models\TradeCategory;;
+use App\Models\TradeSubCategory;;
+use App\Models\SoldToPartyLeadLog;;
 
 class SoldToParty extends Model
 {
@@ -26,6 +28,10 @@ class SoldToParty extends Model
 
     public function processLogs(){
         return $this->hasMany(SoldToPartyProcessLog::class);
+    }
+
+    public function leadStageLogs(){
+        return $this->hasMany(SoldToPartyLeadLog::class);
     }
 
     public function locDivision(){
@@ -46,6 +52,10 @@ class SoldToParty extends Model
 
     public function tradeCategory(){
         return $this->belongsTo(TradeCategory::class,'trade_category', 'sap_code');
+    }
+
+    public function tradeSubCategory(){
+        return $this->belongsTo(TradeSubCategory::class,'trade_sub_category', 'sap_code');
     }
 
 

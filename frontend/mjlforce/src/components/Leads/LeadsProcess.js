@@ -29,6 +29,7 @@ export default function LeadsProcess() {
     loc_district: [],
     loc_upazila: [],
     loc_post_office: [],
+    lead_stage_logs: [],
   });
 
   const [errors, setErrors] = useState({});
@@ -42,6 +43,7 @@ export default function LeadsProcess() {
     tradeCategories: [],
     tradeSubCategories: [],
     customerTypes: [],
+    leadStages: [],
   });
 
   const [divisions, setDivisions] = useState([]);
@@ -82,6 +84,7 @@ export default function LeadsProcess() {
           loc_district: res.data.soldToParty.loc_district,
           loc_upazila: res.data.soldToParty.loc_upazila,
           loc_post_office: res.data.soldToParty.loc_post_office,
+          lead_stage_logs: res.data.soldToParty.lead_stage_logs,
         });
 
         setFetchdata({
@@ -93,7 +96,14 @@ export default function LeadsProcess() {
           tradeCategories: res.data.tradeCategories,
           tradeSubCategories: res.data.tradeSubCategories,
           customerTypes: res.data.customerTypes,
+          leadStages: res.data.leadStages,
         });
+        setDistricts(res.data.soldToParty.loc_division.loc_districts);
+        setUpazilas(res.data.soldToParty.loc_district.loc_upazilas);
+        setPostOffice(res.data.soldToParty.loc_upazila.loc_post_offices);
+        setTradeSubCategories(
+          res.data.soldToParty.trade_category.trade_sub_categories
+        );
       })
       .catch((res) => {
         console.log(res);
@@ -241,6 +251,32 @@ export default function LeadsProcess() {
               <form className="form theme-form" onSubmit={formSubmit}>
                 <div className="card-body">
                   <div className="row">
+                    <div className="col-12 col-md-4">
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="lead_stage">
+                          Trade Sub Category
+                        </label>
+                        <select
+                          className="form-select"
+                          id="lead_stage"
+                          name="lead_stage"
+                          value={formData.lead_stage?.stage}
+                          onChange={handleChange}
+                        >
+                          {fetchData.leadStages?.map((stage) => (
+                            <option key={stage.id} value={stage.id}>
+                              {stage.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      {errors.trade_s_category && (
+                        <span className="" style={{ color: "red" }}>
+                          {errors.trade_s_category[0]}
+                        </span>
+                      )}
+                    </div>
+
                     <div className="col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="customer_name">
@@ -316,10 +352,8 @@ export default function LeadsProcess() {
                           id="loc_division"
                           name="loc_division"
                           onChange={divisionChangeHnadler}
+                          value={formData.loc_division.id}
                         >
-                          <option value={formData.loc_division.id}>
-                            {formData.loc_division.name}
-                          </option>
                           {fetchData.divisions.map((division) => (
                             <option key={division.id} value={division.id}>
                               {division.name}
@@ -344,10 +378,8 @@ export default function LeadsProcess() {
                           id="loc_district"
                           name="loc_district"
                           onChange={districtChangeHnadler}
+                          value={formData.loc_district.id}
                         >
-                          <option value={formData.loc_district.id}>
-                            {formData.loc_district.name}
-                          </option>
                           {districts.map((district) => (
                             <option key={district.id} value={district.id}>
                               {district.name}
@@ -372,10 +404,8 @@ export default function LeadsProcess() {
                           id="loc_thana"
                           name="loc_thana"
                           onChange={upazilaChangeHnadler}
+                          value={formData.loc_upazila.id}
                         >
-                          <option value={formData.loc_upazila.id}>
-                            {formData.loc_upazila.name}
-                          </option>
                           {upazilas.map((upazila) => (
                             <option key={upazila.id} value={upazila.id}>
                               {upazila.name}
@@ -400,12 +430,8 @@ export default function LeadsProcess() {
                           id="post_office"
                           name="post_office"
                           onChange={handleChange}
+                          value={formData.loc_post_office?.id}
                         >
-                          <option value={formData.loc_post_office?.id}>
-                            {formData.loc_post_office
-                              ? formData.loc_post_office.name
-                              : " Please Select"}
-                          </option>
                           {postOffice.map((office) => (
                             <option key={office.id} value={office.id}>
                               {office.post_office}
@@ -614,7 +640,6 @@ export default function LeadsProcess() {
                           value={formData.customer_type}
                           onChange={customerTypeHandler}
                         >
-                          <option value="">Please Select</option>
                           {fetchData.customerTypes.map((type) => (
                             <option key={type.id} value={type.sap_code}>
                               {type.name}
@@ -639,10 +664,8 @@ export default function LeadsProcess() {
                           id="territory"
                           name="territory"
                           onChange={handleChange}
+                          value={formData.territory.id}
                         >
-                          <option value={formData.territory.id}>
-                            {formData.territory.name}
-                          </option>
                           {fetchData.salesTerritories.map((territory) => (
                             <option key={territory.id} value={territory.id}>
                               {territory.name}
@@ -667,10 +690,8 @@ export default function LeadsProcess() {
                           id="trade_category"
                           name="trade_category"
                           onChange={tradeCategoryChangeHnadler}
+                          value={formData.trade_category.id}
                         >
-                          <option value={formData.trade_category.id}>
-                            {formData.trade_category.name}
-                          </option>
                           {fetchData.tradeCategories.map((tradeCategory) => (
                             <option
                               key={tradeCategory.id}
@@ -703,7 +724,6 @@ export default function LeadsProcess() {
                           value={formData.trade_s_category}
                           onChange={handleChange}
                         >
-                          <option value="">Please Select</option>
                           {tradeSubCategories.map((subCat) => (
                             <option key={subCat.id} value={subCat.id}>
                               {subCat.name}
@@ -726,7 +746,9 @@ export default function LeadsProcess() {
                               id="special_discount"
                               name="special_discount"
                               type="checkbox"
-                              value={formData.special_discount}
+                              checked={
+                                formData.special_discount === 1 ? true : false
+                              }
                               onChange={handleChange}
                             />
                             <label htmlFor="special_discount">

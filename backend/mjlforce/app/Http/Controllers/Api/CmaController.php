@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\LeadStage;
 use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocPostOffice;
@@ -192,10 +193,12 @@ class CmaController extends Controller
             ['id' => 8, 'name' => "Other Customer", 'sap_code' => "Z014"],
         ];
 
+        $leadStages = LeadStage::all();
 
-        $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocUpazila.LocPostOffices', 'LocPostOffice', 'territory', 'tradeCategory'])->find($id);
+
+        $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocUpazila.LocPostOffices', 'LocPostOffice', 'territory', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'leadStageLogs'])->find($id);
 
 
-        return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes], 200);
+        return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes, 'leadStages' => $leadStages], 200);
     }
 }
