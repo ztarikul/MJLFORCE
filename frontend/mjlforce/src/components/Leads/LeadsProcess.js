@@ -20,16 +20,15 @@ export default function LeadsProcess() {
     owner_mobile: "",
     owner_email: "",
     customer_type: "",
-    territory: [],
-    trade_category: [],
+    territory: "",
+    trade_category: "",
     trade_s_category: "",
     special_discount: "",
     remarks: "",
-    loc_division: [],
-    loc_district: [],
-    loc_upazila: [],
-    loc_post_office: [],
-    lead_stage_logs: [],
+    loc_division: "",
+    loc_district: "",
+    post_office: "",
+    loc_thana: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -46,10 +45,11 @@ export default function LeadsProcess() {
     leadStages: [],
   });
 
-  const [divisions, setDivisions] = useState([]);
+  // const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
   const [postOffice, setPostOffice] = useState([]);
+  const [tradeCategory, setTradeCategory] = useState([]);
   const [tradeSubCategories, setTradeSubCategories] = useState([]);
 
   const fetchFormData = useCallback(() => {
@@ -75,15 +75,16 @@ export default function LeadsProcess() {
           owner_mobile: res.data.soldToParty.mobile_phone,
           owner_email: res.data.soldToParty.email,
           customer_type: res.data.soldToParty.customer_acc_group,
-          territory: res.data.soldToParty.territory,
-          trade_category: res.data.soldToParty.trade_category,
-          trade_s_category: res.data.soldToParty.trade_sub_category,
+          territory: res.data.soldToParty.territory.id,
+          trade_category: res.data.soldToParty.trade_category.id,
+          trade_s_category: res.data.soldToParty.trade_sub_category.id,
           special_discount: res.data.soldToParty.is_eligible_discount,
           remarks: res.data.soldToParty.remarks,
-          loc_division: res.data.soldToParty.loc_division,
-          loc_district: res.data.soldToParty.loc_district,
-          loc_upazila: res.data.soldToParty.loc_upazila,
-          loc_post_office: res.data.soldToParty.loc_post_office,
+
+          loc_division: res.data.soldToParty.loc_division_id,
+          loc_district: res.data.soldToParty.loc_district_id,
+          loc_thana: res.data.soldToParty.loc_upazila_id,
+          post_office: res.data.soldToParty.loc_post_office_id,
           lead_stage_logs: res.data.soldToParty.lead_stage_logs,
         });
 
@@ -98,9 +99,11 @@ export default function LeadsProcess() {
           customerTypes: res.data.customerTypes,
           leadStages: res.data.leadStages,
         });
+        // setDivisions(res.data.soldToParty.loc_division);
         setDistricts(res.data.soldToParty.loc_division.loc_districts);
         setUpazilas(res.data.soldToParty.loc_district.loc_upazilas);
         setPostOffice(res.data.soldToParty.loc_upazila.loc_post_offices);
+        setTradeCategory(res.data.soldToParty.trade_category);
         setTradeSubCategories(
           res.data.soldToParty.trade_category.trade_sub_categories
         );
@@ -194,6 +197,13 @@ export default function LeadsProcess() {
       (district) => district.loc_division_id === selectedId
     );
     setDistricts(selectedDistricts);
+    setUpazilas([]);
+    setPostOffice([]);
+    setFormData({
+      loc_district: "",
+      loc_thana: "",
+      post_office: "",
+    });
   };
 
   const districtChangeHnadler = (event) => {
@@ -207,6 +217,11 @@ export default function LeadsProcess() {
       (upazila) => upazila.loc_district_id === selectedId
     );
     setUpazilas(selectedUpazilas);
+    setPostOffice([]);
+    setFormData({
+      loc_thana: "",
+      post_office: "",
+    });
   };
 
   const upazilaChangeHnadler = (event) => {
@@ -262,7 +277,7 @@ export default function LeadsProcess() {
                           name="lead_stage"
                           onChange={handleChange}
                         >
-                          {formData.lead_stage_logs.id ? (
+                          {formData.lead_stage_logs ? (
                             <option value={formData.lead_stage_logs.id}>
                               {formData.lead_stage_logs.stage}
                             </option>
@@ -359,8 +374,11 @@ export default function LeadsProcess() {
                           id="loc_division"
                           name="loc_division"
                           onChange={divisionChangeHnadler}
-                          value={formData.loc_division.id}
+                          value={formData.loc_division}
                         >
+                          {!formData.loc_division && (
+                            <option value="">Please Select</option>
+                          )}
                           {fetchData.divisions.map((division) => (
                             <option key={division.id} value={division.id}>
                               {division.name}
@@ -385,9 +403,12 @@ export default function LeadsProcess() {
                           id="loc_district"
                           name="loc_district"
                           onChange={districtChangeHnadler}
-                          value={formData.loc_district.id}
+                          value={formData.loc_district}
                         >
-                          {districts.map((district) => (
+                          {!formData.loc_district && (
+                            <option value="">Please Select</option>
+                          )}
+                          {districts?.map((district) => (
                             <option key={district.id} value={district.id}>
                               {district.name}
                             </option>
@@ -411,9 +432,12 @@ export default function LeadsProcess() {
                           id="loc_thana"
                           name="loc_thana"
                           onChange={upazilaChangeHnadler}
-                          value={formData.loc_upazila.id}
+                          value={formData.loc_thana}
                         >
-                          {upazilas.map((upazila) => (
+                          {!formData.loc_thana && (
+                            <option value="">Please Select</option>
+                          )}
+                          {upazilas?.map((upazila) => (
                             <option key={upazila.id} value={upazila.id}>
                               {upazila.name}
                             </option>
@@ -437,9 +461,9 @@ export default function LeadsProcess() {
                           id="post_office"
                           name="post_office"
                           onChange={handleChange}
-                          value={formData.loc_post_office?.id}
+                          value={formData.post_office}
                         >
-                          {postOffice.map((office) => (
+                          {postOffice?.map((office) => (
                             <option key={office.id} value={office.id}>
                               {office.post_office}
                             </option>
@@ -671,7 +695,7 @@ export default function LeadsProcess() {
                           id="territory"
                           name="territory"
                           onChange={handleChange}
-                          value={formData.territory.id}
+                          value={formData.territory}
                         >
                           {fetchData.salesTerritories.map((territory) => (
                             <option key={territory.id} value={territory.id}>
@@ -697,7 +721,7 @@ export default function LeadsProcess() {
                           id="trade_category"
                           name="trade_category"
                           onChange={tradeCategoryChangeHnadler}
-                          value={formData.trade_category.id}
+                          value={formData.trade_category}
                         >
                           {fetchData.tradeCategories.map((tradeCategory) => (
                             <option
