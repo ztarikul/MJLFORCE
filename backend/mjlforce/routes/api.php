@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/store_s2p', [CmaController::class, 'storeSoldToParty']);
         Route::get('/leads', [HomeController::class, 'leads']);
         Route::get('/leads_process', [CmaController::class, 'leadsProcess']);
-        Route::post('/updateLeadProcess', [CmaController::class, 'updateLeadProcess']);
+        Route::post('/updateLeadProcess/{id}', [CmaController::class, 'updateLeadProcess']);
     });
 
 

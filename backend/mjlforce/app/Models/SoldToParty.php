@@ -34,6 +34,10 @@ class SoldToParty extends Model
         return $this->hasMany(SoldToPartyLeadLog::class);
     }
 
+    public function currentLead(){
+        return $this->hasOne(SoldToPartyLeadLog::class)->latest();
+    }
+
     public function locDivision(){
         return $this->belongsTo(LocDivision::class);
     }

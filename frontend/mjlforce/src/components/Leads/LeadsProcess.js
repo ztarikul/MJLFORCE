@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Auth from "../../auth/Auth";
 import Swal from "sweetalert2";
@@ -29,6 +29,7 @@ export default function LeadsProcess() {
     loc_district: "",
     post_office: "",
     loc_thana: "",
+    lead_stage_id: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -85,7 +86,7 @@ export default function LeadsProcess() {
           loc_district: res.data.soldToParty.loc_district_id,
           loc_thana: res.data.soldToParty.loc_upazila_id,
           post_office: res.data.soldToParty.loc_post_office_id,
-          lead_stage_logs: res.data.soldToParty.lead_stage_logs,
+          lead_stage_id: res.data.soldToParty.current_lead?.lead_stage_id,
         });
 
         setFetchdata({
@@ -139,7 +140,7 @@ export default function LeadsProcess() {
 
     if (result.isConfirmed) {
       http
-        .post("/updateLeadProcess", formData, {
+        .post(`/updateLeadProcess/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -148,7 +149,7 @@ export default function LeadsProcess() {
           console.log(res.data); // Handle success response
           Swal.fire({
             title: "Submitted!",
-            text: "Your form has been submitted.",
+            text: res.data.msg,
             icon: "success",
             timer: 2000,
             showConfirmButton: false,
@@ -273,15 +274,12 @@ export default function LeadsProcess() {
                         </label>
                         <select
                           className="form-select"
-                          id="lead_stage"
-                          name="lead_stage"
+                          id="lead_stage_id"
+                          name="lead_stage_id"
                           onChange={handleChange}
+                          value={formData.lead_stage_id}
                         >
-                          {formData.lead_stage_logs ? (
-                            <option value={formData.lead_stage_logs.id}>
-                              {formData.lead_stage_logs.stage}
-                            </option>
-                          ) : (
+                          {!formData.lead_stage_id && (
                             <option value="">Please Select</option>
                           )}
 

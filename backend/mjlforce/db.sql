@@ -35,7 +35,7 @@ CREATE TABLE `attendance_histories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `attendance_histories` (
 
 LOCK TABLES `attendance_histories` WRITE;
 /*!40000 ALTER TABLE `attendance_histories` DISABLE KEYS */;
+INSERT INTO `attendance_histories` VALUES (2,'10378','2025-04-24','16:19:27',1,23.783868,90.416938,'Pizza Inn, 76, Gulshan Ave, Gulshan 1, Gulshan, Dhaka, Dhaka Metropolitan, Dhaka District, Dhaka Division, 1212, Bangladesh','succeess','2025-04-24 10:19:28','2025-04-24 10:19:28'),(3,'10378','2025-04-29','15:45:05',1,23.774598,90.421954,'South Badda, Gulshan, Dhaka, Dhaka Metropolitan, Dhaka District, Dhaka Division, 1212, Bangladesh','succeess','2025-04-29 09:45:06','2025-04-29 09:45:06');
 /*!40000 ALTER TABLE `attendance_histories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,7 +478,7 @@ CREATE TABLE `lead_stages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -486,6 +487,7 @@ CREATE TABLE `lead_stages` (
 
 LOCK TABLES `lead_stages` WRITE;
 /*!40000 ALTER TABLE `lead_stages` DISABLE KEYS */;
+INSERT INTO `lead_stages` VALUES (1,'Prospects',NULL,1,NULL,NULL),(2,'Identify Account Need',NULL,1,NULL,NULL),(3,'Formulate Offer',NULL,1,NULL,NULL),(4,'Negotiate to Close',NULL,1,NULL,NULL),(5,'Manage Implementation',NULL,1,NULL,NULL),(7,'Create CMA',NULL,1,NULL,NULL),(8,'Loss',NULL,1,NULL,NULL),(9,NULL,NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `lead_stages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -617,6 +619,41 @@ INSERT INTO `loc_upazilas` VALUES (1,34,'Amtali','আমতলী',1,'2025-04-24
 UNLOCK TABLES;
 
 --
+-- Table structure for table `materials`
+--
+
+DROP TABLE IF EXISTS `materials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `materials` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sap_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sku` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `l_price` double DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `materials_name_unique` (`name`),
+  UNIQUE KEY `materials_sap_code_unique` (`sap_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `materials`
+--
+
+LOCK TABLES `materials` WRITE;
+/*!40000 ALTER TABLE `materials` DISABLE KEYS */;
+/*!40000 ALTER TABLE `materials` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -628,7 +665,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -637,7 +674,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (101,'0001_01_01_000000_create_users_table',1),(102,'0001_01_01_000001_create_cache_table',1),(103,'0001_01_01_000002_create_jobs_table',1),(104,'2025_03_17_063252_create_permission_tables',1),(105,'2025_03_17_070232_create_personal_access_tokens_table',1),(106,'2025_03_20_051500_create_loc_divisions_table',1),(107,'2025_03_20_051501_create_loc_districts_table',1),(108,'2025_03_20_051502_create_loc_upazilas_table',1),(109,'2025_03_20_051503_create_loc_post_offices_table',1),(110,'2025_03_20_051515_create_designations_table',1),(111,'2025_03_20_055435_create_business_teams_table',1),(112,'2025_03_20_062025_create_customer_groups_table',1),(113,'2025_03_20_062026_create_distribution_ches_table',1),(114,'2025_03_20_062027_create_regions_table',1),(115,'2025_03_20_062733_create_territories_table',1),(116,'2025_03_20_062734_create_territory_districts_table',1),(117,'2025_03_20_063314_create_trade_categories_table',1),(118,'2025_03_20_063315_create_trade_sub_categories_table',1),(119,'2025_03_20_063316_create_customer_types_table',1),(120,'2025_03_20_063518_create_complaint_types_table',1),(121,'2025_03_20_063743_create_visit_purposes_table',1),(122,'2025_03_24_162521_create_employees_table',1),(123,'2025_03_25_052354_create_attendance_histories_table',1),(124,'2025_03_25_180313_create_sold_to_parties_table',1),(125,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(126,'2025_04_13_111335_create_lead_stages_table',1),(127,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(128,'2025_04_20_175501_create_sold_to_party_sales_areas_table',1);
+INSERT INTO `migrations` VALUES (101,'0001_01_01_000000_create_users_table',1),(102,'0001_01_01_000001_create_cache_table',1),(103,'0001_01_01_000002_create_jobs_table',1),(104,'2025_03_17_063252_create_permission_tables',1),(105,'2025_03_17_070232_create_personal_access_tokens_table',1),(106,'2025_03_20_051500_create_loc_divisions_table',1),(107,'2025_03_20_051501_create_loc_districts_table',1),(108,'2025_03_20_051502_create_loc_upazilas_table',1),(109,'2025_03_20_051503_create_loc_post_offices_table',1),(110,'2025_03_20_051515_create_designations_table',1),(111,'2025_03_20_055435_create_business_teams_table',1),(112,'2025_03_20_062025_create_customer_groups_table',1),(113,'2025_03_20_062026_create_distribution_ches_table',1),(114,'2025_03_20_062027_create_regions_table',1),(115,'2025_03_20_062733_create_territories_table',1),(116,'2025_03_20_062734_create_territory_districts_table',1),(117,'2025_03_20_063314_create_trade_categories_table',1),(118,'2025_03_20_063315_create_trade_sub_categories_table',1),(119,'2025_03_20_063316_create_customer_types_table',1),(120,'2025_03_20_063518_create_complaint_types_table',1),(121,'2025_03_20_063743_create_visit_purposes_table',1),(122,'2025_03_24_162521_create_employees_table',1),(123,'2025_03_25_052354_create_attendance_histories_table',1),(124,'2025_03_25_180313_create_sold_to_parties_table',1),(125,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(126,'2025_04_13_111335_create_lead_stages_table',1),(127,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(128,'2025_04_20_175501_create_sold_to_party_sales_areas_table',1),(129,'2025_04_29_121727_create_materials_table',2),(130,'2025_04_29_144209_create_promotions_table',3),(131,'2025_04_29_144552_create_promotion_items_table',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -778,6 +815,79 @@ LOCK TABLES `personal_access_tokens` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `promotion_items`
+--
+
+DROP TABLE IF EXISTS `promotion_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `promotion_items` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `promotion_id` bigint unsigned NOT NULL,
+  `material_id` bigint unsigned DEFAULT NULL,
+  `material_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `material_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `offer_qnty` double DEFAULT NULL,
+  `promo_material_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `promo_qnty` double DEFAULT NULL,
+  `promo_material_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `promotion_items_promotion_id_foreign` (`promotion_id`),
+  KEY `promotion_items_material_id_foreign` (`material_id`),
+  CONSTRAINT `promotion_items_material_id_foreign` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `promotion_items_promotion_id_foreign` FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `promotion_items`
+--
+
+LOCK TABLES `promotion_items` WRITE;
+/*!40000 ALTER TABLE `promotion_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `promotion_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `promotions`
+--
+
+DROP TABLE IF EXISTS `promotions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `promotions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sap_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `start_from` date DEFAULT NULL,
+  `end_to` date DEFAULT NULL,
+  `type` int DEFAULT NULL,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `promotions`
+--
+
+LOCK TABLES `promotions` WRITE;
+/*!40000 ALTER TABLE `promotions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `promotions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `regions`
 --
 
@@ -892,7 +1002,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('JrUzr0bmtukAIxben71EWpNGBAgdcd0lWwDY2Kjp',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXgzanFGcmVBOTByZGl3VmwxdVhkaGZaUjdKMzdBYmlHNlJuek52SSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=',1745484885);
+INSERT INTO `sessions` VALUES ('Dny3Lm1jgkJ2c6GiccV3kNu9XSkKO0O0pQzUkYCy',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YToyOntzOjY6Il90b2tlbiI7czo0MDoieDI2b0ZxeTVYd2dHc2lFZVNBbmJZQmE3YVhDeFl2U0lmQjFVZzR1NCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==',1745984971),('JrUzr0bmtukAIxben71EWpNGBAgdcd0lWwDY2Kjp',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXgzanFGcmVBOTByZGl3VmwxdVhkaGZaUjdKMzdBYmlHNlJuek52SSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=',1745484885),('jSxmDIpEIIzouemG2lnP8W2qRMUHZzNNCYDHlmN7',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiRnFleGZveVpuWHF5d1lxZlVueFpnRG5tSUQybzNaNlowZkhEUEdGMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=',1747296381),('Opr6sRD2IarUoBWfJd2A3B2FKFfZSkag9qT0EpNy',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YToyOntzOjY6Il90b2tlbiI7czo0MDoiZTFCMWVwOUczd0prblNaSnYzc2dJTnZnaHMzQnBUTTdGR0JycEtGcCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==',1745821838);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -999,7 +1109,7 @@ CREATE TABLE `sold_to_parties` (
   CONSTRAINT `sold_to_parties_loc_upazila_id_foreign` FOREIGN KEY (`loc_upazila_id`) REFERENCES `loc_upazilas` (`id`),
   CONSTRAINT `sold_to_parties_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`),
   CONSTRAINT `sold_to_parties_territory_id_foreign` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1008,6 +1118,7 @@ CREATE TABLE `sold_to_parties` (
 
 LOCK TABLES `sold_to_parties` WRITE;
 /*!40000 ALTER TABLE `sold_to_parties` DISABLE KEYS */;
+INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z001',1100,1100,10,'00','Awesome Motors','',NULL,NULL,NULL,'BD',NULL,NULL,'Barguna','Gazipur Chowrasta, Dhaka','mr ceo 1','','',NULL,'3665765','123123',NULL,'test@test.com',NULL,NULL,'Mr ceo','23423','234234','asda',NULL,'123123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bagerhat',1,'01','001','001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,36,2,NULL,NULL,23.774598,90.421954,1,0,'asdasd',1,1,1,'HQ-IT-MPC-Zihad','2025-05-05 11:36:13','2025-05-05 11:36:13',NULL),(2,NULL,'Z002',1100,1100,10,'00','Bismilla Auto update','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','mr ceo 2','','',NULL,'1122334455','1122334455',NULL,'malek.ent@auto.com',NULL,NULL,'Malek','1122334455','1122334455','Bismilla',NULL,'1122334455',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dhaka South',23,'01','001','002',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3,1,619,NULL,NULL,23.796188,90.421954,1,0,'test update 2',0,1,1,'HQ-IT-MPC-Zihad','2025-05-07 06:42:29','2025-05-15 11:38:08',NULL);
 /*!40000 ALTER TABLE `sold_to_parties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1032,7 +1143,7 @@ CREATE TABLE `sold_to_party_lead_logs` (
   KEY `sold_to_party_lead_logs_lead_stage_id_foreign` (`lead_stage_id`),
   CONSTRAINT `sold_to_party_lead_logs_lead_stage_id_foreign` FOREIGN KEY (`lead_stage_id`) REFERENCES `lead_stages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sold_to_party_lead_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1041,6 +1152,7 @@ CREATE TABLE `sold_to_party_lead_logs` (
 
 LOCK TABLES `sold_to_party_lead_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_lead_logs` DISABLE KEYS */;
+INSERT INTO `sold_to_party_lead_logs` VALUES (1,1,1,'Prospects','asdasw',1,NULL,NULL),(2,2,2,'Identify Account Need',NULL,1,'2025-05-15 11:38:08','2025-05-15 11:38:08');
 /*!40000 ALTER TABLE `sold_to_party_lead_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1064,7 +1176,7 @@ CREATE TABLE `sold_to_party_process_logs` (
   PRIMARY KEY (`id`),
   KEY `sold_to_party_process_logs_sold_to_party_id_foreign` (`sold_to_party_id`),
   CONSTRAINT `sold_to_party_process_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1073,6 +1185,7 @@ CREATE TABLE `sold_to_party_process_logs` (
 
 LOCK TABLES `sold_to_party_process_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_process_logs` DISABLE KEYS */;
+INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,NULL,NULL),(2,2,1,2,1,'Leads Processing',1,'2025-05-07 06:42:29','2025-05-07 06:42:29');
 /*!40000 ALTER TABLE `sold_to_party_process_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1261,7 +1374,7 @@ CREATE TABLE `trade_sub_categories` (
 
 LOCK TABLES `trade_sub_categories` WRITE;
 /*!40000 ALTER TABLE `trade_sub_categories` DISABLE KEYS */;
-INSERT INTO `trade_sub_categories` VALUES (1,'Coal',NULL,NULL,'001',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(2,'Distribution',NULL,NULL,'002',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(3,'DMPP',NULL,NULL,'003',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(4,'Gas Engine',NULL,NULL,'004',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(5,'Oil and Gas On & Offshore',NULL,NULL,'005',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(6,'Nuclear',NULL,NULL,'007',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(7,'Gas Turbine/Steam Turbine',NULL,NULL,'008',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(8,'Franchised Car Dealer',NULL,NULL,'009',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(9,'Franchised Motorcycle Dealer',NULL,NULL,'010',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(10,'Recondition Car Dealer',NULL,NULL,'011',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(11,'LCC/IIW',NULL,NULL,'012',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(12,'Recondition Motorcycle Dealer',NULL,NULL,'013',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(13,'Pharmaceuticals',NULL,NULL,'014',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(14,'Plastic',NULL,NULL,'015',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(15,'Cooling & Refrigeration',NULL,NULL,'016',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(16,'Tire & Rubber Goods',NULL,NULL,'017',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(17,'Motor/Vehicle Assembly',NULL,NULL,'018',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(18,'Furniture',NULL,NULL,'019',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(19,'Electronic',NULL,NULL,'020',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(20,'Leather/Footwear',NULL,NULL,'021',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(21,'Edible Oil',NULL,NULL,'022',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(22,'Food & Beverage',NULL,NULL,'023',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(23,'Sugar Mills',NULL,NULL,'024',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(24,'Cargo',NULL,NULL,'025',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(25,'Fishing Trawler',NULL,NULL,'026',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(26,'Passenger/Ferry',NULL,NULL,'027',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(27,'Ship Yards',NULL,NULL,'028',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(28,'LNG/Carrier',NULL,NULL,'029',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(29,'Dredging',NULL,NULL,'030',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(30,'Tugs',NULL,NULL,'031',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(31,'Distributors',NULL,NULL,'032',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(32,'Local Export',NULL,NULL,'033',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(33,'Tankers',NULL,NULL,'034',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(34,'Bulk Carriers',NULL,NULL,'035',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(35,'Container Ships',NULL,NULL,'036',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(36,'Steel',NULL,NULL,'037',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(37,'Non-ferrous',NULL,NULL,'038',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(38,'Nepal Export',NULL,NULL,'039',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(39,'Agriculture',NULL,NULL,'040',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(40,'Construction',NULL,NULL,'041',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(41,'Mining',NULL,NULL,'042',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(42,'Railroads',NULL,NULL,'043',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(43,'CAT-Alliance Partner',NULL,NULL,'044',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(44,'Bus fleet',NULL,NULL,'045',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(45,'Transport/Cargo',NULL,NULL,'046',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(46,'Truck fleet',NULL,NULL,'047',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(47,'Pulp & Paper',NULL,NULL,'048',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(48,'Packaging Paper',NULL,NULL,'049',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(49,'Wood Processing',NULL,NULL,'050',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(50,'Cement',NULL,NULL,'051',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(51,'Ceramics',NULL,NULL,'052',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(52,'Chemical',NULL,NULL,'053',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(53,'Composites',NULL,NULL,'054',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(54,'Dyeing',NULL,NULL,'055',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(55,'Fabrics',NULL,NULL,'056',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(56,'Garments',NULL,NULL,'057',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(57,'Jute',NULL,NULL,'058',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(58,'Spinning',NULL,NULL,'059',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(59,'Tannery',NULL,NULL,'060',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(60,'Fertilizer',NULL,NULL,'066',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(61,'FS/CNG Station',NULL,NULL,'061',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(62,'Wholesaler',NULL,NULL,'062',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(63,'Retailer',NULL,NULL,'063',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(64,'E-Commerce',NULL,NULL,'064',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(65,'Auto Parts',NULL,NULL,'065',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(66,'Others',NULL,NULL,'006',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL);
+INSERT INTO `trade_sub_categories` VALUES (1,'Coal',1,NULL,'001',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(2,'Distribution',1,NULL,'002',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(3,'DMPP',1,NULL,'003',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(4,'Gas Engine',1,NULL,'004',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(5,'Oil and Gas On & Offshore',1,NULL,'005',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(6,'Nuclear',1,NULL,'007',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(7,'Gas Turbine/Steam Turbine',1,NULL,'008',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(8,'Franchised Car Dealer',2,NULL,'009',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(9,'Franchised Motorcycle Dealer',2,NULL,'010',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(10,'Recondition Car Dealer',2,NULL,'011',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(11,'LCC/IIW',2,NULL,'012',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(12,'Recondition Motorcycle Dealer',2,NULL,'013',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(13,'Pharmaceuticals',3,NULL,'014',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(14,'Plastic',3,NULL,'015',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(15,'Cooling & Refrigeration',3,NULL,'016',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(16,'Tire & Rubber Goods',3,NULL,'017',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(17,'Motor/Vehicle Assembly',3,NULL,'018',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(18,'Furniture',3,NULL,'019',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(19,'Electronic',3,NULL,'020',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(20,'Leather/Footwear',3,NULL,'021',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(21,'Edible Oil',3,NULL,'022',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(22,'Food & Beverage',3,NULL,'023',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(23,'Sugar Mills',3,NULL,'024',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(24,'Cargo',4,NULL,'025',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(25,'Fishing Trawler',4,NULL,'026',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(26,'Passenger/Ferry',4,NULL,'027',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(27,'Ship Yards',4,NULL,'028',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(28,'LNG/Carrier',4,NULL,'029',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(29,'Dredging',4,NULL,'030',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(30,'Tugs',4,NULL,'031',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(31,'Distributors',5,NULL,'032',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(32,'Local Export',6,NULL,'033',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(33,'Tankers',7,NULL,'034',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(34,'Bulk Carriers',7,NULL,'035',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(35,'Container Ships',7,NULL,'036',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(36,'Steel',NULL,NULL,'037',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(37,'Non-ferrous',NULL,NULL,'038',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(38,'Nepal Export',NULL,NULL,'039',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(39,'Agriculture',NULL,NULL,'040',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(40,'Construction',NULL,NULL,'041',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(41,'Mining',NULL,NULL,'042',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(42,'Railroads',NULL,NULL,'043',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(43,'CAT-Alliance Partner',NULL,NULL,'044',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(44,'Bus fleet',NULL,NULL,'045',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(45,'Transport/Cargo',NULL,NULL,'046',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(46,'Truck fleet',NULL,NULL,'047',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(47,'Pulp & Paper',NULL,NULL,'048',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(48,'Packaging Paper',NULL,NULL,'049',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(49,'Wood Processing',NULL,NULL,'050',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(50,'Cement',NULL,NULL,'051',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(51,'Ceramics',NULL,NULL,'052',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(52,'Chemical',NULL,NULL,'053',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(53,'Composites',NULL,NULL,'054',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(54,'Dyeing',NULL,NULL,'055',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(55,'Fabrics',NULL,NULL,'056',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(56,'Garments',NULL,NULL,'057',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(57,'Jute',NULL,NULL,'058',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(58,'Spinning',NULL,NULL,'059',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(59,'Tannery',NULL,NULL,'060',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(60,'Fertilizer',NULL,NULL,'066',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(61,'FS/CNG Station',NULL,NULL,'061',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(62,'Wholesaler',NULL,NULL,'062',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(63,'Retailer',NULL,NULL,'063',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(64,'E-Commerce',NULL,NULL,'064',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(65,'Auto Parts',NULL,NULL,'065',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL),(66,'Others',NULL,NULL,'006',NULL,1,NULL,NULL,'2025-04-24 08:52:55','2025-04-24 08:52:55',NULL);
 /*!40000 ALTER TABLE `trade_sub_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1342,4 +1455,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-24 15:45:16
+-- Dump completed on 2025-05-15 17:45:26
