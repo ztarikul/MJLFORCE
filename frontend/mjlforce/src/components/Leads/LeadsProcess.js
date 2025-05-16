@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import Auth from "../../auth/Auth";
 import Swal from "sweetalert2";
 import Main from "../Main";
+import PageLoader from "../../utils/PageLoader";
 
 export default function LeadsProcess() {
   const { id } = useParams();
   const { http } = Auth();
+  const [pageLoading, setPageLoading] = useState(true);
   const [formData, setFormData] = useState({
     account_name: "",
     group: "",
@@ -108,6 +110,8 @@ export default function LeadsProcess() {
         setTradeSubCategories(
           res.data.soldToParty.trade_category.trade_sub_categories
         );
+
+        setPageLoading(false);
       })
       .catch((res) => {
         console.log(res);
@@ -200,11 +204,12 @@ export default function LeadsProcess() {
     setDistricts(selectedDistricts);
     setUpazilas([]);
     setPostOffice([]);
-    setFormData({
+    setFormData((prev) => ({
+      ...prev,
       loc_district: "",
       loc_thana: "",
       post_office: "",
-    });
+    }));
   };
 
   const districtChangeHnadler = (event) => {
@@ -219,10 +224,11 @@ export default function LeadsProcess() {
     );
     setUpazilas(selectedUpazilas);
     setPostOffice([]);
-    setFormData({
+    setFormData((prev) => ({
+      ...prev,
       loc_thana: "",
       post_office: "",
-    });
+    }));
   };
 
   const upazilaChangeHnadler = (event) => {
@@ -257,6 +263,10 @@ export default function LeadsProcess() {
       [name]: value,
     }));
   };
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
 
   return (
     <Main>
