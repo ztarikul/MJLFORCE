@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
+use App\Models\SoldToParty;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -81,15 +82,25 @@ class HomeController extends Controller
         try{
             $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
             if(!empty($employee)){
-                $leads =  $employee->soldToParties()->whereHas('processLogs',  function($query){
-                    $query->where('chk_to', 2)->where('status', 1)->orderBy('created_at', 'desc');
-                })->get(['id', 'acc_name', 'address', 'created_at']);
+                $soldToPaties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('employee_id', $employee->id)->latest()->get();
+               
+                foreach($soldToPaties as $idx => $soldToParty){
+                     
+                    if($soldToParty->currentProcess->chk_to === 2){
+                        $leads[] = [
+                            'id' => $soldToParty->id,
+                            'acc_name' => $soldToParty->acc_name,
+                            'address' => $soldToParty->address,
+                            'created_at' => $soldToParty->created_at
+                        ];
+                    }
+                    
+                }
             }
         }catch(Exception $e){
             
         }
         
-
         return response()->json(['leads' => $leads], 200);
     }
 

@@ -27,7 +27,11 @@ class SoldToParty extends Model
     }
 
     public function processLogs(){
-        return $this->hasMany(SoldToPartyProcessLog::class);
+        return $this->hasMany(SoldToPartyProcessLog::class)->latest();
+    }
+
+    public function currentProcess(){
+        return $this->hasOne(SoldToPartyProcessLog::class)->latest();
     }
 
     public function leadStageLogs(){
