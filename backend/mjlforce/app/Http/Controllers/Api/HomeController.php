@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\LocDistrict;
+use App\Models\LocDivision;
+use App\Models\LocPostOffice;
+use App\Models\LocUpazila;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use App\Models\SoldToParty;
@@ -67,6 +71,10 @@ class HomeController extends Controller
         try{
             $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
             if(!empty($employee)){
+                 $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
+                $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
+                $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
+                $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
                 $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->get();
             }
         }catch(Exception $e){
@@ -104,4 +112,20 @@ class HomeController extends Controller
         return response()->json(['leads' => $leads], 200);
     }
 
+       public function create_sh2p(Request $request){
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+        $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
+        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        if($request->query('sold_to_party_id')){
+          
+             $soldToParty = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->findOrFail($request->query('sold_to_party_id'));
+              return response()->json(['soldToParty' => $soldToParty], 200);
+        }
+
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+
+        return response()->json(['soldToParties' => $soldToParties, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice], 200);
+    }
 }

@@ -22,10 +22,10 @@ class CmaController extends Controller
 {
     //
     public function visitNewSoldToPary(){
-        $divisions = LocDivision::select('id', 'name')->get();
-        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->get();
-        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->get();
-        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->get();
+        $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
+        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('name', 'asc')->get();
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
         $tradeCategories = TradeCategory::select('id', 'name')->get();
         $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
