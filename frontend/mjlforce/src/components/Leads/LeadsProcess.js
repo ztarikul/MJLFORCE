@@ -241,6 +241,10 @@ export default function LeadsProcess() {
     const selectedPostOffices = fetchData.postOffice.filter(
       (office) => office.loc_upazila_id === selectedId
     );
+    setFormData((prev) => ({
+      ...prev,
+      post_office: "",
+    }));
     setPostOffice(selectedPostOffices);
   };
 
@@ -255,6 +259,10 @@ export default function LeadsProcess() {
       (subCat) => subCat.trade_category_id === selectedId
     );
     setTradeSubCategories(selectedtradeSubCategories);
+    setFormData((prev) => ({
+      ...prev,
+      trade_s_category: "",
+    }));
   };
   const customerTypeHandler = (event) => {
     const { name, value } = event.target;
@@ -763,6 +771,9 @@ export default function LeadsProcess() {
                           value={formData.trade_s_category}
                           onChange={handleChange}
                         >
+                          {!formData.trade_s_category && (
+                            <option value="">Please Select</option>
+                          )}
                           {tradeSubCategories.map((subCat) => (
                             <option key={subCat.id} value={subCat.id}>
                               {subCat.name}
