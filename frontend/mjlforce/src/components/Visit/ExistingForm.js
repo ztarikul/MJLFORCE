@@ -1,6 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import Auth from "../../auth/Auth";
 
 export default function ExistingForm() {
+  const { http } = Auth();
+
+  const [fetchData, setFetchdata] = useState({
+    soldToParties: [],
+    shipToParties: [],
+  });
+
+  const fetchFormData = useCallback(() => {
+    http
+      .get("/existing_visit")
+      .then((res) => {
+        console.log(res.data);
+        setFetchdata((prev) => ({
+          ...prev,
+          soldToParties: res.data.soldToParties,
+        }));
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchFormData();
+  }, [fetchFormData]);
+
+  const soldToPartyChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   [name]: value,
+    // }));
+    const selectedId = parseInt(value);
+    const selectedSoldToParty = fetchData.soldToParties.filter(
+      (sToP) => sToP.id === selectedId
+    );
+
+    setFetchdata((prev) => ({
+      ...prev,
+      shipToParties: selectedSoldToParty.ship_to_parties,
+    }));
+
+    console.log(fetchData);
+  };
+
   return (
     <form className="form theme-form">
       <div className="card-body">
@@ -14,12 +60,14 @@ export default function ExistingForm() {
                 className="form-select"
                 id="account_name"
                 name="account_name"
+                onChange={soldToPartyChangeHnadler}
               >
-                <option>Brb energy limited</option>
-                <option>M.K Motors</option>
-                <option>M/S Bosu Enterprise</option>
-                <option>M/S Bosu Enterprise</option>
-                <option>M/S Sagor Enterprise</option>
+                <option value="">Please Select</option>
+                {fetchData.soldToParties?.map((sp) => (
+                  <option key={sp.id} value={sp.id}>
+                    {sp.acc_name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -34,11 +82,11 @@ export default function ExistingForm() {
                 id="account_name"
                 name="account_name"
               >
-                <option>Brb energy limited</option>
-                <option>M.K Motors</option>
-                <option>M/S Bosu Enterprise</option>
-                <option>M/S Bosu Enterprise</option>
-                <option>M/S Sagor Enterprise</option>
+                {fetchData.shipToParties?.map((sp) => (
+                  <option key={sp.id} value={sp.id}>
+                    {sp.acc_name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

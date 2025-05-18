@@ -129,5 +129,15 @@ class HomeController extends Controller
         return response()->json(['soldToParties' => $soldToParties, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice], 200);
     }
 
+    public function existingVisit(Request $request){
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+        $soldToParties = SoldToParty::select('id', 'acc_name')->with('shipToParties:id,acc_name,sold_to_party_id')->whereHas('shipToParties', function($query){
+            $query->orderBy('acc_name', 'asc');
+        })->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+        
+
+        return response()->json(['soldToParties' => $soldToParties], 200);
+    }
+
 
 }

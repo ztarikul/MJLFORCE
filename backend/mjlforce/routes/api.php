@@ -28,9 +28,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('/leads', [HomeController::class, 'leads']);
         Route::get('/leads_process', [CmaController::class, 'leadsProcess']);
         Route::post('/updateLeadProcess/{id}', [CmaController::class, 'updateLeadProcess']);
-
         Route::get('/create_sh2p', [HomeController::class, 'create_sh2p']);
         Route::post('/store_sh2p', [CmaController::class, 'storeShipToParty']);
+        Route::get('/existing_visit', [HomeController::class, 'existingVisit']);
     });
 
 
