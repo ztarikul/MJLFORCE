@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/updateLeadProcess/{id}', [CmaController::class, 'updateLeadProcess']);
 
         Route::get('/create_sh2p', [HomeController::class, 'create_sh2p']);
+        Route::post('/store_sh2p', [CmaController::class, 'storeShipToParty']);
     });
 
 

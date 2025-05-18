@@ -8,6 +8,7 @@ export default function ShipToParty() {
   const { http } = Auth();
   const [soldToParties, setSoldToParties] = useState([]);
   const [formData, setFormData] = useState({
+    sold_to_party_id: "",
     account_name: "",
     office_address: "",
     loc_division: "",
@@ -166,14 +167,32 @@ export default function ShipToParty() {
 
   const soldToPartyChangeHandler = (event) => {
     const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     http
       .get("/create_sh2p", {
         params: {
-          sold_to_party_id: value,
+          [name]: value,
         },
       })
       .then((res) => {
         console.log(res.data);
+        setFormData((prev) => ({
+          ...prev,
+          account_name: res.data.soldToParty.acc_name,
+          office_address: res.data.soldToParty.address,
+          bin: res.data.soldToParty.bin_no,
+          contact_person: res.data.soldToParty.contact_person_name,
+          mobile_co: res.data.soldToParty.contact_person_mobile,
+          remarks: res.data.soldToParty.remarks,
+
+          loc_division: res.data.soldToParty.loc_division_id,
+          loc_district: res.data.soldToParty.loc_district_id,
+          loc_thana: res.data.soldToParty.loc_upazila_id,
+          post_office: res.data.soldToParty.loc_post_office_id,
+        }));
       })
       .catch((res) => {
         console.log(res);
@@ -187,7 +206,7 @@ export default function ShipToParty() {
           <div className="col-xl-12 xl-100 col-lg-12 box-col-12">
             <div className="card">
               <div className="card-body">
-                <form className="form theme-form">
+                <form className="form theme-form" onSubmit={formSubmit}>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-md-4">
@@ -227,6 +246,7 @@ export default function ShipToParty() {
                             value={formData.account_name}
                             placeholder="SH2P Name"
                             onChange={handleChange}
+                            disabled
                           />
                         </div>
                       </div>
@@ -448,7 +468,7 @@ export default function ShipToParty() {
                     </div>
                   </div>
                   <div className="card-footer text-end">
-                    <button className="btn btn-primary" type="button">
+                    <button className="btn btn-primary" type="submit">
                       Submit
                     </button>
                     <input

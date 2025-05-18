@@ -8,6 +8,7 @@ use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
+use App\Models\ShipToParty;
 use App\Models\SoldToParty;
 use App\Models\SoldToPartyLeadLog;
 use App\Models\SoldToPartyProcessLog;
@@ -314,5 +315,126 @@ class CmaController extends Controller
         ]);
     }
 
+
+     public function storeShipToParty(Request $request){
+
+        // return response()->json($request->all());
+        $msg = "";
+        
+        $request->validate([
+            'account_name' => 'required',
+            'office_address' => 'required',
+            // 'loc_division' => 'required',
+            // 'loc_district' => 'required',
+            // 'loc_thana' => 'required',
+            // 'post_office' => 'nullable',
+            'bin' => 'required',
+            'contact_person' => 'required',
+            'mobile_co' => 'required',
+            'remarks' => 'nullable|string|max:500',
+
+        ]);
+        try{
+   
+            $soldToParty = SoldToParty::findOrFail($request->sold_to_party_id);
+            $shipToParty = new ShipToParty();
+            $shipToParty->sold_to_party_id = $request->sold_to_party_id;
+            $shipToParty->customer_code = $soldToParty->customer_code;
+            $shipToParty->customer_acc_group = $soldToParty->customer_acc_group;
+            $shipToParty->company_code = "1100";
+            $shipToParty->sales_org = "1100";	
+            $shipToParty->distribution_ch = $soldToParty->distribution_ch;   
+            $shipToParty->sales_division = "00";    //Common
+            // list($acc_name1, $acc_name2) = splitByLastCharBeforeLimit($request->account_name, 40, " ");
+            $shipToParty->acc_name = $soldToParty->acc_name;
+            $shipToParty->acc_name2 = $soldToParty->acc_name2;
+            // $shipToParty->search_term = $request->name;
+            // $shipToParty->search_term2 = $request->name;
+            // $shipToParty->legacy_acc_code = null;
+            $shipToParty->country = "BD"; // BD, CY, DE, SG, SN, VN,
+            $shipToParty->region =  $soldToParty->region;
+            $shipToParty->region_id = $soldToParty->region_id;
+            $shipToParty->district =  $soldToParty->district;
+            list($address1, $address2) = splitByLastCharBeforeLimit($request->office_address, 60, ",");
+            $shipToParty->address = $address1;
+            $shipToParty->ceo = $soldToParty->ceo;;
+            list($address2, $address3) = splitByLastCharBeforeLimit($address2, 40, ",");
+            $shipToParty->address_2 = $address2;
+            list($address3, $address4) = splitByLastCharBeforeLimit($address3, 40, ",");
+            $shipToParty->address_3 = $address3; // rest address after 60 char
+            // $shipToParty->lang = null;
+            $shipToParty->phone =  $soldToParty->phone;
+            $shipToParty->mobile_phone =  $soldToParty->mobile_phone;
+            // $shipToParty->fax = null;
+            $shipToParty->email =  $soldToParty->acc_nemailame;
+            // $shipToParty->other_url = null;
+            $shipToParty->postal_code = $request->post_office ? LocPostOffice::find($request->post_office)->post_code :  $soldToParty->postal_code;
+            $shipToParty->contact_person_name = $request->contact_person;
+            $shipToParty->contact_person_tel =  $soldToParty->contact_person_tel;
+            $shipToParty->contact_person_mobile = $request->mobile_co;
+            $shipToParty->group =  $soldToParty->group;
+
+            // $shipToParty->payment_mode = "1G"; //for rent it is blank
+
+            $shipToParty->bin_no = $request->bin;
+            // $shipToParty->vat_reg_num = $request->vat_reg_num;
+            // $shipToParty->recon_acc = $request->recon_acc;
+            // $shipToParty->fi_payment_terms = $request->fi_payment_terms;
+            // $shipToParty->currency = $request->currency;
+            // $shipToParty->cust_pricing_procedure = 1;
+            // $shipToParty->shipping_condition = 01;
+            // $shipToParty->delivering_plant = null;
+            // $shipToParty->other_combination = "X";
+            // $shipToParty->incoterms = null;
+            // $shipToParty->incoterms_loc_1 = null;
+            // $shipToParty->sd_payment_terms = null;
+            // $shipToParty->acc_assignment_group = $request->acc_assignment_group;
+            // $shipToParty->tax_classification = $request->tax_classification;
+            $shipToParty->territory = $soldToParty->territory;;
+            $shipToParty->territory_id = $soldToParty->territory_id; //non sap
+
+            $shipToParty->customer_group =  $soldToParty->customer_group;;
+            $shipToParty->trade_category =  $soldToParty->trade_category;;
+            $shipToParty->trade_sub_category =  $soldToParty->trade_sub_category;;
+            // $shipToParty->customer_group_3 = $request->customer_group_3;
+            // $shipToParty->customer_group_4 = $request->customer_group_4;
+            // $shipToParty->customer_group_5 = $request->customer_group_5;
+            $shipToParty->bp_type =  $soldToParty->bp_type;;
+            // $shipToParty->attr_2 = $request->attr_2;
+            // $shipToParty->attr_3 = $request->attr_3;
+            // $shipToParty->attr_4 = $request->attr_4;
+            // $shipToParty->factory_address_2 = $request->factory_address_2;
+
+            $shipToParty->loc_division_id =  $request->loc_division ? $request->loc_division : $soldToParty->loc_division_id;
+            $shipToParty->loc_district_id = $request->loc_district ? $request->loc_district : $soldToParty->loc_district_id;;
+            $shipToParty->loc_upazila_id = $request->loc_thana ? $request->loc_thana : $soldToParty->loc_upazila_id;;
+            $shipToParty->loc_post_office_id = $request->post_office ? $request->post_office : $soldToParty->loc_post_office_id;;
+            // $shipToParty->image = $request->image;
+            $shipToParty->lat = $request->lat;
+            $shipToParty->long = $request->long;
+            $shipToParty->employee_id =  auth()->user()->employee->id;
+            
+            $shipToParty->remarks = $request->remarks;
+            $shipToParty->created_by = auth()->user()->id;
+            $shipToParty->hostname = gethostname();
+            $shipToParty->save();
+  
+            $msg = 'Ship To Party created successfully';
+
+
+
+         
+            
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+            
+
+        }
+        return response()->json([
+            'message' => $msg,
+        ]);
+
+
+    }
 
 }
