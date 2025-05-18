@@ -226,7 +226,8 @@ export default function ShipToParty() {
                                 key={soldToParty.id}
                                 value={soldToParty.id}
                               >
-                                {soldToParty.acc_name}
+                                {soldToParty.acc_name} -{" "}
+                                {soldToParty.ship_to_parties_count}
                               </option>
                             ))}
                           </select>

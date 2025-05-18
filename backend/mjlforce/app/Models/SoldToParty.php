@@ -11,9 +11,10 @@ use App\Models\LocDistrict;
 use App\Models\LocUpazila;
 use App\Models\LocPostOffice;
 use App\Models\Territory;
-use App\Models\TradeCategory;;
-use App\Models\TradeSubCategory;;
-use App\Models\SoldToPartyLeadLog;;
+use App\Models\TradeCategory;
+use App\Models\TradeSubCategory;
+use App\Models\SoldToPartyLeadLog;
+use App\Models\ShipToParty;
 
 class SoldToParty extends Model
 {
@@ -68,7 +69,9 @@ class SoldToParty extends Model
 
 
 
-
+    public function shipToParties(){
+        return $this->hasMany(ShipToParty::class);
+    }
 
 
 }

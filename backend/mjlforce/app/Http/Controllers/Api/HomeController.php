@@ -124,7 +124,7 @@ class HomeController extends Controller
               return response()->json(['soldToParty' => $soldToParty], 200);
         }
 
-        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->withCount('shipToParties')->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
 
         return response()->json(['soldToParties' => $soldToParties, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice], 200);
     }
