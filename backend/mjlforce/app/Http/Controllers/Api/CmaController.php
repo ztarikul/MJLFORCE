@@ -283,6 +283,7 @@ class CmaController extends Controller
             $soldToParty->is_eligible_discount = $request->special_discount === "on" ? true : false;
 
             $soldToParty->remarks = $request->remarks;
+            $soldToParty->status = 2; //processing
 
             if($request->lead_stage_id === "7"){
                 SoldToPartyProcessLog::create([

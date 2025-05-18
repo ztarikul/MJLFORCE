@@ -30,21 +30,23 @@ export default function ExistingForm() {
 
   const soldToPartyChangeHnadler = (event) => {
     const { name, value } = event.target;
-    // setFormData((prev) => ({
-    //   ...prev,
-    //   [name]: value,
-    // }));
-    const selectedId = parseInt(value);
-    const selectedSoldToParty = fetchData.soldToParties.filter(
-      (sToP) => sToP.id === selectedId
-    );
-
-    setFetchdata((prev) => ({
-      ...prev,
-      shipToParties: selectedSoldToParty.ship_to_parties,
-    }));
-
-    console.log(fetchData);
+    // const selectedId = parseInt(value);
+    http
+      .get("/existing_visit", {
+        params: {
+          [name]: value,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setFetchdata((prev) => ({
+          ...prev,
+          shipToParties: res.data.shipToParties,
+        }));
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   return (
@@ -58,8 +60,8 @@ export default function ExistingForm() {
               </label>
               <select
                 className="form-select"
-                id="account_name"
-                name="account_name"
+                id="sold_to_party_id"
+                name="sold_to_party_id"
                 onChange={soldToPartyChangeHnadler}
               >
                 <option value="">Please Select</option>
@@ -79,12 +81,13 @@ export default function ExistingForm() {
               </label>
               <select
                 className="form-select"
-                id="account_name"
-                name="account_name"
+                id="ship_to_party_id"
+                name="ship_to_party_id"
               >
+                <option value="">Please Select</option>
                 {fetchData.shipToParties?.map((sp) => (
                   <option key={sp.id} value={sp.id}>
-                    {sp.acc_name}
+                    {sp.acc_name} - {sp.customer_code}
                   </option>
                 ))}
               </select>

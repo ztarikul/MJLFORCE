@@ -41,8 +41,8 @@ return new class extends Migration
             $table->string('lang')->nullable()->comment('ADRC-LANGU');
             $table->string('phone')->nullable()->comment('ADRC-TEL_NUMBER');
             $table->string('mobile_phone')->nullable()->comment('KNA1_TELF2'); //SMS purpose
-            $table->string('fax')->nullable()->unique()->comment('KNA1-TELFX');
-            $table->string('email')->nullable()->unique()->comment('ADR6-SMTP_ADDR');
+            $table->string('fax')->nullable()->comment('KNA1-TELFX');
+            $table->string('email')->nullable()->comment('ADR6-SMTP_ADDR');
             $table->string('other_url')->nullable()->comment('ADR12-URL_ADDR');
             $table->string('postal_code')->nullable()->comment('ADRC-POST-CODE1');
             
@@ -53,7 +53,7 @@ return new class extends Migration
 
             $table->string('group')->nullable()->comment('BUT020-ADEXT');
             $table->string('payment_mode')->nullable()->comment('KNA1-KATRA'); //1G default
-            $table->string('bin_no')->nullable()->unique()->comment('KNA1-BAHN5');
+            $table->string('bin_no')->nullable()->comment('KNA1-BAHN5');
             $table->string('vat_reg_num')->nullable()->comment('KNA1-BAHNE');
 
             $table->string('recon_acc')->nullable()->comment('KNB1-AKONT'); //Reconcillation Account
@@ -94,7 +94,7 @@ return new class extends Migration
             $table->decimal('long', 9, 6)->nullable();
             $table->foreignId('employee_id')->nullable()->constrained();
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->text('remarks')->nullable();
             $table->boolean('is_eligible_discount')->default(0);
             $table->boolean('activeStatus')->default(1);

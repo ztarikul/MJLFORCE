@@ -93,7 +93,7 @@ return new class extends Migration
             $table->decimal('long', 9, 6)->nullable();
             $table->foreignId('employee_id')->nullable()->constrained();
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->text('remarks')->nullable();
             $table->boolean('is_eligible_discount')->default(0);
             $table->boolean('activeStatus')->default(1);

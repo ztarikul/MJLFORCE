@@ -9,6 +9,7 @@ use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
+use App\Models\ShipToParty;
 use App\Models\SoldToParty;
 use Carbon\Carbon;
 use Exception;
@@ -130,10 +131,16 @@ class HomeController extends Controller
     }
 
     public function existingVisit(Request $request){
-        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
-        $soldToParties = SoldToParty::select('id', 'acc_name')->with('shipToParties:id,acc_name,sold_to_party_id')->whereHas('shipToParties', function($query){
-            $query->orderBy('acc_name', 'asc');
-        })->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+       $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+        if($request->query('sold_to_party_id')){
+            
+                $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->where('status', 4)->get();
+                return response()->json(['shipToParties' => $shipToParties], 200);
+        }
+
+        //sold_to_party those are approved.
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('status', 4)->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+
         
 
         return response()->json(['soldToParties' => $soldToParties], 200);
