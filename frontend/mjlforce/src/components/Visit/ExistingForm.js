@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Auth from "../../auth/Auth";
+import Swal from "sweetalert2";
+import { getCurrentLocation } from "../../utils/getCurrentLocation";
 
 export default function ExistingForm() {
   const { http } = Auth();
@@ -7,7 +9,23 @@ export default function ExistingForm() {
   const [fetchData, setFetchdata] = useState({
     soldToParties: [],
     shipToParties: [],
+    visitPurposes: [],
   });
+
+  const [formData, setFormData] = useState({
+    sold_to_party_id: "",
+    ship_to_party_id: "",
+    visit_purpose_id: "",
+    other_purpose: "",
+    sales_performance: "",
+    stock_verification: "",
+    mkt_mat_display: "",
+    remarks: "",
+    long: "",
+    lat: "",
+  });
+
+  const [errors, setErrors] = useState({});
 
   const fetchFormData = useCallback(() => {
     http
@@ -17,6 +35,7 @@ export default function ExistingForm() {
         setFetchdata((prev) => ({
           ...prev,
           soldToParties: res.data.soldToParties,
+          visitPurposes: res.data.visitPurposes,
         }));
       })
       .catch((res) => {
@@ -43,26 +62,104 @@ export default function ExistingForm() {
           ...prev,
           shipToParties: res.data.shipToParties,
         }));
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
       })
       .catch((res) => {
         console.log(res);
       });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (!formData.lat && !formData.long) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          setFormData((prev) => ({
+            ...prev,
+            long: location.longitude,
+            lat: location.latitude,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to submit the form?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (result.isConfirmed) {
+      http
+        .post("/store_existing_visit", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res.data); // Handle success response
+          Swal.fire({
+            title: "Submitted!",
+            text: "Your form has been submitted.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          setFormData({
+            sold_to_party_id: "",
+            ship_to_party_id: "",
+            visit_purpose_id: "",
+            other_purpose: "",
+            sales_performance: "",
+            stock_verification: "",
+            mkt_mat_display: "",
+            remarks: "",
+            long: "",
+            lat: "",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
+        });
+    }
+  };
+
   return (
-    <form className="form theme-form">
+    <form className="form theme-form" onSubmit={formSubmit}>
       <div className="card-body">
         <div className="row">
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="exampleFormControlInput1">
-                Customer Name
+                Customer Name <span style={{ color: "red" }}>*</span>
               </label>
               <select
                 className="form-select"
                 id="sold_to_party_id"
                 name="sold_to_party_id"
                 onChange={soldToPartyChangeHnadler}
+                value={formData.sold_to_party_id}
               >
                 <option value="">Please Select</option>
                 {fetchData.soldToParties?.map((sp) => (
@@ -83,6 +180,8 @@ export default function ExistingForm() {
                 className="form-select"
                 id="ship_to_party_id"
                 name="ship_to_party_id"
+                onChange={handleChange}
+                value={formData.ship_to_party_id}
               >
                 <option value="">Please Select</option>
                 {fetchData.shipToParties?.map((sp) => (
@@ -97,22 +196,21 @@ export default function ExistingForm() {
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="officeAddress">
-                Visit Purpose
+                Visit Purpose <span style={{ color: "red" }}>*</span>
               </label>
               <select
                 className="form-select"
-                id="visit_purpose"
-                name="visit_purpose"
+                id="visit_purpose_id"
+                name="visit_purpose_id"
+                onChange={handleChange}
+                value={formData.visit_purpose_id}
               >
-                <option>New Order</option>
-                <option>Feedback</option>
-                <option>Routine Visit</option>
-                <option>Customer Query</option>
-                <option>MARCOM Activity</option>
-                <option>Inspevtion</option>
-                <option>Survey</option>
-                <option>Training</option>
-                <option>Seminer</option>
+                <option value="">Please Select</option>
+                {fetchData.visitPurposes?.map((purpose) => (
+                  <option key={purpose.id} value={purpose.id}>
+                    {purpose.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -124,10 +222,12 @@ export default function ExistingForm() {
               </label>
               <input
                 className="form-control"
-                id="visit_purpose_other"
+                id="other_purpose"
                 type="text"
-                name="visit_purpose_other"
-                placeholder=""
+                name="other_purpose"
+                placeholder="Other Visit Purpose"
+                onChange={handleChange}
+                value={formData.other_purpose}
               />
             </div>
           </div>
@@ -141,11 +241,13 @@ export default function ExistingForm() {
                 className="form-select"
                 id="sales_performance"
                 name="sales_performance"
-                multiple=""
+                onChange={handleChange}
+                value={formData.sales_performance}
               >
-                <option>Poor</option>
-                <option>Good</option>
-                <option>Very Good</option>
+                <option value="">Please Select</option>
+                <option value="Poor">Poor</option>
+                <option value="Good">Good</option>
+                <option value="Very Good">Very Good</option>
               </select>
             </div>
           </div>
@@ -157,13 +259,15 @@ export default function ExistingForm() {
               </label>
               <select
                 className="form-select"
-                id="stock_ver"
-                name="stock_ver"
-                multiple=""
+                id="stock_verification"
+                name="stock_verification"
+                onChange={handleChange}
+                value={formData.stock_verification}
               >
-                <option>Nill</option>
-                <option>Moderate</option>
-                <option>Sufficient</option>
+                <option value="">Please Select</option>
+                <option value="Nill">Nill</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Sufficient">Sufficient</option>
               </select>
             </div>
           </div>
@@ -175,13 +279,15 @@ export default function ExistingForm() {
               </label>
               <select
                 className="form-select"
-                id="sales_performance"
-                name="sales_performance"
-                multiple=""
+                id="mkt_mat_display"
+                name="mkt_mat_display"
+                onChange={handleChange}
+                value={formData.mkt_mat_display}
               >
-                <option>Satisfactory</option>
-                <option>Unsatisfactory</option>
-                <option>N/A</option>
+                <option value="">Please Select</option>
+                <option value="Satisfactory">Satisfactory</option>
+                <option value="Unsatisfactory">Unsatisfactory</option>
+                <option value="N/A">N/A</option>
               </select>
             </div>
           </div>
@@ -189,20 +295,22 @@ export default function ExistingForm() {
           <div className="col-md-4">
             <div>
               <label className="form-label" htmlFor="remarks">
-                Remarks
+                Remarks <span style={{ color: "red" }}>*</span>
               </label>
               <textarea
                 className="form-control"
                 id="remarks"
                 name="remarks"
                 rows="3"
+                onChange={handleChange}
+                value={formData.remarks}
               ></textarea>
             </div>
           </div>
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="button">
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />

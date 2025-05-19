@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('/create_sh2p', [HomeController::class, 'create_sh2p']);
         Route::post('/store_sh2p', [CmaController::class, 'storeShipToParty']);
         Route::get('/existing_visit', [HomeController::class, 'existingVisit']);
+
+        Route::post('/store_existing_visit', [CmaController::class, 'storeExistingVisit']);
     });
 
 

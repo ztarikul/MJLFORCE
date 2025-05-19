@@ -11,6 +11,7 @@ use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use App\Models\ShipToParty;
 use App\Models\SoldToParty;
+use App\Models\VisitPurpose;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -72,10 +73,7 @@ class HomeController extends Controller
         try{
             $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
             if(!empty($employee)){
-                 $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
-                $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
-                $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
-                $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
+                
                 $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->get();
             }
         }catch(Exception $e){
@@ -134,16 +132,21 @@ class HomeController extends Controller
        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
         if($request->query('sold_to_party_id')){
             
-                $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->where('status', 4)->get();
+                $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->whereHas('currentProcess', function($query){
+                     $query->where('chk_to', 5);
+                })->get();
                 return response()->json(['shipToParties' => $shipToParties], 200);
         }
 
         //sold_to_party those are approved.
-        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('status', 4)->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
+            $query->where('chk_to', 5);
+        })->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
 
+        $visitPurposes = VisitPurpose::all();
         
 
-        return response()->json(['soldToParties' => $soldToParties], 200);
+        return response()->json(['soldToParties' => $soldToParties, 'visitPurposes' => $visitPurposes], 200);
     }
 
 

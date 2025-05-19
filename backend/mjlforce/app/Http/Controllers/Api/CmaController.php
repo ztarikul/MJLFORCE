@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExistingVisit;
 use App\Models\LeadStage;
 use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\ShipToParty;
+use App\Models\ShipToPartyprocessLog;
 use App\Models\SoldToParty;
 use App\Models\SoldToPartyLeadLog;
 use App\Models\SoldToPartyProcessLog;
@@ -26,7 +28,7 @@ class CmaController extends Controller
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
-        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('name', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
         $tradeCategories = TradeCategory::select('id', 'name')->get();
         $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
@@ -290,7 +292,7 @@ class CmaController extends Controller
                     'sold_to_party_id' => $soldToParty->id,
                     'chk_from' => 2, //Leads
                     'chk_to' => 3, //SV
-                    'status' => 1,
+                    'status' => 2,
                     'remarks' => "Create CMA",
                 ]);  
             }
@@ -419,6 +421,14 @@ class CmaController extends Controller
             $shipToParty->created_by = auth()->user()->id;
             $shipToParty->hostname = gethostname();
             $shipToParty->save();
+
+            ShipToPartyprocessLog::create([
+                'ship_to_party_id' => $shipToParty->id,
+                'chk_from' => 1,
+                'chk_to' => 2, //SV Varify
+                'status' => 1,
+                'remarks' => "Verification Processing",
+            ]);
   
             $msg = 'Ship To Party created successfully';
 
@@ -436,6 +446,48 @@ class CmaController extends Controller
         ]);
 
 
+    }
+
+    public function storeExistingVisit(Request $request){
+        // return response()->json($request->all());
+
+        $request->validate([
+            'sold_to_party_id' => 'required',
+            'visit_purpose_id' => 'required',
+            'other_purpose' => 'nullable|string|max:500',
+            'sales_performance' => 'nullable|string',
+            'stock_verification' => 'nullable|string',
+            'mkt_mat_display' => 'nullable|string',
+            'remarks' => 'nullable|string|max:500',
+            'lat' => 'required',
+            'long' => 'required',
+        ]);
+
+        try{
+            $existingVisit = new ExistingVisit();
+            $existingVisit->sold_to_party_id = $request->sold_to_party_id;
+            $existingVisit->ship_to_party_id = $request->ship_to_party_id;
+            $existingVisit->visit_purpose_id = $request->visit_purpose_id;
+            $existingVisit->other_purpose = $request->other_purpose;
+            $existingVisit->sales_performance = $request->sales_performance;
+            $existingVisit->stock_verification = $request->stock_verification;
+            $existingVisit->mkt_mat_display = $request->mkt_mat_display;
+            $existingVisit->remarks = $request->remarks;
+            $existingVisit->lat = $request->lat;
+            $existingVisit->long = $request->long;
+            $existingVisit->employee_id = auth()->user()->employee->id;
+            $existingVisit->status = 1; //pending
+            $existingVisit->activeStatus = true;
+            $existingVisit->created_by = auth()->user()->id;
+            $existingVisit->hostname = gethostname();
+            $existingVisit->save();
+            $msg = 'Existing Visit created successfully';
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+        }
+        return response()->json([
+            'message' => $msg,
+        ]);
     }
 
 }
