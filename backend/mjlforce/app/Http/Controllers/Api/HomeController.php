@@ -149,5 +149,16 @@ class HomeController extends Controller
         return response()->json(['soldToParties' => $soldToParties, 'visitPurposes' => $visitPurposes], 200);
     }
 
+    public function otherVisit(Request $request){
+        
+        $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
+        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        $visitPurposes = VisitPurpose::all();
+
+         return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'visitPurposes' => $visitPurposes], 200);
+    }
+
 
 }

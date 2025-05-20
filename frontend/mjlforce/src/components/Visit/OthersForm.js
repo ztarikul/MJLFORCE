@@ -1,8 +1,172 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import Auth from "../../auth/Auth";
+import Swal from "sweetalert2";
+import { getCurrentLocation } from "../../utils/getCurrentLocation";
 
 export default function OthersForm() {
+  const { http } = Auth();
+  const [formData, setFormData] = useState({
+    site_name: "",
+    post_code: "",
+    address: "",
+    visit_purpose_id: "",
+    other_purpose: "",
+    image: "",
+    loc_division: "",
+    loc_district: "",
+    loc_thana: "",
+    post_office: "",
+    remarks: "",
+    long: "",
+    lat: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const [fetchData, setFetchdata] = useState({
+    divisions: [],
+    districts: [],
+    upazilas: [],
+    postOffice: [],
+    visitPurposes: [],
+  });
+
+  const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
+  const [postOffice, setPostOffice] = useState([]);
+
+  const fetchFormData = useCallback(() => {
+    http
+      .get("/other_visit")
+      .then((res) => {
+        console.log(res.data);
+        setFetchdata(res.data);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchFormData();
+  }, [fetchFormData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (!formData.lat && !formData.long) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          setFormData((prev) => ({
+            ...prev,
+            long: location.longitude,
+            lat: location.latitude,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const divisionChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    const selectedId = parseInt(event.target.value);
+    const selectedDistricts = fetchData.districts.filter(
+      (district) => district.loc_division_id === selectedId
+    );
+    setDistricts(selectedDistricts);
+  };
+
+  const districtChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    const selectedId = parseInt(event.target.value);
+    const selectedUpazilas = fetchData.upazilas.filter(
+      (upazila) => upazila.loc_district_id === selectedId
+    );
+    setUpazilas(selectedUpazilas);
+  };
+
+  const upazilaChangeHnadler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    const selectedId = parseInt(event.target.value);
+    const selectedPostOffices = fetchData.postOffice.filter(
+      (office) => office.loc_upazila_id === selectedId
+    );
+    setPostOffice(selectedPostOffices);
+  };
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to submit the form?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (result.isConfirmed) {
+      http
+        .post("/store_other_visit", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res.data); // Handle success response
+          Swal.fire({
+            title: "Submitted!",
+            text: "Your form has been submitted.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          setFormData({
+            site_name: "",
+            post_code: "",
+            address: "",
+            visit_purpose_id: "",
+            other_purpose: "",
+            image: "",
+            loc_division: "",
+            loc_district: "",
+            loc_thana: "",
+            post_office: "",
+            remarks: "",
+            long: "",
+            lat: "",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
+        });
+    }
+  };
+
   return (
-    <form className="form theme-form">
+    <form className="form theme-form" onSubmit={formSubmit}>
       <div className="card-body">
         <div className="row">
           <div className="col-md-4">
@@ -12,10 +176,12 @@ export default function OthersForm() {
               </label>
               <input
                 className="form-control"
-                id="visiting_site"
+                id="site_name"
                 type="text"
-                name="visiting_site"
+                name="site_name"
                 placeholder="xyz group limited"
+                onChange={handleChange}
+                value={formData.site_name}
               />
             </div>
           </div>
@@ -30,7 +196,9 @@ export default function OthersForm() {
                 id="address"
                 type="text"
                 name="address"
-                placeholder="address"
+                placeholder="Site Address"
+                value={formData.address}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -40,14 +208,26 @@ export default function OthersForm() {
               <label className="form-label" htmlFor="division">
                 Division
               </label>
-              <select className="form-select" id="division" name="division">
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+              <select
+                className="form-select"
+                id="loc_division"
+                name="loc_division"
+                value={formData.loc_division}
+                onChange={divisionChangeHnadler}
+              >
+                <option value="">Please Select</option>
+                {fetchData.divisions.map((division) => (
+                  <option key={division.id} value={division.id}>
+                    {division.name}
+                  </option>
+                ))}
               </select>
             </div>
+            {errors.loc_division && (
+              <span className="" style={{ color: "red" }}>
+                {errors.loc_division[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -57,17 +237,24 @@ export default function OthersForm() {
               </label>
               <select
                 className="form-select"
-                id="district"
-                name="district"
-                multiple=""
+                id="loc_district"
+                name="loc_district"
+                value={formData.loc_district}
+                onChange={districtChangeHnadler}
               >
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+                <option value="">Please Select</option>
+                {districts.map((district) => (
+                  <option key={district.id} value={district.id}>
+                    {district.name}
+                  </option>
+                ))}
               </select>
             </div>
+            {errors.loc_district && (
+              <span className="" style={{ color: "red" }}>
+                {errors.loc_district[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
@@ -75,12 +262,19 @@ export default function OthersForm() {
               <label className="form-label" htmlFor="thana">
                 Upazilla/Thana
               </label>
-              <select className="form-select" id="thana" name="thana">
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+              <select
+                className="form-select"
+                id="loc_thana"
+                name="loc_thana"
+                value={formData.loc_thana}
+                onChange={upazilaChangeHnadler}
+              >
+                <option value="">Please Select</option>
+                {upazilas.map((upazila) => (
+                  <option key={upazila.id} value={upazila.id}>
+                    {upazila.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -94,14 +288,22 @@ export default function OthersForm() {
                 className="form-select"
                 id="post_office"
                 name="post_office"
+                value={formData.post_office}
+                onChange={handleChange}
               >
-                <option>Dhaka</option>
-                <option>Barishal</option>
-                <option>Khulna</option>
-                <option>Sylhet</option>
-                <option>Chittagong</option>
+                <option value="">Please Select</option>
+                {postOffice.map((office) => (
+                  <option key={office.id} value={office.id}>
+                    {office.post_office}
+                  </option>
+                ))}
               </select>
             </div>
+            {errors.post_office && (
+              <span className="" style={{ color: "red" }}>
+                {errors.post_office[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -115,6 +317,8 @@ export default function OthersForm() {
                 type="text"
                 name="post_code"
                 placeholder=""
+                value={formData.post_code}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -126,14 +330,17 @@ export default function OthersForm() {
               </label>
               <select
                 className="form-select"
-                id="visit_purpose"
-                name="visit_purpose"
+                id="visit_purpose_id"
+                name="visit_purpose_id"
+                value={formData.visit_purpose_id}
+                onChange={handleChange}
               >
-                <option>Customer Query</option>
-                <option>MARCOM Activity</option>
-                <option>Inspevtion</option>
-                <option>Survey</option>
-                <option>Other</option>
+                <option value="">Please Select</option>
+                {fetchData.visitPurposes.map((purpose) => (
+                  <option key={purpose.id} value={purpose.id}>
+                    {purpose.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -148,13 +355,15 @@ export default function OthersForm() {
                 id="remarks"
                 name="remarks"
                 rows="3"
+                value={formData.remarks}
+                onChange={handleChange}
               ></textarea>
             </div>
           </div>
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="button">
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />

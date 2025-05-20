@@ -9,6 +9,7 @@ use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
+use App\Models\OtherVisit;
 use App\Models\ShipToParty;
 use App\Models\ShipToPartyprocessLog;
 use App\Models\SoldToParty;
@@ -482,6 +483,55 @@ class CmaController extends Controller
             $existingVisit->hostname = gethostname();
             $existingVisit->save();
             $msg = 'Existing Visit created successfully';
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+        }
+        return response()->json([
+            'message' => $msg,
+        ]);
+    }
+
+
+       public function storeOtherVisit(Request $request){
+        // return response()->json($request->all());
+
+        $request->validate([
+            'site_name' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'visit_purpose_id' => 'required',
+            'other_purpose' => 'nullable|string|max:500',
+            'loc_division' => 'required',
+            'loc_district' => 'required',
+            'loc_thana' => 'required',
+            'post_office' => 'nullable',
+            'remarks' => 'nullable|string|max:500',
+            'long' => 'required',
+            'lat' => 'required',
+        ]);
+        
+
+        try{
+            $otherVisit = new OtherVisit();
+            $otherVisit->site_name = $request->site_name;
+            $otherVisit->address = $request->address;
+            $otherVisit->post_code = $request->post_code;
+            $otherVisit->visit_purpose_id = $request->visit_purpose_id;
+            $otherVisit->other_purpose = $request->other_purpose;
+            $otherVisit->loc_division_id = $request->loc_division;
+            $otherVisit->loc_district_id = $request->loc_district;
+            $otherVisit->loc_upazila_id = $request->loc_thana;
+            $otherVisit->loc_post_office_id = $request->post_office;
+            $otherVisit->remarks = $request->remarks;
+            $otherVisit->lat = $request->lat;
+            $otherVisit->long = $request->long;
+            $otherVisit->employee_id = auth()->user()->employee->id;
+            $otherVisit->status = 1; //pending
+            $otherVisit->created_by = auth()->user()->id;
+            $otherVisit->hostname = gethostname();
+            $otherVisit->save();
+            $msg = 'Other Visit created successfully';
+
+           
         }catch(Exception $e){
             $msg = $e->getMessage();
         }

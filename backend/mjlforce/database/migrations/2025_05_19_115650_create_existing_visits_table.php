@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('remarks')->nullable();
             $table->decimal('lat', 9, 6)->nullable();
             $table->decimal('long', 9, 6)->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('employee_id')->nullable()->constrained();
             $table->integer('status')->nullable();
             $table->integer('created_by')->nullable();
