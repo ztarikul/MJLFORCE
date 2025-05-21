@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Main from "../Main";
 import { Link } from "react-router-dom";
+import Auth from "../../auth/Auth";
 
 export default function Campaign() {
+  const { http } = Auth();
+  const [promotions, SetPromotions] = useState([]);
+
+  const fetchFormData = useCallback(() => {
+    http
+      .get("/promotions")
+      .then((res) => {
+        console.log(res.data.promotions);
+        SetPromotions(res.data.promotions);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchFormData();
+  }, [fetchFormData]);
+
   return (
     <Main>
       <div className="col-sm-12 col-xl-12">
@@ -12,19 +32,22 @@ export default function Campaign() {
           </div>
           <div className="card-body">
             <div className="list-group">
-              <Link
-                className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active"
-                to="/promotional_items"
-              >
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">Promotional Offer</h5>
-                  <small>112 days ago</small>
-                </div>
-                <p className="mb-1">
-                  This offer will be valid with for all Wholesaler
-                </p>
-                <small>Duration: 01.01.2025 - 31.12.2025</small>
-              </Link>
+              {promotions.map((promotion) => {
+                <Link
+                  className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active"
+                  to="/promotional_items"
+                >
+                  <div className="d-flex w-100 justify-content-between">
+                    <h5 className="mb-1">{promotion.title}</h5>
+                    <small>112 days ago</small>
+                  </div>
+                  <p className="mb-1">
+                    This offer will be valid with for all Wholesaler
+                  </p>
+                  <small>Duration: 01.01.2025 - 31.12.2025</small>
+                </Link>;
+              })}
+
               <a
                 className="mt-2 list-group-item list-group-item-action flex-column align-items-start active"
                 href="javascript:void(0)"

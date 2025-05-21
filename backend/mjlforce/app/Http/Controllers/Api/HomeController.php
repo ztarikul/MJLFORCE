@@ -9,6 +9,7 @@ use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
+use App\Models\Promotion;
 use App\Models\ShipToParty;
 use App\Models\SoldToParty;
 use App\Models\VisitPurpose;
@@ -160,5 +161,10 @@ class HomeController extends Controller
          return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'visitPurposes' => $visitPurposes], 200);
     }
 
+    public function promotions(){
+        $Promotions = Promotion::with('items')->orderBy('start_from', 'asc')->get();
+
+        return response()->json(['promotions' => $Promotions], 200);
+    }
 
 }
