@@ -35,7 +35,7 @@ CREATE TABLE `attendance_histories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,6 +375,54 @@ INSERT INTO `employees` VALUES (1,'Tarikul Islam Zihad',1,'10378','10378','E0007
 UNLOCK TABLES;
 
 --
+-- Table structure for table `existing_visits`
+--
+
+DROP TABLE IF EXISTS `existing_visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `existing_visits` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `sold_to_party_id` bigint unsigned NOT NULL,
+  `ship_to_party_id` bigint unsigned DEFAULT NULL,
+  `visit_purpose_id` bigint unsigned DEFAULT NULL,
+  `other_purpose` text COLLATE utf8mb4_unicode_ci,
+  `sales_performance` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stock_verification` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mkt_mat_display` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remarks` text COLLATE utf8mb4_unicode_ci,
+  `lat` decimal(9,6) DEFAULT NULL,
+  `long` decimal(9,6) DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `employee_id` bigint unsigned DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `existing_visits_sold_to_party_id_foreign` (`sold_to_party_id`),
+  KEY `existing_visits_ship_to_party_id_foreign` (`ship_to_party_id`),
+  KEY `existing_visits_visit_purpose_id_foreign` (`visit_purpose_id`),
+  KEY `existing_visits_employee_id_foreign` (`employee_id`),
+  CONSTRAINT `existing_visits_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
+  CONSTRAINT `existing_visits_ship_to_party_id_foreign` FOREIGN KEY (`ship_to_party_id`) REFERENCES `ship_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `existing_visits_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `existing_visits_visit_purpose_id_foreign` FOREIGN KEY (`visit_purpose_id`) REFERENCES `visit_purposes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `existing_visits`
+--
+
+LOCK TABLES `existing_visits` WRITE;
+/*!40000 ALTER TABLE `existing_visits` DISABLE KEYS */;
+/*!40000 ALTER TABLE `existing_visits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -641,7 +689,7 @@ CREATE TABLE `materials` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `materials_name_unique` (`name`),
   UNIQUE KEY `materials_sap_code_unique` (`sap_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -650,6 +698,7 @@ CREATE TABLE `materials` (
 
 LOCK TABLES `materials` WRITE;
 /*!40000 ALTER TABLE `materials` DISABLE KEYS */;
+INSERT INTO `materials` VALUES (1,'Mobil Super Moto 10W-30 | 1 LT CAN','3100417','1 LT CAN','L',NULL,NULL,1,1,NULL,NULL,NULL),(2,'Mobil Delvac','3000009','20 LT PL','L',NULL,NULL,1,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -665,7 +714,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -674,7 +723,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (101,'0001_01_01_000000_create_users_table',1),(102,'0001_01_01_000001_create_cache_table',1),(103,'0001_01_01_000002_create_jobs_table',1),(104,'2025_03_17_063252_create_permission_tables',1),(105,'2025_03_17_070232_create_personal_access_tokens_table',1),(106,'2025_03_20_051500_create_loc_divisions_table',1),(107,'2025_03_20_051501_create_loc_districts_table',1),(108,'2025_03_20_051502_create_loc_upazilas_table',1),(109,'2025_03_20_051503_create_loc_post_offices_table',1),(110,'2025_03_20_051515_create_designations_table',1),(111,'2025_03_20_055435_create_business_teams_table',1),(112,'2025_03_20_062025_create_customer_groups_table',1),(113,'2025_03_20_062026_create_distribution_ches_table',1),(114,'2025_03_20_062027_create_regions_table',1),(115,'2025_03_20_062733_create_territories_table',1),(116,'2025_03_20_062734_create_territory_districts_table',1),(117,'2025_03_20_063314_create_trade_categories_table',1),(118,'2025_03_20_063315_create_trade_sub_categories_table',1),(119,'2025_03_20_063316_create_customer_types_table',1),(120,'2025_03_20_063518_create_complaint_types_table',1),(121,'2025_03_20_063743_create_visit_purposes_table',1),(122,'2025_03_24_162521_create_employees_table',1),(123,'2025_03_25_052354_create_attendance_histories_table',1),(124,'2025_03_25_180313_create_sold_to_parties_table',1),(125,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(126,'2025_04_13_111335_create_lead_stages_table',1),(127,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(128,'2025_04_20_175501_create_sold_to_party_sales_areas_table',1),(129,'2025_04_29_121727_create_materials_table',2),(130,'2025_04_29_144209_create_promotions_table',3),(131,'2025_04_29_144552_create_promotion_items_table',3);
+INSERT INTO `migrations` VALUES (101,'0001_01_01_000000_create_users_table',1),(102,'0001_01_01_000001_create_cache_table',1),(103,'0001_01_01_000002_create_jobs_table',1),(104,'2025_03_17_063252_create_permission_tables',1),(105,'2025_03_17_070232_create_personal_access_tokens_table',1),(106,'2025_03_20_051500_create_loc_divisions_table',1),(107,'2025_03_20_051501_create_loc_districts_table',1),(108,'2025_03_20_051502_create_loc_upazilas_table',1),(109,'2025_03_20_051503_create_loc_post_offices_table',1),(110,'2025_03_20_051515_create_designations_table',1),(111,'2025_03_20_055435_create_business_teams_table',1),(112,'2025_03_20_062025_create_customer_groups_table',1),(113,'2025_03_20_062026_create_distribution_ches_table',1),(114,'2025_03_20_062027_create_regions_table',1),(115,'2025_03_20_062733_create_territories_table',1),(116,'2025_03_20_062734_create_territory_districts_table',1),(117,'2025_03_20_063314_create_trade_categories_table',1),(118,'2025_03_20_063315_create_trade_sub_categories_table',1),(119,'2025_03_20_063316_create_customer_types_table',1),(120,'2025_03_20_063518_create_complaint_types_table',1),(121,'2025_03_20_063743_create_visit_purposes_table',1),(122,'2025_03_24_162521_create_employees_table',1),(123,'2025_03_25_052354_create_attendance_histories_table',1),(124,'2025_03_25_180313_create_sold_to_parties_table',1),(125,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(126,'2025_04_13_111335_create_lead_stages_table',1),(127,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(128,'2025_04_20_175501_create_sold_to_party_sales_areas_table',1),(129,'2025_04_29_121727_create_materials_table',2),(130,'2025_04_29_144209_create_promotions_table',3),(131,'2025_04_29_144552_create_promotion_items_table',3),(132,'2025_05_18_102053_create_ship_to_parties_table',4),(140,'2025_05_19_105556_create_ship_to_partyprocess_logs_table',5),(141,'2025_05_19_115650_create_existing_visits_table',5),(142,'2025_05_20_105548_create_other_visits_table',5);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -728,6 +777,61 @@ CREATE TABLE `model_has_roles` (
 LOCK TABLES `model_has_roles` WRITE;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `other_visits`
+--
+
+DROP TABLE IF EXISTS `other_visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `other_visits` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `site_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `post_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `visit_purpose_id` bigint unsigned DEFAULT NULL,
+  `other_purpose` text COLLATE utf8mb4_unicode_ci,
+  `loc_division_id` bigint unsigned DEFAULT NULL,
+  `loc_district_id` bigint unsigned DEFAULT NULL,
+  `loc_upazila_id` bigint unsigned DEFAULT NULL,
+  `loc_post_office_id` bigint unsigned DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lat` decimal(9,6) DEFAULT NULL,
+  `long` decimal(9,6) DEFAULT NULL,
+  `employee_id` bigint unsigned DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  `remarks` text COLLATE utf8mb4_unicode_ci,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `other_visits_visit_purpose_id_foreign` (`visit_purpose_id`),
+  KEY `other_visits_loc_division_id_foreign` (`loc_division_id`),
+  KEY `other_visits_loc_district_id_foreign` (`loc_district_id`),
+  KEY `other_visits_loc_upazila_id_foreign` (`loc_upazila_id`),
+  KEY `other_visits_loc_post_office_id_foreign` (`loc_post_office_id`),
+  KEY `other_visits_employee_id_foreign` (`employee_id`),
+  CONSTRAINT `other_visits_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
+  CONSTRAINT `other_visits_loc_district_id_foreign` FOREIGN KEY (`loc_district_id`) REFERENCES `loc_districts` (`id`),
+  CONSTRAINT `other_visits_loc_division_id_foreign` FOREIGN KEY (`loc_division_id`) REFERENCES `loc_divisions` (`id`),
+  CONSTRAINT `other_visits_loc_post_office_id_foreign` FOREIGN KEY (`loc_post_office_id`) REFERENCES `loc_post_offices` (`id`),
+  CONSTRAINT `other_visits_loc_upazila_id_foreign` FOREIGN KEY (`loc_upazila_id`) REFERENCES `loc_upazilas` (`id`),
+  CONSTRAINT `other_visits_visit_purpose_id_foreign` FOREIGN KEY (`visit_purpose_id`) REFERENCES `visit_purposes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `other_visits`
+--
+
+LOCK TABLES `other_visits` WRITE;
+/*!40000 ALTER TABLE `other_visits` DISABLE KEYS */;
+INSERT INTO `other_visits` VALUES (1,'test other visit','test address','1212',7,NULL,3,1,508,NULL,NULL,23.805861,90.420186,1,1,'test other visit emni',1,1,'HQ-IT-MPC-Zihad','2025-05-20 07:59:00','2025-05-20 07:59:00');
+/*!40000 ALTER TABLE `other_visits` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -842,7 +946,7 @@ CREATE TABLE `promotion_items` (
   KEY `promotion_items_material_id_foreign` (`material_id`),
   CONSTRAINT `promotion_items_material_id_foreign` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `promotion_items_promotion_id_foreign` FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -851,6 +955,7 @@ CREATE TABLE `promotion_items` (
 
 LOCK TABLES `promotion_items` WRITE;
 /*!40000 ALTER TABLE `promotion_items` DISABLE KEYS */;
+INSERT INTO `promotion_items` VALUES (1,1,1,'Mobil Super Moto 10W-30 | 1 LT CAN',NULL,50,'Mobil Super Moto 10W-30 | 1 LT CAN',5,NULL,NULL,1,NULL,NULL,NULL,NULL),(2,1,2,'Mobil Delvac',NULL,200,'Mobil Delvac',20,NULL,NULL,1,NULL,NULL,NULL,NULL),(3,2,1,'Mobil Super Moto 10W-30 | 1 LT CAN',NULL,1,'T-Shirt/Cap',2,NULL,NULL,1,NULL,NULL,NULL,NULL),(4,2,2,'Mobil Delvac',NULL,1,'Cap',5,NULL,NULL,1,NULL,NULL,NULL,NULL),(5,3,1,'Mobil Super Moto 10W-30 | 1 LT CAN',NULL,10,'Umbrella',1,NULL,NULL,1,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `promotion_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -875,7 +980,7 @@ CREATE TABLE `promotions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -884,6 +989,7 @@ CREATE TABLE `promotions` (
 
 LOCK TABLES `promotions` WRITE;
 /*!40000 ALTER TABLE `promotions` DISABLE KEYS */;
+INSERT INTO `promotions` VALUES (1,'Promotional Offer',NULL,'This offer will be valid with for all Wholesaler','2025-05-01','2025-06-30',1,1,NULL,NULL,NULL,NULL),(2,'Hot Summer Offer',NULL,'One Free T-shirt or A Cap','2025-05-01','2025-07-30',1,1,NULL,NULL,NULL,NULL),(3,'Drizzle Deals',NULL,'Free Umbrella Campaign','2025-06-01','2025-06-30',1,1,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `promotions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1002,8 +1108,159 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('Dny3Lm1jgkJ2c6GiccV3kNu9XSkKO0O0pQzUkYCy',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YToyOntzOjY6Il90b2tlbiI7czo0MDoieDI2b0ZxeTVYd2dHc2lFZVNBbmJZQmE3YVhDeFl2U0lmQjFVZzR1NCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==',1745984971),('JrUzr0bmtukAIxben71EWpNGBAgdcd0lWwDY2Kjp',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXgzanFGcmVBOTByZGl3VmwxdVhkaGZaUjdKMzdBYmlHNlJuek52SSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=',1745484885),('jSxmDIpEIIzouemG2lnP8W2qRMUHZzNNCYDHlmN7',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiRnFleGZveVpuWHF5d1lxZlVueFpnRG5tSUQybzNaNlowZkhEUEdGMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=',1747296381),('Opr6sRD2IarUoBWfJd2A3B2FKFfZSkag9qT0EpNy',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YToyOntzOjY6Il90b2tlbiI7czo0MDoiZTFCMWVwOUczd0prblNaSnYzc2dJTnZnaHMzQnBUTTdGR0JycEtGcCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==',1745821838);
+INSERT INTO `sessions` VALUES ('CVtKuIFPpgwz3vVpddNPUtss7VUw9YylsHASJ6DZ',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiVnJHbHpFWkNJQmNGQ0duQW5JdjZDOEl0SnI1WGRIR0ZJVDA3VEZ2WCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=',1747900722),('Dny3Lm1jgkJ2c6GiccV3kNu9XSkKO0O0pQzUkYCy',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YToyOntzOjY6Il90b2tlbiI7czo0MDoieDI2b0ZxeTVYd2dHc2lFZVNBbmJZQmE3YVhDeFl2U0lmQjFVZzR1NCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==',1745984971),('JrUzr0bmtukAIxben71EWpNGBAgdcd0lWwDY2Kjp',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXgzanFGcmVBOTByZGl3VmwxdVhkaGZaUjdKMzdBYmlHNlJuek52SSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=',1745484885),('jSxmDIpEIIzouemG2lnP8W2qRMUHZzNNCYDHlmN7',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiRnFleGZveVpuWHF5d1lxZlVueFpnRG5tSUQybzNaNlowZkhEUEdGMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=',1747296381),('Opr6sRD2IarUoBWfJd2A3B2FKFfZSkag9qT0EpNy',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36','YToyOntzOjY6Il90b2tlbiI7czo0MDoiZTFCMWVwOUczd0prblNaSnYzc2dJTnZnaHMzQnBUTTdGR0JycEtGcCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==',1745821838),('zlanDhvoNzMyz75hMumkA1AW8sg8OY2YhN0LDHcO',NULL,'127.0.0.1','Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1','YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVjZtZGFCZzNQNXUyY1NuMnhtSDI5MHZIYzViTG5IWllHcUpFbmpSUiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19',1747890498);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ship_to_parties`
+--
+
+DROP TABLE IF EXISTS `ship_to_parties`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ship_to_parties` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `sold_to_party_id` bigint unsigned DEFAULT NULL,
+  `customer_code` int DEFAULT NULL COMMENT 'KNA1-KUNNR',
+  `customer_acc_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1-KTOKD',
+  `company_code` int DEFAULT NULL COMMENT 'KNB1-BUKRS',
+  `sales_org` int DEFAULT NULL COMMENT 'KNVV-VKORG',
+  `distribution_ch` int DEFAULT NULL COMMENT 'KNVV-VTWEG',
+  `sales_division` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-SPART',
+  `acc_name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-NAME1',
+  `acc_name2` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-NAME2',
+  `search_term` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-SORT1',
+  `search_term2` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-SORT2',
+  `legacy_acc_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BUTOOO-BPEXT',
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-COUNTRY',
+  `region` int unsigned DEFAULT NULL COMMENT 'ADRC-REGION',
+  `region_id` bigint unsigned DEFAULT NULL,
+  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-CITY1',
+  `address` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STREET',
+  `ceo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-NAME_CO',
+  `address_2` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STR_SUPPL3',
+  `address_3` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-LOCATION',
+  `lang` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-LANGU',
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-TEL_NUMBER',
+  `mobile_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1_TELF2',
+  `fax` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1-TELFX',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADR6-SMTP_ADDR',
+  `other_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADR12-URL_ADDR',
+  `postal_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-POST-CODE1',
+  `contact_person_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC_NAME_CO',
+  `contact_person_tel` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-TEL_NUMBER',
+  `contact_person_mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC2-TEL_NUMBER',
+  `group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BUT020-ADEXT',
+  `payment_mode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1-KATRA',
+  `bin_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1-BAHN5',
+  `vat_reg_num` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNA1-BAHNE',
+  `recon_acc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNB1-AKONT',
+  `fi_payment_terms` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNB1-ZTERM',
+  `currency` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-WAERS',
+  `cust_pricing_procedure` int unsigned DEFAULT NULL COMMENT 'KNVV-KALKS',
+  `shipping_condition` int unsigned DEFAULT NULL COMMENT 'KNVV-VSBED',
+  `delivering_plant` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VWERK',
+  `other_combination` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KZAZU',
+  `incoterms` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-INCO1',
+  `incoterms_loc_1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-INCO2_L',
+  `sd_payment_terms` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-ZTERM',
+  `acc_assignment_group` int unsigned DEFAULT NULL COMMENT 'KNVV-KTGRD',
+  `tax_classification` int unsigned DEFAULT NULL COMMENT 'KNVI-TAXKD',
+  `territory` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-BZIRK',
+  `territory_id` bigint unsigned NOT NULL,
+  `customer_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV',
+  `trade_category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KVGR1',
+  `trade_sub_category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KVGR2',
+  `customer_group_3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KVGR3',
+  `customer_group_4` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KVGR4',
+  `customer_group_5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KVGR5',
+  `bp_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attr_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR2',
+  `attr_3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR3',
+  `attr_4` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR4',
+  `factory_address_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STR_SUPPL2',
+  `loc_division_id` bigint unsigned DEFAULT NULL,
+  `loc_district_id` bigint unsigned DEFAULT NULL,
+  `loc_upazila_id` bigint unsigned DEFAULT NULL,
+  `loc_post_office_id` bigint unsigned DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lat` decimal(9,6) DEFAULT NULL,
+  `long` decimal(9,6) DEFAULT NULL,
+  `employee_id` bigint unsigned DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '0',
+  `remarks` text COLLATE utf8mb4_unicode_ci,
+  `is_eligible_discount` tinyint(1) NOT NULL DEFAULT '0',
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ship_to_parties_customer_code_unique` (`customer_code`),
+  UNIQUE KEY `ship_to_parties_fax_unique` (`fax`),
+  UNIQUE KEY `ship_to_parties_email_unique` (`email`),
+  UNIQUE KEY `ship_to_parties_bin_no_unique` (`bin_no`),
+  KEY `ship_to_parties_sold_to_party_id_foreign` (`sold_to_party_id`),
+  KEY `ship_to_parties_region_id_foreign` (`region_id`),
+  KEY `ship_to_parties_territory_id_foreign` (`territory_id`),
+  KEY `ship_to_parties_loc_division_id_foreign` (`loc_division_id`),
+  KEY `ship_to_parties_loc_district_id_foreign` (`loc_district_id`),
+  KEY `ship_to_parties_loc_upazila_id_foreign` (`loc_upazila_id`),
+  KEY `ship_to_parties_loc_post_office_id_foreign` (`loc_post_office_id`),
+  KEY `ship_to_parties_employee_id_foreign` (`employee_id`),
+  CONSTRAINT `ship_to_parties_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
+  CONSTRAINT `ship_to_parties_loc_district_id_foreign` FOREIGN KEY (`loc_district_id`) REFERENCES `loc_districts` (`id`),
+  CONSTRAINT `ship_to_parties_loc_division_id_foreign` FOREIGN KEY (`loc_division_id`) REFERENCES `loc_divisions` (`id`),
+  CONSTRAINT `ship_to_parties_loc_post_office_id_foreign` FOREIGN KEY (`loc_post_office_id`) REFERENCES `loc_post_offices` (`id`),
+  CONSTRAINT `ship_to_parties_loc_upazila_id_foreign` FOREIGN KEY (`loc_upazila_id`) REFERENCES `loc_upazilas` (`id`),
+  CONSTRAINT `ship_to_parties_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`),
+  CONSTRAINT `ship_to_parties_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `ship_to_parties_territory_id_foreign` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ship_to_parties`
+--
+
+LOCK TABLES `ship_to_parties` WRITE;
+/*!40000 ALTER TABLE `ship_to_parties` DISABLE KEYS */;
+INSERT INTO `ship_to_parties` VALUES (1,1,NULL,'Z002',1100,1100,15,'00','Awesome Motors sh','',NULL,NULL,NULL,'BD',NULL,NULL,'Bandarban','Gazipur Chowrasta, Dhaka update','mr ceo 123','','',NULL,'3665765 22','123123 22',NULL,NULL,NULL,NULL,'Mr ceo update','23423 22','234234 22','asda update',NULL,'123123 22',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Chattogram',10,'06','002','009',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2,40,43,NULL,NULL,23.805861,90.420186,1,1,'test sh2p',0,1,1,'HQ-IT-MPC-Zihad','2025-05-18 06:24:03','2025-05-18 06:24:03',NULL),(2,2,NULL,'Z002',1100,1100,10,'00','Bismilla Auto sh','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','mr ceo 2','','',NULL,'1122334455','1122334455',NULL,NULL,NULL,NULL,'Malek','1122334455','1122334455','Bismilla',NULL,'1122334455',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dhaka South',23,'01','001','002',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3,1,619,NULL,NULL,NULL,NULL,1,1,'test',0,1,1,'HQ-IT-MPC-Zihad','2025-05-18 06:45:29','2025-05-18 06:45:29',NULL);
+/*!40000 ALTER TABLE `ship_to_parties` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ship_to_partyprocess_logs`
+--
+
+DROP TABLE IF EXISTS `ship_to_partyprocess_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ship_to_partyprocess_logs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `ship_to_party_id` bigint unsigned NOT NULL,
+  `chk_from` int DEFAULT NULL,
+  `chk_to` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ship_to_partyprocess_logs_ship_to_party_id_foreign` (`ship_to_party_id`),
+  CONSTRAINT `ship_to_partyprocess_logs_ship_to_party_id_foreign` FOREIGN KEY (`ship_to_party_id`) REFERENCES `ship_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ship_to_partyprocess_logs`
+--
+
+LOCK TABLES `ship_to_partyprocess_logs` WRITE;
+/*!40000 ALTER TABLE `ship_to_partyprocess_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ship_to_partyprocess_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1118,7 +1375,7 @@ CREATE TABLE `sold_to_parties` (
 
 LOCK TABLES `sold_to_parties` WRITE;
 /*!40000 ALTER TABLE `sold_to_parties` DISABLE KEYS */;
-INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z001',1100,1100,10,'00','Awesome Motors','',NULL,NULL,NULL,'BD',NULL,NULL,'Barguna','Gazipur Chowrasta, Dhaka','mr ceo 1','','',NULL,'3665765','123123',NULL,'test@test.com',NULL,NULL,'Mr ceo','23423','234234','asda',NULL,'123123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Bagerhat',1,'01','001','001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,36,2,NULL,NULL,23.774598,90.421954,1,0,'asdasd',1,1,1,'HQ-IT-MPC-Zihad','2025-05-05 11:36:13','2025-05-05 11:36:13',NULL),(2,NULL,'Z002',1100,1100,10,'00','Bismilla Auto update','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','mr ceo 2','','',NULL,'1122334455','1122334455',NULL,'malek.ent@auto.com',NULL,NULL,'Malek','1122334455','1122334455','Bismilla',NULL,'1122334455',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dhaka South',23,'01','001','002',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3,1,619,NULL,NULL,23.796188,90.421954,1,0,'test update 2',0,1,1,'HQ-IT-MPC-Zihad','2025-05-07 06:42:29','2025-05-15 11:38:08',NULL);
+INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z002',1100,1100,15,'00','Awesome Motors update','',NULL,NULL,NULL,'BD',NULL,NULL,'Bandarban','Gazipur Chowrasta, Dhaka update','mr ceo 123','','',NULL,'3665765 22','123123 22',NULL,'test@test1.com',NULL,NULL,'Mr ceo update','23423 22','234234 22','asda update',NULL,'123123 22',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Chattogram',10,'06','002','009',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2,40,43,NULL,NULL,23.774598,90.421954,1,1,'asdasd',0,1,1,'HQ-IT-MPC-Zihad','2025-05-05 11:36:13','2025-05-17 04:57:49',NULL),(2,NULL,'Z002',1100,1100,10,'00','Bismilla Auto update','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','mr ceo 2','','',NULL,'1122334455','1122334455',NULL,'malek.ent@auto.com',NULL,NULL,'Malek','1122334455','1122334455','Bismilla',NULL,'1122334455',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Dhaka South',23,'01','001','002',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3,1,619,NULL,NULL,23.796188,90.421954,1,1,'test update 2',0,1,1,'HQ-IT-MPC-Zihad','2025-05-07 06:42:29','2025-05-15 11:38:08',NULL);
 /*!40000 ALTER TABLE `sold_to_parties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1143,7 +1400,7 @@ CREATE TABLE `sold_to_party_lead_logs` (
   KEY `sold_to_party_lead_logs_lead_stage_id_foreign` (`lead_stage_id`),
   CONSTRAINT `sold_to_party_lead_logs_lead_stage_id_foreign` FOREIGN KEY (`lead_stage_id`) REFERENCES `lead_stages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sold_to_party_lead_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1152,7 +1409,7 @@ CREATE TABLE `sold_to_party_lead_logs` (
 
 LOCK TABLES `sold_to_party_lead_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_lead_logs` DISABLE KEYS */;
-INSERT INTO `sold_to_party_lead_logs` VALUES (1,1,1,'Prospects','asdasw',1,NULL,NULL),(2,2,2,'Identify Account Need',NULL,1,'2025-05-15 11:38:08','2025-05-15 11:38:08');
+INSERT INTO `sold_to_party_lead_logs` VALUES (1,1,1,'Prospects','asdasw',1,NULL,NULL),(2,2,2,'Identify Account Need',NULL,1,'2025-05-15 11:38:08','2025-05-15 11:38:08'),(3,1,1,'Prospects',NULL,1,'2025-05-17 04:57:27','2025-05-17 04:57:27'),(4,1,7,'Create CMA',NULL,1,'2025-05-17 04:57:49','2025-05-17 04:57:49');
 /*!40000 ALTER TABLE `sold_to_party_lead_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1176,7 +1433,7 @@ CREATE TABLE `sold_to_party_process_logs` (
   PRIMARY KEY (`id`),
   KEY `sold_to_party_process_logs_sold_to_party_id_foreign` (`sold_to_party_id`),
   CONSTRAINT `sold_to_party_process_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1185,7 +1442,7 @@ CREATE TABLE `sold_to_party_process_logs` (
 
 LOCK TABLES `sold_to_party_process_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_process_logs` DISABLE KEYS */;
-INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,NULL,NULL),(2,2,1,2,1,'Leads Processing',1,'2025-05-07 06:42:29','2025-05-07 06:42:29');
+INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,NULL,NULL),(2,2,1,2,1,'Leads Processing',1,'2025-05-07 06:42:29','2025-05-07 06:42:29'),(3,1,2,5,2,'Create CMA',1,'2025-05-17 04:57:49','2025-05-17 04:57:49');
 /*!40000 ALTER TABLE `sold_to_party_process_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1434,7 +1691,7 @@ CREATE TABLE `visit_purposes` (
   UNIQUE KEY `visit_purposes_name_unique` (`name`),
   UNIQUE KEY `visit_purposes_code_unique` (`code`),
   UNIQUE KEY `visit_purposes_sap_code_unique` (`sap_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1443,6 +1700,7 @@ CREATE TABLE `visit_purposes` (
 
 LOCK TABLES `visit_purposes` WRITE;
 /*!40000 ALTER TABLE `visit_purposes` DISABLE KEYS */;
+INSERT INTO `visit_purposes` VALUES (1,'New Order',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(2,'Feedback',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(3,'Routine Visit',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(4,'Customer Query',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(5,'MARCOM Activity',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(6,'Inspevtion',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(7,'Survey',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(8,'Training',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL),(9,'Seminer',NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `visit_purposes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1455,4 +1713,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-15 17:45:26
+-- Dump completed on 2025-05-22 14:45:04
