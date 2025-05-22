@@ -72,7 +72,7 @@ export default function AppRouter(props) {
         }
       />
       <Route
-        path="/promotional_items"
+        path="/promotional_items/:id"
         element={
           <AuthMiddleware>
             <PromotionalItems />

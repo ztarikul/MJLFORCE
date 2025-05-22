@@ -10,6 +10,7 @@ use App\Models\LocUpazila;
 use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use App\Models\Promotion;
+use App\Models\PromotionItems;
 use App\Models\ShipToParty;
 use App\Models\SoldToParty;
 use App\Models\VisitPurpose;
@@ -162,9 +163,15 @@ class HomeController extends Controller
     }
 
     public function promotions(){
-        $Promotions = Promotion::with('items')->orderBy('start_from', 'asc')->get();
+        $Promotions = Promotion::orderBy('start_from', 'asc')->get();
 
         return response()->json(['promotions' => $Promotions], 200);
+    }
+
+    public function promotionalItems(Request $request){
+        $id = $request->query('id'); 
+        $promotionalItems = PromotionItems::where('promotion_id', $id)->where('activeStatus', true)->get();
+        return response()->json(['promotionalItems' => $promotionalItems], 200);
     }
 
 }

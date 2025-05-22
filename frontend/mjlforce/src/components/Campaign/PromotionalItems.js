@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Main from "../Main";
+import { useParams } from "react-router-dom";
+import Auth from "../../auth/Auth";
+import PageLoader from "../../utils/PageLoader";
 
 export default function PromotionalItems() {
+  const { id } = useParams();
+  const { http } = Auth();
+  const [pageLoading, setPageLoading] = useState(true);
+  const [fetchData, setFetchdata] = useState([]);
+
+  const fetchFormData = useCallback(() => {
+    http
+      .get("/promotional_items", {
+        params: {
+          id: id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setFetchdata(res.data.promotionalItems);
+        setPageLoading(false);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchFormData();
+  }, [fetchFormData]);
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
   return (
     <Main>
       <div className="col-xl-12 recent-order-sec">
@@ -19,48 +51,22 @@ export default function PromotionalItems() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <span>Mobil Delvac 1340 | 20 LT PAIL</span>
-                    </td>
-                    <td>
-                      <p>50 PL</p>
-                    </td>
-                    <td>
-                      <p>Mobil Delvac 1340 | 20 LT PAIL</p>
-                    </td>
-                    <td>
-                      <p>5 PL</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span>Mobil Delvac MX 15W-40 | 5 LT CAN</span>
-                    </td>
-                    <td>
-                      <p>200 CAN</p>
-                    </td>
-                    <td>
-                      <p>Mobil Delvac 1340 | 20 LT PAIL</p>
-                    </td>
-                    <td>
-                      <p>20 CAN</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span>Mobil Super 4T 20W-50 | 1 LT CAN</span>
-                    </td>
-                    <td>
-                      <p>600 CAN</p>
-                    </td>
-                    <td>
-                      <p>Mobil Super 4T 20W-50 | 1 LT CAN</p>
-                    </td>
-                    <td>
-                      <p>60 CAN</p>
-                    </td>
-                  </tr>
+                  {fetchData.map((item) => (
+                    <tr>
+                      <td>
+                        <p>{item.material_name}</p>
+                      </td>
+                      <td>
+                        <p>{item.offer_qnty} </p>
+                      </td>
+                      <td>
+                        <p>{item.promo_material_name}</p>
+                      </td>
+                      <td>
+                        <p>{item.promo_qnty}</p>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

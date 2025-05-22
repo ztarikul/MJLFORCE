@@ -2,10 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import Main from "../Main";
 import { Link } from "react-router-dom";
 import Auth from "../../auth/Auth";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import PageLoader from "../../utils/PageLoader";
+dayjs.extend(relativeTime);
 
 export default function Campaign() {
   const { http } = Auth();
   const [promotions, SetPromotions] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const fetchFormData = useCallback(() => {
     http
@@ -13,6 +18,7 @@ export default function Campaign() {
       .then((res) => {
         console.log(res.data.promotions);
         SetPromotions(res.data.promotions);
+        setPageLoading(false);
       })
       .catch((res) => {
         console.log(res);
@@ -23,6 +29,10 @@ export default function Campaign() {
     fetchFormData();
   }, [fetchFormData]);
 
+  if (pageLoading) {
+    return <PageLoader />;
+  }
+
   return (
     <Main>
       <div className="col-sm-12 col-xl-12">
@@ -32,46 +42,28 @@ export default function Campaign() {
           </div>
           <div className="card-body">
             <div className="list-group">
-              {promotions.map((promotion) => {
+              {promotions.map((promotion) => (
                 <Link
                   className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active"
-                  to="/promotional_items"
+                  to={`/promotional_items/${promotion.id}`}
+                  key={promotion.id}
                 >
                   <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{promotion.title}</h5>
-                    <small>112 days ago</small>
+                    <small>{dayjs(promotion.start_from).fromNow()}</small>
                   </div>
-                  <p className="mb-1">
-                    This offer will be valid with for all Wholesaler
-                  </p>
-                  <small>Duration: 01.01.2025 - 31.12.2025</small>
-                </Link>;
-              })}
-
-              <a
-                className="mt-2 list-group-item list-group-item-action flex-column align-items-start active"
-                href="javascript:void(0)"
-              >
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">Hot Summer Offer</h5>
-                  <small>3 days ago</small>
-                </div>
-                <p className="mb-1">One Free T-shirt or a cap.</p>
-                <small>Duration: 01.04.2025 - 31.04.2025</small>
-              </a>
-              <a
-                className="mt-2 list-group-item list-group-item-action flex-column align-items-start active"
-                href="javascript:void(0)"
-              >
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">Drizzle Deals</h5>
-                  <small className="">upcoming</small>
-                </div>
-                <p className="mb-1">Free Umbrella Campaign</p>
-                <small className="text-muted">
-                  Duration: 01.06.2025 - 31.06.2025
-                </small>
-              </a>
+                  <p className="mb-1">{promotion.description}</p>
+                  <small
+                    className={
+                      new Date(promotion.start_from) > new Date()
+                        ? "text-muted"
+                        : ""
+                    }
+                  >
+                    Duration: {promotion.start_from} - {promotion.end_to}
+                  </small>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
