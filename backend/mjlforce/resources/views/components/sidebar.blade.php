@@ -32,7 +32,7 @@
                         <a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Master
                                 Data</span></a>
                         <ul class="nav-submenu menu-content">
-                            <li><a href="index.html">Default</a></li>
+                            <li><a href="{{route('locations.index')}}">Locations</a></li>
                             <li><a href="dashboard-02.html">Ecommerce</a></li>
                         </ul>
                     </li>
