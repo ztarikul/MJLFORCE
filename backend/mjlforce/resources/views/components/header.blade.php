@@ -53,51 +53,7 @@
                 ><i data-feather="maximize"></i
             ></a>
             </li>
-            <li class="onhover-dropdown">
-            <div class="bookmark-box"><i data-feather="star"></i></div>
-            <div class="bookmark-dropdown onhover-show-div">
-                <div class="form-group mb-0">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text"
-                        ><i class="fa fa-search"></i
-                    ></span>
-                    </div>
-                    <input
-                    class="form-control"
-                    type="text"
-                    placeholder="Search for bookmark..."
-                    />
-                </div>
-                </div>
-                <ul class="m-t-5">
-                <li class="add-to-bookmark">
-                    <i class="bookmark-icon" data-feather="inbox"></i
-                    >Email<span class="pull-right"
-                    ><i data-feather="star"></i
-                    ></span>
-                </li>
-                <li class="add-to-bookmark">
-                    <i class="bookmark-icon" data-feather="message-square"></i
-                    >Chat<span class="pull-right"
-                    ><i data-feather="star"></i
-                    ></span>
-                </li>
-                <li class="add-to-bookmark">
-                    <i class="bookmark-icon" data-feather="command"></i
-                    >Feather Icon<span class="pull-right"
-                    ><i data-feather="star"></i
-                    ></span>
-                </li>
-                <li class="add-to-bookmark">
-                    <i class="bookmark-icon" data-feather="airplay"></i
-                    >Widgets<span class="pull-right"
-                    ><i data-feather="star"> </i
-                    ></span>
-                </li>
-                </ul>
-            </div>
-            </li>
+           
             <li class="onhover-dropdown">
             <div class="notification-box">
                 <i data-feather="bell"></i><span class="dot-animated"></span>
@@ -217,11 +173,13 @@
             </ul>
             </li>
             <li class="onhover-dropdown p-0">
-            <button class="btn btn-primary-light" type="button">
-                <a href="login_two.html"
-                ><i data-feather="log-out"></i>Log out</a
-                >
-            </button>
+            <form id="" action="{{ route('logout') }}" method="POST" class="">
+                @csrf
+                <button class="btn btn-primary-light" type="submit">
+                Log out
+                </button>
+            </form>
+           
             </li>
         </ul>
         </div>

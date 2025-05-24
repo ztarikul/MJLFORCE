@@ -11,7 +11,7 @@
         <span class="badge badge-primary">New</span>
     </div>
     <a href="user-profile.html">
-        <h6 class="mt-3 f-14 f-w-600">Emay Walter</h6></a
+        <h6 class="mt-3 f-14 f-w-600">{{auth()->user()->username}}</h6></a
     >
     <p class="mb-0 font-roboto">Human Resources Department</p>
     <ul>
