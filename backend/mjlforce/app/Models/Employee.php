@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Designation;
 use App\Models\BusinessTeam;
+use App\Models\Region;
+use App\Models\Territory;
 use App\Models\AttendanceHistory;
 use App\Models\SoldToParty;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +28,13 @@ class Employee extends Model
     public function businessTeam(){
         return $this->belongsTo(BusinessTeam::class);
     }
+    public function region(){
+        return $this->belongsTo(Region::class);
+    }
+    public function territory(){
+        return $this->belongsTo(Territory::class);
+    }
+
 
     public function soldToParties(){
         return $this->hasMany(SoldToParty::class);
