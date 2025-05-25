@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\LocUpazila;
 use App\Models\LocDivision;
+use App\Models\LocPostOffice;
 use App\Models\SoldToParty;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,10 @@ class LocDistrict extends Model
     public function LocDivision()
     {
         return $this->belongsTo(LocDivision::class);
+    }
+     public function LocPostOffices()
+    {
+        return $this->hasMany(LocPostOffice::class);
     }
     public function soldToParties()
     {
