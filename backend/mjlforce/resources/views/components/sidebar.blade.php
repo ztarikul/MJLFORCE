@@ -34,6 +34,8 @@
                         <ul class="nav-submenu menu-content">
                             <li><a href="{{ route('locations.index') }}">Locations</a></li>
                             <li><a href="{{ route('employees.index') }}">Employees</a></li>
+                            <li><a href="{{ route('masterData.customerGroupIndex') }}">Customer Groups</a></li>
+                            <li><a href="{{ route('masterData.businessTeamIndex') }}">Business Team</a></li>
                         </ul>
                     </li>
 
