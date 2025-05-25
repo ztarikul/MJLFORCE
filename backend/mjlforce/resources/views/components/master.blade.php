@@ -41,6 +41,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/prism.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vector-map.css') }}" />
     <!-- Plugins css Ends-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}" />
     <!-- App css-->
@@ -80,29 +81,29 @@
         </div>
     </div>
     <!-- latest jquery-->
-    <script src="{{asset('assets/js/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
     <!-- feather icon js-->
-    <script src="{{asset('assets/js/icons/feather-icon/feather.min.js')}}"></script>
-    <script src="{{asset('assets/js/icons/feather-icon/feather-icon.js')}}"></script>
+    <script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
     <!-- Sidebar jquery-->
-    <script src="{{asset('assets/js/sidebar-menu.js')}}"></script>
-    <script src="{{asset('assets/js/config.js')}}"></script>
+    <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
     <!-- Bootstrap js-->
-    <script src="{{asset('assets/js/bootstrap/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/bootstrap/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
     <!-- Plugins JS start-->
-    <script src="{{asset('assets/js/chart/chartist/chartist.js')}}"></script>
-    <script src="{{asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')}}"></script>
-    <script src="{{asset('assets/js/chart/knob/knob.min.js')}}"></script>
-    <script src="{{asset('assets/js/chart/knob/knob-chart.js')}}"></script>
-    <script src="{{asset('assets/js/chart/apex-chart/apex-chart.js')}}"></script>
-    <script src="{{asset('assets/js/chart/apex-chart/stock-prices.js')}}"></script>
-    <script src="{{asset('assets/js/prism/prism.min.js')}}"></script>
-    <script src="{{asset('assets/js/clipboard/clipboard.min.js')}}"></script>
-    <script src="{{asset('assets/js/counter/jquery.waypoints.min.js')}}"></script>
-    <script src="{{asset('assets/js/counter/jquery.counterup.min.js')}}"></script>
-    <script src="{{asset('assets/js/counter/counter-custom.js')}}"></script>
-    <script src="{{asset('assets/js/custom-card/custom-card.js')}}"></script>
+    <script src="{{ asset('assets/js/chart/chartist/chartist.js') }}"></script>
+    <script src="{{ asset('assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
+    <script src="{{ asset('assets/js/chart/knob/knob.min.js') }}"></script>
+    <script src="{{ asset('assets/js/chart/knob/knob-chart.js') }}"></script>
+    <script src="{{ asset('assets/js/chart/apex-chart/apex-chart.js') }}"></script>
+    <script src="{{ asset('assets/js/chart/apex-chart/stock-prices.js') }}"></script>
+    <script src="{{ asset('assets/js/prism/prism.min.js') }}"></script>
+    <script src="{{ asset('assets/js/clipboard/clipboard.min.js') }}"></script>
+    <script src="{{ asset('assets/js/counter/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/counter/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/counter/counter-custom.js') }}"></script>
+    <script src="{{ asset('assets/js/custom-card/custom-card.js') }}"></script>
     <script src="{{ asset('assets/js/notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('assets/js/vector-map/jquery-jvectormap-2.0.2.min.js') }}"></script>
     <script src="{{ asset('assets/js/vector-map/map/jquery-jvectormap-world-mill-en.js') }}"></script>
@@ -119,10 +120,16 @@
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
-    <script src="{{asset('assets/js/script.js')}}"></script>
-    <script src="{{asset('assets/js/theme-customizer/customizer.js')}}"></script>
-    <!-- login js-->
-    <!-- Plugin used-->
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
+
+
+
+
+    <script src="../assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/datatable/datatables/datatable.custom.js"></script>
+    <script src="../assets/js/tooltip-init.js"></script>
+
 </body>
 
 <!-- Mirrored from admin.pixelstrap.com/viho/theme/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Sep 2021 04:08:15 GMT -->

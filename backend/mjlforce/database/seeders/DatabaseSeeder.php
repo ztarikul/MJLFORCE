@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(LocationSeeder::class);
-        $this->call(DesignationSeeder::class);
-        $this->call(CustomerGroupSeeder::class);
-        $this->call(DistributionChannelSeeder::class);
-        $this->call(RegionSeeder::class);
-        $this->call(TerritoriesSeeder::class);
-        $this->call(TradeCaegoriesSeeder::class);
-        $this->call(TradeSubCategoriesSeeder::class);
+        // $this->call(DesignationSeeder::class);
+        // $this->call(CustomerGroupSeeder::class);
+        // $this->call(DistributionChannelSeeder::class);
+        // $this->call(RegionSeeder::class);
+        // $this->call(TerritoriesSeeder::class);
+        // $this->call(TradeCaegoriesSeeder::class);
+        // $this->call(TradeSubCategoriesSeeder::class);
     }
 }

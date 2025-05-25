@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('loc_post_offices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loc_upazila_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('loc_division_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('loc_district_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('post_office');
             $table->string('post_code')->nullable()->unique();
             $table->boolean('activeStatus')->default(true);
