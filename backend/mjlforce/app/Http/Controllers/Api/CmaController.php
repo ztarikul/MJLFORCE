@@ -29,7 +29,7 @@ class CmaController extends Controller
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
-        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
         $tradeCategories = TradeCategory::select('id', 'name')->get();
         $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();

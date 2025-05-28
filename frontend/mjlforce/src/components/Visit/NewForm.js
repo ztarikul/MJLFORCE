@@ -159,6 +159,7 @@ export default function NewForm() {
       (district) => district.loc_division_id === selectedId
     );
     setDistricts(selectedDistricts);
+   
   };
 
   const districtChangeHnadler = (event) => {
@@ -172,6 +173,12 @@ export default function NewForm() {
       (upazila) => upazila.loc_district_id === selectedId
     );
     setUpazilas(selectedUpazilas);
+
+         
+    const selectedPostOffices = fetchData.postOffice.filter(
+      (office) => office.loc_district_id === selectedId
+    );
+    setPostOffice(selectedPostOffices);
   };
 
   const upazilaChangeHnadler = (event) => {
@@ -180,11 +187,7 @@ export default function NewForm() {
       ...prev,
       [name]: value,
     }));
-    const selectedId = parseInt(event.target.value);
-    const selectedPostOffices = fetchData.postOffice.filter(
-      (office) => office.loc_upazila_id === selectedId
-    );
-    setPostOffice(selectedPostOffices);
+
   };
 
   const tradeCategoryChangeHnadler = (event) => {

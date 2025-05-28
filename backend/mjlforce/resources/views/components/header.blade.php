@@ -2,11 +2,11 @@
     <div class="main-header-right row m-0">
         <div class="main-header-left">
             <div class="logo-wrapper">
-                <a href="{{ route('dashboard') }}"><img class="img-fluid" src="../assets/images/logo/mjlforceLogo.png"
-                        alt="" /></a>
+                <a href="{{ route('dashboard') }}"><img class="img-fluid"
+                        src="{{ asset('assets/images/logo/mjlforceLogo.png') }}" alt="" /></a>
             </div>
             <div class="dark-logo-wrapper">
-                <a href="index.html"><img class="img-fluid" src="../assets/images/logo/dark-logo.png"
+                <a href="index.html"><img class="img-fluid" src="{{ asset('assets/images/logo/dark-logo.png') }}"
                         alt="" /></a>
             </div>
             <div class="toggle-sidebar">
