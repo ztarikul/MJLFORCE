@@ -74,28 +74,28 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Account Name 2</label>
                                         <input type="text" class="form-control" name="acc_name2"
-                                            value="{{ $soldToParty->acc_name2 }}" placeholder="Account Name 2">
+                                            value="{{ $soldToParty->acc_name2 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Search Term</label>
                                         <input type="text" class="form-control" name="search_term"
-                                            value="{{ $soldToParty->search_term }}" placeholder="Search Term">
+                                            value="{{ $soldToParty->search_term }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Search Term 2</label>
                                         <input type="text" class="form-control" name="search_term2"
-                                            value="{{ $soldToParty->search_term2 }}" placeholder="Search Term 2">
+                                            value="{{ $soldToParty->search_term2 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Legacy Account Code</label>
                                         <input type="text" class="form-control" name="legacy_acc_code"
-                                            value="{{ $soldToParty->legacy_acc_code }}" placeholder="Legacy Account Code">
+                                            value="{{ $soldToParty->legacy_acc_code }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
