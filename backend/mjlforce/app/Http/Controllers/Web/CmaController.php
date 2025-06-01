@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerType;
 use App\Models\LocDivision;
 use App\Models\LocDistrict;
 use App\Models\LocPostOffice;
@@ -32,17 +33,19 @@ class CmaController extends Controller
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
         $tradeCategories = TradeCategory::select('id', 'name')->get();
         $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
-        $customerTypes = [
-            ['id' => 1, 'name' => "Domestic", 'sap_code' => "Z001"],
-            ['id' => 2, 'name' => "Marine Bonded", 'sap_code' => "Z002"],
-            ['id' => 3, 'name' => "Export(Deemed)", 'sap_code' => "Z002"],
-            ['id' => 4, 'name' => "Service (Oil Tanker)", 'sap_code' => "Z004"],
-            ['id' => 6, 'name' => "Service(Rent)", 'sap_code' => "Z005"],
-            ['id' => 7, 'name' => "OTC", 'sap_code' => "Z011"],
-            ['id' => 8, 'name' => "Other Customer", 'sap_code' => "Z014"],
-        ];
+        $customerTypes = CustomerType::select('id', 'name', 'sap_code')->orderBy('sap_code', 'asc')->get();
         $soldToParty = SoldToParty::findOrFail($id);
-        return view('cma.soldToParties.soldToPartyRequestForm', compact('soldToParty'));
+        return view('cma.soldToParties.soldToPartyRequestForm', [
+            'soldToParty' => $soldToParty,
+            'divisions' => $divisions,
+            'districts' => $districts,
+            'upazilas' => $upazilas,
+            'postOffice' => $postOffice,
+            'salesTerritories' => $salesTerritories,
+            'tradeCategories' => $tradeCategories,
+            'tradeSubCategories' => $tradeSubCategories,
+            'customerTypes' => $customerTypes
+        ]);
     }
 
 

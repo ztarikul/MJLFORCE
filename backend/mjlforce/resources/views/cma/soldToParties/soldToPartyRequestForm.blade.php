@@ -31,8 +31,17 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Account Group</label>
-                                        <input type="text" class="form-control" name="customer_acc_group"
-                                            value="{{ $soldToParty->customer_acc_group }}" placeholder="Account Group">
+                                        <select class="form-control" id="customer_type" name="customer_type">
+                                            <option value="{{ $soldToParty->customerType->sap_code }}" selected>
+                                                {{ $soldToParty->customerType->sap_code }} -
+                                                {{ $soldToParty->customerType->name }}</option>
+                                            @foreach ($customerTypes as $customerType)
+                                                <option value="{{ $customerType['sap_code'] }}">
+                                                    {{ $customerType['sap_code'] }}
+                                                    - {{ $customerType['name'] }} </option>
+                                            @endforeach
+                                        </select>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">

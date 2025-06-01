@@ -15,6 +15,7 @@ use App\Models\TradeCategory;
 use App\Models\TradeSubCategory;
 use App\Models\SoldToPartyLeadLog;
 use App\Models\ShipToParty;
+use App\Models\CustomerType;
 
 class SoldToParty extends Model
 {
@@ -67,11 +68,16 @@ class SoldToParty extends Model
         return $this->belongsTo(TradeSubCategory::class,'trade_sub_category', 'sap_code');
     }
 
-
-
     public function shipToParties(){
         return $this->hasMany(ShipToParty::class);
     }
 
+    public function customerType(){
+        return $this->belongsTo(CustomerType::class, 'customer_acc_group', 'sap_code');
+    }
+
+    // public function distributionCh(){
+    //     return $this->belongsTo(DistributionCh::class, 'distribution_ch_id', 'id');
+    // }
 
 }
