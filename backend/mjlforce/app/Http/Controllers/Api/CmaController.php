@@ -112,15 +112,15 @@ class CmaController extends Controller
 
             $soldToParty->bin_no = $request->bin;
             // $soldToParty->vat_reg_num = $request->vat_reg_num;
-            // $soldToParty->recon_acc = $request->recon_acc;
-            // $soldToParty->fi_payment_terms = $request->fi_payment_terms;
+            $soldToParty->recon_acc = 12201000;
+            $soldToParty->fi_payment_terms = "Z001";
             // $soldToParty->currency = $request->currency;
-            // $soldToParty->cust_pricing_procedure = 1;
-            // $soldToParty->shipping_condition = 01;
+            $soldToParty->cust_pricing_procedure = 1;
+            $soldToParty->shipping_condition = "01";
             // $soldToParty->delivering_plant = null;
-            // $soldToParty->other_combination = "X";
-            // $soldToParty->incoterms = null;
-            // $soldToParty->incoterms_loc_1 = null;
+            $soldToParty->other_combination = "X";
+            $soldToParty->incoterms = "FOB";
+            $soldToParty->incoterms_loc_1 = "NA";
             // $soldToParty->sd_payment_terms = null;
             // $soldToParty->acc_assignment_group = $request->acc_assignment_group;
             // $soldToParty->tax_classification = $request->tax_classification;
@@ -201,7 +201,8 @@ class CmaController extends Controller
         $leadStages = LeadStage::all();
 
 
-        $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocUpazila.LocPostOffices', 'LocPostOffice', 'territory', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'currentLead'])->find($id);
+        $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocUpazila.LocPostOffices', 'LocPostOffice', 'territory', '12201000
+.tradeSubCategories', 'tradeSubCategory', 'currentLead'])->find($id);
 
 
         return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes, 'leadStages' => $leadStages], 200);

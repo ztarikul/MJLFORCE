@@ -60,13 +60,13 @@ return new class extends Migration
 
             $table->string('currency')->nullable()->comment('KNVV-WAERS');
             $table->unsignedInteger('cust_pricing_procedure')->nullable()->comment('KNVV-KALKS');
-            $table->unsignedInteger('shipping_condition')->nullable()->comment('KNVV-VSBED');
+            $table->string('shipping_condition')->nullable()->comment('KNVV-VSBED');
             $table->string('delivering_plant')->nullable()->comment('KNVV-VWERK');
             $table->string('other_combination')->nullable()->comment('KNVV-KZAZU'); // Tickbox = X 
             $table->string('incoterms')->nullable()->comment('KNVV-INCO1'); //FOB
             $table->string('incoterms_loc_1')->nullable()->comment('KNVV-INCO2_L'); //NA
             $table->string('sd_payment_terms')->nullable()->comment('KNVV-ZTERM'); // 001 Odays, Z002 7 days
-            $table->unsignedInteger('acc_assignment_group')->nullable()->comment('KNVV-KTGRD'); //01
+            $table->string('acc_assignment_group')->nullable()->comment('KNVV-KTGRD'); //01
             $table->unsignedInteger('tax_classification')->nullable()->comment('KNVI-TAXKD'); //1
 
             $table->string('territory')->nullable()->comment('KNVV-BZIRK');

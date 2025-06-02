@@ -114,16 +114,10 @@
                                             value="{{ $soldToParty->country }}" placeholder="Country">
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Region</label>
-                                        <input type="number" class="form-control" name="region"
-                                            value="{{ $soldToParty->region }}" placeholder="Region">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Region ID</label>
                                         <select class="form-control" name="region_id">
                                             <!-- Populate with regions -->
                                         </select>
@@ -275,15 +269,25 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">FI Payment Terms</label>
-                                        <input type="text" class="form-control" name="fi_payment_terms"
-                                            value="{{ $soldToParty->fi_payment_terms }}" placeholder="FI Payment Terms">
+                                        <select class="form-control" id="fi_payment_terms" name="fi_payment_terms">
+                                            <option value="">Please Select</option>
+                                            @foreach ($fiPaymentTerms as $term)
+                                                <option value="{{ $term['term'] }}">{{ $term['term'] }} -
+                                                    {{ $term['duration'] }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Currency</label>
-                                        <input type="text" class="form-control" name="currency"
-                                            value="{{ $soldToParty->currency }}" placeholder="Currency">
+
+                                        <select class="form-control" id="currency" name="currency">
+                                            <option value="">Please Select</option>
+                                            @foreach ($currencies as $currency)
+                                                <option value="{{ $currency['name'] }}">{{ $currency['name'] }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -334,16 +338,25 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">SD Payment Terms</label>
-                                        <input type="text" class="form-control" name="incoterms_loc_1"
-                                            value="{{ $soldToParty->incoterms_loc_1 }}" placeholder="SD Payment Terms">
+                                        <select class="form-control" id="sd_payment_terms" name="sd_payment_terms">
+                                            <option value="">Please Select</option>
+                                            @foreach ($fiPaymentTerms as $term)
+                                                <option value="{{ $term['term'] }}">{{ $term['term'] }} -
+                                                    {{ $term['duration'] }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Account Assignment Group</label>
-                                        <input type="number" class="form-control" name="acc_assignment_group"
-                                            value="{{ $soldToParty->acc_assignment_group }}"
-                                            placeholder="Assignment Group">
+                                        <select class="form-control" id="acc_assignment_group"
+                                            name="acc_assignment_group">
+                                            <option value="">Please Select</option>
+                                            @foreach ($accAssignmentGroups as $group)
+                                                <option value="{{ $group['name'] }}">{{ $group['name'] }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -379,8 +392,17 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Trade Category</label>
-                                        <input type="text" class="form-control" name="trade_category"
-                                            value="{{ $soldToParty->trade_category }}" placeholder="Trade Category">
+
+                                        <select class="form-control" id="trade_category" name="trade_category">
+                                            <option value="{{ $soldToParty->tradeCategory->sap_code }}" selected>
+                                                {{ $soldToParty->tradeCategory->sap_code }} -
+                                                {{ $soldToParty->tradeCategory->name }}</option>
+                                            @foreach ($tradeCategories as $tradeCategory)
+                                                <option value="{{ $tradeCategory->sap_code }}">
+                                                    {{ $tradeCategory->sap_code }}
+                                                    - {{ $tradeCategory->name }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -451,62 +473,45 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc Division</label>
-                                        <select class="form-control" name="loc_division_id">
-                                            <!-- Populate with divisions -->
-                                        </select>
+                                        <input type="text" class="form-control" name="loc_division_id"
+                                            value="{{ $soldToParty->locDivision->name }}" placeholder="Division"
+                                            disabled>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc District</label>
-                                        <select class="form-control" name="loc_district_id">
-                                            <!-- Populate with districts -->
-                                        </select>
+                                        <input type="text" class="form-control" name="loc_district_id"
+                                            value="{{ $soldToParty->LocDistrict->name }}" placeholder="District Name"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc Upazila</label>
-                                        <select class="form-control" name="loc_upazila_id">
-                                            <!-- Populate with upazilas -->
-                                        </select>
+                                        <input type="text" class="form-control" name="loc_upazila_id"
+                                            value="{{ $soldToParty->LocUpazila->name }}" placeholder="Upazila Name"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc Post Office</label>
-                                        <select class="form-control" name="loc_post_office_id">
-                                            <!-- Populate with post offices -->
-                                        </select>
+                                        <input type="text" class="form-control" name="loc_post_office_id"
+                                            value="{{ $soldToParty->LocPostOffice->name }}"
+                                            placeholder="Post Office Name" disabled>
+
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label class="col-form-label">Image</label>
-                                        <input type="file" class="form-control" name="image">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Latitude</label>
-                                        <input type="number" step="0.000001" class="form-control" name="lat"
-                                            placeholder="Latitude">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Longitude</label>
-                                        <input type="number" step="0.000001" class="form-control" name="long"
-                                            placeholder="Longitude">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Employee</label>
-                                        <select class="form-control" name="employee_id"
-                                            value="{{ $soldToParty->employee_id }}">
-                                            <!-- Populate with employees -->
-                                        </select>
+                                        <label class="col-form-label">Sales Person</label>
+                                        <input type="text" class="form-control" name="employee"
+                                            value="{{ $soldToParty->employee->name }}" placeholder="Sales Person"
+                                            readonly>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -517,57 +522,37 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label class="col-form-label">Is Eligible Discount</label>
-                                        <select class="form-control" name="is_eligible_discount"
-                                            value="{{ $soldToParty->is_eligible_discount }}">
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
+                                        <label class="col-form-label">Discount Eligibility</label>
+                                        <input type="text" class="form-control" name="is_eligible_discount"
+                                            value="{{ $soldToParty->is_eligible_discount === 1 ? 'Eligible' : 'Not Eligible' }}"
+                                            placeholder="Discount Eligibility" readonly>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Active Status</label>
-                                        <select class="form-control" name="activeStatus">
-                                            <option value="1">Active</option>
-                                            <option value="0">Inactive</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Created By</label>
-                                        <input type="number" class="form-control" name="created_by"
-                                            placeholder="Created By">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Hostname</label>
-                                        <input type="text" class="form-control" name="hostname"
-                                            placeholder="Hostname">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="col-form-label">Status</label>
-                                    <select class="form-control" name="status">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                    </div>
+                                        <input type="text" class="form-control" name="activeStatus"
+                                            value="{{ $soldToParty->activeStatus === 1 ? 'Active' : 'Inactive' }}"
+                                            placeholder="Active Status" readonly>
 
+                                    </div>
+                                </div>
+
+                            </div>
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-primary" type="submit">
+                            Submit
+                        </button>
+                        <input class="btn btn-light" type="reset" value="Cancel" />
+                    </div>
 
                     </form>
 
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary">Submit</button>
-                    <button class="btn btn-secondary">Cancel</button>
-                </div>
+
             </div>
         </div>
 

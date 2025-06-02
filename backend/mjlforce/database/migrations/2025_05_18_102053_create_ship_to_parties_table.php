@@ -61,7 +61,7 @@ return new class extends Migration
 
             $table->string('currency')->nullable()->comment('KNVV-WAERS');
             $table->unsignedInteger('cust_pricing_procedure')->nullable()->comment('KNVV-KALKS');
-            $table->unsignedInteger('shipping_condition')->nullable()->comment('KNVV-VSBED');
+            $table->string('shipping_condition')->nullable()->comment('KNVV-VSBED');
             $table->string('delivering_plant')->nullable()->comment('KNVV-VWERK');
             $table->string('other_combination')->nullable()->comment('KNVV-KZAZU'); // Tickbox = X 
             $table->string('incoterms')->nullable()->comment('KNVV-INCO1'); //FOB

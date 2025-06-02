@@ -31,9 +31,28 @@ class CmaController extends Controller
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
         $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
-        $tradeCategories = TradeCategory::select('id', 'name')->get();
-        $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
+        $tradeCategories = TradeCategory::select('id', 'name', 'sap_code')->get();
+        $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id', 'sap_code')->get();
         $customerTypes = CustomerType::select('id', 'name', 'sap_code')->orderBy('sap_code', 'asc')->get();
+        $fiPaymentTerms = [
+         [ 'id' => 1, 'term' => "Z001", 'duration' => "At Sight" ], 
+         [ 'id' => 2, 'term' => "Z002", 'duration' => "7 Days" ], 
+         [ 'id' => 3, 'term' => "Z003", 'duration' => "15 Days" ], 
+         [ 'id' => 4, 'term' => "Z004", 'duration' => "30 Days" ]
+        ];
+        $currencies = [
+         [ 'id' => 1, 'name' => "BDT" ], 
+         [ 'id' => 2, 'name' => "USD" ], 
+        
+        ];
+        $accAssignmentGroups = [
+         [ 'id' => 1, 'name' => "01" ], 
+         [ 'id' => 2, 'name' => "02" ], 
+         [ 'id' => 3, 'name' => "03" ], 
+         [ 'id' => 4, 'name' => "04" ],
+         [ 'id' => 4, 'name' => "06" ],
+         [ 'id' => 4, 'name' => "10" ]
+        ];
         $soldToParty = SoldToParty::findOrFail($id);
         return view('cma.soldToParties.soldToPartyRequestForm', [
             'soldToParty' => $soldToParty,
@@ -44,7 +63,10 @@ class CmaController extends Controller
             'salesTerritories' => $salesTerritories,
             'tradeCategories' => $tradeCategories,
             'tradeSubCategories' => $tradeSubCategories,
-            'customerTypes' => $customerTypes
+            'customerTypes' => $customerTypes,
+            'fiPaymentTerms' => $fiPaymentTerms,
+            'currencies' => $currencies,
+            'accAssignmentGroups' => $accAssignmentGroups,
         ]);
     }
 
