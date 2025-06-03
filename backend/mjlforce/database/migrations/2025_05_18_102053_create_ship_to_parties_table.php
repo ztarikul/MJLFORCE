@@ -71,7 +71,6 @@ return new class extends Migration
             $table->unsignedInteger('tax_classification')->nullable()->comment('KNVI-TAXKD'); //1
 
             $table->string('territory')->nullable()->comment('KNVV-BZIRK');
-            $table->foreignId('territory_id')->constrained();
             $table->string('customer_group')->nullable()->comment('KNVV');
             $table->string('trade_category')->nullable()->comment('KNVV-KVGR1');
             $table->string('trade_sub_category')->nullable()->comment('KNVV-KVGR2');

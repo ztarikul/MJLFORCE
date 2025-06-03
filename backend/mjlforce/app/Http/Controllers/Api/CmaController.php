@@ -124,16 +124,15 @@ class CmaController extends Controller
             // $soldToParty->sd_payment_terms = null;
             // $soldToParty->acc_assignment_group = $request->acc_assignment_group;
             // $soldToParty->tax_classification = $request->tax_classification;
-            $soldToParty->territory = Territory::find($request->territory)->name;
-            $soldToParty->territory_id = $request->territory; //non sap
-
+            $soldToParty->territory = Territory::find($request->territory)->sap_code;
+          
             $soldToParty->customer_group = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->customerGroup()->first()->sap_code;
             $soldToParty->trade_category = TradeCategory::find($request->trade_category)->sap_code;
             $soldToParty->trade_sub_category = TradeSubCategory::find($request->trade_s_category)->sap_code;
             // $soldToParty->customer_group_3 = $request->customer_group_3;
             // $soldToParty->customer_group_4 = $request->customer_group_4;
             // $soldToParty->customer_group_5 = $request->customer_group_5;
-            $soldToParty->bp_type = $request->bp_type;
+            $soldToParty->bp_type = "Z001";
             // $soldToParty->attr_2 = $request->attr_2;
             // $soldToParty->attr_3 = $request->attr_3;
             // $soldToParty->attr_4 = $request->attr_4;
@@ -268,14 +267,11 @@ class CmaController extends Controller
 
             $soldToParty->bin_no = $request->bin;
 
-            $soldToParty->territory = Territory::find($request->territory)->name;
-            $soldToParty->territory_id = $request->territory; //non sap
+            $soldToParty->territory = Territory::find($request->territory)->sap_code;
 
             $soldToParty->customer_group = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->customerGroup()->first()->sap_code;
             $soldToParty->trade_category = TradeCategory::find($request->trade_category)->sap_code;
             $soldToParty->trade_sub_category = TradeSubCategory::find($request->trade_s_category)->sap_code;
-
-            $soldToParty->bp_type = $request->bp_type;
 
 
             $soldToParty->loc_division_id = $request->loc_division;

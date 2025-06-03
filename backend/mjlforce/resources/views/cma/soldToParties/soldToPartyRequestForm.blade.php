@@ -28,6 +28,10 @@
                                             placeholder="Customer Code">
                                     </div>
                                 </div> --}}
+                                <input type="hidden" name="sold_to_party_id" id="sold_to_party_id"
+                                    value="{{ $soldToParty->id }}">
+
+
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Account Group</label>
@@ -363,30 +367,32 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Tax Classification</label>
                                         <input type="number" class="form-control" name="tax_classification"
-                                            value="{{ $soldToParty->tax_classification }}"
-                                            placeholder="Tax Classification">
+                                            value="1" placeholder="Tax Classification">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Territory</label>
-                                        <input type="text" class="form-control" name="territory"
-                                            value="{{ $soldToParty->territory }}" placeholder="Territory">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="col-form-label">Territory ID</label>
-                                        <select class="form-control" name="territory_id">
-                                            <!-- Populate with territories -->
+
+                                        <select class="form-control" id="territory" name="territory"
+                                            name="acc_assignment_group">
+                                            <option value="{{ $soldToParty->territorySToP->id }}" selected>
+                                                {{ $soldToParty->territorySToP->sap_code }} -
+                                                {{ $soldToParty->territorySToP->name }}</option>
+                                            @foreach ($territories as $territory)
+                                                <option value="{{ $territory->id }}">{{ $territory->sap_code }} -
+                                                    {{ $territory->name }} </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Group</label>
                                         <input type="text" class="form-control" name="customer_group"
-                                            value="{{ $soldToParty->customer_group }}" placeholder="Customer Group">
+                                            value="{{ $soldToParty->CustomerGroup->sap_code }} - {{ $soldToParty->CustomerGroup->name }}"
+                                            placeholder="Customer Group" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -408,9 +414,16 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Trade Sub Category</label>
-                                        <input type="text" class="form-control" name="trade_sub_category"
-                                            value="{{ $soldToParty->trade_sub_category }}"
-                                            placeholder="Trade Sub Category">
+                                        <select class="form-control" id="trade_sub_category" name="trade_sub_category">
+                                            <option value="{{ $soldToParty->tradeSubCategory->sap_code }}" selected>
+                                                {{ $soldToParty->tradeSubCategory->sap_code }} -
+                                                {{ $soldToParty->tradeSubCategory->name }}</option>
+                                            @foreach ($tradeSubCategories as $tradeSubCategory)
+                                                <option value="{{ $tradeSubCategory->sap_code }}">
+                                                    {{ $tradeSubCategory->sap_code }}
+                                                    - {{ $tradeSubCategory->name }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -438,7 +451,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">BP Type</label>
                                         <input type="text" class="form-control" name="bp_type"
-                                            value="{{ $soldToParty->bp_type }}" placeholder="BP Type">
+                                            value="{{ $soldToParty->bp_type }}" placeholder="BP Type" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -560,3 +573,72 @@
     </div>
 
 @endsection
+<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+
+
+        $('#trade_category').on('change', function() {
+            var sold_to_party_id = $('#sold_to_party_id').val();
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('cma/soldToParty_request_form') }}" + '/' + sold_to_party_id,
+                data: {
+                    trade_category: $(this).val()
+                },
+                success: function(res) {
+                    var _html = '';
+                    if (res.status === 'success') {
+                        var _html = '<option value="">Please Select</option>';
+                        $.each(res.tradeSubCategories, function(index, tradeSubCategory) {
+                            _html += '<option value="' + tradeSubCategory.sap_code +
+                                '">' +
+                                tradeSubCategory.sap_code + ' - ' + tradeSubCategory
+                                .name +
+                                '</option>';
+                        });
+
+                    } else {
+                        _html = '<option value="">No Sub Category Found</option>';
+                    }
+                    $('#trade_sub_category').html(_html);
+                }
+            });
+
+
+        });
+
+        $('#trade_sub_category').on('change', function() {
+            var sold_to_party_id = $('#sold_to_party_id').val();
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('cma/soldToParty_request_form') }}" + '/' + sold_to_party_id,
+                data: {
+                    trade_category: $('#trade_category').val(),
+                    trade_sub_category: $(this).val(),
+                },
+                success: function(res) {
+                    var _html = '';
+                    if (res.status === 'success') {
+                        var _html = '<option value="">Please Select</option>';
+                        $.each(res.tradeSubCategories, function(index, tradeSubCategory) {
+                            _html += '<option value="' + tradeSubCategory.sap_code +
+                                '">' +
+                                tradeSubCategory.sap_code + ' - ' + tradeSubCategory
+                                .name +
+                                '</option>';
+                        });
+
+                    } else {
+                        _html = '<option value="">No Sub Category Found</option>';
+                    }
+                    $('#trade_sub_category').html(_html);
+                }
+            });
+
+
+        });
+    });
+</script>

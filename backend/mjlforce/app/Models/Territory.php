@@ -18,7 +18,7 @@ class Territory extends Model
 
     public function soldToParties()
     {
-        return $this->hasMany(SoldToParty::class);
+        return $this->hasMany(SoldToParty::class,  'sap_code', 'territory');
     }
 
 }

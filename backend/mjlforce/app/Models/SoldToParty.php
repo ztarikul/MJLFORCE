@@ -16,6 +16,7 @@ use App\Models\TradeSubCategory;
 use App\Models\SoldToPartyLeadLog;
 use App\Models\ShipToParty;
 use App\Models\CustomerType;
+use App\Models\CustomerGroup;
 
 class SoldToParty extends Model
 {
@@ -56,8 +57,8 @@ class SoldToParty extends Model
     public function LocPostOffice(){
         return $this->belongsTo(LocPostOffice::class);
     }
-    public function territory(){
-        return $this->belongsTo(Territory::class);
+    public function territorySToP(){
+        return $this->belongsTo(Territory::class, 'territory', 'sap_code');
     }
 
     public function tradeCategory(){
@@ -76,6 +77,9 @@ class SoldToParty extends Model
         return $this->belongsTo(CustomerType::class, 'customer_acc_group', 'sap_code');
     }
 
+    public function customerGroup(){
+        return $this->belongsTo(CustomerGroup::class, 'customer_group', 'sap_code');
+    }
     // public function distributionCh(){
     //     return $this->belongsTo(DistributionCh::class, 'distribution_ch_id', 'id');
     // }
