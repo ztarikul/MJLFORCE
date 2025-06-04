@@ -60,15 +60,15 @@ class CmaController extends Controller
         ];
 
         if($request->ajax()){
-            if($request->has('trade_category')){
+            if($request->action === "getTradeSubCategories"){
                 $tradeSubCategories = TradeCategory::where('sap_code', $request->trade_category)->first()->tradeSubCategories()->get();
                 return response()->json([
                     'tradeSubCategories' => $tradeSubCategories, 
                     'status' => 'success'
                 ]);
             }
-            if($request->has('trade_sub_category')){
-                $customerGroup = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first()->customerGroup()->first()->sap_code;
+            if($request->action ===  "customerGroups"){
+                $customerGroup = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first()->customerGroup()->first();
                 return response()->json([
                     'customerGroup' => $customerGroup, 
                     'status' => 'success'
@@ -93,6 +93,12 @@ class CmaController extends Controller
             'accAssignmentGroups' => $accAssignmentGroups,
             'territories' => $territories
         ]);
+    }
+
+
+
+    public function soldToPartyMisToSAP(Request $request, $id){
+        dd($request->all());
     }
 
 

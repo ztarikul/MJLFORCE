@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'cma', 'as' => 'cma.',], function () {
         Route::get('/new_soldToParty', [CmaController::class, 'newSoldToPartyIndex'])->name('newSoldToPartyIndex');
         Route::get('/soldToParty_request_form/{id}', [CmaController::class, 'soldToPartyRequestForm'])->name('soldToPartyRequestForm');
+        Route::post('/soldToPartyMisToSAP/{id}', [CmaController::class, 'soldToPartyMisToSAP'])->name('soldToPartyMisToSAP');
 
     });
 });

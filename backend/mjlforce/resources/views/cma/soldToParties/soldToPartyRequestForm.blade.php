@@ -1,7 +1,12 @@
 @extends('components.master')
 @section('title', 'Dashboard')
 @section('content')
-
+    <style>
+        .customize-field {
+            background: cadetblue;
+            color: rgb(32, 29, 29)
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -10,7 +15,8 @@
                         <h5>Mega form</h5>
                     </div>
                     <div class="card-body">
-                        <form class="theme-form mega-form">
+                        <form class="theme-form mega-form" id="soldToPartyMisToSAPForm">
+                            @csrf
                             <h6>Account Information</h6>
                             <div class="row">
                                 {{-- <div class="col-md-4">
@@ -93,21 +99,21 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Search Term</label>
-                                        <input type="text" class="form-control" name="search_term"
+                                        <input type="text" class="form-control customize-field" name="search_term"
                                             value="{{ $soldToParty->search_term }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Search Term 2</label>
-                                        <input type="text" class="form-control" name="search_term2"
+                                        <input type="text" class="form-control customize-field" name="search_term2"
                                             value="{{ $soldToParty->search_term2 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Legacy Account Code</label>
-                                        <input type="text" class="form-control" name="legacy_acc_code"
+                                        <input type="text" class="form-control customize-field" name="legacy_acc_code"
                                             value="{{ $soldToParty->legacy_acc_code }}">
                                     </div>
                                 </div>
@@ -122,9 +128,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Region</label>
-                                        <select class="form-control" name="region_id">
-                                            <!-- Populate with regions -->
-                                        </select>
+                                        <input type="text" class="form-control customize-field" name="region"
+                                            id="region" value="{{ $soldToParty->region }}" placeholder="Region">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -186,7 +191,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Fax</label>
-                                        <input type="text" class="form-control" name="fax"
+                                        <input type="text" class="form-control customize-field" name="fax"
                                             value="{{ $soldToParty->fax }}" placeholder="Fax">
                                     </div>
                                 </div>
@@ -200,7 +205,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Other URL</label>
-                                        <input type="url" class="form-control" name="other_url"
+                                        <input type="url" class="form-control customize-field" name="other_url"
                                             value="{{ $soldToParty->other_url }}" placeholder="Other URL">
                                     </div>
                                 </div>
@@ -245,7 +250,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Payment Mode</label>
-                                        <input type="text" class="form-control" name="payment_mode"
+                                        <input type="text" class="form-control customize-field" name="payment_mode"
                                             value="{{ $soldToParty->payment_mode }}" placeholder="Payment Mode">
                                     </div>
                                 </div>
@@ -259,7 +264,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">VAT Reg Num</label>
-                                        <input type="text" class="form-control" name="vat_reg_num"
+                                        <input type="text" class="form-control customize-field" name="vat_reg_num"
                                             value="{{ $soldToParty->vat_reg_num }}" placeholder="VAT Reg Num">
                                     </div>
                                 </div>
@@ -273,7 +278,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">FI Payment Terms</label>
-                                        <select class="form-control" id="fi_payment_terms" name="fi_payment_terms">
+                                        <select class="form-control customize-field" id="fi_payment_terms"
+                                            name="fi_payment_terms">
                                             <option value="">Please Select</option>
                                             @foreach ($fiPaymentTerms as $term)
                                                 <option value="{{ $term['term'] }}">{{ $term['term'] }} -
@@ -286,7 +292,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Currency</label>
 
-                                        <select class="form-control" id="currency" name="currency">
+                                        <select class="form-control customize-field" id="currency" name="currency">
                                             <option value="">Please Select</option>
                                             @foreach ($currencies as $currency)
                                                 <option value="{{ $currency['name'] }}">{{ $currency['name'] }} </option>
@@ -313,8 +319,9 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Delivering Plant</label>
-                                        <input type="text" class="form-control" name="delivering_plant"
-                                            value="{{ $soldToParty->delivering_plant }}" placeholder="Delivering Plant">
+                                        <input type="text" class="form-control customize-field"
+                                            name="delivering_plant" value="{{ $soldToParty->delivering_plant }}"
+                                            placeholder="Delivering Plant">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -342,7 +349,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">SD Payment Terms</label>
-                                        <select class="form-control" id="sd_payment_terms" name="sd_payment_terms">
+                                        <select class="form-control customize-field" id="sd_payment_terms"
+                                            name="sd_payment_terms">
                                             <option value="">Please Select</option>
                                             @foreach ($fiPaymentTerms as $term)
                                                 <option value="{{ $term['term'] }}">{{ $term['term'] }} -
@@ -354,7 +362,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Account Assignment Group</label>
-                                        <select class="form-control" id="acc_assignment_group"
+                                        <select class="form-control customize-field" id="acc_assignment_group"
                                             name="acc_assignment_group">
                                             <option value="">Please Select</option>
                                             @foreach ($accAssignmentGroups as $group)
@@ -390,7 +398,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Group</label>
-                                        <input type="text" class="form-control" name="customer_group"
+                                        <input type="text" class="form-control" id="customer_group"
+                                            name="customer_group"
                                             value="{{ $soldToParty->CustomerGroup->sap_code }} - {{ $soldToParty->CustomerGroup->name }}"
                                             placeholder="Customer Group" readonly>
                                     </div>
@@ -429,22 +438,25 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Group 3</label>
-                                        <input type="text" class="form-control" name="customer_group_3"
-                                            value="{{ $soldToParty->customer_group_3 }}" placeholder="Customer Group 3">
+                                        <input type="text" class="form-control customize-field"
+                                            name="customer_group_3" value="{{ $soldToParty->customer_group_3 }}"
+                                            placeholder="Customer Group 3">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Group 4</label>
-                                        <input type="text" class="form-control" name="customer_group_4"
-                                            value="{{ $soldToParty->customer_group_4 }}" placeholder="Customer Group 4">
+                                        <input type="text" class="form-control customize-field"
+                                            name="customer_group_4" value="{{ $soldToParty->customer_group_4 }}"
+                                            placeholder="Customer Group 4">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Group 5</label>
-                                        <input type="text" class="form-control" name="customer_group_5"
-                                            value="{{ $soldToParty->customer_group_5 }}" placeholder="Customer Group 5">
+                                        <input type="text" class="form-control customize-field"
+                                            name="customer_group_5" value="{{ $soldToParty->customer_group_5 }}"
+                                            placeholder="Customer Group 5">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -457,29 +469,29 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Attr 2</label>
-                                        <input type="text" class="form-control" name="attr_2"
+                                        <input type="text" class="form-control customize-field" name="attr_2"
                                             value="{{ $soldToParty->attr_2 }}" placeholder="Attr 2">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Attr 3</label>
-                                        <input type="text" class="form-control" name="attr_3"
+                                        <input type="text" class="form-control customize-field" name="attr_3"
                                             value="{{ $soldToParty->attr_3 }}" placeholder="Attr 3">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Attr 4</label>
-                                        <input type="text" class="form-control" name="attr_4"
+                                        <input type="text" class="form-control customize-field" name="attr_4"
                                             value="{{ $soldToParty->attr_4 }}" placeholder="Attr 4">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Factory Address 2</label>
-                                        <input type="text" class="form-control" name="factory_address_2"
-                                            value="{{ $soldToParty->factory_address_2 }}"
+                                        <input type="text" class="form-control customize-field"
+                                            name="factory_address_2" value="{{ $soldToParty->factory_address_2 }}"
                                             placeholder="Factory Address 2">
                                     </div>
                                 </div>
@@ -530,7 +542,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Remarks</label>
-                                        <textarea class="form-control" name="remarks" value="{{ $soldToParty->region }}" placeholder="Remarks"></textarea>
+                                        <textarea class="form-control" name="remarks" value="{{ $soldToParty->remarks }}" placeholder="Remarks"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -585,7 +597,8 @@
                 type: "GET",
                 url: "{{ url('cma/soldToParty_request_form') }}" + '/' + sold_to_party_id,
                 data: {
-                    trade_category: $(this).val()
+                    trade_category: $(this).val(),
+                    action: 'getTradeSubCategories'
                 },
                 success: function(res) {
                     var _html = '';
@@ -618,27 +631,101 @@
                 data: {
                     trade_category: $('#trade_category').val(),
                     trade_sub_category: $(this).val(),
+                    action: 'customerGroups'
                 },
                 success: function(res) {
-                    var _html = '';
+                    console.log(res);
                     if (res.status === 'success') {
-                        var _html = '<option value="">Please Select</option>';
-                        $.each(res.tradeSubCategories, function(index, tradeSubCategory) {
-                            _html += '<option value="' + tradeSubCategory.sap_code +
-                                '">' +
-                                tradeSubCategory.sap_code + ' - ' + tradeSubCategory
-                                .name +
-                                '</option>';
-                        });
-
+                        $('#customer_group').val(res.customerGroup.sap_code + ' - ' + res
+                            .customerGroup
+                            .name);
                     } else {
-                        _html = '<option value="">No Sub Category Found</option>';
+                        $('#customer_group').val('');
                     }
-                    $('#trade_sub_category').html(_html);
+
                 }
             });
 
 
         });
+
+
+        $('#soldToPartyMisToSAPForm').submit(function(e) {
+
+            let formData = new FormData(this);
+            let sold_to_party_id = $('#sold_to_party_id').val();
+
+            e.preventDefault();
+            $.confirm({
+                title: 'Confirm!',
+                content: 'By submitting, the CMA will send to the SAP. And you MIS not be able to edit any further!',
+                btnClass: 'btn-blue',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-blue',
+                        action: function() {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ url('cma/soldToPartyMisToSAP') }}" +
+                                    '/' + sold_to_party_id,
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                beforeSend: function() {
+                                    $('.loader_div').show();
+                                },
+                                complete: function() {
+                                    $('.loader_div').hide();
+                                },
+                                success: function(res) {
+                                    if (res.status == 1) {
+                                        $.toast({
+                                            heading: 'Success',
+                                            text: res.msg,
+                                            icon: 'success',
+                                            position: 'top-right'
+                                        });
+                                        setTimeout(function() { // wait for 5 secs(2)
+                                            location.reload();
+                                        }, 3000);
+                                    }
+                                    if (res.status == 0) {
+                                        $.toast({
+                                            heading: 'Failed',
+                                            text: res.msg,
+                                            icon: 'error',
+                                            position: 'top-right'
+                                        });
+                                    }
+                                },
+                                error: function(error) {
+                                    // $('.loader_div').hide();
+                                    // console.log(errors);
+                                    $.toast({
+                                        heading: 'Error',
+                                        text: 'Something went wrong',
+                                        icon: 'error',
+                                        position: 'top-right'
+                                    });
+
+                                }
+                            });
+                        }
+                    },
+                    cancel: function() {
+                        $.alert('Canceled!');
+                    },
+
+                }
+            });
+
+        });
+
+
+
+
+
+        ///end of jQuery Onload
     });
 </script>

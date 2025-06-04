@@ -96,7 +96,7 @@ class CmaController extends Controller
             $soldToParty->address_2 = $address2;
             list($address3, $address4) = splitByLastCharBeforeLimit($address3, 40, ",");
             $soldToParty->address_3 = $address3; // rest address after 60 char
-            // $soldToParty->lang = null;
+            $soldToParty->lang = "EN";
             $soldToParty->phone = $request->owner_telephone;
             $soldToParty->mobile_phone = $request->owner_mobile;
             // $soldToParty->fax = null;
