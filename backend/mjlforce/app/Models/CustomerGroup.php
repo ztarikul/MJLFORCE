@@ -14,8 +14,7 @@ class CustomerGroup extends Model
         return $this->hasMany(SoldToPartySalesArea::class);
     }
 
-    public function soldToParties()
-    {
+    public function soldToParties(){
         return $this->hasMany(SoldToParty::class, 'sap_code', 'customer_group');
     }
 }

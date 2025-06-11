@@ -13,7 +13,9 @@ use App\Models\SoldToPartySalesArea;
 use App\Models\Territory;
 use App\Models\TradeCategory;
 use App\Models\TradeSubCategory;
+use Exception;
 use Illuminate\Http\Request;
+
 
 class CmaController extends Controller
 {
@@ -60,17 +62,18 @@ class CmaController extends Controller
         ];
 
         if($request->ajax()){
-            if($request->action === "getTradeSubCategories"){
-                $tradeSubCategories = TradeCategory::where('sap_code', $request->trade_category)->first()->tradeSubCategories()->get();
+            if($request->action === "tradeChange"){
+                $tradeSubCategories = TradeCategory::find($request->trade_category)->tradeSubCategories()->get();
                 return response()->json([
                     'tradeSubCategories' => $tradeSubCategories, 
                     'status' => 'success'
                 ]);
             }
-            if($request->action ===  "customerGroups"){
-                $customerGroup = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first()->customerGroup()->first();
+            if($request->action ===  "tradeSubChange"){
+                $salesArea = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first();
                 return response()->json([
-                    'customerGroup' => $customerGroup, 
+                    'customerGroup' => $salesArea->customerGroup()->first(), 
+                    'distributionCh' => $salesArea->distributionCh()->first(),
                     'status' => 'success'
                 ]);
             }
@@ -98,7 +101,84 @@ class CmaController extends Controller
 
 
     public function soldToPartyMisToSAP(Request $request, $id){
-        dd($request->all());
+        // dd($request->all());
+        $msg = '';
+        try{
+            $soldToParty = SoldToParty::findOrFail($id);            
+            $soldToParty->customer_acc_group = $request->customer_type;
+            $soldToParty->company_code = $request->company_code;
+            $soldToParty->sales_org = $request->sales_org;
+            $soldToParty->distribution_ch = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first()->distributionCh->sap_code ;   
+            $soldToParty->sales_division = $request->sales_division;   //Common
+            
+            $soldToParty->acc_name = $request->acc_name;
+            $soldToParty->acc_name2 = $request->acc_name2;
+            $soldToParty->search_term = $request->search_term;
+            $soldToParty->search_term2 = $request->search_term2;
+            $soldToParty->legacy_acc_code = $request->legacy_acc_code;
+            $soldToParty->country = $request->country; // BD, CY, DE, SG, SN, VN,
+            $soldToParty->region = $request->region;
+            $soldToParty->region_id = null;
+            $soldToParty->district = $request->district;
+            $soldToParty->address = $request->address;
+            $soldToParty->ceo = $request->ceo;
+            $soldToParty->address_2 = $request->address_2;
+            $soldToParty->address_3 = $request->address_3;
+            $soldToParty->lang = $request->lang;
+            $soldToParty->phone = $request->phone;
+            $soldToParty->mobile_phone = $request->mobile_phone;
+            $soldToParty->fax = $request->fax;
+            $soldToParty->email = $request->email;
+            $soldToParty->other_url = $request->other_url;
+            $soldToParty->postal_code = $request->postal_code;
+            $soldToParty->contact_person_name = $request->contact_person_name;
+            $soldToParty->contact_person_tel = $request->contact_person_tel;
+            $soldToParty->contact_person_mobile = $request->contact_person_mobile;
+            $soldToParty->group = $request->group;
+
+            $soldToParty->payment_mode = $request->payment_mode; //for rent it is blank otherwise 1G
+
+            $soldToParty->bin_no = $request->bin_no;
+            $soldToParty->vat_reg_num = $request->vat_reg_num;
+            $soldToParty->recon_acc = $request->recon_acc;
+            $soldToParty->fi_payment_terms = $request->fi_payment_terms;
+            $soldToParty->currency = $request->currency;
+            $soldToParty->cust_pricing_procedure = $request->cust_pricing_procedure;
+            $soldToParty->shipping_condition = $request->shipping_condition;
+            $soldToParty->delivering_plant = $request->delivering_plant;
+            $soldToParty->other_combination = $request->other_combination;
+            $soldToParty->incoterms = $request->incoterms;
+            $soldToParty->incoterms_loc_1 = $request->incoterms_loc_1;
+            $soldToParty->sd_payment_terms = $request->sd_payment_terms;
+            $soldToParty->acc_assignment_group = $request->acc_assignment_group;
+            $soldToParty->tax_classification = $request->tax_classification;
+            $soldToParty->territory = Territory::find($request->territory)->sap_code;
+          
+            $soldToParty->customer_group = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first()->customerGroup()->first()->sap_code;
+            $soldToParty->trade_category = TradeCategory::find($request->trade_category)->sap_code;
+            $soldToParty->trade_sub_category = TradeSubCategory::find($request->trade_sub_category)->sap_code;
+            $soldToParty->customer_group_3 = $request->customer_group_3;
+            $soldToParty->customer_group_4 = $request->customer_group_4;
+            $soldToParty->customer_group_5 = $request->customer_group_5;
+            $soldToParty->bp_type = $request->bp_type;
+            $soldToParty->attr_2 = $request->attr_2;
+            $soldToParty->attr_3 = $request->attr_3;
+            $soldToParty->attr_4 = $request->attr_4;
+            $soldToParty->factory_address_2 = $request->factory_address_2;
+
+            $soldToParty->update();
+  
+            $msg = 'Sold To Party sent to the SAP';
+
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => $msg,
+            'redirect' => route('cma.newSoldToPartyIndex')
+        ]);
     }
 
 

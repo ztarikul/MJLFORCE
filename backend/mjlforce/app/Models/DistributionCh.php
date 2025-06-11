@@ -14,7 +14,7 @@ class DistributionCh extends Model
         return $this->hasMany(SoldToPartySalesArea::class);
     }
 
-    // public function soldToParties(){
-    //     return $this->hasMany(SoldToParty::class, 'distribution_ch_id', 'id');
-    // }
+    public function soldToParties(){
+        return $this->hasMany(SoldToParty::class, 'sap_code', 'distribution_ch');
+    }
 }

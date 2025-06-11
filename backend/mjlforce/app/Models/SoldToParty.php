@@ -17,6 +17,7 @@ use App\Models\SoldToPartyLeadLog;
 use App\Models\ShipToParty;
 use App\Models\CustomerType;
 use App\Models\CustomerGroup;
+use App\Models\DistributionCh;
 
 class SoldToParty extends Model
 {
@@ -80,8 +81,8 @@ class SoldToParty extends Model
     public function customerGroup(){
         return $this->belongsTo(CustomerGroup::class, 'customer_group', 'sap_code');
     }
-    // public function distributionCh(){
-    //     return $this->belongsTo(DistributionCh::class, 'distribution_ch_id', 'id');
-    // }
+    public function distributionCh(){
+        return $this->belongsTo(DistributionCh::class, 'distribution_ch', 'sap_code');
+    }
 
 }

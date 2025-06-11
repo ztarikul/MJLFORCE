@@ -71,8 +71,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Distribution Channel</label>
-                                        <input type="number" class="form-control" name="distribution_ch"
-                                            value="{{ $soldToParty->distribution_ch }}" placeholder="Distribution Channel">
+                                        <input type="text" class="form-control" id="distribution_ch" name="distribution_ch"
+                                            value="{{ $soldToParty->distributionCh->sap_code }} - {{ $soldToParty->distributionCh->name }}" readonly >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -409,11 +409,11 @@
                                         <label class="col-form-label">Trade Category</label>
 
                                         <select class="form-control" id="trade_category" name="trade_category">
-                                            <option value="{{ $soldToParty->tradeCategory->sap_code }}" selected>
+                                            <option value="{{ $soldToParty->tradeCategory->id }}" selected>
                                                 {{ $soldToParty->tradeCategory->sap_code }} -
                                                 {{ $soldToParty->tradeCategory->name }}</option>
                                             @foreach ($tradeCategories as $tradeCategory)
-                                                <option value="{{ $tradeCategory->sap_code }}">
+                                                <option value="{{ $tradeCategory->id }}">
                                                     {{ $tradeCategory->sap_code }}
                                                     - {{ $tradeCategory->name }} </option>
                                             @endforeach
@@ -424,11 +424,11 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Trade Sub Category</label>
                                         <select class="form-control" id="trade_sub_category" name="trade_sub_category">
-                                            <option value="{{ $soldToParty->tradeSubCategory->sap_code }}" selected>
+                                            <option value="{{ $soldToParty->tradeSubCategory->id }}" selected>
                                                 {{ $soldToParty->tradeSubCategory->sap_code }} -
                                                 {{ $soldToParty->tradeSubCategory->name }}</option>
                                             @foreach ($tradeSubCategories as $tradeSubCategory)
-                                                <option value="{{ $tradeSubCategory->sap_code }}">
+                                                <option value="{{ $tradeSubCategory->id }}">
                                                     {{ $tradeSubCategory->sap_code }}
                                                     - {{ $tradeSubCategory->name }} </option>
                                             @endforeach
@@ -463,7 +463,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">BP Type</label>
                                         <input type="text" class="form-control" name="bp_type"
-                                            value="{{ $soldToParty->bp_type }}" placeholder="BP Type" disabled>
+                                            value="{{ $soldToParty->bp_type }}" placeholder="BP Type" >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -542,7 +542,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Remarks</label>
-                                        <textarea class="form-control" name="remarks" value="{{ $soldToParty->remarks }}" placeholder="Remarks"></textarea>
+                                        <textarea class="form-control" name="remarks" value="{{ $soldToParty->remarks }}" placeholder="Remarks" readonly></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -598,14 +598,14 @@
                 url: "{{ url('cma/soldToParty_request_form') }}" + '/' + sold_to_party_id,
                 data: {
                     trade_category: $(this).val(),
-                    action: 'getTradeSubCategories'
+                    action: 'tradeChange'
                 },
                 success: function(res) {
                     var _html = '';
                     if (res.status === 'success') {
                         var _html = '<option value="">Please Select</option>';
                         $.each(res.tradeSubCategories, function(index, tradeSubCategory) {
-                            _html += '<option value="' + tradeSubCategory.sap_code +
+                            _html += '<option value="' + tradeSubCategory.id +
                                 '">' +
                                 tradeSubCategory.sap_code + ' - ' + tradeSubCategory
                                 .name +
@@ -631,7 +631,7 @@
                 data: {
                     trade_category: $('#trade_category').val(),
                     trade_sub_category: $(this).val(),
-                    action: 'customerGroups'
+                    action: 'tradeSubChange'
                 },
                 success: function(res) {
                     console.log(res);
@@ -639,8 +639,12 @@
                         $('#customer_group').val(res.customerGroup.sap_code + ' - ' + res
                             .customerGroup
                             .name);
+                        $('#distribution_ch').val(res.distributionCh.sap_code + ' - ' + res
+                            .distributionCh
+                            .name);
                     } else {
                         $('#customer_group').val('');
+                        $('#distribution_ch').val('');
                     }
 
                 }
@@ -679,21 +683,21 @@
                                     $('.loader_div').hide();
                                 },
                                 success: function(res) {
-                                    if (res.status == 1) {
+                                    if (res.status === 'success') {
                                         $.toast({
                                             heading: 'Success',
-                                            text: res.msg,
+                                            text: res.message,
                                             icon: 'success',
                                             position: 'top-right'
                                         });
-                                        setTimeout(function() { // wait for 5 secs(2)
-                                            location.reload();
-                                        }, 3000);
+                                        // setTimeout(function() { // wait for 5 secs(2)
+                                        //     window.location.href = res.redirect; // then redirect
+                                        // }, 3000);
                                     }
-                                    if (res.status == 0) {
+                                    else {
                                         $.toast({
                                             heading: 'Failed',
-                                            text: res.msg,
+                                            text: res.message,
                                             icon: 'error',
                                             position: 'top-right'
                                         });
