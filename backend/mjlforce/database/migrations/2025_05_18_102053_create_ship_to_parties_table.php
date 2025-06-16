@@ -81,6 +81,7 @@ return new class extends Migration
             $table->string('attr_2')->nullable()->comment('KNVV-KATR2'); //For Future Use
             $table->string('attr_3')->nullable()->comment('KNVV-KATR3'); //For Future Use
             $table->string('attr_4')->nullable()->comment('KNVV-KATR4'); //For Future Use
+            $table->string('attr_5')->nullable()->comment('KNVV-KATR5'); //For Future Use
             $table->string('factory_address_2')->nullable()->comment('ADRC-STR_SUPPL2'); //Not use
 
             $table->foreignId('loc_division_id')->nullable()->constrained();//non sap

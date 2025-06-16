@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Exports\SoldToPartyToSapExport;
 use App\Http\Controllers\Controller;
 use App\Models\CustomerType;
 use App\Models\LocDivision;
@@ -9,13 +10,15 @@ use App\Models\LocDistrict;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\SoldToParty;
+use App\Models\SoldToPartyProcessLog;
 use App\Models\SoldToPartySalesArea;
 use App\Models\Territory;
 use App\Models\TradeCategory;
 use App\Models\TradeSubCategory;
 use Exception;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CmaController extends Controller
 {
@@ -167,8 +170,21 @@ class CmaController extends Controller
             $soldToParty->factory_address_2 = $request->factory_address_2;
 
             $soldToParty->update();
+
+            SoldToPartyProcessLog::create([
+                'sold_to_party_id' => $soldToParty->id,
+                'chk_from' => 4, //MIS
+                'chk_to' => 5, //SAP
+                'status' => 1,
+                'remarks' => "Send to SAP",
+            ]);
+
+            $filename = 'CMA_' .$soldToParty->acc_name . '_' . now()->format('Y_m_d_His') . '.xlsx';
+            Excel::store(new SoldToPartyToSapExport($soldToParty->id), 'exports/CMA/' . $filename);
+
+            $url = Storage::url('exports/' . $filename);
   
-            $msg = 'Sold To Party sent to the SAP';
+            $msg = 'Sold To Party has been sent to the SAP';
 
         }catch(Exception $e){
             $msg = $e->getMessage();

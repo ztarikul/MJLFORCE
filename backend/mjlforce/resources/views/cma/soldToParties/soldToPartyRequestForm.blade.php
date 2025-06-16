@@ -71,8 +71,10 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Distribution Channel</label>
-                                        <input type="text" class="form-control" id="distribution_ch" name="distribution_ch"
-                                            value="{{ $soldToParty->distributionCh->sap_code }} - {{ $soldToParty->distributionCh->name }}" readonly >
+                                        <input type="text" class="form-control" id="distribution_ch"
+                                            name="distribution_ch"
+                                            value="{{ $soldToParty->distributionCh->sap_code }} - {{ $soldToParty->distributionCh->name }}"
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -463,7 +465,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">BP Type</label>
                                         <input type="text" class="form-control" name="bp_type"
-                                            value="{{ $soldToParty->bp_type }}" placeholder="BP Type" >
+                                            value="{{ $soldToParty->bp_type }}" placeholder="BP Type">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -690,11 +692,13 @@
                                             icon: 'success',
                                             position: 'top-right'
                                         });
-                                        // setTimeout(function() { // wait for 5 secs(2)
-                                        //     window.location.href = res.redirect; // then redirect
-                                        // }, 3000);
-                                    }
-                                    else {
+                                        setTimeout(function() { // wait for 5 secs(2)
+                                            window.location.href = res
+                                                .redirect; // then redirect
+                                        }, 3000);
+
+                                    } else {
+
                                         $.toast({
                                             heading: 'Failed',
                                             text: res.message,
@@ -705,10 +709,11 @@
                                 },
                                 error: function(error) {
                                     // $('.loader_div').hide();
-                                    // console.log(errors);
+                                    console.log(error);
                                     $.toast({
                                         heading: 'Error',
-                                        text: 'Something went wrong',
+                                        text: error.responseJSON
+                                            .message,
                                         icon: 'error',
                                         position: 'top-right'
                                     });

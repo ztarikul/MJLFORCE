@@ -35,7 +35,7 @@ class SoldToParty extends Model
     }
 
     public function currentProcess(){
-        return $this->hasOne(SoldToPartyProcessLog::class)->latest();
+        return $this->hasOne(SoldToPartyProcessLog::class)->latestOfMany();
     }
 
     public function leadStageLogs(){
@@ -43,7 +43,7 @@ class SoldToParty extends Model
     }
 
     public function currentLead(){
-        return $this->hasOne(SoldToPartyLeadLog::class)->latest();
+        return $this->hasOne(SoldToPartyLeadLog::class)->latestOfMany();
     }
 
     public function locDivision(){
