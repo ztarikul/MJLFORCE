@@ -33,83 +33,82 @@ class SoldToPartyToSapExport implements FromArray, WithHeadings, WithStyles, Wit
             'sales_division', //G
             'acc_name', //H
             'acc_name2', //I
-            //J Blank
-            'search_term', //K
-            'search_term2', //L
-            'legacy_acc_code', //M
-            'country', //N
-            //O Blank 
-            'region', //P
-            //Q Blank
-            'district', //R
-            'address', //S
+            'search_term', //J
+            'search_term2', //K
+            'legacy_acc_code', //L
+            'country', //M
+            //N Blank 
+            'region', //O
+            //P Blank
+            'district', //Q
+            'address', //R
+            //S Blank
             //T Blank
-            //U Blank
-            'ceo', //V
-            //W Blank
-            'address_2', //X
-            'address_3', //Y
+            'ceo', //U
+            //V Blank
+            'address_2', //W
+            'address_3', //X
+            //Y Blank
             //Z Blank
             //AA Blank
-            //AB Blank
-            'lang', //AC
-            'phone', //AD
-            'mobile_phone', //AE
-            'fax', //AF
-            'email', //AG
-            'other_url', //AH
-            'postal_code', //AI
+            'lang', //AB
+            'phone', //AC
+            'mobile_phone', //AD
+            'fax', //AE
+            'email', //AF
+            'other_url', //AG
+            'postal_code', //AH
+            //AI Blank
             //AJ Blank
-            //AK Blank
-            'contact_person_name', //AL
-            'contact_person_tel', //AM
-            'contact_person_mobile', //AN
+            'contact_person_name', //AK
+            'contact_person_tel', //AL
+            'contact_person_mobile', //AM
+            //AN Blank
             //AO Blank
             //AP Blank
-            //AQ Blank
-            'group', //AR
+            'group', //AQ
+            //AR Blank
             //AS Blank
             //AT Blank
-            //AU Blank
-            'payment_mode', //AV
-            //AW Blank
-            'bin_no', //AX
-            //AY Blank  
-            'vat_reg_num', //AZ
+            'payment_mode', //AU
+            //AV Blank
+            'bin_no', //AW
+            //AX Blank  
+            'vat_reg_num', //AY
+            //AZ Blank
             //BA Blank
             //BB Blank
-            //BC Blank
-            'recon_acc', //BD
-            'fi_payment_terms', //BE
-            'currency', //BF
+            'recon_acc', //BC
+            'fi_payment_terms', //BD
+            'currency', //BE
+            //BF Blank
             //BG Blank
-            //BH Blank
-            'cust_pricing_procedure', //BI
-            'shipping_condition', //BJ
-            // BK Blank
-            'delivering_plant', //BL
-            'other_combination', //BM
-            // BN Blank
-            'incoterms', //BO
-            'incoterms_loc_1', //BP
-            //BQ Blank
-            'sd_payment_terms', //BR
-            'acc_assignment_group', //BS
-            'tax_classification', //BT
-            // BU Blank
-            'territory', //BV
-            'customer_group', //BW
-            'trade_category', //BX
-            'trade_sub_category', //BY
-            'customer_group_3', //BZ
-            'customer_group_4', //CA
-            'customer_group_5', //CB
-            'bp_type', //CC
-            'attr_2', //CD
-            'attr_3', //CE
-            'attr_4', //CF
-            'attr_5', //CG
-            'factory_address_2', //CH
+            'cust_pricing_procedure', //BH
+            'shipping_condition', //BI
+            // BJ Blank
+            'delivering_plant', //BK
+            'other_combination', //BL
+            // BM Blank
+            'incoterms', //BN
+            'incoterms_loc_1', //BO
+            //BP Blank
+            'sd_payment_terms', //BQ
+            'acc_assignment_group', //BR
+            'tax_classification', //BS
+            // BT Blank
+            'territory', //BU
+            'customer_group', //BV
+            'trade_category', //BW
+            'trade_sub_category', //BX
+            'customer_group_3', //BY
+            'customer_group_4', //BZ
+            'customer_group_5', //CA
+            'bp_type', //CB
+            'attr_2', //CC
+            'attr_3', //CD
+            'attr_4', //CE
+            'attr_5', //CF
+            'factory_address_2', //CG
         )->find($sold_to_party_id);
 
         $data = [
@@ -122,7 +121,6 @@ class SoldToPartyToSapExport implements FromArray, WithHeadings, WithStyles, Wit
             $soldToParty->sales_division,
             $soldToParty->acc_name,
             $soldToParty->acc_name2,
-            ' ',
             $soldToParty->search_term,
             $soldToParty->search_term2,
             $soldToParty->legacy_acc_code,
@@ -161,20 +159,31 @@ class SoldToPartyToSapExport implements FromArray, WithHeadings, WithStyles, Wit
             ' ',
             ' ',
             $soldToParty->payment_mode,
+            ' ',
             $soldToParty->bin_no,
+            ' ',
             $soldToParty->vat_reg_num,
+            ' ',
+            ' ',
+            ' ',
             $soldToParty->recon_acc,
             $soldToParty->fi_payment_terms,
             $soldToParty->currency,
+            ' ',
+            ' ',
             $soldToParty->cust_pricing_procedure,
             $soldToParty->shipping_condition,
+            ' ',
             $soldToParty->delivering_plant,
             $soldToParty->other_combination,
+            ' ',
             $soldToParty->incoterms,
             $soldToParty->incoterms_loc_1,
+            ' ',
             $soldToParty->sd_payment_terms,
             $soldToParty->acc_assignment_group,
             $soldToParty->tax_classification,
+            ' ',
             $soldToParty->territory,
             $soldToParty->customer_group,
             $soldToParty->trade_category,
@@ -201,7 +210,6 @@ class SoldToPartyToSapExport implements FromArray, WithHeadings, WithStyles, Wit
             'Division',
             'Name',
             'Name 2',
-            'blank',
             'Search Term 1',
             'Search Term 2',
             'External BP Number',
@@ -240,20 +248,31 @@ class SoldToPartyToSapExport implements FromArray, WithHeadings, WithStyles, Wit
             'blank',
             'blank',
             'Attribute 1',
+            'blank',
             'BIN No',
+            'blank',
             'VAT Reg Num',
+            'blank',
+            'blank',
+            'blank',
             'Recon Account',
             'FI Payment Terms',
             'Currency',
+            'blank',
+            'blank',
             'Customer Pricing Procedure',
             'Shipping Condition',
+            'blank',
             'Delivering Plant',
             'Other Combination',
+            'blank',
             'Incoterms',
             'Incoterms Location 1',
+            'black',
             'SD Payment Terms',
             'Account Assignment Group',
             'Tax Classification',
+            'blank',
             'Territory',
             'Customer Group',
             'Trade Category',

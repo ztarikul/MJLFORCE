@@ -182,7 +182,7 @@ class CmaController extends Controller
             $filename = 'Customer_Master_Information_' .$soldToParty->acc_name . '_' . now()->format('Y_m_d_His') . '.xlsx';
             Excel::store(new SoldToPartyToSapExport($soldToParty->id), 'exports/CMA/' . $filename);
 
-            $url = Storage::url('exports/' . $filename);
+            $url = Storage::url('public/exports/' . $filename);
   
             $msg = 'Sold To Party has been sent to the SAP';
 
