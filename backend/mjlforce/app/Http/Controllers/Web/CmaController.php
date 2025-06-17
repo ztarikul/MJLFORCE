@@ -169,17 +169,17 @@ class CmaController extends Controller
             $soldToParty->attr_4 = $request->attr_4;
             $soldToParty->factory_address_2 = $request->factory_address_2;
 
-            $soldToParty->update();
+            // $soldToParty->update();
 
-            SoldToPartyProcessLog::create([
-                'sold_to_party_id' => $soldToParty->id,
-                'chk_from' => 4, //MIS
-                'chk_to' => 5, //SAP
-                'status' => 1,
-                'remarks' => "Send to SAP",
-            ]);
+            // SoldToPartyProcessLog::create([
+            //     'sold_to_party_id' => $soldToParty->id,
+            //     'chk_from' => 4, //MIS
+            //     'chk_to' => 5, //SAP
+            //     'status' => 1,
+            //     'remarks' => "Send to SAP",
+            // ]);
 
-            $filename = 'CMA_' .$soldToParty->acc_name . '_' . now()->format('Y_m_d_His') . '.xlsx';
+            $filename = 'Customer_Master_Information_' .$soldToParty->acc_name . '_' . now()->format('Y_m_d_His') . '.xlsx';
             Excel::store(new SoldToPartyToSapExport($soldToParty->id), 'exports/CMA/' . $filename);
 
             $url = Storage::url('exports/' . $filename);

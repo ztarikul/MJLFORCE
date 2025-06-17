@@ -118,7 +118,7 @@ class HomeController extends Controller
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
-        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
         if($request->query('sold_to_party_id')){
           
              $soldToParty = SoldToParty::select('id', 'acc_name', 'acc_name2', 'address', 'address_2', 'address_3', 'contact_person_name', 'contact_person_mobile', 'bin_no', 'created_at')->findOrFail($request->query('sold_to_party_id'));
@@ -152,11 +152,11 @@ class HomeController extends Controller
     }
 
     public function otherVisit(Request $request){
-        
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
-        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
+
         $visitPurposes = VisitPurpose::all();
 
          return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'visitPurposes' => $visitPurposes], 200);

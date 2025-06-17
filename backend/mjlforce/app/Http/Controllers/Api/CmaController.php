@@ -183,7 +183,7 @@ class CmaController extends Controller
         $divisions = LocDivision::select('id', 'name')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->get();
-        $postOffice = LocPostOffice::select('id', 'loc_upazila_id', 'post_office')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
         $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
         $tradeCategories = TradeCategory::select('id', 'name')->get();
         $tradeSubCategories = TradeSubCategory::select('id', 'name', 'trade_category_id')->get();
@@ -199,9 +199,7 @@ class CmaController extends Controller
 
         $leadStages = LeadStage::all();
 
-
-        $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocUpazila.LocPostOffices', 'LocPostOffice', 'territory', '12201000
-.tradeSubCategories', 'tradeSubCategory', 'currentLead'])->find($id);
+        $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocPostOffice', 'territorySToP', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'currentLead'])->find($id);
 
 
         return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes, 'leadStages' => $leadStages], 200);

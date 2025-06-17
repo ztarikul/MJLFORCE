@@ -3,10 +3,20 @@
 namespace App\Exports;
 
 use App\Models\SoldToParty;
-use Maatwebsite\Excel\Concerns\FromArray;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\{
+    FromArray,
+    WithHeadings,
+    WithStyles,
+    WithColumnWidths,
+    ShouldAutoSize,
+    WithEvents
+};
+use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class SoldToPartyToSapExport implements FromArray, WithHeadings
+class SoldToPartyToSapExport implements FromArray, WithHeadings, WithStyles, WithEvents
 {
     protected $data;
     protected $headers;
@@ -276,4 +286,47 @@ class SoldToPartyToSapExport implements FromArray, WithHeadings
         // Return custom headers (column names)
         return $this->headers;
     }
+
+      public function styles(Worksheet $sheet)
+    {
+        return [
+            // Header row styling
+            1 => [
+                'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+                'fill' => ['fillType' => 'solid', 'startColor' => ['rgb' => '4CAF50']],
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+            ],
+        ];
+    }
+
+     public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                // Determine how many rows and columns you have
+                $rowCount = count($this->data) + 1; // +1 for headers
+                $columnCount = count($this->headers);
+
+                // Convert column count to Excel column letters (e.g., C, D, Z)
+                $lastColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($columnCount);
+
+                // Define full range: A1:[lastColumn][lastRow]
+                $cellRange = "A1:{$lastColumn}{$rowCount}";
+
+                $sheet = $event->sheet->getDelegate();
+
+                // Set alignment left and number format to General
+                $sheet->getStyle($cellRange)->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_LEFT,
+                        'vertical'   => Alignment::VERTICAL_CENTER,
+                    ],
+                    'numberFormat' => [
+                        'formatCode' => NumberFormat::FORMAT_GENERAL,
+                    ],
+                ]);
+            },
+        ];
+    }
+
 }

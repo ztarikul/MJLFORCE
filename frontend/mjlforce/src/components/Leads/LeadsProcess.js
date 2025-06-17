@@ -105,7 +105,7 @@ export default function LeadsProcess() {
         // setDivisions(res.data.soldToParty.loc_division);
         setDistricts(res.data.soldToParty.loc_division.loc_districts);
         setUpazilas(res.data.soldToParty.loc_district.loc_upazilas);
-        setPostOffice(res.data.soldToParty.loc_upazila.loc_post_offices);
+        setPostOffice(res.data.soldToParty.loc_post_offices);
         setTradeCategory(res.data.soldToParty.trade_category);
         setTradeSubCategories(
           res.data.soldToParty.trade_category.trade_sub_categories
