@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mjlforce
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	8.0.39
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1107,7 +1107,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('1Occ87EkSvcoDsyD3cOkUU1BDG3c8ulXbAdJJqNG',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSHdYTkxRVU9rTERQU3RsR2tia2ppOWZBb0dib3dMczNzNWt5Rjg3eCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvY21hL3NvbGRUb1BhcnR5X3JlcXVlc3RfZm9ybS8xIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9',1749030601),('9wQH1Iw0OLItiGCgbkcYiJpnA4kFkNhYsC4caGlc',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo1OntzOjY6Il90b2tlbiI7czo0MDoiTExHb25HMWdNdEFPU3dXRTcwblZkSXFlY1lBcXoxWjZtNGZxNHZhbyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvY21hL3NvbGRUb1BhcnR5X3JlcXVlc3RfZm9ybS8xIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9',1748949951),('ObFFoIywKpjAclGgTuJ7IpotLiYFHVQI8cWR7Gmf',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVmY4a3QwMk0yRzRNMkVvZ3JsZWcxYlhENFcwZ2k4dnNkWjBSTGFINSI7czozOiJ1cmwiO2E6MDp7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jbWEvc29sZFRvUGFydHlfcmVxdWVzdF9mb3JtLzEiO319',1749018141);
+INSERT INTO `sessions` VALUES ('2cV0o36VO423tsqpfzuGUlIuWf0xe84ES7pqRaPA',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiaG1hMGcwN0hLeUR2M0FuVzBFc21VeDk0ZjR3NU5YZjJYOWRDWkZwSCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750155980),('6jNu90Xf7r3SCCEfBTu0rIANXeterV3gINh2FNea',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSnRvU2IyVThhRW9vV2NnMVlIMHF0bHJIOHNuenp6SVNGOXVCZ0diUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19',1750133942),('HpQLQZm1P7M131HI8VoJtD6S4NoGYuzhqwQiMn67',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoibllUZTF3cU5XbUZUVE5oTDBMcGxpcFYzcTg5SHlDeVZvdHJkTnR3ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2NtYS9uZXdfc29sZFRvUGFydHkiO319',1750147243);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1158,13 +1158,13 @@ CREATE TABLE `ship_to_parties` (
   `fi_payment_terms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNB1-ZTERM',
   `currency` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-WAERS',
   `cust_pricing_procedure` int unsigned DEFAULT NULL COMMENT 'KNVV-KALKS',
-  `shipping_condition` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VSBED',
+  `shipping_condition` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VSBED',
   `delivering_plant` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VWERK',
   `other_combination` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KZAZU',
   `incoterms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-INCO1',
   `incoterms_loc_1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-INCO2_L',
   `sd_payment_terms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-ZTERM',
-  `acc_assignment_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KTGRD',
+  `acc_assignment_group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KTGRD',
   `tax_classification` int unsigned DEFAULT NULL COMMENT 'KNVI-TAXKD',
   `territory` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-BZIRK',
   `customer_group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV',
@@ -1177,6 +1177,7 @@ CREATE TABLE `ship_to_parties` (
   `attr_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR2',
   `attr_3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR3',
   `attr_4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR4',
+  `attr_5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `factory_address_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STR_SUPPL2',
   `loc_division_id` bigint unsigned DEFAULT NULL,
   `loc_district_id` bigint unsigned DEFAULT NULL,
@@ -1301,13 +1302,13 @@ CREATE TABLE `sold_to_parties` (
   `fi_payment_terms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNB1-ZTERM',
   `currency` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-WAERS',
   `cust_pricing_procedure` int unsigned DEFAULT NULL COMMENT 'KNVV-KALKS',
-  `shipping_condition` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VSBED',
+  `shipping_condition` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VSBED',
   `delivering_plant` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-VWERK',
   `other_combination` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KZAZU',
   `incoterms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-INCO1',
   `incoterms_loc_1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-INCO2_L',
   `sd_payment_terms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-ZTERM',
-  `acc_assignment_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KTGRD',
+  `acc_assignment_group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KTGRD',
   `tax_classification` int unsigned DEFAULT NULL COMMENT 'KNVI-TAXKD',
   `territory` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-BZIRK',
   `customer_group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV',
@@ -1320,6 +1321,7 @@ CREATE TABLE `sold_to_parties` (
   `attr_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR2',
   `attr_3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR3',
   `attr_4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR4',
+  `attr_5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `factory_address_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STR_SUPPL2',
   `loc_division_id` bigint unsigned DEFAULT NULL,
   `loc_district_id` bigint unsigned DEFAULT NULL,
@@ -1355,7 +1357,7 @@ CREATE TABLE `sold_to_parties` (
   CONSTRAINT `sold_to_parties_loc_post_office_id_foreign` FOREIGN KEY (`loc_post_office_id`) REFERENCES `loc_post_offices` (`id`),
   CONSTRAINT `sold_to_parties_loc_upazila_id_foreign` FOREIGN KEY (`loc_upazila_id`) REFERENCES `loc_upazilas` (`id`),
   CONSTRAINT `sold_to_parties_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1364,7 +1366,7 @@ CREATE TABLE `sold_to_parties` (
 
 LOCK TABLES `sold_to_parties` WRITE;
 /*!40000 ALTER TABLE `sold_to_parties` DISABLE KEYS */;
-INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z002',1100,1100,10,'00','test customer','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','test ceo','','','EN','1122334455','12312',NULL,'test@test.com',NULL,'1219','test co','123123','234234 22','Bismilla',NULL,'123123',NULL,'12201000','Z001',NULL,1,'01',NULL,'X','FOB','NA',NULL,'01',NULL,'000011','01','001','002',NULL,NULL,NULL,'Z001',NULL,NULL,NULL,NULL,3,1,614,469,NULL,23.774603,90.420186,1,1,'test',0,1,1,'HQ-IT-Zihad','2025-05-27 06:15:41','2025-05-27 06:15:41',NULL);
+INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z002',1100,1100,15,'00','test customer','test industries limited','test cust 1',NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','test ceo',NULL,NULL,'EN','1122334455','12312',NULL,'test@test.com',NULL,'1219','test co','123123','234234 22','Bismilla','1G','123123',NULL,'12201000','Z001','BDT',1,'01','1122','X','FOB','NA','Z001','01',1,'000011','06','002','009','3',NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,1,614,469,NULL,23.774603,90.420186,1,1,'test',0,1,1,'HQ-IT-Zihad','2025-05-27 06:15:41','2025-06-16 16:40:32',NULL),(2,NULL,'Z001',1100,1100,10,'00','Toa Specra','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Gulshan-1, DCC Market, Link Road, Post Office Road, Dhaka','Mr Toa','','','EN','01622000002','01622000002',NULL,NULL,NULL,'1212','Mr Karim','991122321','01622000001','Toa',NULL,'0185-00211812',NULL,'12201000','Z001',NULL,1,'01',NULL,'X','FOB','NA',NULL,NULL,NULL,'000020','01','001','002',NULL,NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,1,494,460,NULL,23.776461,90.420019,1,1,'test 2',0,1,1,'HQ-IT-Zihad','2025-06-17 03:47:16','2025-06-17 03:47:16',NULL);
 /*!40000 ALTER TABLE `sold_to_parties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1421,7 +1423,7 @@ CREATE TABLE `sold_to_party_process_logs` (
   PRIMARY KEY (`id`),
   KEY `sold_to_party_process_logs_sold_to_party_id_foreign` (`sold_to_party_id`),
   CONSTRAINT `sold_to_party_process_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1430,7 +1432,7 @@ CREATE TABLE `sold_to_party_process_logs` (
 
 LOCK TABLES `sold_to_party_process_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_process_logs` DISABLE KEYS */;
-INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(2,1,2,3,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(3,1,3,4,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41');
+INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(2,1,2,3,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(3,1,3,4,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(10,2,1,2,1,'Leads Processing',1,'2025-06-17 03:47:16','2025-06-17 03:47:16');
 /*!40000 ALTER TABLE `sold_to_party_process_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1700,4 +1702,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-04 16:21:14
+-- Dump completed on 2025-06-17 17:44:22

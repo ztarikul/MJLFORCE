@@ -19,6 +19,10 @@ export default function ShipToParty() {
     contact_person: "",
     mobile_co: "",
     remarks: "",
+    loc_division: "",
+    loc_district: "",
+    post_office: "",
+    loc_thana: "",
     long: "",
     lat: "",
   });

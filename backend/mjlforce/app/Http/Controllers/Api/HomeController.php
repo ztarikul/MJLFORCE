@@ -121,7 +121,7 @@ class HomeController extends Controller
         $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
         if($request->query('sold_to_party_id')){
           
-             $soldToParty = SoldToParty::select('id', 'acc_name', 'acc_name2', 'address', 'address_2', 'address_3', 'contact_person_name', 'contact_person_mobile', 'bin_no', 'created_at')->findOrFail($request->query('sold_to_party_id'));
+             $soldToParty = SoldToParty::select('id', 'acc_name', 'acc_name2', 'address', 'address_2', 'address_3', 'contact_person_name', 'contact_person_mobile', 'bin_no', 'loc_division_id', 'loc_district_id', 'loc_upazila_id', 'loc_post_office_id', 'created_at')->findOrFail($request->query('sold_to_party_id'));
               return response()->json(['soldToParty' => $soldToParty], 200);
         }
 
