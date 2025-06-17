@@ -19,10 +19,6 @@ export default function ShipToParty() {
     contact_person: "",
     mobile_co: "",
     remarks: "",
-    loc_division: "",
-    loc_district: "",
-    post_office: "",
-    loc_thana: "",
     long: "",
     lat: "",
   });
@@ -141,6 +137,14 @@ export default function ShipToParty() {
       (district) => district.loc_division_id === selectedId
     );
     setDistricts(selectedDistricts);
+    setUpazilas([]);
+    setPostOffice([]);
+    setFormData((prev) => ({
+      ...prev,
+      loc_district: "",
+      loc_thana: "",
+      post_office: "",
+    }));
   };
 
   const districtChangeHnadler = (event) => {
@@ -154,6 +158,17 @@ export default function ShipToParty() {
       (upazila) => upazila.loc_district_id === selectedId
     );
     setUpazilas(selectedUpazilas);
+    setPostOffice([]);
+    setFormData((prev) => ({
+      ...prev,
+      loc_thana: "",
+      post_office: "",
+    }));
+
+    const selectedPostOffices = fetchData.postOffice.filter(
+      (office) => office.loc_district_id === selectedId
+    );
+    setPostOffice(selectedPostOffices);
   };
 
   const upazilaChangeHnadler = (event) => {
@@ -162,11 +177,6 @@ export default function ShipToParty() {
       ...prev,
       [name]: value,
     }));
-    const selectedId = parseInt(event.target.value);
-    const selectedPostOffices = fetchData.postOffice.filter(
-      (office) => office.loc_upazila_id === selectedId
-    );
-    setPostOffice(selectedPostOffices);
   };
 
   const soldToPartyChangeHandler = (event) => {
@@ -197,6 +207,9 @@ export default function ShipToParty() {
           loc_thana: res.data.soldToParty.loc_upazila_id,
           post_office: res.data.soldToParty.loc_post_office_id,
         }));
+        setDistricts(res.data.soldToParty.loc_division.loc_districts);
+        setUpazilas(res.data.soldToParty.loc_district.loc_upazilas);
+        setPostOffice(res.data.soldToParty.loc_district.loc_post_offices);
       })
       .catch((res) => {
         console.log(res);
