@@ -105,7 +105,7 @@ export default function LeadsProcess() {
         // setDivisions(res.data.soldToParty.loc_division);
         setDistricts(res.data.soldToParty.loc_division.loc_districts);
         setUpazilas(res.data.soldToParty.loc_district.loc_upazilas);
-        setPostOffice(res.data.soldToParty.loc_post_offices);
+        setPostOffice(res.data.soldToParty.loc_district.loc_post_offices);
         setTradeCategory(res.data.soldToParty.trade_category);
         setTradeSubCategories(
           res.data.soldToParty.trade_category.trade_sub_categories
@@ -222,13 +222,19 @@ export default function LeadsProcess() {
     const selectedUpazilas = fetchData.upazilas.filter(
       (upazila) => upazila.loc_district_id === selectedId
     );
+
     setUpazilas(selectedUpazilas);
-    setPostOffice([]);
     setFormData((prev) => ({
       ...prev,
       loc_thana: "",
       post_office: "",
     }));
+
+    const selectedPostOffices = fetchData.postOffice.filter(
+      (office) => office.loc_district_id === selectedId
+    );
+   
+    setPostOffice(selectedPostOffices);
   };
 
   const upazilaChangeHnadler = (event) => {
@@ -237,15 +243,15 @@ export default function LeadsProcess() {
       ...prev,
       [name]: value,
     }));
-    const selectedId = parseInt(event.target.value);
-    const selectedPostOffices = fetchData.postOffice.filter(
-      (office) => office.loc_upazila_id === selectedId
-    );
-    setFormData((prev) => ({
-      ...prev,
-      post_office: "",
-    }));
-    setPostOffice(selectedPostOffices);
+    // const selectedId = parseInt(event.target.value);
+    // const selectedPostOffices = fetchData.postOffice.filter(
+    //   (office) => office.loc_upazila_id === selectedId
+    // );
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   post_office: "",
+    // }));
+    // setPostOffice(selectedPostOffices);
   };
 
   const tradeCategoryChangeHnadler = (event) => {
@@ -288,7 +294,7 @@ export default function LeadsProcess() {
                     <div className="col-12 col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="lead_stage">
-                          Trade Sub Category
+                          Lead Stage
                         </label>
                         <select
                           className="form-select"
@@ -479,6 +485,7 @@ export default function LeadsProcess() {
                           onChange={handleChange}
                           value={formData.post_office}
                         >
+                          <option value="">Please Select</option>
                           {postOffice?.map((office) => (
                             <option key={office.id} value={office.id}>
                               {office.post_office}
