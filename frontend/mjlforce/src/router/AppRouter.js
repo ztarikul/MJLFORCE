@@ -10,6 +10,9 @@ import Campaign from "../components/Campaign/Campaign";
 import PromotionalItems from "../components/Campaign/PromotionalItems";
 import Leads from "../components/Leads/Leads";
 import LeadsProcess from "../components/Leads/LeadsProcess";
+import VerifyCma from "../components/VerifyCma/VerifyCma";
+import SoldToPartyVerify from "../components/VerifyCma/SoldToPartyVerify";
+import ShipToPartyVerify from "../components/VerifyCma/ShipToPartyVerify";
 
 export default function AppRouter(props) {
   const routes = (
@@ -76,6 +79,30 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <PromotionalItems />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/verify_new_cma"
+        element={
+          <AuthMiddleware>
+            <VerifyCma />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/s2p_varify/:id"
+        element={
+          <AuthMiddleware>
+            <SoldToPartyVerify />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/sh2p_varify/:id"
+        element={
+          <AuthMiddleware>
+            <ShipToPartyVerify />
           </AuthMiddleware>
         }
       />

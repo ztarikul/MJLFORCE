@@ -36,6 +36,9 @@ use Illuminate\Support\Facades\Route;
         Route::post('/store_other_visit', [CmaController::class, 'storeOtherVisit']);
         Route::get('/promotions', [HomeController::class, 'promotions']);
         Route::get('/promotional_items', [HomeController::class, 'promotionalItems']);
+        Route::get('/cma_varification', [HomeController::class, 'cmaVarification']);
+        Route::get('/cma_varification_process', [CmaController::class, 'cmaVarificationProcess']);
+
     });
 
 

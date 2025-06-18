@@ -320,7 +320,7 @@ export default function HomePage() {
           </div>
 
           <div className="col-xs-6 col-xl-3 col-lg-6">
-            <Link>
+            <Link to="/verify_new_cma">
               <div className="card o-hidden border-0">
                 <div className="bg-primary b-r-4 card-body">
                   <div className="media static-top-widget">
@@ -334,7 +334,7 @@ export default function HomePage() {
                     </div>
                     <div className="media-body">
                       <span className="m-0">Verify (2)</span>
-                      <h4 className="mb-0 counter">SHIP-TO-PARTY</h4>
+                      <h4 className="mb-0 counter">NEW CMA</h4>
 
                       <ApertureIcon
                         className="icon-bg"

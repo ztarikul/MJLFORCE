@@ -174,4 +174,19 @@ class HomeController extends Controller
         return response()->json(['promotionalItems' => $promotionalItems], 200);
     }
 
+    public function cmaVarification(){
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
+            $query->where('chk_to', 3);
+        })->orderBy('created_at', 'asc')->get();
+        $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
+            $query->where('chk_to', 3);
+        })->orderBy('created_at', 'asc')->get();
+
+        $cmas = $soldToParties->merge($shipToParties)->sortBy('created_at')->values();
+
+        return response()->json(['cmas' => $cmas], 200);
+
+
+    }
+
 }

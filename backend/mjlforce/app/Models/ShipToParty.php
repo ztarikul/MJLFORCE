@@ -23,6 +23,6 @@ class ShipToParty extends Model
     }
 
     public function currentProcess(){
-        return $this->hasOne(ShipToPartyprocessLog::class)->latest();
+        return $this->hasOne(ShipToPartyprocessLog::class)->latestOfMany();
     }
 }

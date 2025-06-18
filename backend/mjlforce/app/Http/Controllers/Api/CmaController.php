@@ -421,7 +421,7 @@ class CmaController extends Controller
             ShipToPartyprocessLog::create([
                 'ship_to_party_id' => $shipToParty->id,
                 'chk_from' => 1,
-                'chk_to' => 2, //SV Varify
+                'chk_to' => 3, //SV Varify
                 'status' => 1,
                 'remarks' => "Verification Processing",
             ]);
@@ -532,6 +532,22 @@ class CmaController extends Controller
         }
         return response()->json([
             'message' => $msg,
+        ]);
+    }
+
+    public function cmaVarificationProcess(Request $request){
+        $id = $request->query('id');  
+        $category = $request->query('category');  
+        $soldToParty = [];
+         $shipToParties = [];
+        if ($category === "s2p"){
+            $soldToParty = SoldToParty::with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'territorySToP', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'distributionCh', 'customerGroup', 'customerType'])->find($id);
+        }
+    
+       
+        return response()->json([
+            'soldToParty' => $soldToParty,
+            'shipToParties' =>$shipToParties
         ]);
     }
 
