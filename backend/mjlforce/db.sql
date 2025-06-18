@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mjlforce
 -- ------------------------------------------------------
--- Server version	8.0.39
+-- Server version	8.0.41
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -526,7 +526,7 @@ CREATE TABLE `lead_stages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -535,6 +535,7 @@ CREATE TABLE `lead_stages` (
 
 LOCK TABLES `lead_stages` WRITE;
 /*!40000 ALTER TABLE `lead_stages` DISABLE KEYS */;
+INSERT INTO `lead_stages` VALUES (1,'Prospect',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26'),(2,'Identify Account Need',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26'),(3,'Formulate Offer',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26'),(4,'Negotiate to Close',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26'),(5,'Manage Implementation',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26'),(6,'Loss',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26'),(7,'Complete for CMA',NULL,1,'2025-06-18 03:47:26','2025-06-18 03:47:26');
 /*!40000 ALTER TABLE `lead_stages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1107,7 +1108,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2cV0o36VO423tsqpfzuGUlIuWf0xe84ES7pqRaPA',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiaG1hMGcwN0hLeUR2M0FuVzBFc21VeDk0ZjR3NU5YZjJYOWRDWkZwSCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750155980),('6jNu90Xf7r3SCCEfBTu0rIANXeterV3gINh2FNea',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSnRvU2IyVThhRW9vV2NnMVlIMHF0bHJIOHNuenp6SVNGOXVCZ0diUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19',1750133942),('HpQLQZm1P7M131HI8VoJtD6S4NoGYuzhqwQiMn67',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoibllUZTF3cU5XbUZUVE5oTDBMcGxpcFYzcTg5SHlDeVZvdHJkTnR3ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2NtYS9uZXdfc29sZFRvUGFydHkiO319',1750147243);
+INSERT INTO `sessions` VALUES ('2cV0o36VO423tsqpfzuGUlIuWf0xe84ES7pqRaPA',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiaG1hMGcwN0hLeUR2M0FuVzBFc21VeDk0ZjR3NU5YZjJYOWRDWkZwSCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750155980),('6jNu90Xf7r3SCCEfBTu0rIANXeterV3gINh2FNea',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSnRvU2IyVThhRW9vV2NnMVlIMHF0bHJIOHNuenp6SVNGOXVCZ0diUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19',1750133942),('HpQLQZm1P7M131HI8VoJtD6S4NoGYuzhqwQiMn67',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoibllUZTF3cU5XbUZUVE5oTDBMcGxpcFYzcTg5SHlDeVZvdHJkTnR3ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2NtYS9uZXdfc29sZFRvUGFydHkiO319',1750147243),('t0Hwc8y49YkgozWqYYjKr6pGHMPwCBZEBfGdjKGf',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiV29qQzcwZ0FRdzV0TjZBeDN2V3A2RTVUTTJWWnpYbDVBMUxVbzZyQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750227129);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1177,7 +1178,7 @@ CREATE TABLE `ship_to_parties` (
   `attr_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR2',
   `attr_3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR3',
   `attr_4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR4',
-  `attr_5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attr_5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `factory_address_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STR_SUPPL2',
   `loc_division_id` bigint unsigned DEFAULT NULL,
   `loc_district_id` bigint unsigned DEFAULT NULL,
@@ -1212,7 +1213,7 @@ CREATE TABLE `ship_to_parties` (
   CONSTRAINT `ship_to_parties_loc_upazila_id_foreign` FOREIGN KEY (`loc_upazila_id`) REFERENCES `loc_upazilas` (`id`),
   CONSTRAINT `ship_to_parties_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`),
   CONSTRAINT `ship_to_parties_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1221,6 +1222,7 @@ CREATE TABLE `ship_to_parties` (
 
 LOCK TABLES `ship_to_parties` WRITE;
 /*!40000 ALTER TABLE `ship_to_parties` DISABLE KEYS */;
+INSERT INTO `ship_to_parties` VALUES (1,2,NULL,'Z001',1100,1100,10,'00','Toa Specra','',NULL,NULL,NULL,'BD',NULL,NULL,'Gazipur','Gazipur Chowrasta, 1 No Ward. Dhaka','Mr Toa','','','EN','01622000002','01622000002',NULL,NULL,NULL,'1700','Mr Rahim','991122321','01622000002','Toa',NULL,'0185-00211812',NULL,'12201000','Z001',NULL,1,'01',NULL,'X','FOB','NA',NULL,NULL,NULL,'000020','01','001','002',NULL,NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,3,157,523,NULL,23.776842,90.399570,1,1,'test SH2P',0,1,1,'HQ-IT-MPC-Zihad','2025-06-18 03:13:58','2025-06-18 03:13:58',NULL);
 /*!40000 ALTER TABLE `ship_to_parties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1244,7 +1246,7 @@ CREATE TABLE `ship_to_partyprocess_logs` (
   PRIMARY KEY (`id`),
   KEY `ship_to_partyprocess_logs_ship_to_party_id_foreign` (`ship_to_party_id`),
   CONSTRAINT `ship_to_partyprocess_logs_ship_to_party_id_foreign` FOREIGN KEY (`ship_to_party_id`) REFERENCES `ship_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1253,6 +1255,7 @@ CREATE TABLE `ship_to_partyprocess_logs` (
 
 LOCK TABLES `ship_to_partyprocess_logs` WRITE;
 /*!40000 ALTER TABLE `ship_to_partyprocess_logs` DISABLE KEYS */;
+INSERT INTO `ship_to_partyprocess_logs` VALUES (1,1,1,3,1,'Verification Processing',1,'2025-06-18 03:13:58','2025-06-18 03:13:58');
 /*!40000 ALTER TABLE `ship_to_partyprocess_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1321,7 +1324,7 @@ CREATE TABLE `sold_to_parties` (
   `attr_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR2',
   `attr_3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR3',
   `attr_4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'KNVV-KATR4',
-  `attr_5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attr_5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `factory_address_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ADRC-STR_SUPPL2',
   `loc_division_id` bigint unsigned DEFAULT NULL,
   `loc_district_id` bigint unsigned DEFAULT NULL,
@@ -1366,7 +1369,7 @@ CREATE TABLE `sold_to_parties` (
 
 LOCK TABLES `sold_to_parties` WRITE;
 /*!40000 ALTER TABLE `sold_to_parties` DISABLE KEYS */;
-INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z002',1100,1100,15,'00','test customer','test industries limited','test cust 1',NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','test ceo',NULL,NULL,'EN','1122334455','12312',NULL,'test@test.com',NULL,'1219','test co','123123','234234 22','Bismilla','1G','123123',NULL,'12201000','Z001','BDT',1,'01','1122','X','FOB','NA','Z001','01',1,'000011','06','002','009','3',NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,1,614,469,NULL,23.774603,90.420186,1,1,'test',0,1,1,'HQ-IT-Zihad','2025-05-27 06:15:41','2025-06-16 16:40:32',NULL),(2,NULL,'Z001',1100,1100,10,'00','Toa Specra','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Gulshan-1, DCC Market, Link Road, Post Office Road, Dhaka','Mr Toa','','','EN','01622000002','01622000002',NULL,NULL,NULL,'1212','Mr Karim','991122321','01622000001','Toa',NULL,'0185-00211812',NULL,'12201000','Z001',NULL,1,'01',NULL,'X','FOB','NA',NULL,NULL,NULL,'000020','01','001','002',NULL,NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,1,494,460,NULL,23.776461,90.420019,1,1,'test 2',0,1,1,'HQ-IT-Zihad','2025-06-17 03:47:16','2025-06-17 03:47:16',NULL);
+INSERT INTO `sold_to_parties` VALUES (1,NULL,'Z002',1100,1100,15,'00','test customer','test industries limited','test cust 1',NULL,NULL,'BD',NULL,NULL,'Dhaka','Khilgao, Dhaka','test ceo',NULL,NULL,'EN','1122334455','12312',NULL,'test@test.com',NULL,'1219','test co','123123','234234 22','Bismilla','1G','123123',NULL,'12201000','Z001','BDT',1,'01','1122','X','FOB','NA','Z001','01',1,'000011','06','002','009','3',NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,1,614,469,NULL,23.774603,90.420186,1,1,'test',0,1,1,'HQ-IT-Zihad','2025-05-27 06:15:41','2025-06-16 16:40:32',NULL),(2,NULL,'Z001',1100,1100,10,'00','Toa Specra','',NULL,NULL,NULL,'BD',NULL,NULL,'Dhaka','Gulshan-1, DCC Market, Link Road, Post Office Road, Dhaka','Mr Toa','','','EN','01622000002','01622000002',NULL,NULL,NULL,'1212','Mr Karim','991122321','01622000001','Toa',NULL,'0185-00211812',NULL,'12201000','Z001',NULL,1,'01',NULL,'X','FOB','NA',NULL,NULL,NULL,'000017','01','001','002',NULL,NULL,NULL,'Z001',NULL,NULL,NULL,NULL,NULL,3,1,494,460,NULL,23.776461,90.420019,1,2,'test 2',0,1,1,'HQ-IT-Zihad','2025-06-17 03:47:16','2025-06-18 06:10:37',NULL);
 /*!40000 ALTER TABLE `sold_to_parties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1391,7 +1394,7 @@ CREATE TABLE `sold_to_party_lead_logs` (
   KEY `sold_to_party_lead_logs_lead_stage_id_foreign` (`lead_stage_id`),
   CONSTRAINT `sold_to_party_lead_logs_lead_stage_id_foreign` FOREIGN KEY (`lead_stage_id`) REFERENCES `lead_stages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sold_to_party_lead_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1400,6 +1403,7 @@ CREATE TABLE `sold_to_party_lead_logs` (
 
 LOCK TABLES `sold_to_party_lead_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_lead_logs` DISABLE KEYS */;
+INSERT INTO `sold_to_party_lead_logs` VALUES (1,2,7,'Complete for CMA',NULL,1,'2025-06-18 06:10:37','2025-06-18 06:10:37');
 /*!40000 ALTER TABLE `sold_to_party_lead_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1423,7 +1427,7 @@ CREATE TABLE `sold_to_party_process_logs` (
   PRIMARY KEY (`id`),
   KEY `sold_to_party_process_logs_sold_to_party_id_foreign` (`sold_to_party_id`),
   CONSTRAINT `sold_to_party_process_logs_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1432,7 +1436,7 @@ CREATE TABLE `sold_to_party_process_logs` (
 
 LOCK TABLES `sold_to_party_process_logs` WRITE;
 /*!40000 ALTER TABLE `sold_to_party_process_logs` DISABLE KEYS */;
-INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(2,1,2,3,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(3,1,3,4,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(10,2,1,2,1,'Leads Processing',1,'2025-06-17 03:47:16','2025-06-17 03:47:16');
+INSERT INTO `sold_to_party_process_logs` VALUES (1,1,1,2,1,'Leads Processing',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(2,1,2,3,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(3,1,3,4,1,'test',1,'2025-05-27 06:15:41','2025-05-27 06:15:41'),(10,2,1,2,1,'Leads Processing',1,'2025-06-17 03:47:16','2025-06-17 03:47:16'),(11,2,2,3,2,'Create CMA',1,'2025-06-18 06:10:37','2025-06-18 06:10:37');
 /*!40000 ALTER TABLE `sold_to_party_process_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1702,4 +1706,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-17 17:44:22
+-- Dump completed on 2025-06-18 17:58:22
