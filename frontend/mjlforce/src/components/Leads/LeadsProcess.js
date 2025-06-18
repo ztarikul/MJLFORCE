@@ -78,7 +78,7 @@ export default function LeadsProcess() {
           owner_mobile: res.data.soldToParty.mobile_phone,
           owner_email: res.data.soldToParty.email,
           customer_type: res.data.soldToParty.customer_acc_group,
-          territory: res.data.soldToParty.territory.id,
+          territory: res.data.soldToParty.territory,
           trade_category: res.data.soldToParty.trade_category.id,
           trade_s_category: res.data.soldToParty.trade_sub_category.id,
           special_discount: res.data.soldToParty.is_eligible_discount,
@@ -721,7 +721,7 @@ export default function LeadsProcess() {
                           value={formData.territory}
                         >
                           {fetchData.salesTerritories.map((territory) => (
-                            <option key={territory.id} value={territory.id}>
+                            <option key={territory.sap_code} value={territory.sap_code}>
                               {territory.name}
                             </option>
                           ))}
