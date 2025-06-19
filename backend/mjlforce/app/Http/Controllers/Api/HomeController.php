@@ -176,10 +176,10 @@ class HomeController extends Controller
 
     public function cmaVarification(){
         $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
-            $query->where('chk_to', 3);
+            $query->where('chk_to', 3); // SV check
         })->orderBy('created_at', 'asc')->get();
         $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
-            $query->where('chk_to', 3);
+            $query->where('chk_to', 3); //SV check
         })->orderBy('created_at', 'asc')->get();
 
         $cmas = $soldToParties->merge($shipToParties)->sortBy('created_at')->values();

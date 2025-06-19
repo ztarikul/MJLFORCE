@@ -6,6 +6,7 @@ use App\Models\LocUpazila;
 use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\SoldToParty;
+use App\Models\ShipToParty;
 use Illuminate\Database\Eloquent\Model;
 
 class LocDistrict extends Model
@@ -29,6 +30,10 @@ class LocDistrict extends Model
     public function soldToParties()
     {
         return $this->hasMany(SoldToParty::class);
+    }
+    public function shipToParties()
+    {
+        return $this->hasMany(ShipToParty::class);
     }
 
     

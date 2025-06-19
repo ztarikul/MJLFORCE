@@ -541,7 +541,12 @@ class CmaController extends Controller
         $soldToParty = [];
          $shipToParties = [];
         if ($category === "s2p"){
-            $soldToParty = SoldToParty::with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'territorySToP', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'distributionCh', 'customerGroup', 'customerType'])->find($id);
+            $soldToParty = SoldToParty::with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'territorySToP', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'distributionCh', 'customerGroup', 'customerType', 'employee:id,name'])->find($id);
+
+
+            $shipToParties = $soldToParty->shipToParties()->with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'employee:id,name'])->whereHas('currentProcess', function($query){
+                $query->where('chk_to', 3);
+            })->orderBy('created_at', 'asc')->get();
         }
     
        

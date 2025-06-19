@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\LocDistrict;
 use App\Models\LocPostOffice;
 use App\Models\SoldToParty;
+use App\Models\ShipToParty;
 use Illuminate\Database\Eloquent\Model;
 
 class LocDivision extends Model
@@ -25,6 +26,11 @@ class LocDivision extends Model
     public function soldToParties()
     {
         return $this->hasMany(SoldToParty::class);
+    }
+
+    public function shipToParties()
+    {
+        return $this->hasMany(ShipToParty::class);
     }
 
     
