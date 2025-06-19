@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Main from "../Main";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Auth from "../../auth/Auth";
 import PageLoader from "../../utils/PageLoader";
+import Swal from "sweetalert2";
 
 export default function SoldToPartyVerify() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { http } = Auth();
   const [pageLoading, setPageLoading] = useState(true);
 
   const [soldToParty, setSoldToParty] = useState({});
   const [shipToParty, setShipToParty] = useState({});
+  const [errors, setErrors] = useState({});
 
   const fetchFormData = useCallback(() => {
     http
@@ -125,6 +128,92 @@ export default function SoldToPartyVerify() {
   useEffect(() => {
     fetchFormData();
   }, [fetchFormData]);
+
+  const soldToPartyApproveHandler = async (e) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to approve the Sold-To-Party?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, approve it!",
+      cancelButtonText: "Cancel",
+    });
+    if (result.isConfirmed) {
+      const data = {
+        category: "s2p",
+        action: "approve",
+        target_id: soldToParty.id,
+      };
+      http
+        .post(`/varification`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.status === 1) {
+            console.log(res.data); // Handle success response
+            Swal.fire({
+              title: "Submitted!",
+              text: res.data.msg,
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            // navigate("/verify_new_cma");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
+        });
+    }
+  };
+
+  const shipToPartyApproveHandler = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "By approving this Ship-To-Party, Sold-To-Party will be approved automatically?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, approve it!",
+      cancelButtonText: "Cancel",
+    });
+    if (result.isConfirmed) {
+      const data = {
+        category: "incSh2p",
+        action: "approve",
+        target_id: id,
+      };
+      http
+        .post(`/varification`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res.data); // Handle success response
+          if (res.data.status === 1) {
+            Swal.fire({
+              title: "Submitted!",
+              text: res.data.msg,
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            navigate("/verify_new_cma");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
+        });
+    }
+  };
 
   if (pageLoading) {
     return <PageLoader />;
@@ -268,7 +357,12 @@ export default function SoldToPartyVerify() {
             </ul>
             <div className="card-footer text-center">
               <div className="btn-group">
-                <button className="btn btn-success">Approve</button>
+                <button
+                  className="btn btn-success"
+                  onClick={soldToPartyApproveHandler}
+                >
+                  Approve
+                </button>
                 <button className="btn btn-warning">Reverse</button>
                 <button className="btn btn-danger">Reject</button>
               </div>
@@ -365,7 +459,12 @@ export default function SoldToPartyVerify() {
               </ul>
               <div className="card-footer text-center">
                 <div className="btn-group">
-                  <button className="btn btn-success">Approve</button>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => shipToPartyApproveHandler(shTop.id)}
+                  >
+                    Approve
+                  </button>
                   <button className="btn btn-warning">Reverse</button>
                   <button className="btn btn-danger">Reject</button>
                 </div>

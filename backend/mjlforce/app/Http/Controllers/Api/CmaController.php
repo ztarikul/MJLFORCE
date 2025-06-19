@@ -556,4 +556,60 @@ class CmaController extends Controller
         ]);
     }
 
+    public function varification(Request $request){
+        // return response()->json($request->all());
+        $msg = '';
+        $status = 0;
+        try{
+            if($request->action === "approve"){
+                if($request->category === "s2p"){
+                    // Sold To Party Approve functions here...
+                    $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->target_id);
+                    SoldToPartyProcessLog::create([
+                        'sold_to_party_id' => $soldToParty->id,
+                        'chk_from' => 3, // SV
+                        'chk_to' => 4, //MIS
+                        'status' => 2,
+                        'remarks' => "Approved by Supervisor " .  auth()->user()->employee->name,
+                    ]);
+                    $msg = "Sold-To-Party has been approved and sent to the MIS";
+                    $status = 1;
+                }
+                if($request->category === "incSh2p"){
+                    // ship To Party Approve functions here...
+                    $shipToParty = ShipToParty::select('id', 'sold_to_party_id','acc_name')->findOrFail($request->target_id);
+                    SoldToPartyProcessLog::create([
+                        'sold_to_party_id' => $shipToParty->sold_to_party_id,
+                        'chk_from' => 3, // SV
+                        'chk_to' => 4, //MIS
+                        'status' => 2,
+                        'remarks' => "Approved by Supervisor " .  auth()->user()->employee->name,
+                    ]);
+                    ShipToPartyprocessLog::create([
+                        'ship_to_party_id' => $shipToParty->id,
+                        'chk_from' => 3, //SV
+                        'chk_to' => 4, //MIS
+                        'status' => 1,
+                        'remarks' => "Approved by Supervisor " .  auth()->user()->employee->name,
+                    ]);
+
+                    $msg = "Both Sold-To-Party & Ship-To-Party have been approved and sent to the MIS";
+                    $status = 1;
+
+                }
+
+
+            }
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+        }
+        
+
+        return response()->json([
+            'message' => $msg,
+            'status' => $status,
+
+        ]);
+    }
+
 }

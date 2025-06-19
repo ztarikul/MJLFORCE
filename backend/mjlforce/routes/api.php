@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/promotional_items', [HomeController::class, 'promotionalItems']);
         Route::get('/cma_varification', [HomeController::class, 'cmaVarification']);
         Route::get('/cma_varification_process', [CmaController::class, 'cmaVarificationProcess']);
+        Route::post('/varification', [CmaController::class, 'varification']);
 
     });
 
