@@ -3,12 +3,13 @@
 namespace App\Models;
 use App\Models\SoldToPartySalesArea;
 use App\Models\SoldToParty;
+use App\Models\TradeCategory;
 use Illuminate\Database\Eloquent\Model;
 
 class TradeSubCategory extends Model
 {
     //
-    protected $guard = [];
+    protected $guarded = [];
 
     public function soldToPartySalesArea(){
         return $this->hasMany(SoldToPartySalesArea::class);

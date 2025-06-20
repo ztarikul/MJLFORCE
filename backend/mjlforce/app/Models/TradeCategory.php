@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class TradeCategory extends Model
 {
     //
-    protected $guard = [];
+   protected $guarded = [];
 
     public function tradeSubCategories(){
         return $this->hasMany(TradeSubCategory::class);

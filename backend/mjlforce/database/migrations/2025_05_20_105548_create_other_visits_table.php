@@ -30,7 +30,7 @@ return new class extends Migration
             // status = [1=>Pending, 2=>Processing, 3=>Rejected, 4=>Approved]
             $table->integer('status')->default(1);
             $table->text('remarks')->nullable();
-            $table->boolean('activeStatus')->default(1);
+            $table->boolean('activeStatus')->default(true);
             $table->integer('created_by')->nullable();
             $table->string('hostname')->nullable();
             $table->timestamps();

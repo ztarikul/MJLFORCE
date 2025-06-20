@@ -47,7 +47,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Code</th>
-
+                                        <th>Action</th>
 
                                     </tr>
                                 </thead>
@@ -56,6 +56,12 @@
                                         <tr>
                                             <td>{{ $region->name }}</td>
                                             <td>{{ $region->sap_code }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-success btn-sm" href="#"><i class="fa fa-edit"></i></a>
+                                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

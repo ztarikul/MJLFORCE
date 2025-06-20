@@ -35,6 +35,17 @@ class Employee extends Model
         return $this->belongsTo(Territory::class);
     }
 
+    // Supervsor er Employees
+     public function employeesOfSupervisor()
+    {
+        return $this->hasMany(Employee::class, 'supervisor_id')->withTrashed();
+    }
+    
+    // Employee er supervisor  
+    public function supervisorOfEmployee()
+    {
+        return $this->belongsTo(Employee::class, 'supervisor_id')->withTrashed();
+    }
 
     public function soldToParties(){
         return $this->hasMany(SoldToParty::class);

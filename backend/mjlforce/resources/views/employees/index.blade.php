@@ -18,8 +18,46 @@
                             </div>
                             {{-- Division --}}
 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display" id="basic-1">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Designation</th>
+                                        <th>Business Team</th>
+                                        <th>Region</th>
+                                        <th>Territory</th>
+                                        <th>Action</th>
 
-                            <div class="modal fade" id="divisionModal" tabindex="-1" role="dialog"
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($employees as $idx => $employee)
+                                        <tr>
+                                            <th>{{ $employee->name }}</th>
+                                            <th>{{ $employee->sap_code }}</th>
+                                            <th>{{ $employee->designation?->name }}</th>
+                                            <th>{{ $employee->businessTeam?->name }}</th>
+                                            <th>{{ $employee->region?->name }}</th>
+                                            <th>{{ $employee->territory?->name }}</th>
+                                            <th>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-success btn-sm" href="#"><i class="fa fa-edit"></i></a>
+                                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+                                                </div>
+                                            </th>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                       <div class="modal fade" id="divisionModal" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -37,41 +75,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="display" id="basic-1">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Code</th>
-                                        <th>Designation</th>
-                                        <th>Business Team</th>
-                                        <th>Region</th>
-                                        <th>Territory</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($employees as $idx => $employee)
-                                        <tr>
-                                            <th>{{ $employee->name }}</th>
-                                            <th>{{ $employee->sap_code }}</th>
-                                            <th>{{ $employee->designation->name }}</th>
-                                            <th>{{ $employee->businessTeam->name }}</th>
-                                            <th>{{ $employee->region->name }}</th>
-                                            <th>{{ $employee->territory->name }}</th>
-
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
 

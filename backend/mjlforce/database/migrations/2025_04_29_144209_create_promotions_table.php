@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('start_from')->nullable();
             $table->date('end_to')->nullable();
             $table->integer('type')->nullable();
-            $table->boolean('activeStatus')->default(1);
+            $table->boolean('activeStatus')->default(true);
             $table->integer('created_by')->nullable();
             $table->string('hostname')->nullable();
             $table->timestamps();

@@ -117,7 +117,7 @@
                                         <th>District</th>
                                         <th>Post Office</th>
                                         <th>Post Code</th>
-
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -128,6 +128,12 @@
                                             <td>{{ $postCode->LocDistrict?->name }}</td>
                                             <td>{{ $postCode->post_office }}</td>
                                             <td>{{ $postCode->post_code }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-success btn-sm" href="#"><i class="fa fa-edit"></i></a>
+                                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                                </div>
+                                            </td>
 
                                         </tr>
                                     @endforeach

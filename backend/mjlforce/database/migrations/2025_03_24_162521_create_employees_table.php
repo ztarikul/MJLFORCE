@@ -25,11 +25,13 @@ return new class extends Migration
             $table->string('address')->nullable()->unique();
             $table->string('doj')->nullable()->unique();
             $table->string('nkn_code')->nullable()->unique();
-            $table->foreignId('designation_id')->constrained();
-            $table->foreignId('business_team_id')->constrained();
-            $table->foreignId('region_id')->constrained();
-            $table->foreignId('territory_id')->constrained();
-            $table->boolean('activeStatus')->default(1);
+            $table->foreignId('designation_id')->nullable()->constrained();
+            $table->foreignId('business_team_id')->nullable()->constrained();
+            $table->foreignId('region_id')->nullable()->constrained();
+            $table->foreignId('territory_id')->nullable()->constrained();
+            $table->integer('supervisor_id')->nullable();
+            $table->boolean('omera_sales_person')->default(false);
+            $table->boolean('activeStatus')->default(true);
             $table->integer('created_by')->nullable();
             $table->string('hostname')->nullable();
             $table->timestamps();

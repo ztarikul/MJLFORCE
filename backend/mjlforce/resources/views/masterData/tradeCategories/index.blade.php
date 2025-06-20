@@ -49,17 +49,24 @@
                                         <th>Code</th>
                                         <th>Trade Sub Cat.</th>
                                         <th>Code</th>
+                                        <th>Action</th>
 
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($tradeSubCategories as $idx => $subCat)
+                                    @foreach ($tradeSubCategories as $subCat)
                                         <tr>
                                             <td>{{ $subCat->tradeCategory?->name }}</td>
                                             <td>{{ $subCat->tradeCategory?->sap_code }}</td>
                                             <td>{{ $subCat->name }}</td>
                                             <td>{{ $subCat->sap_code }}</td>
+                                            <th>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-success btn-sm" href="#"><i class="fa fa-edit"></i></a>
+                                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+                                                </div>
+                                            </th>
 
                                         </tr>
                                     @endforeach
