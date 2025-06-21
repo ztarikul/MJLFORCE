@@ -11,6 +11,7 @@ use App\Models\AttendanceHistory;
 use App\Models\Employee;
 use App\Models\Promotion;
 use App\Models\PromotionItems;
+use App\Models\SalesTargetVsAchievement;
 use App\Models\ShipToParty;
 use App\Models\SoldToParty;
 use App\Models\VisitPurpose;
@@ -27,8 +28,17 @@ class HomeController extends Controller
     }
 
     public function sidebarUser(){
-        $employee =  Employee::select('id', 'user_id', 'name', 'designation_id', 'business_team_id')->with(['designation:id,name', 'businessTeam:id,name'])->where('user_id', auth()->id())->first();
-        return response()->json(['employee' => $employee], 200);
+        $employee =  Employee::select('id', 'user_id', 'sap_code', 'name', 'designation_id', 'business_team_id')->where('user_id', auth()->id())->first();
+        $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();
+        $sidebarUser = [
+            'employee_name' => $employee->name,
+            'employee_designation' => $employee->designation->name,
+            'employee_businessTeam' => $employee->businessTeam->name,
+            'total_sales_target' => number_format($salesTargets->total_target * 0.0062898108, 3),
+            'total_sales' => number_format($salesTargets->total_sales * 0.0062898108, 3),
+            'total_customer' => $employee->soldToParties()->count()
+        ];
+        return response()->json(['sidebarUser' => $sidebarUser], 200);
     }
 
     public function startdayAttendance(Request $request){

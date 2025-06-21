@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Settings as SettingsIcon } from "react-feather";
 
 export default function SidebarUser(props) {
+  console.log(props);
   return (
     <div className="sidebar-user text-center">
       <Link className="setting-primary" to="javascript:void(0)">
@@ -18,28 +19,35 @@ export default function SidebarUser(props) {
       </div>
 
       <Link to="user-profile.html">
-        <h6 className="mt-2 f-14 f-w-600">{props.employeeData?.name}</h6>
+        <h6 className="mt-2 f-14 f-w-600">
+          {props.sidebarUserData?.employee_name}
+        </h6>
       </Link>
       <p className="mb-0 font-roboto">
-        {props.employeeData?.designation?.name} -{" "}
-        {props.employeeData?.business_team?.name}
+        {props.sidebarUserData?.employee_designation} -{" "}
+        {props.sidebarUserData?.employee_businessTeam}
       </p>
       <ul>
         <li>
           <span>
-            <span className="counter">11</span>
+            <span className="counter">
+              {props.sidebarUserData.total_customer}
+            </span>
           </span>
           <p>Customers</p>
         </li>
         <li>
           <span>
-            200 <span>ltr</span>
+            {props.sidebarUserData.total_sales_target} <span>Barrel</span>
           </span>
           <p>Targets</p>
         </li>
         <li>
           <span>
-            <span className="counter">15.69 </span>ltr
+            <span className="counter">
+              {props.sidebarUserData.total_sales}{" "}
+            </span>
+            Barrel
           </span>
           <p>Achievement</p>
         </li>

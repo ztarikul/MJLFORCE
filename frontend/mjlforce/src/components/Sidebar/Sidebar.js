@@ -9,14 +9,15 @@ import Auth from "../../auth/Auth";
 
 export default function Sidebar(props) {
   const { http } = Auth();
-  const [employeeData, setEmployeeData] = useState({});
+  const [sidebarUserData, setSidebarUserData] = useState({});
 
   useEffect(() => {
     const fetchEmployeeData = async () => {
       http
         .get("/sidebar_user")
         .then((res) => {
-          setEmployeeData(res.data.employee);
+          console.log(res.data);
+          setSidebarUserData(res.data.sidebarUser);
         })
         .catch((res) => {
           console.log(res);
@@ -34,7 +35,7 @@ export default function Sidebar(props) {
 
   return (
     <header className={`main-nav  ${!props.isOpenSideBar ? "close_icon" : ""}`}>
-      <SidebarUser employeeData={employeeData} />
+      <SidebarUser sidebarUserData={sidebarUserData} />
       <nav>
         <div className="main-navbar">
           <div className="left-arrow" id="left-arrow">
