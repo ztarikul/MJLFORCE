@@ -7,10 +7,15 @@
             <!-- Zero Configuration  Starts-->
             <div class="col-sm-12">
                 <div class="card">
+                    @if(session('error'))
+                        <div class="alert alert-danger dark alert-dismissible fade show" role="alert"><strong>Error! </strong>  {{ session('error') }}
+                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     <div class="card-header">
                         <div class="row">
                             <div class="col-xxl-4 col-md-6 col-sm-12">
-                                <h6>Sold-To-Party</h6>
+                                <h6>Ship-To-Party</h6>
                             </div>
                         </div>
                     </div>
@@ -19,6 +24,7 @@
                             <table class="display" id="basic-1">
                                 <thead>
                                     <tr>
+                                        <th>S2P</th>
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>EMP</th>
@@ -26,13 +32,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($soldToParties as $idx => $soldToParty)
+                                    @foreach ($shipToParties as $idx => $shipToParty)
                                         <tr>
-                                            <td>{{ $soldToParty->acc_name }}</td>
-                                            <td>{{ $soldToParty->address }}</td>
-                                            <td>{{ $soldToParty->employee->name }}</td>
+                                            <td>{{ $shipToParty->soldToParty->acc_name }}</td>
+                                            <td>{{ $shipToParty->acc_name }}</td>
+                                            <td>{{ $shipToParty->address }}</td>
+                                            <td>{{ $shipToParty->employee->name }}</td>
                                             <td><a type="button"
-                                                    href="{{ route('cma.soldToPartyRequestForm', $soldToParty->id) }}"
+                                                    href="{{ route('cma.shipToPartyRequestForm', $shipToParty->id) }}"
                                                     class="btn btn-secondary"><i class="fa fa-folder-open-o"></i></a>
                                             </td>
                                         </tr>

@@ -71,7 +71,7 @@
                                 data-feather="cloud"></i><span>CMA</span></a>
                         <ul class="nav-submenu menu-content">
                             <li><a href="{{ route('cma.newSoldToPartyIndex') }}">New CMA(S2P)</a></li>
-                            <li><a href="buttons-flat.html">New CMA(SH2P)</a></li>
+                            <li><a href="{{ route('cma.newShipToPartyIndex')}}">New CMA(SH2P)</a></li>
                             <li><a href="buttons-edge.html">Sold-to-Party</a></li>
                             <li><a href="raised-button.html">Ship-To-Party</a></li>
 

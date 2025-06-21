@@ -46,6 +46,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/new_soldToParty', [CmaController::class, 'newSoldToPartyIndex'])->name('newSoldToPartyIndex');
         Route::get('/soldToParty_request_form/{id}', [CmaController::class, 'soldToPartyRequestForm'])->name('soldToPartyRequestForm');
         Route::post('/soldToPartyMisToSAP/{id}', [CmaController::class, 'soldToPartyMisToSAP'])->name('soldToPartyMisToSAP');
+        Route::get('/new_shipToParty', [CmaController::class, 'newShipToPartyIndex'])->name('newShipToPartyIndex');
+        Route::get('/shipToParty_request_form/{id}', [CmaController::class, 'shipToPartyRequestForm'])->name('shipToPartyRequestForm');
+        Route::post('/shipToPartyMisToSAP/{id}', [CmaController::class, 'shipToPartyMisToSAP'])->name('shipToPartyMisToSAP');
 
     });
 });

@@ -339,7 +339,7 @@ class CmaController extends Controller
             $shipToParty = new ShipToParty();
             $shipToParty->sold_to_party_id = $request->sold_to_party_id;
             $shipToParty->customer_code = $soldToParty->customer_code;
-            $shipToParty->customer_acc_group = $soldToParty->customer_acc_group;
+            $shipToParty->customer_acc_group = 'Z009';
             $shipToParty->company_code = $soldToParty->company_code;
             $shipToParty->sales_org =  $soldToParty->sales_org;	
             $shipToParty->distribution_ch = $soldToParty->distribution_ch;   
