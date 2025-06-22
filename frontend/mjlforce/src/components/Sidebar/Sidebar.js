@@ -16,7 +16,6 @@ export default function Sidebar(props) {
       http
         .get("/sidebar_user")
         .then((res) => {
-          console.log(res.data);
           setSidebarUserData(res.data.sidebarUser);
         })
         .catch((res) => {

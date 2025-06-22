@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\ExistingVisit;
 use App\Models\LeadStage;
 use App\Models\LocDistrict;
@@ -10,6 +11,7 @@ use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\OtherVisit;
+use App\Models\SalesTargetVsAchievement;
 use App\Models\ShipToParty;
 use App\Models\ShipToPartyprocessLog;
 use App\Models\SoldToParty;
@@ -19,6 +21,7 @@ use App\Models\SoldToPartySalesArea;
 use App\Models\Territory;
 use App\Models\TradeCategory;
 use App\Models\TradeSubCategory;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -609,6 +612,16 @@ class CmaController extends Controller
             'message' => $msg,
             'status' => $status,
 
+        ]);
+    }
+
+    public function salesVsTarget(Request $request){
+       $employee = Employee::select('id', 'user_id', 'sap_code', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+       $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();
+
+        return response()->json([
+            'salesTargets' => $salesTargets,
+            
         ]);
     }
 
