@@ -39,7 +39,7 @@ export default function SalesTarget() {
                       <h2>January</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -91,7 +91,7 @@ export default function SalesTarget() {
                       <h2>February</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -143,7 +143,7 @@ export default function SalesTarget() {
                       <h2>March</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -195,7 +195,7 @@ export default function SalesTarget() {
                       <h2>April</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -247,7 +247,7 @@ export default function SalesTarget() {
                       <h2>May</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -299,7 +299,7 @@ export default function SalesTarget() {
                       <h2>June</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -351,7 +351,7 @@ export default function SalesTarget() {
                       <h2>July</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -403,7 +403,7 @@ export default function SalesTarget() {
                       <h2>August</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -455,7 +455,7 @@ export default function SalesTarget() {
                       <h2>September</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -507,7 +507,7 @@ export default function SalesTarget() {
                       <h2>October</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -559,7 +559,7 @@ export default function SalesTarget() {
                       <h2>November</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>
@@ -611,7 +611,7 @@ export default function SalesTarget() {
                       <h2>December</h2>
                       <div className="price-box">
                         <div>
-                          <h3>2025</h3>
+                          <h3>{salesVsTarget.year}</h3>
                         </div>
                       </div>
                     </div>

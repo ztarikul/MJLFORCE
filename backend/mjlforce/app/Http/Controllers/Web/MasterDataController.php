@@ -7,6 +7,7 @@ use App\Models\BusinessTeam;
 use App\Models\CustomerGroup;
 use App\Models\DistributionCh;
 use App\Models\Region;
+use App\Models\SoldToParty;
 use App\Models\Territory;
 use App\Models\TradeSubCategory;
 use Illuminate\Http\Request;
@@ -38,5 +39,10 @@ class MasterDataController extends Controller
     public function tradeCategoryIndex(){
         $tradeSubCategories = TradeSubCategory::orderBy('trade_category_id', 'asc')->get();
         return view('masterData.tradeCategories.index', compact('tradeSubCategories'));
+    }
+    public function soldToParties(){
+       $soldToParties = SoldToParty::where('activeStatus', true)->orderBy('acc_name', 'asc')->get();
+        
+        return view('masterData.soldToParties.index', compact('soldToParties'));
     }
 }

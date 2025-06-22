@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/distribution_ches', [MasterDataController::class, 'distributionChannelIndex'])->name('distributionChannelIndex');
         Route::get('/territories', [MasterDataController::class, 'territoryIndex'])->name('territoryIndex');
         Route::get('/trade_categories', [MasterDataController::class, 'tradeCategoryIndex'])->name('tradeCategoryIndex');
+        Route::get('/sold_to_parties', [MasterDataController::class, 'soldToParties'])->name('soldToParties');
 
     });
 

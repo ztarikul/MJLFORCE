@@ -1,6 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 export default function TargetCharts(props) {
+  console.log(props);
   const chartOptions = {
     chart: {
       type: "bar",
@@ -79,20 +80,8 @@ export default function TargetCharts(props) {
         : "#FF4560",
     ],
     xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sept",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      // categories: [
+      // ],
     },
     title: {
       text: "Sales vs Target Achievement (%) 2025",
@@ -107,18 +96,18 @@ export default function TargetCharts(props) {
     {
       name: "Sales",
       data: [
-        props.value.jan_percentage,
-        props.value.feb_percentage,
-        props.value.mar_percentage,
-        props.value.apr_percentage,
-        props.value.may_percentage,
-        props.value.jun_percentage,
-        props.value.jul_percentage,
-        props.value.aug_percentage,
-        props.value.sep_percentage,
-        props.value.oct_percentage,
-        props.value.nov_percentage,
-        props.value.dec_percentage,
+        { x: "Jan", y: props.value.jan_percentage },
+        { x: "Feb", y: props.value.feb_percentage },
+        { x: "Mar", y: props.value.mar_percentage },
+        { x: "Apr", y: props.value.apr_percentage },
+        { x: "May", y: props.value.may_percentage },
+        { x: "Jun", y: props.value.jun_percentage },
+        { x: "Jul", y: props.value.jul_percentage },
+        { x: "Aug", y: props.value.aug_percentage },
+        { x: "Sep", y: props.value.sep_percentage },
+        { x: "Oct", y: props.value.oct_percentage },
+        { x: "Nov", y: props.value.nov_percentage },
+        { x: "Dec", y: props.value.dec_percentage },
       ],
     },
   ];

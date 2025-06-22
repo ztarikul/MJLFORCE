@@ -26,31 +26,17 @@ export default function SidebarUser(props) {
         {props.sidebarUserData?.employee_designation} -{" "}
         {props.sidebarUserData?.employee_businessTeam}
       </p>
-      <ul>
-        <li>
-          <p>Customers</p>
-          <span>
-            <span className="counter">
-              {props.sidebarUserData.total_customer}
-            </span>
-          </span>
-        </li>
-        <li>
-          <p>Targets</p>
-          <span className="counter">
-            {props.sidebarUserData.total_sales_target} <span>Barrel</span>
-          </span>
-        </li>
-        <li>
-          <p>Achievement</p>
-          <span>
-            <span className="counter">
-              {props.sidebarUserData.total_sales}{" "}
-            </span>
-            Barrel
-          </span>
-        </li>
-      </ul>
+      <hr />
+      <p className="mb-0 font-roboto f-w-600">
+        Total Customer - {props.sidebarUserData.total_customer}
+      </p>
+      <p className="mb-0 font-roboto f-w-600">
+        Total Sales Target - {props.sidebarUserData.total_sales_target}{" "}
+        <span>Barrel</span>
+      </p>
+      <p className="mb-0 font-roboto f-w-600">
+        Total Sales - {props.sidebarUserData.total_sales} <span>Barrel</span>
+      </p>
     </div>
   );
 }
