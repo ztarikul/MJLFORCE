@@ -406,7 +406,7 @@ export default function HomePage() {
           </div>
 
           <div className="col-xs-6 col-xl-3 col-lg-6">
-            <Link>
+            <Link to="/complaint">
               <div className="card o-hidden border-0">
                 <div className="bg-primary b-r-4 card-body">
                   <div className="media static-top-widget">
@@ -420,7 +420,7 @@ export default function HomePage() {
                     </div>
                     <div className="media-body">
                       {/* <span className="m-0">Verify</span> */}
-                      <h4 className="mb-0 counter">Complain</h4>
+                      <h4 className="mb-0 counter">Complaint</h4>
 
                       <ApertureIcon
                         className="icon-bg"

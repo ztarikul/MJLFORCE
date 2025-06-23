@@ -8,6 +8,8 @@ use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\AttendanceHistory;
+use App\Models\Complaint;
+use App\Models\ComplaintType;
 use App\Models\Employee;
 use App\Models\Promotion;
 use App\Models\PromotionItems;
@@ -199,4 +201,50 @@ class HomeController extends Controller
 
     }
 
+    public function complaint(Request $request){
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+        $complaintTypes = ComplaintType::select('id', 'name')->where('activeStatus', true)->orderBy('code', 'asc')->get();
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'employee_id')->where('employee_id', $employee->id)->get();
+
+
+        return response()->json(['soldToParties' => $soldToParties, 'complaintTypes' => $complaintTypes], 200);
+    }
+
+    public function storeComplaint(Request $request){
+        // return response($request->all());
+        $msg = '';
+        $status = '';
+        $request->validate([
+            'sold_to_party_id' => "required",
+            'complaint_type' => "required",
+            'complaint' => "required",
+          
+        ]);
+
+        try{
+            $complaint = new Complaint();
+            $complaint->sold_to_party_id = $request->sold_to_party_id;
+            $complaint->complaint_type_id = $request->complaint_type;
+            $complaint->complaint_type = ComplaintType::find($request->complaint_type)->name;
+            $complaint->complaint = $request->complaint;
+            $complaint->employee_id = auth()->user()->employee->id;
+            $complaint->lat = $request->lat;
+            $complaint->long = $request->long;;
+            $complaint->created_by = auth()->user()->id;
+            $complaint->hostname = gethostname();
+
+            $complaint->save();
+            $msg = "Complaint submitted successfully";
+            $status = "success";
+
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+            
+        }
+
+         return response()->json([
+            'message' => $msg,
+            'status' => $status
+        ]);
+    }
 }

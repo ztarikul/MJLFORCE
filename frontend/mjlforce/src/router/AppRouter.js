@@ -13,6 +13,7 @@ import LeadsProcess from "../components/Leads/LeadsProcess";
 import VerifyCma from "../components/VerifyCma/VerifyCma";
 import SoldToPartyVerify from "../components/VerifyCma/SoldToPartyVerify";
 import ShipToPartyVerify from "../components/VerifyCma/ShipToPartyVerify";
+import Complaint from "../components/Complaint/Complaint";
 
 export default function AppRouter(props) {
   const routes = (
@@ -47,6 +48,14 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <SalesTarget />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/complaint"
+        element={
+          <AuthMiddleware>
+            <Complaint />
           </AuthMiddleware>
         }
       />

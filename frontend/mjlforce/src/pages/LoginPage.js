@@ -93,7 +93,7 @@ export default function LoginPage() {
                 <div className="form-group">
                   <div className="checkbox">
                     <input id="checkbox1" type="checkbox" />
-                    <label for="checkbox1">Remember password</label>
+                    <label htmlFor="checkbox1">Remember password</label>
                   </div>
                   <Link className="link" href="forget-password.html">
                     Forgot password?
