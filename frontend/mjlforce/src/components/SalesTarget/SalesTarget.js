@@ -23,6 +23,24 @@ export default function SalesTarget() {
     fetchData();
   }, []);
 
+  const getClassNameByValue = (value) => {
+    let className = "";
+    if (value >= 90) {
+      className = "bg-primary";
+    } // success
+    else if (value >= 80 && value < 90) {
+      className = "bg-secondary";
+    } // danger
+    else if (value === 0) {
+      className = "bg-light";
+    } // danger
+    else {
+      className = "bg-danger";
+    }
+
+    return className;
+  };
+
   return (
     <Main>
       <div className="col-12 col-xl-12 col-lg-12">
@@ -32,631 +50,454 @@ export default function SalesTarget() {
         <div className="row">
           <div className="col-sm-12">
             <div className="card">
-              <div className="card-body row pricing-content pricing-col">
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>January</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jan_target
-                                ? salesVsTarget.jan_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jan_sales
-                                ? salesVsTarget.jan_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jan_percentage
-                                ? salesVsTarget.jan_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>February</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.feb_target
-                                ? salesVsTarget.feb_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.feb_sales
-                                ? salesVsTarget.feb_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.feb_percentage
-                                ? salesVsTarget.feb_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>March</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.mar_target
-                                ? salesVsTarget.mar_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.mar_sales
-                                ? salesVsTarget.mar_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.mar_percentage
-                                ? salesVsTarget.mar_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>April</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.apr_target
-                                ? salesVsTarget.apr_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.apr_sales
-                                ? salesVsTarget.apr_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.apr_percentage
-                                ? salesVsTarget.apr_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>May</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.may_target
-                                ? salesVsTarget.may_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.may_sales
-                                ? salesVsTarget.may_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.may_percentage
-                                ? salesVsTarget.may_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>June</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jun_target
-                                ? salesVsTarget.jun_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jun_sales
-                                ? salesVsTarget.jun_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jun_percentage
-                                ? salesVsTarget.jun_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>July</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jul_target
-                                ? salesVsTarget.jul_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jul_sales
-                                ? salesVsTarget.jul_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.jul_percentage
-                                ? salesVsTarget.jul_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>August</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.aug_target
-                                ? salesVsTarget.aug_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.aug_sales
-                                ? salesVsTarget.aug_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.aug_percentage
-                                ? salesVsTarget.aug_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>September</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.sep_target
-                                ? salesVsTarget.sep_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.sep_sales
-                                ? salesVsTarget.sep_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.oct_percentage
-                                ? salesVsTarget.oct_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>October</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.oct_target
-                                ? salesVsTarget.oct_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.oct_sales
-                                ? salesVsTarget.oct_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.oct_percentage
-                                ? salesVsTarget.oct_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>November</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.nov_target
-                                ? salesVsTarget.nov_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.nov_sales
-                                ? salesVsTarget.nov_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.nov_percentage
-                                ? salesVsTarget.nov_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="pricing-block card text-center">
-                    <div className="pricing-header">
-                      <h2>December</h2>
-                      <div className="price-box">
-                        <div>
-                          <h3>{salesVsTarget.year}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="pricing-list">
-                      <ul className="pricing-inner">
-                        <li>
-                          <h6>
-                            Target:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.dec_target
-                                ? salesVsTarget.dec_target
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Sales:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.dec_sales
-                                ? salesVsTarget.dec_sales
-                                : 0}
-                            </span>{" "}
-                            Ltr.
-                          </h6>
-                        </li>
-                        <li>
-                          <h6>
-                            Percentage:{" "}
-                            <span>
-                              {" "}
-                              {salesVsTarget.dec_percentage
-                                ? salesVsTarget.dec_percentage
-                                : 0}
-                            </span>{" "}
-                            %
-                          </h6>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+              <div className="table-responsive">
+                <table className="table table-borderedfor">
+                  <thead>
+                    <tr>
+                      <th scope="col">Month</th>
+                      <th scope="col">Target</th>
+                      <th scope="col">Sales</th>
+                      <th scope="col">Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jan_percentage
+                        )}
+                      >
+                        January
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jan_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.jan_target
+                          ? salesVsTarget.jan_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jan_percentage
+                        )}
+                      >
+                        {salesVsTarget.jan_sales ? salesVsTarget.jan_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jan_percentage
+                        )}
+                      >
+                        {salesVsTarget.jan_percentage
+                          ? salesVsTarget.jan_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.feb_percentage
+                        )}
+                      >
+                        February
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.feb_percentage
+                        )}
+                      >
+                        {salesVsTarget.feb_target
+                          ? salesVsTarget.feb_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.feb_percentage
+                        )}
+                      >
+                        {salesVsTarget.feb_sales ? salesVsTarget.feb_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.feb_percentage
+                        )}
+                      >
+                        {salesVsTarget.feb_percentage
+                          ? salesVsTarget.feb_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.mar_percentage
+                        )}
+                      >
+                        March
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.mar_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.mar_target
+                          ? salesVsTarget.mar_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.mar_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.mar_sales ? salesVsTarget.mar_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.mar_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.mar_percentage
+                          ? salesVsTarget.mar_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.apr_percentage
+                        )}
+                      >
+                        April
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.apr_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.apr_target
+                          ? salesVsTarget.apr_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.apr_percentage
+                        )}
+                      >
+                        {salesVsTarget.apr_sales ? salesVsTarget.apr_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.apr_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.apr_percentage
+                          ? salesVsTarget.apr_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.may_percentage
+                        )}
+                      >
+                        May
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.may_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.may_target
+                          ? salesVsTarget.may_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.may_percentage
+                        )}
+                      >
+                        {salesVsTarget.may_sales ? salesVsTarget.may_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.may_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.may_percentage
+                          ? salesVsTarget.may_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jun_percentage
+                        )}
+                      >
+                        June
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jun_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.jun_target
+                          ? salesVsTarget.jun_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jun_percentage
+                        )}
+                      >
+                        {salesVsTarget.jun_sales ? salesVsTarget.jun_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jun_percentage
+                        )}
+                      >
+                        {salesVsTarget.jun_percentage
+                          ? salesVsTarget.jun_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jul_percentage
+                        )}
+                      >
+                        July
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jul_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.jul_target
+                          ? salesVsTarget.jul_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jul_percentage
+                        )}
+                      >
+                        {salesVsTarget.jul_sales ? salesVsTarget.jul_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.jul_percentage
+                        )}
+                      >
+                        {salesVsTarget.jul_percentage
+                          ? salesVsTarget.jul_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.aug_percentage
+                        )}
+                      >
+                        August
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.aug_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.aug_target
+                          ? salesVsTarget.aug_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.aug_percentage
+                        )}
+                      >
+                        {salesVsTarget.aug_sales ? salesVsTarget.aug_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.aug_percentage
+                        )}
+                      >
+                        {salesVsTarget.aug_percentage
+                          ? salesVsTarget.aug_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.sep_percentage
+                        )}
+                      >
+                        September
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.sep_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.sep_target
+                          ? salesVsTarget.sep_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.sep_percentage
+                        )}
+                      >
+                        {salesVsTarget.sep_sales ? salesVsTarget.sep_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.sep_percentage
+                        )}
+                      >
+                        {salesVsTarget.sep_percentage
+                          ? salesVsTarget.sep_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.oct_percentage
+                        )}
+                      >
+                        October
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.oct_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.oct_target
+                          ? salesVsTarget.oct_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.oct_percentage
+                        )}
+                      >
+                        {salesVsTarget.oct_sales ? salesVsTarget.oct_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.oct_percentage
+                        )}
+                      >
+                        {salesVsTarget.oct_percentage
+                          ? salesVsTarget.oct_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.nov_percentage
+                        )}
+                      >
+                        November
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.nov_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.nov_target
+                          ? salesVsTarget.nov_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.nov_percentage
+                        )}
+                      >
+                        {salesVsTarget.nov_sales ? salesVsTarget.nov_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.nov_percentage
+                        )}
+                      >
+                        {salesVsTarget.nov_percentage
+                          ? salesVsTarget.nov_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                    <tr className="">
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.dec_percentage
+                        )}
+                      >
+                        December
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.dec_percentage
+                        )}
+                      >
+                        {" "}
+                        {salesVsTarget.dec_target
+                          ? salesVsTarget.dec_target
+                          : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.dec_percentage
+                        )}
+                      >
+                        {salesVsTarget.dec_sales ? salesVsTarget.dec_sales : 0}
+                      </td>
+                      <td
+                        className={getClassNameByValue(
+                          salesVsTarget.dec_percentage
+                        )}
+                      >
+                        {salesVsTarget.dec_percentage
+                          ? salesVsTarget.dec_percentage
+                          : 0}{" "}
+                        %
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
