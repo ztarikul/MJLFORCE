@@ -48,8 +48,10 @@
                         <a class="nav-link menu-title" href="javascript:void(0)"><i
                                 data-feather="airplay"></i><span>Privilege</span></a>
                         <ul class="nav-submenu menu-content">
-                            <li><a href="general-widget.html">General</a></li>
-                            <li><a href="chart-widget.html">Chart</a></li>
+                            <li><a href="{{ route('roles.index') }}">Roles</a></li>
+                            <li><a href="#">Permissions</a></li>
+                            <li><a href="{{ route('roles.userRolePermission_index') }}">User
+                                    Role</a></li>
                         </ul>
                     </li>
 

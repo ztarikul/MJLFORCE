@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\CmaController;
 use App\Http\Controllers\Web\EmployeeController;
 use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\MasterDataController;
+use App\Http\Controllers\Web\RoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,26 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/shipToParty_request_form/{id}', [CmaController::class, 'shipToPartyRequestForm'])->name('shipToPartyRequestForm');
         Route::post('/shipToPartyMisToSAP/{id}', [CmaController::class, 'shipToPartyMisToSAP'])->name('shipToPartyMisToSAP');
 
+    });
+
+     Route::group(['prefix' => 'roles', 'as' => 'roles.',], function () {
+        Route::get('/', [RoleController::class, 'index'])->name('index');
+        // Route::get('/create', [RoleController::class, 'create'])->name('create');
+        // Route::post('/store', [RoleController::class, 'store'])->name('store');
+        // Route::get('/show/{id}', [RoleController::class, 'show'])->name('show');
+        // Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
+        // Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
+        // Route::get('/destroy/{id}', [RoleController::class, 'destroy'])->name('destroy');
+
+        // Route::get('permissions/', [RoleController::class, 'permission_index'])->name('permission_index');
+        // Route::post('permissions_store/', [RoleController::class, 'permissions_store'])->name('permissions_store');
+        // Route::get('permissions_edit/{id}', [RoleController::class, 'permissions_edit'])->name('permissions_edit');
+        // Route::post('permissions_update/{id}', [RoleController::class, 'permissions_update'])->name('permissions_update');
+        // Route::get('permissions_destroy/{id}', [RoleController::class, 'permissions_destroy'])->name('permissions_destroy');
+
+        Route::get('userRolePermission/', [RoleController::class, 'userRolePermission_index'])->name('userRolePermission_index');
+        // Route::get('userRolePermission_edit/{userId}', [RoleController::class, 'userRolePermission_edit'])->name('userRolePermission_edit');
+        // Route::post('userRolePermission_update/{userId}', [RoleController::class, 'userRolePermission_update'])->name('userRolePermission_update');
     });
 });
 

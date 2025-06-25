@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mjlforce
 -- ------------------------------------------------------
--- Server version	8.0.39
+-- Server version	8.0.41
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -164,6 +164,49 @@ CREATE TABLE `complaint_types` (
 LOCK TABLES `complaint_types` WRITE;
 /*!40000 ALTER TABLE `complaint_types` DISABLE KEYS */;
 /*!40000 ALTER TABLE `complaint_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `complaints`
+--
+
+DROP TABLE IF EXISTS `complaints`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `complaints` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `sold_to_party_id` bigint unsigned DEFAULT NULL,
+  `complaint_type_id` bigint unsigned DEFAULT NULL,
+  `complaint_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `complaint` text COLLATE utf8mb4_unicode_ci,
+  `employee_id` bigint unsigned DEFAULT NULL,
+  `image_1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lat` decimal(9,6) DEFAULT NULL,
+  `long` decimal(9,6) DEFAULT NULL,
+  `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` int DEFAULT NULL,
+  `hostname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `complaints_sold_to_party_id_foreign` (`sold_to_party_id`),
+  KEY `complaints_complaint_type_id_foreign` (`complaint_type_id`),
+  KEY `complaints_employee_id_foreign` (`employee_id`),
+  CONSTRAINT `complaints_complaint_type_id_foreign` FOREIGN KEY (`complaint_type_id`) REFERENCES `complaint_types` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `complaints_employee_id_foreign` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
+  CONSTRAINT `complaints_sold_to_party_id_foreign` FOREIGN KEY (`sold_to_party_id`) REFERENCES `sold_to_parties` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `complaints`
+--
+
+LOCK TABLES `complaints` WRITE;
+/*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
+/*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -331,10 +374,12 @@ CREATE TABLE `employees` (
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `doj` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nkn_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `designation_id` bigint unsigned NOT NULL,
-  `business_team_id` bigint unsigned NOT NULL,
-  `region_id` bigint unsigned NOT NULL,
-  `territory_id` bigint unsigned NOT NULL,
+  `designation_id` bigint unsigned DEFAULT NULL,
+  `business_team_id` bigint unsigned DEFAULT NULL,
+  `region_id` bigint unsigned DEFAULT NULL,
+  `territory_id` bigint unsigned DEFAULT NULL,
+  `supervisor_id` int DEFAULT NULL,
+  `omera_sales_person` tinyint(1) NOT NULL DEFAULT '0',
   `activeStatus` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` int DEFAULT NULL,
   `hostname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -361,7 +406,7 @@ CREATE TABLE `employees` (
   CONSTRAINT `employees_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`),
   CONSTRAINT `employees_territory_id_foreign` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`),
   CONSTRAINT `employees_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +415,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'Tarikul Islam Zihad',1,'10378','10378','E00078',NULL,NULL,'01622363008','Tarikul.Islam@mobilbd.com',NULL,NULL,NULL,12,1,1,15,1,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `employees` VALUES (1,'Tarikul Islam Zihad',1,'10378','EM00010378','EM00010378',NULL,NULL,'01622363008','Tarikul.Islam@mobilbd.com',NULL,NULL,NULL,12,1,1,15,1,0,1,NULL,NULL,NULL,NULL,NULL),(2,'Abu Salek',NULL,NULL,NULL,'EM00010285',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(3,'Ahammed Dilir Daiyan',NULL,NULL,NULL,'EM00010345',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(4,'Ahmad Kutub',NULL,NULL,NULL,'EM00010421',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(5,'Ahmed Sheeper Khan Chowdhury',NULL,NULL,NULL,'EM00010128',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(6,'Aminul Karim',NULL,NULL,NULL,'EM00010206',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(7,'Anindya Roy',NULL,NULL,NULL,'EM00010403',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(8,'Arifur Rahman Jippy',NULL,NULL,NULL,'EM00010372',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(9,'Ashik Chowdhury',NULL,NULL,NULL,'EM00010265',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(10,'Ayon Barua',NULL,NULL,NULL,'EM00010267',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(11,'Faisal Ahmed',NULL,NULL,NULL,'EM00010412',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(12,'Kazi Iftekhar Rahman',NULL,NULL,NULL,'EM00010351',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(13,'Kazi Jahidul Islam',NULL,NULL,NULL,'EM00010165',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(14,'Md Ahosan Habib',NULL,NULL,NULL,'EM00010177',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(15,'Md Anwar Hossain',NULL,NULL,NULL,'EM00010047',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(16,'Md Ariful Alam Khan',NULL,NULL,NULL,'EM00010081',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(17,'Md Aushafurdulla',NULL,NULL,NULL,'EM00010316',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(18,'Md Azwadul Haque Jim',NULL,NULL,NULL,'EM00010425',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(19,'Md Fazley Lohany',NULL,NULL,NULL,'EM00010109',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(20,'Md Hasan Uddin',NULL,NULL,NULL,'EM00010099',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(21,'Md Jubaer Hossain',NULL,NULL,NULL,'EM00010301',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(22,'Md Kawsar Rahman',NULL,NULL,NULL,'EM00010151',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(23,'Md Mahbub Alam',NULL,NULL,NULL,'EM00010262',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(24,'Md Mahir Asif',NULL,NULL,NULL,'EM00010381',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(25,'Md Mydul Islam',NULL,NULL,NULL,'EM00010228',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(26,'Md Nasimul Islam',NULL,NULL,NULL,'EM00010205',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(27,'Md Robiul Islam',NULL,NULL,NULL,'EM00010368',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(28,'Md Sakib Hossain',NULL,NULL,NULL,'EM00010238',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(29,'Md Samim Hosain',NULL,NULL,NULL,'EM00010274',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(30,'Md Shahin Alom',NULL,NULL,NULL,'EM00010040',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(31,'Md Sohanur Rahman',NULL,NULL,NULL,'EM00010415',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(32,'Md Wahiduzzaman',NULL,NULL,NULL,'EM00010034',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(33,'Md. Adnan Ali Sarkar',NULL,NULL,NULL,'EM00010379',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(34,'Md. Ajnin Rahman',NULL,NULL,NULL,'EM00010371',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(35,'Md. Jamiun Noor Shadman',NULL,NULL,NULL,'EM00010385',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(36,'Md. Juwel Hasan',NULL,NULL,NULL,'EM00010354',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(37,'Mirza Shariful Hasan',NULL,NULL,NULL,'EM00010414',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(38,'Mohaimenul Islam Shovon',NULL,NULL,NULL,'EM00010409',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(39,'Mohammad Jaman',NULL,NULL,NULL,'EM00010119',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(40,'Mohammad Zahidul Islam',NULL,NULL,NULL,'EM00010049',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(41,'Mohammed Ashiqur Rahman',NULL,NULL,NULL,'EM00010229',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(42,'Nafiz Afsan',NULL,NULL,NULL,'EM00010365',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(43,'Nuruddin Ahmed Tipu',NULL,NULL,NULL,'EM00010237',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(44,'Raisul Islam',NULL,NULL,NULL,'EM00010389',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(45,'Rezaul Karim Shad',NULL,NULL,NULL,'EM00010369',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(46,'S M Eliash Hasan',NULL,NULL,NULL,'EM00010166',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(47,'S M Samiul Haque',NULL,NULL,NULL,'EM00010382',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(48,'S. M. Shajidur Rahaman',NULL,NULL,NULL,'EM00010416',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(49,'Salim Parvase',NULL,NULL,NULL,'EM00010272',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(50,'Shahriar Shahadat Bulbul',NULL,NULL,NULL,'EM00010028',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(51,'Shams Uddin Maruf',NULL,NULL,NULL,'EM00010233',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(52,'Sheikh Ashiqur Rahman',NULL,NULL,NULL,'EM00010289',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(53,'Sukumar Barua',NULL,NULL,NULL,'EM00010293',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(54,'Susmoy Barua',NULL,NULL,NULL,'EM00010356',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL),(55,'Zayeed Bin Iftekhar',NULL,NULL,NULL,'EM00010140',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,NULL,NULL,'2025-06-25 11:02:30','2025-06-25 11:02:30',NULL);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -718,7 +763,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -727,7 +772,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (106,'0001_01_01_000000_create_users_table',1),(107,'0001_01_01_000001_create_cache_table',1),(108,'0001_01_01_000002_create_jobs_table',1),(109,'2025_03_17_063252_create_permission_tables',1),(110,'2025_03_17_070232_create_personal_access_tokens_table',1),(111,'2025_03_20_051500_create_loc_divisions_table',1),(112,'2025_03_20_051501_create_loc_districts_table',1),(113,'2025_03_20_051502_create_loc_upazilas_table',1),(114,'2025_03_20_051503_create_loc_post_offices_table',1),(115,'2025_03_20_051515_create_designations_table',1),(116,'2025_03_20_055435_create_business_teams_table',1),(117,'2025_03_20_062025_create_customer_groups_table',1),(118,'2025_03_20_062026_create_distribution_ches_table',1),(119,'2025_03_20_062027_create_regions_table',1),(120,'2025_03_20_062733_create_territories_table',1),(121,'2025_03_20_062734_create_territory_districts_table',1),(122,'2025_03_20_063314_create_trade_categories_table',1),(123,'2025_03_20_063315_create_trade_sub_categories_table',1),(124,'2025_03_20_063316_create_customer_types_table',1),(125,'2025_03_20_063518_create_complaint_types_table',1),(126,'2025_03_20_063743_create_visit_purposes_table',1),(127,'2025_03_24_162521_create_employees_table',1),(128,'2025_03_25_052354_create_attendance_histories_table',1),(129,'2025_03_25_180313_create_sold_to_parties_table',1),(130,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(131,'2025_04_13_111335_create_lead_stages_table',1),(132,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(133,'2025_04_20_175501_create_sold_to_party_sales_areas_table',1),(134,'2025_04_29_121727_create_materials_table',1),(135,'2025_04_29_144209_create_promotions_table',1),(136,'2025_04_29_144552_create_promotion_items_table',1),(137,'2025_05_18_102053_create_ship_to_parties_table',1),(138,'2025_05_19_105556_create_ship_to_partyprocess_logs_table',1),(139,'2025_05_19_115650_create_existing_visits_table',1),(140,'2025_05_20_105548_create_other_visits_table',1);
+INSERT INTO `migrations` VALUES (106,'0001_01_01_000000_create_users_table',1),(107,'0001_01_01_000001_create_cache_table',1),(108,'0001_01_01_000002_create_jobs_table',1),(109,'2025_03_17_063252_create_permission_tables',1),(110,'2025_03_17_070232_create_personal_access_tokens_table',1),(111,'2025_03_20_051500_create_loc_divisions_table',1),(112,'2025_03_20_051501_create_loc_districts_table',1),(113,'2025_03_20_051502_create_loc_upazilas_table',1),(114,'2025_03_20_051503_create_loc_post_offices_table',1),(115,'2025_03_20_051515_create_designations_table',1),(116,'2025_03_20_055435_create_business_teams_table',1),(117,'2025_03_20_062025_create_customer_groups_table',1),(118,'2025_03_20_062026_create_distribution_ches_table',1),(119,'2025_03_20_062027_create_regions_table',1),(120,'2025_03_20_062733_create_territories_table',1),(121,'2025_03_20_062734_create_territory_districts_table',1),(122,'2025_03_20_063314_create_trade_categories_table',1),(123,'2025_03_20_063315_create_trade_sub_categories_table',1),(124,'2025_03_20_063316_create_customer_types_table',1),(125,'2025_03_20_063518_create_complaint_types_table',1),(126,'2025_03_20_063743_create_visit_purposes_table',1),(127,'2025_03_24_162521_create_employees_table',1),(128,'2025_03_25_052354_create_attendance_histories_table',1),(129,'2025_03_25_180313_create_sold_to_parties_table',1),(130,'2025_04_01_171655_create_sold_to_party_process_logs_table',1),(131,'2025_04_13_111335_create_lead_stages_table',1),(132,'2025_04_13_111340_create_sold_to_party_lead_logs_table',1),(133,'2025_04_20_175501_create_sold_to_party_sales_areas_table',1),(134,'2025_04_29_121727_create_materials_table',1),(135,'2025_04_29_144209_create_promotions_table',1),(136,'2025_04_29_144552_create_promotion_items_table',1),(137,'2025_05_18_102053_create_ship_to_parties_table',1),(138,'2025_05_19_105556_create_ship_to_partyprocess_logs_table',1),(139,'2025_05_19_115650_create_existing_visits_table',1),(140,'2025_05_20_105548_create_other_visits_table',1),(141,'2025_06_21_120759_create_sales_target_vs_achievements_table',2),(142,'2025_06_23_121007_create_complaints_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -780,6 +825,7 @@ CREATE TABLE `model_has_roles` (
 
 LOCK TABLES `model_has_roles` WRITE;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
+INSERT INTO `model_has_roles` VALUES (1,'App\\Models\\User',1);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1073,7 +1119,7 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1082,7 +1128,74 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'Admin','web',NULL,NULL),(2,'MIS-Admin','web',NULL,NULL),(3,'Territory-Incharge','api',NULL,NULL),(4,'Sales-Person','api',NULL,NULL);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sales_target_vs_achievements`
+--
+
+DROP TABLE IF EXISTS `sales_target_vs_achievements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sales_target_vs_achievements` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `year` year DEFAULT NULL,
+  `emp_sap_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `emp_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jan_target` double NOT NULL DEFAULT '0',
+  `jan_percentage` double NOT NULL DEFAULT '0',
+  `jan_sales` double NOT NULL DEFAULT '0',
+  `feb_target` double NOT NULL DEFAULT '0',
+  `feb_sales` double NOT NULL DEFAULT '0',
+  `feb_percentage` double NOT NULL DEFAULT '0',
+  `mar_target` double NOT NULL DEFAULT '0',
+  `mar_sales` double NOT NULL DEFAULT '0',
+  `mar_percentage` double NOT NULL DEFAULT '0',
+  `apr_target` double NOT NULL DEFAULT '0',
+  `apr_sales` double NOT NULL DEFAULT '0',
+  `apr_percentage` double NOT NULL DEFAULT '0',
+  `may_target` double NOT NULL DEFAULT '0',
+  `may_sales` double NOT NULL DEFAULT '0',
+  `may_percentage` double NOT NULL DEFAULT '0',
+  `jun_target` double NOT NULL DEFAULT '0',
+  `jun_sales` double NOT NULL DEFAULT '0',
+  `jun_percentage` double NOT NULL DEFAULT '0',
+  `jul_target` double NOT NULL DEFAULT '0',
+  `jul_sales` double NOT NULL DEFAULT '0',
+  `jul_percentage` double NOT NULL DEFAULT '0',
+  `aug_target` double NOT NULL DEFAULT '0',
+  `aug_sales` double NOT NULL DEFAULT '0',
+  `aug_percentage` double NOT NULL DEFAULT '0',
+  `sep_target` double NOT NULL DEFAULT '0',
+  `sep_sales` double NOT NULL DEFAULT '0',
+  `sep_percentage` double NOT NULL DEFAULT '0',
+  `oct_target` double NOT NULL DEFAULT '0',
+  `oct_sales` double NOT NULL DEFAULT '0',
+  `oct_percentage` double NOT NULL DEFAULT '0',
+  `nov_target` double NOT NULL DEFAULT '0',
+  `nov_sales` double NOT NULL DEFAULT '0',
+  `nov_percentage` double NOT NULL DEFAULT '0',
+  `dec_target` double NOT NULL DEFAULT '0',
+  `dec_sales` double NOT NULL DEFAULT '0',
+  `dec_percentage` double NOT NULL DEFAULT '0',
+  `total_target` double NOT NULL DEFAULT '0',
+  `total_sales` double NOT NULL DEFAULT '0',
+  `total_percentage` double NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sales_target_vs_achievements`
+--
+
+LOCK TABLES `sales_target_vs_achievements` WRITE;
+/*!40000 ALTER TABLE `sales_target_vs_achievements` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sales_target_vs_achievements` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1111,7 +1224,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2cV0o36VO423tsqpfzuGUlIuWf0xe84ES7pqRaPA',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiaG1hMGcwN0hLeUR2M0FuVzBFc21VeDk0ZjR3NU5YZjJYOWRDWkZwSCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750155980),('6jNu90Xf7r3SCCEfBTu0rIANXeterV3gINh2FNea',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSnRvU2IyVThhRW9vV2NnMVlIMHF0bHJIOHNuenp6SVNGOXVCZ0diUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19',1750133942),('HpQLQZm1P7M131HI8VoJtD6S4NoGYuzhqwQiMn67',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoibllUZTF3cU5XbUZUVE5oTDBMcGxpcFYzcTg5SHlDeVZvdHJkTnR3ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2NtYS9uZXdfc29sZFRvUGFydHkiO319',1750147243),('t0Hwc8y49YkgozWqYYjKr6pGHMPwCBZEBfGdjKGf',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiV29qQzcwZ0FRdzV0TjZBeDN2V3A2RTVUTTJWWnpYbDVBMUxVbzZyQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750227129),('vOqU4lE64H0uSy5mCDMrMFMmBZLzDpV0JZDv74Yu',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiMmg1WlRpUVo1OFl4U0tOMG9venlCZ0lyczlyUjdYTHFsbjd5ZVhMUSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750332187);
+INSERT INTO `sessions` VALUES ('2cV0o36VO423tsqpfzuGUlIuWf0xe84ES7pqRaPA',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiaG1hMGcwN0hLeUR2M0FuVzBFc21VeDk0ZjR3NU5YZjJYOWRDWkZwSCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750155980),('6jNu90Xf7r3SCCEfBTu0rIANXeterV3gINh2FNea',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSnRvU2IyVThhRW9vV2NnMVlIMHF0bHJIOHNuenp6SVNGOXVCZ0diUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19',1750133942),('HpQLQZm1P7M131HI8VoJtD6S4NoGYuzhqwQiMn67',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoibllUZTF3cU5XbUZUVE5oTDBMcGxpcFYzcTg5SHlDeVZvdHJkTnR3ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2NtYS9uZXdfc29sZFRvUGFydHkiO319',1750147243),('t0Hwc8y49YkgozWqYYjKr6pGHMPwCBZEBfGdjKGf',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiV29qQzcwZ0FRdzV0TjZBeDN2V3A2RTVUTTJWWnpYbDVBMUxVbzZyQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750227129),('vOqU4lE64H0uSy5mCDMrMFMmBZLzDpV0JZDv74Yu',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiMmg1WlRpUVo1OFl4U0tOMG9venlCZ0lyczlyUjdYTHFsbjd5ZVhMUSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hc3NldHMvanMvY29uZmlnLmpzLi4iO319',1750332187),('Wggkjg9XlfVQZQYcNI4irxHFTMjgX8qNudNGjskj',1,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36','YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQlZlRURYM2p0UHdWeVNFZVAyVTgwTTJxNXJyenE3RHN1c0p5QmZrViI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZW1wbG95ZWVzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9',1750849412);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1709,4 +1822,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-19 21:59:06
+-- Dump completed on 2025-06-25 17:10:46
