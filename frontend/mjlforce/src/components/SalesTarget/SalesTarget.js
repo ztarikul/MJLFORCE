@@ -55,9 +55,9 @@ export default function SalesTarget() {
                   <thead>
                     <tr>
                       <th scope="col">Month</th>
-                      <th scope="col">Target</th>
-                      <th scope="col">Sales</th>
-                      <th scope="col">Percentage</th>
+                      <th scope="col">Target(Ltr.)</th>
+                      <th scope="col">Sales(Ltr.)</th>
+                      <th scope="col">Percent.</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -497,6 +497,12 @@ export default function SalesTarget() {
                       </td>
                     </tr>
                   </tbody>
+                  <tfoot className="bg-primary">
+                    <th scope="col">Total</th>
+                    <th scope="col">{salesVsTarget.total_target}</th>
+                    <th scope="col">{salesVsTarget.total_sales}</th>
+                    <th scope="col">{salesVsTarget.total_percentage}</th>
+                  </tfoot>
                 </table>
               </div>
             </div>

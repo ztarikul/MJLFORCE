@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Employee;
+use App\Models\EmployeeActivityLog;
 use GuzzleHttp\Client;
+use Carbon\Carbon;
 
 
 
@@ -47,5 +50,23 @@ function splitByLastCharBeforeLimit($string, $limit, $char) {
     $firstPart = substr($string, 0, $lastCommaPos);
     $secondPart = ltrim(substr($string, $lastCommaPos + 1)); // trim leading space
     return [$firstPart, $secondPart];
+}
+
+
+if (!function_exists('storeEmployeeActivityLog')) {
+    function storeEmployeeActivityLog(array $data){
+
+        $log = EmployeeActivityLog::create([
+            'employee_id' => Employee::select('id', 'user_id', 'sap_code', )->where('user_id', $data['user'])->first()->id,
+            'date' => Carbon::now()->toDateString(),
+            'action' => $data['action'],
+            'remarks' => $data['remarks'],
+            'log_type' => $data['log_type'],
+            'lat' => $data['lat'],
+            'long' => $data['long'],
+            'created_by' => auth()->user()->id,
+            'hostname' => gethostname(),
+        ]);
+    }
 }
 

@@ -2,16 +2,67 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../auth/Auth";
 import Swal from "sweetalert2";
+import { getCurrentLocation } from "../utils/getCurrentLocation";
 
 export default function LoginPage() {
   const { http, setToken } = Auth();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+
+  const [formData, setFormData] = useState({
+    username: null,
+    password: null,
+    long: null,
+    lat: null,
+    accuracy: null,
+  });
   const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (!formData.lat && !formData.long) {
+      getCurrentLocation()
+        .then((location) => {
+          console.log("map", location);
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          setFormData((prev) => ({
+            ...prev,
+
+            long: location.longitude,
+            lat: location.latitude,
+            accuracy: location.accuracy,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (formData.accuracy) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          if (location.accuracy < formData.accuracy) {
+            console.log("Revisemap", location);
+            setFormData((prev) => ({
+              ...prev,
+              long: location.longitude,
+              lat: location.latitude,
+              accuracy: location.accuracy,
+            }));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const submitForm = () => {
     http
-      .post("/login", { username: username, password: password })
+      .post("/login", formData)
       .then((res) => {
         console.log(res);
         setToken(res.data.user, res.data.access_token);
@@ -56,7 +107,7 @@ export default function LoginPage() {
                       required=""
                       placeholder="Your Lamsys Username"
                       name="username"
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={handleChange}
                     />
                   </div>
                   {errors.username && (
@@ -77,7 +128,7 @@ export default function LoginPage() {
                       name="password"
                       required=""
                       placeholder="*********"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handleChange}
                     />
 
                     <div className="show-hide">

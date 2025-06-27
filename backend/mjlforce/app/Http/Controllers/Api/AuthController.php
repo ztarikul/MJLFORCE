@@ -39,6 +39,19 @@ class AuthController extends Controller
             return response()->json(['error' => 'Wrong Credentials'], 401);
         }
 
+        
+        $activityLog = [
+            'user' => auth()->id(),
+            'action' => "Login",
+            'remarks' => "App login",
+            'log_type' => 1,//authenticate
+            'lat' => $request->lat,
+            'long' => $request->long,
+
+        ];
+        
+        storeEmployeeActivityLog($activityLog);
+
         return $this->respondWithToken($token);
     }
 
