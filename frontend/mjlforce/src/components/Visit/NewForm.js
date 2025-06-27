@@ -29,6 +29,7 @@ export default function NewForm() {
     remarks: "",
     long: "",
     lat: "",
+    accuracy: null,
   });
   const [errors, setErrors] = useState({});
 
@@ -52,7 +53,6 @@ export default function NewForm() {
     http
       .get("/visit_new_s2p")
       .then((res) => {
-        console.log(res.data);
         setFetchdata(res.data);
       })
       .catch((res) => {
@@ -74,12 +74,33 @@ export default function NewForm() {
     if (!formData.lat && !formData.long) {
       getCurrentLocation()
         .then((location) => {
+          console.log("map", location);
           // setFormData({ lat: location.latitude, long: location.longitude });
           setFormData((prev) => ({
             ...prev,
+
             long: location.longitude,
             lat: location.latitude,
+            accuracy: location.accuracy,
           }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (formData.accuracy) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          if (location.accuracy < formData.accuracy) {
+            console.log("Revisemap", location);
+            setFormData((prev) => ({
+              ...prev,
+              long: location.longitude,
+              lat: location.latitude,
+              accuracy: location.accuracy,
+            }));
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -107,7 +128,6 @@ export default function NewForm() {
           },
         })
         .then((res) => {
-          console.log(res.data); // Handle success response
           Swal.fire({
             title: "Submitted!",
             text: "Your form has been submitted.",
@@ -159,7 +179,6 @@ export default function NewForm() {
       (district) => district.loc_division_id === selectedId
     );
     setDistricts(selectedDistricts);
-   
   };
 
   const districtChangeHnadler = (event) => {
@@ -174,7 +193,6 @@ export default function NewForm() {
     );
     setUpazilas(selectedUpazilas);
 
-         
     const selectedPostOffices = fetchData.postOffice.filter(
       (office) => office.loc_district_id === selectedId
     );
@@ -187,7 +205,6 @@ export default function NewForm() {
       ...prev,
       [name]: value,
     }));
-
   };
 
   const tradeCategoryChangeHnadler = (event) => {
