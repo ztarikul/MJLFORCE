@@ -79,6 +79,18 @@ class HomeController extends Controller
             }
             $attendanceHistory->save();
             $msg = 'Attendance placed successfuly';
+
+             $activityLog = [
+                'user' => auth()->id(),
+                'action' => "attendance",
+                'remarks' => "Day Started" . Carbon::now()->toDateTimeString(),
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+
+            storeEmployeeActivityLog($activityLog);
         }catch(Exception $e){
             $msg = $e->getMessage();
         }
@@ -229,6 +241,7 @@ class HomeController extends Controller
 
         try{
             $complaint = new Complaint();
+            $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
             $complaint->sold_to_party_id = $request->sold_to_party_id;
             $complaint->complaint_type_id = $request->complaint_type;
             $complaint->complaint_type = ComplaintType::find($request->complaint_type)->name;
@@ -242,6 +255,18 @@ class HomeController extends Controller
             $complaint->save();
             $msg = "Complaint submitted successfully";
             $status = "success";
+
+             $activityLog = [
+                'user' => auth()->id(),
+                'action' => "complaint",
+                'remarks' => "New complaint noted, customer name: " . $soldToParty->acc_name,
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+
+            storeEmployeeActivityLog($activityLog);
 
         }catch(Exception $e){
             $msg = $e->getMessage();

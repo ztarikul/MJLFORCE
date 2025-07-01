@@ -167,6 +167,18 @@ class CmaController extends Controller
                 'status' => 1,
                 'remarks' => "Leads Processing",
             ]);
+
+            $activityLog = [
+                'user' => auth()->id(),
+                'action' => "visit",
+                'remarks' => "New Visit/New Client enlist",
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+        
+            storeEmployeeActivityLog($activityLog);
             
         }catch(Exception $e){
             $msg = $e->getMessage();
@@ -303,6 +315,18 @@ class CmaController extends Controller
               
             ]);
 
+             $activityLog = [
+                'user' => auth()->id(),
+                'action' => "Lead Change",
+                'remarks' => "Own Lead change",
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+        
+            storeEmployeeActivityLog($activityLog);
+
             $soldToParty->update();
             $msg = 'Sold To Party updated successfully';
          
@@ -431,7 +455,17 @@ class CmaController extends Controller
   
             $msg = 'Ship To Party created successfully';
 
+            $activityLog = [
+                'user' => auth()->id(),
+                'action' => "visit",
+                'remarks' => "New Ship-to-Party enlist for customer- " . $soldToParty->acc_name,
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
 
+            ];
+
+            storeEmployeeActivityLog($activityLog);
 
          
             
@@ -464,6 +498,7 @@ class CmaController extends Controller
 
         try{
             $existingVisit = new ExistingVisit();
+            $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
             $existingVisit->sold_to_party_id = $request->sold_to_party_id;
             $existingVisit->ship_to_party_id = $request->ship_to_party_id;
             $existingVisit->visit_purpose_id = $request->visit_purpose_id;
@@ -481,6 +516,18 @@ class CmaController extends Controller
             $existingVisit->hostname = gethostname();
             $existingVisit->save();
             $msg = 'Existing Visit created successfully';
+
+            $activityLog = [
+                'user' => auth()->id(),
+                'action' => "visit",
+                'remarks' => "Existing visit for customer- " . $soldToParty->acc_name,
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+
+            storeEmployeeActivityLog($activityLog);
         }catch(Exception $e){
             $msg = $e->getMessage();
         }
@@ -529,6 +576,17 @@ class CmaController extends Controller
             $otherVisit->save();
             $msg = 'Other Visit created successfully';
 
+            $activityLog = [
+                'user' => auth()->id(),
+                'action' => "visit",
+                'remarks' => "Other visit, site name: " . $request->site_name,
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+
+            storeEmployeeActivityLog($activityLog);
            
         }catch(Exception $e){
             $msg = $e->getMessage();
