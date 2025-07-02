@@ -12,7 +12,10 @@ export default function Reports() {
           </div>
           <div className="card-body">
             <div className="list-group">
-              <Link className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active">
+              <Link
+                to="/activity_log"
+                className=" mt-2 list-group-item list-group-item-action flex-column align-items-start active"
+              >
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">Activity Log</h5>
                 </div>

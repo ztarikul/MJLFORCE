@@ -23205,6 +23205,13 @@ body.dark-sidebar .main-navbar ul.nav-pills {
         -ms-flex-pack: center;
             justify-content: center; }
 
+
+.datepicker-wrapper input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
 @media only screen and (max-width: 1366px) {
   .xl-mt-job {
     margin-bottom: 20px; } }

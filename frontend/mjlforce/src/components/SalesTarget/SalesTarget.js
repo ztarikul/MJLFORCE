@@ -497,7 +497,7 @@ export default function SalesTarget() {
                       </td>
                     </tr>
                   </tbody>
-                  <tfoot className="bg-primary">
+                  <tfoot className="bg-info">
                     <th scope="col">Total</th>
                     <th scope="col">{salesVsTarget.total_target}</th>
                     <th scope="col">{salesVsTarget.total_sales}</th>
