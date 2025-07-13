@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CmaController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,11 @@ use Illuminate\Support\Facades\Route;
         Route::get('/sales_vs_target', [CmaController::class, 'salesVsTarget']);
         Route::get('/complaint', [HomeController::class, 'complaint']);
         Route::post('/store_complaint', [HomeController::class, 'storeComplaint']);
+
+         Route::group(['prefix' => 'report', 'as' => 'report.',], function () {
+            Route::get('/activity_log', [ReportController::class, 'activityLog'])->name('activityLog');
+            Route::post('/get_activity_log', [ReportController::class, 'getActivityLog'])->name('getActivityLog');
+         });
 
 
     });
