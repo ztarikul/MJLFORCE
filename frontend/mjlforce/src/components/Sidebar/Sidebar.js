@@ -66,7 +66,7 @@ export default function Sidebar(props) {
                     size={24}
                     color="currentColor"
                   />
-                  <span>Dashboard</span>
+                  <span>Accounts</span>
                   <div className="according-menu">
                     <i
                       className={
@@ -84,7 +84,7 @@ export default function Sidebar(props) {
                   }}
                 >
                   <li>
-                    <Link to="index.html">Default</Link>
+                    <Link to="index.html">Profile</Link>
                   </li>
                   <li>
                     <Link to="dashboard-02.html">Ecommerce</Link>
