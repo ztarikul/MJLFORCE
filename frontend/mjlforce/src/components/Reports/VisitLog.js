@@ -6,7 +6,7 @@ import "../../utils/datepicker.css";
 import Auth from "../../auth/Auth";
 import { format } from "date-fns";
 
-export default function ActivityLog() {
+export default function VisitLog() {
   const { http } = Auth();
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -18,7 +18,7 @@ export default function ActivityLog() {
   });
   const fetchFormData = useCallback(() => {
     http
-      .get("report/activity_log")
+      .get("report/visit_log")
       .then((res) => {
         console.log(res);
         setFetchdata(res.data);
@@ -42,14 +42,14 @@ export default function ActivityLog() {
     };
 
     http
-      .post("/report/get_activity_log", formData, {
+      .post("/report/get_visit_log", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
         console.log(res.data); // Handle success response
-        setLogs(res.data.activityLogs);
+        setLogs(res.data.visitLogs);
       })
       .catch((error) => {
         console.log(error);
@@ -66,7 +66,7 @@ export default function ActivityLog() {
           <div className="row">
             <div className="col-12">
               <div className="card-header pb-0">
-                <h5>Activity Log</h5>
+                <h5>Visit Log</h5>
               </div>
 
               <form className="form theme-form" onSubmit={formSubmit}>

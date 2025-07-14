@@ -16,6 +16,7 @@ import ShipToPartyVerify from "../components/VerifyCma/ShipToPartyVerify";
 import Complaint from "../components/Complaint/Complaint";
 import Reports from "../components/Reports/Reports";
 import ActivityLog from "../components/Reports/ActivityLog";
+import VisitLog from "../components/Reports/VisitLog";
 
 export default function AppRouter(props) {
   const routes = (
@@ -130,6 +131,14 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <ActivityLog />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/visit_log"
+        element={
+          <AuthMiddleware>
+            <VisitLog />
           </AuthMiddleware>
         }
       />

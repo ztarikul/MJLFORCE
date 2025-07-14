@@ -5,3 +5,8 @@
 
   border: 1px solid #ccc;
 }
+
+.resizable-div {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}

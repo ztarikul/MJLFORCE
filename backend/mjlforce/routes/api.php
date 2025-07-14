@@ -47,6 +47,8 @@ use Illuminate\Support\Facades\Route;
          Route::group(['prefix' => 'report', 'as' => 'report.',], function () {
             Route::get('/activity_log', [ReportController::class, 'activityLog'])->name('activityLog');
             Route::post('/get_activity_log', [ReportController::class, 'getActivityLog'])->name('getActivityLog');
+            Route::get('/visit_log', [ReportController::class, 'visitLog'])->name('visitLog');
+            Route::post('/get_visit_log', [ReportController::class, 'getVisitLog'])->name('getVisitLog');
          });
 
 
