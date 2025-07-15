@@ -17,6 +17,7 @@ import Complaint from "../components/Complaint/Complaint";
 import Reports from "../components/Reports/Reports";
 import ActivityLog from "../components/Reports/ActivityLog";
 import VisitLog from "../components/Reports/VisitLog";
+import Profile from "../components/Profile/Profile";
 
 export default function AppRouter(props) {
   const routes = (
@@ -139,6 +140,14 @@ export default function AppRouter(props) {
         element={
           <AuthMiddleware>
             <VisitLog />
+          </AuthMiddleware>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <AuthMiddleware>
+            <Profile />
           </AuthMiddleware>
         }
       />

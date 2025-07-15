@@ -84,7 +84,7 @@ export default function Sidebar(props) {
                   }}
                 >
                   <li>
-                    <Link to="index.html">Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </li>
                   <li>
                     <Link to="dashboard-02.html">Ecommerce</Link>
