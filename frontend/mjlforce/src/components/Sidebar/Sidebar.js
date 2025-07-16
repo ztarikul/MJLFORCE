@@ -16,7 +16,6 @@ export default function Sidebar(props) {
       http
         .get("/sidebar_user")
         .then((res) => {
-          console.log("sidebar", res.data);
           setSidebarUserData(res.data.sidebarUser);
         })
         .catch((res) => {
@@ -84,7 +83,7 @@ export default function Sidebar(props) {
                   }}
                 >
                   <li>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/me">Profile</Link>
                   </li>
                   <li>
                     <Link to="dashboard-02.html">Ecommerce</Link>

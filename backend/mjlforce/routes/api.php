@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
     Route::middleware(['auth:api'])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
-        Route::post('/me', [AuthController::class, 'me']);
+        Route::get('/me', [AuthController::class, 'me']);
+        Route::post('/password_change', [AuthController::class, 'passwordChange']);
         Route::get('/welcome_dashboad', [HomeController::class, 'welcomeDashboard']);
         Route::get('/sidebar_user', [HomeController::class, 'sidebarUser']);
         Route::post('/startday_attendance', [HomeController::class, 'startdayAttendance']);

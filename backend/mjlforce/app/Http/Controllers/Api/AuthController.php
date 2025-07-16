@@ -62,7 +62,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json($this->guard()->user());
+        return response()->json($this->guard()->user()->with(['employee', 'employee.designation:id,name',  'employee.businessTeam:id,name', 'employee.region:id,name', 'employee.territory:id,name', 'employee.supervisorOfEmployee:id,name',  ])->first());
     }
 
     /**
@@ -103,6 +103,26 @@ class AuthController extends Controller
             'user' => auth()->user(),
            
         ]);
+    }
+
+    public function passwordChange(Request $request)
+    {
+        // return response()->json($request->all());
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $user = auth()->user();
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response()->json(['error' => 'Old password is incorrect'], 422);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return response()->json(['message' => 'Password changed successfully']);
     }
 
     /**

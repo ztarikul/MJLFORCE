@@ -144,7 +144,7 @@ export default function AppRouter(props) {
         }
       />
       <Route
-        path="/profile"
+        path="/me"
         element={
           <AuthMiddleware>
             <Profile />
