@@ -30,10 +30,10 @@ export default function SidebarUser(props) {
       <p className="mb-0 font-roboto f-w-600">
         Total Customer - {props?.sidebarUserData?.total_customer}
       </p>
-      <p className="mb-0 font-roboto f-w-600">
+      {/* <p className="mb-0 font-roboto f-w-600">
         Total Sales Target - {props?.sidebarUserData?.total_sales_target}{" "}
         <span>Barrel</span>
-      </p>
+      </p> */}
       <p className="mb-0 font-roboto f-w-600">
         Total Sales - {props?.sidebarUserData?.total_sales} <span>Barrel</span>
       </p>

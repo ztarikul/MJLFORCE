@@ -55,7 +55,7 @@ export default function SalesTarget() {
                   <thead>
                     <tr>
                       <th scope="col">Month</th>
-                      <th scope="col">Target(Ltr.)</th>
+                      {/* <th scope="col">Target(Ltr.)</th> */}
                       <th scope="col">Sales(Ltr.)</th>
                       <th scope="col">Percent.</th>
                     </tr>
@@ -69,7 +69,7 @@ export default function SalesTarget() {
                       >
                         January
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.jan_percentage
                         )}
@@ -78,7 +78,7 @@ export default function SalesTarget() {
                         {salesVsTarget.jan_target
                           ? salesVsTarget.jan_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.jan_percentage
@@ -105,7 +105,7 @@ export default function SalesTarget() {
                       >
                         February
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.feb_percentage
                         )}
@@ -113,7 +113,7 @@ export default function SalesTarget() {
                         {salesVsTarget.feb_target
                           ? salesVsTarget.feb_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.feb_percentage
@@ -140,7 +140,7 @@ export default function SalesTarget() {
                       >
                         March
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.mar_percentage
                         )}
@@ -149,7 +149,7 @@ export default function SalesTarget() {
                         {salesVsTarget.mar_target
                           ? salesVsTarget.mar_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.mar_percentage
@@ -178,7 +178,7 @@ export default function SalesTarget() {
                       >
                         April
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.apr_percentage
                         )}
@@ -187,7 +187,7 @@ export default function SalesTarget() {
                         {salesVsTarget.apr_target
                           ? salesVsTarget.apr_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.apr_percentage
@@ -215,7 +215,7 @@ export default function SalesTarget() {
                       >
                         May
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.may_percentage
                         )}
@@ -224,7 +224,7 @@ export default function SalesTarget() {
                         {salesVsTarget.may_target
                           ? salesVsTarget.may_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.may_percentage
@@ -252,7 +252,7 @@ export default function SalesTarget() {
                       >
                         June
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.jun_percentage
                         )}
@@ -261,7 +261,7 @@ export default function SalesTarget() {
                         {salesVsTarget.jun_target
                           ? salesVsTarget.jun_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.jun_percentage
@@ -288,7 +288,7 @@ export default function SalesTarget() {
                       >
                         July
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.jul_percentage
                         )}
@@ -297,7 +297,7 @@ export default function SalesTarget() {
                         {salesVsTarget.jul_target
                           ? salesVsTarget.jul_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.jul_percentage
@@ -324,7 +324,7 @@ export default function SalesTarget() {
                       >
                         August
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.aug_percentage
                         )}
@@ -333,7 +333,7 @@ export default function SalesTarget() {
                         {salesVsTarget.aug_target
                           ? salesVsTarget.aug_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.aug_percentage
@@ -360,7 +360,7 @@ export default function SalesTarget() {
                       >
                         September
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.sep_percentage
                         )}
@@ -369,7 +369,7 @@ export default function SalesTarget() {
                         {salesVsTarget.sep_target
                           ? salesVsTarget.sep_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.sep_percentage
@@ -396,7 +396,7 @@ export default function SalesTarget() {
                       >
                         October
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.oct_percentage
                         )}
@@ -405,7 +405,7 @@ export default function SalesTarget() {
                         {salesVsTarget.oct_target
                           ? salesVsTarget.oct_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.oct_percentage
@@ -432,7 +432,7 @@ export default function SalesTarget() {
                       >
                         November
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.nov_percentage
                         )}
@@ -441,7 +441,7 @@ export default function SalesTarget() {
                         {salesVsTarget.nov_target
                           ? salesVsTarget.nov_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.nov_percentage
@@ -468,7 +468,7 @@ export default function SalesTarget() {
                       >
                         December
                       </td>
-                      <td
+                      {/* <td
                         className={getClassNameByValue(
                           salesVsTarget.dec_percentage
                         )}
@@ -477,7 +477,7 @@ export default function SalesTarget() {
                         {salesVsTarget.dec_target
                           ? salesVsTarget.dec_target
                           : 0}
-                      </td>
+                      </td> */}
                       <td
                         className={getClassNameByValue(
                           salesVsTarget.dec_percentage
