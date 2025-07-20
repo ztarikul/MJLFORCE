@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -14,4 +15,6 @@ class EmployeeController extends Controller
         $employees = Employee::orderBy('name', 'asc')->get();
         return view('employees.index', compact('employees'));
     }
+
+    
 }

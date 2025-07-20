@@ -10,6 +10,7 @@ use App\Models\Region;
 use App\Models\SoldToParty;
 use App\Models\Territory;
 use App\Models\TradeSubCategory;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class MasterDataController extends Controller
@@ -20,6 +21,41 @@ class MasterDataController extends Controller
         $customerGroups = CustomerGroup::orderBy('name', 'asc')->get();
         return view('masterData.customerGroup.index', compact('customerGroups'));
     }
+
+    public function customerGroup_store(Request $request){
+        $request->validate([
+            'name' => 'required|unique:customer_groups',
+            'code' => 'nullable|unique:customer_groups',
+            'sap_code' => 'nullable|unique:customer_groups'
+        ]);
+
+        $customerGroup = new CustomerGroup();
+        $customerGroup->name = $request->name;
+        $customerGroup->code = $request->code;
+        $customerGroup->sap_code = $request->sap_code;
+        $customerGroup->description = $request->description;
+        $customerGroup->created_by = auth()->user()->id;
+        $customerGroup->hostname = request()->ip();
+        $customerGroup->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Customer Group created successfully.',
+            'redirect_url' => route('masterDatas.customerGroupIndex')
+            
+        ]);
+    }
+
+    public function customerGroup_edit($id){
+        $customerGroup = CustomerGroup::find($id);
+
+        return response()->json([
+            'status' => 'success',
+            'customerGroup' => $customerGroup
+        ]);
+    }
+
+
     public function businessTeamIndex(){
         $businessTeams = BusinessTeam::orderBy('name', 'asc')->get();
         return view('masterData.businessTeam.index', compact('businessTeams'));

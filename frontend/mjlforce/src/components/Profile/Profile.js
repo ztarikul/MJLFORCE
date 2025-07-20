@@ -130,7 +130,7 @@ export default function Profile() {
       <div className="container-fluid">
         <div className="edit-profile">
           <div className="row">
-            <div className="col-xl-4">
+            <div className="col-md-8">
               <div className="card">
                 <div className="card-header pb-0">
                   <h4 className="card-title mb-0">My Profile</h4>

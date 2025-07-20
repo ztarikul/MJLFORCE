@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'masterData', 'as' => 'masterData.',], function () {
         Route::get('/customer_group', [MasterDataController::class, 'customerGroupIndex'])->name('customerGroupIndex');
+        Route::post('/customerGroup_store', [MasterDataController::class, 'customerGroup_store'])->name('customerGroup_store');
+        Route::get('/customerGroup_edit', [MasterDataController::class, 'customerGroup_edit'])->name('customerGroup_edit');
         Route::get('/business_team', [MasterDataController::class, 'businessTeamIndex'])->name('businessTeamIndex');
         Route::get('/regions', [MasterDataController::class, 'regionsIndex'])->name('regionsIndex');
         Route::get('/distribution_ches', [MasterDataController::class, 'distributionChannelIndex'])->name('distributionChannelIndex');

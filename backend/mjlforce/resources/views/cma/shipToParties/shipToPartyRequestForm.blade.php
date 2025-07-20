@@ -13,25 +13,29 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <h5>Ship-To-Party form</h5>
-  
+
                     </div>
                     <div class="card-body">
                         <form class="theme-form mega-form" id="shipToPartyMisToSAPForm">
                             @csrf
-                            <input type="hidden" name="ship_to_party_id" id="ship_to_party_id" value="{{ $shipToParty->id }}">
+                            <input type="hidden" name="ship_to_party_id" id="ship_to_party_id"
+                                value="{{ $shipToParty->id }}">
                             <h6>Account Information</h6>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Sold To Party Name</label>
-                                        
-                                        <input type="text"  class="form-control" name="sold_to_party_name" id="sold_to_party_name" value="{{ $shipToParty->soldToParty->acc_name }}" disabled>
+
+                                        <input type="text" class="form-control" name="sold_to_party_name"
+                                            id="sold_to_party_name" value="{{ $shipToParty->soldToParty->acc_name }}"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Customer Account Group</label>
-                                        <input type="text"  class="form-control" name="customer_type" id="customer_type" value="{{ $shipToParty->customer_acc_group }}" disabled>
+                                        <input type="text" class="form-control" name="customer_type" id="customer_type"
+                                            value="{{ $shipToParty->customer_acc_group }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -61,7 +65,8 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Sales Division</label>
                                         <input type="text" class="form-control" name="sales_division"
-                                            value="{{ $shipToParty->sales_division }}" placeholder="Sales Division" disabled>
+                                            value="{{ $shipToParty->sales_division }}" placeholder="Sales Division"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -111,7 +116,8 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Region</label>
                                         <input type="text" class="form-control customize-field" name="region"
-                                            id="region" value="{{ $shipToParty->region }}" placeholder="Region" disabled>
+                                            id="region" value="{{ $shipToParty->region }}" placeholder="Region"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -262,7 +268,7 @@
                                         <label class="col-form-label">FI Payment Terms</label>
                                         <input type="text" class="form-control" name="fi_payment_terms"
                                             value="{{ $shipToParty->fi_payment_terms }}" disabled>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -270,7 +276,7 @@
                                         <label class="col-form-label">Currency</label>
                                         <input type="text" class="form-control" id="currency" name="currency"
                                             value="{{ $shipToParty->currency }}" disabled>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -301,8 +307,8 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Other Combination</label>
                                         <input type="text" class="form-control" name="other_combination"
-                                            value="{{ $shipToParty->other_combination }}"
-                                            placeholder="Other Combination" disabled>
+                                            value="{{ $shipToParty->other_combination }}" placeholder="Other Combination"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -316,23 +322,25 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Incoterms Loc 1</label>
                                         <input type="text" class="form-control" name="incoterms_loc_1"
-                                            value="{{ $shipToParty->incoterms_loc_1 }}" placeholder="Incoterms Loc 1" disabled>
+                                            value="{{ $shipToParty->incoterms_loc_1 }}" placeholder="Incoterms Loc 1"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">SD Payment Terms</label>
-                                        <input type="text" class="form-control" name="sd_payment_terms" id="sd_payment_terms"
-                                            value="{{ $shipToParty->sd_payment_terms }}" disabled>
-                                       
+                                        <input type="text" class="form-control" name="sd_payment_terms"
+                                            id="sd_payment_terms" value="{{ $shipToParty->sd_payment_terms }}" disabled>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Account Assignment Group</label>
-                                        <input type="text" class="form-control" name="acc_assignment_group" id="acc_assignment_group"
-                                            value="{{ $shipToParty->acc_assignment_group }}" disabled>
-                                        
+                                        <input type="text" class="form-control" name="acc_assignment_group"
+                                            id="acc_assignment_group" value="{{ $shipToParty->acc_assignment_group }}"
+                                            disabled>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -345,10 +353,11 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Territory</label>
-                                         <input type="number" class="form-control" name="territory"
+                                        <input type="number" class="form-control" name="territory"
                                             value="{{ $shipToParty->soldToParty->territorySToP->sap_code }} -
-                                                {{ $shipToParty->soldToParty->territorySToP->name }}" disabled>
-                                        
+                                                {{ $shipToParty->soldToParty->territorySToP->name }}"
+                                            disabled>
+
                                     </div>
                                 </div>
 
@@ -366,18 +375,20 @@
                                         <label class="col-form-label">Trade Category</label>
                                         <input type="text" class="form-control" id="trade_category"
                                             name="trade_category"
-                                            value="{{ $shipToParty->soldToParty->tradeCategory->sap_code }} - {{ $shipToParty->soldToParty->tradeCategory->name }}" disabled>
+                                            value="{{ $shipToParty->soldToParty->tradeCategory->sap_code }} - {{ $shipToParty->soldToParty->tradeCategory->name }}"
+                                            disabled>
 
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="col-form-label">Trade Sub Category</label>
-                                         <input type="text" class="form-control" id="trade_sub_category"
+                                        <input type="text" class="form-control" id="trade_sub_category"
                                             name="trade_sub_category"
-                                            value="{{ $shipToParty->soldToParty->tradeSubCategory->sap_code }} - {{ $shipToParty->soldToParty->tradeSubCategory->name }}" disabled>
-                                        
+                                            value="{{ $shipToParty->soldToParty->tradeSubCategory->sap_code }} - {{ $shipToParty->soldToParty->tradeSubCategory->name }}"
+                                            disabled>
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -530,7 +541,7 @@
     </div>
 
 @endsection
-<script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script> --}}
 <script>
     $(document).ready(function() {
 

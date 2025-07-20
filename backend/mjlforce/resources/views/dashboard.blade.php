@@ -40,11 +40,9 @@
                             <div class="card-body text-center p-t-0">
                                 <h3 class="font-light">Wellcome Back, MIS!</h3>
                                 <p>
-                                    Welcome to the viho Family! we are glad that you are
-                                    visite this dashboard. we will be happy to help you
-                                    grow your business.
+                                    Welcome to MJL Force MIS admin dashboard.
                                 </p>
-                                <button class="btn btn-light">Update</button>
+                                <button class="btn btn-light">Go for a trip!</button>
                             </div>
                             <div class="confetti">
                                 <div class="confetti-piece"></div>

@@ -53,6 +53,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 </head>
 
 <body>
@@ -85,7 +87,7 @@
         </div>
     </div>
     <!-- latest jquery-->
-    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script> --}}
     <!-- feather icon js-->
     <script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
