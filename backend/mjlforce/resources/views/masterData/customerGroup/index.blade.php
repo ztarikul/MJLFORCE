@@ -110,6 +110,7 @@
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Group Name</label>
                                                 <input type="text" class="form-control" name="name" id="edit_name">
+                                                <input type="hidden" id="edit_id">
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Code</label>
@@ -129,7 +130,7 @@
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" type="button"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button class="btn btn-primary" type="button">Submit</button>
+                                            <button class="btn btn-primary" type="submit">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -216,11 +217,82 @@
                 });
 
             });
-            // end of submitfunction
+            // end of addfunction
 
 
+            $('#editForm').submit(function(e) {
+                let formData = new FormData(this);
+                let id = $('#edit_id').val();
+                e.preventDefault();
+                $.confirm({
+                    title: 'Confirm!',
+                    content: 'Are you sure you want to update this customer group?',
+                    btnClass: 'btn-blue',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ url('masterData/customerGroup_update') }}" +
+                                        "/" + id,
+                                    data: formData,
+                                    contentType: false,
+                                    processData: false,
+                                    cache: false,
+                                    beforeSend: function() {
+                                        $('.loader_div').show();
+                                    },
+                                    complete: function() {
+                                        $('.loader_div').hide();
+                                    },
+                                    success: function(res) {
+                                        if (res.status === 'success') {
+                                            $.toast({
+                                                heading: 'Success',
+                                                text: res.message,
+                                                icon: 'success',
+                                                position: 'top-right'
+                                            });
+                                            setTimeout(function() { // wait for 5 secs(2)
+                                                window.location.href = res
+                                                    .redirect_url; // then redirect
+                                            }, 3000);
 
+                                        } else {
 
+                                            $.toast({
+                                                heading: 'Failed',
+                                                text: res.message,
+                                                icon: 'error',
+                                                position: 'top-right'
+                                            });
+                                        }
+                                    },
+                                    error: function(error) {
+                                        // $('.loader_div').hide();
+                                        console.log(error);
+                                        $.toast({
+                                            heading: 'Error',
+                                            text: error.responseJSON
+                                                .message,
+                                            icon: 'error',
+                                            position: 'top-right'
+                                        });
+
+                                    }
+                                });
+                            }
+                        },
+                        cancel: function() {
+                            $.alert('Canceled!');
+                        },
+
+                    }
+                });
+
+            });
+            // end of editfunction
 
             ///end of jQuery Onload
         });
@@ -231,11 +303,12 @@
                 url: "{{ url('masterData/customerGroup_edit') }}" + "/" + id,
                 success: function(res) {
                     if (res.status === 'success') {
-                        console.log(res.data)
-                        $('#edit_name').val(res.data.name);
-                        $('#edit_code').val(res.data.code);
-                        $('#edit_sap_code').val(res.data.sap_code);
-                        $('#edit_description').val(res.data.description);
+                        console.log(res.customerGroup)
+                        $('#edit_id').val(res.customerGroup.id);
+                        $('#edit_name').val(res.customerGroup.name);
+                        $('#edit_code').val(res.customerGroup.code);
+                        $('#edit_sap_code').val(res.customerGroup.sap_code);
+                        $('#edit_description').val(res.customerGroup.description);
                         $('#editModal').modal('show');
                     } else {
                         $.toast({

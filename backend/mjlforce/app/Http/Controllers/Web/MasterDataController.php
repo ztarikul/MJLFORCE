@@ -41,12 +41,22 @@ class MasterDataController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Customer Group created successfully.',
-            'redirect_url' => route('masterDatas.customerGroupIndex')
+            'redirect_url' => route('masterData.customerGroupIndex')
             
         ]);
     }
 
     public function customerGroup_edit($id){
+        $customerGroup = CustomerGroup::find($id);
+
+        return response()->json([
+            'status' => 'success',
+            'customerGroup' => $customerGroup
+        ]);
+    }
+
+    public function customerGroup_update(Request $request, $id){
+        dd($request->all());
         $customerGroup = CustomerGroup::find($id);
 
         return response()->json([
