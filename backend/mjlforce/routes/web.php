@@ -40,6 +40,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/customerGroup_update/{id}', [MasterDataController::class, 'customerGroup_update'])->name('customerGroup_update');
         Route::get('/customerGroup_delete/{id}', [MasterDataController::class, 'customerGroup_delete'])->name('customerGroup_delete');
         Route::get('/business_team', [MasterDataController::class, 'businessTeamIndex'])->name('businessTeamIndex');
+         Route::post('/business_team_store', [MasterDataController::class, 'business_team_store'])->name('business_team_store');
+        Route::get('/business_team_edit/{id}', [MasterDataController::class, 'business_team_edit'])->name('business_team_edit');
+        Route::post('/business_team_update/{id}', [MasterDataController::class, 'business_team_update'])->name('business_team_update');
+        Route::get('/business_team_delete/{id}', [MasterDataController::class, 'business_team_delete'])->name('business_team_delete');
         Route::get('/regions', [MasterDataController::class, 'regionsIndex'])->name('regionsIndex');
         Route::get('/distribution_ches', [MasterDataController::class, 'distributionChannelIndex'])->name('distributionChannelIndex');
         Route::get('/territories', [MasterDataController::class, 'territoryIndex'])->name('territoryIndex');

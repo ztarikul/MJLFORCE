@@ -86,11 +86,77 @@ class MasterDataController extends Controller
         ]);
     }
 
-
+    
     public function businessTeamIndex(){
         $businessTeams = BusinessTeam::orderBy('name', 'asc')->get();
         return view('masterData.businessTeam.index', compact('businessTeams'));
     }
+
+        public function business_team_store(Request $request){
+        $request->validate([
+            'name' => 'required|unique:business_teams',
+            'code' => 'nullable|unique:business_teams',
+            'sap_code' => 'nullable|unique:business_teams'
+        ]);
+
+        $businessTeam = new BusinessTeam();
+        $businessTeam->name = $request->name;
+        $businessTeam->code = $request->code;
+        $businessTeam->sap_code = $request->sap_code;
+        $businessTeam->description = $request->description;
+        $businessTeam->created_by = auth()->user()->id;
+        $businessTeam->hostname = request()->ip();
+        $businessTeam->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Business Team created successfully.',
+            'redirect_url' => route('masterData.businessTeamIndex')
+            
+        ]);
+    }
+
+    public function business_team_edit($id){
+        $businessTeam = BusinessTeam::find($id);
+
+        return response()->json([
+            'status' => 'success',
+            'businessTeam' => $businessTeam
+        ]);
+    }
+
+    public function business_team_update(Request $request, $id){
+        $request->validate([
+            'name' => 'required|unique:business_teams,name,' . $id,
+            'code' => 'nullable|unique:business_teams,code,' . $id,
+            'sap_code' => 'nullable|unique:business_teams,sap_code,' . $id
+        ]);
+
+        $businessTeam = BusinessTeam::find($id);
+        $businessTeam->name = $request->name;
+        $businessTeam->code = $request->code;
+        $businessTeam->sap_code = $request->sap_code;
+        $businessTeam->description = $request->description;
+        $businessTeam->update();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Business Team updated successfully.",
+            'redirect_url' => route('masterData.businessTeamIndex')
+        ]);
+    }
+
+    public function business_team_delete($id){
+        // dd($id);
+        $businessTeam = BusinessTeam::find($id)->delete();
+         return response()->json([
+            'status' => 'success',
+            'message' => "Business Team deleted successfully.",
+            'redirect_url' => route('masterData.businessTeamIndex')
+        ]);
+    }
+
+
     public function regionsIndex(){
         $regions = Region::orderBy('name', 'asc')->get();
         return view('masterData.regions.index', compact('regions'));
