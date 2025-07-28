@@ -40,7 +40,8 @@
                                                     <button class="btn btn-success btn-sm"
                                                         onclick="element_edit('{{ $cg->id }}')"><i
                                                             class="fa fa-edit"></i></button>
-                                                    <button class="btn btn-danger btn-sm"><i
+                                                    <button class="btn btn-danger btn-sm"
+                                                        onclick="element_delete('{{ $cg->id }}')"><i
                                                             class="fa fa-trash-o"></i></button>
                                                 </div>
                                             </td>
@@ -327,6 +328,74 @@
                         icon: 'error',
                         position: 'top-right'
                     });
+                }
+            });
+        }
+
+        function element_delete(id) {
+            $.confirm({
+                title: 'Confirm Delete!',
+                content: 'Are you sure you want to delete this customer group?',
+                btnClass: 'btn-red',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-red',
+                        action: function() {
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ url('masterData/customerGroup_delete') }}" +
+                                    "/" + id,
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                beforeSend: function() {
+                                    $('.loader_div').show();
+                                },
+                                complete: function() {
+                                    $('.loader_div').hide();
+                                },
+                                success: function(res) {
+                                    if (res.status === 'success') {
+                                        $.toast({
+                                            heading: 'Success',
+                                            text: res.message,
+                                            icon: 'success',
+                                            position: 'top-right'
+                                        });
+                                        setTimeout(function() { // wait for 5 secs(2)
+                                            window.location.href = res
+                                                .redirect_url; // then redirect
+                                        }, 3000);
+
+                                    } else {
+
+                                        $.toast({
+                                            heading: 'Failed',
+                                            text: res.message,
+                                            icon: 'error',
+                                            position: 'top-right'
+                                        });
+                                    }
+                                },
+                                error: function(error) {
+                                    // $('.loader_div').hide();
+                                    console.log(error);
+                                    $.toast({
+                                        heading: 'Error',
+                                        text: error?.responseJSON
+                                            ?.message,
+                                        icon: 'error',
+                                        position: 'top-right'
+                                    });
+
+                                }
+                            });
+                        }
+                    },
+                    cancel: function() {
+                        $.alert('Canceled!');
+                    },
+
                 }
             });
         }

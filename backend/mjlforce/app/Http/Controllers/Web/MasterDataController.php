@@ -56,12 +56,33 @@ class MasterDataController extends Controller
     }
 
     public function customerGroup_update(Request $request, $id){
-        dd($request->all());
+        $request->validate([
+            'name' => 'required|unique:customer_groups,name,' . $id,
+            'code' => 'nullable|unique:customer_groups,code,' . $id,
+            'sap_code' => 'nullable|unique:customer_groups,sap_code,' . $id
+        ]);
+
         $customerGroup = CustomerGroup::find($id);
+        $customerGroup->name = $request->name;
+        $customerGroup->code = $request->code;
+        $customerGroup->sap_code = $request->sap_code;
+        $customerGroup->description = $request->description;
+        $customerGroup->update();
 
         return response()->json([
             'status' => 'success',
-            'customerGroup' => $customerGroup
+            'message' => "Customer Group updated successfully.",
+            'redirect_url' => route('masterData.customerGroupIndex')
+        ]);
+    }
+
+    public function customerGroup_delete($id){
+        // dd($id);
+        $customerGroup = CustomerGroup::find($id)->delete();
+         return response()->json([
+            'status' => 'success',
+            'message' => "Customer Group deleted successfully.",
+            'redirect_url' => route('masterData.customerGroupIndex')
         ]);
     }
 
