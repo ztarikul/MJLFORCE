@@ -45,7 +45,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/business_team_update/{id}', [MasterDataController::class, 'business_team_update'])->name('business_team_update');
         Route::get('/business_team_delete/{id}', [MasterDataController::class, 'business_team_delete'])->name('business_team_delete');
         Route::get('/regions', [MasterDataController::class, 'regionsIndex'])->name('regionsIndex');
+
         Route::get('/distribution_ches', [MasterDataController::class, 'distributionChannelIndex'])->name('distributionChannelIndex');
+         Route::post('/distribution_ches_store', [MasterDataController::class, 'distribution_ches_store'])->name('distribution_ches_store');
+        Route::get('/distribution_ches_edit/{id}', [MasterDataController::class, 'distribution_ches_edit'])->name('distribution_ches_edit');
+        Route::post('/distribution_ches_update/{id}', [MasterDataController::class, 'distribution_ches_update'])->name('distribution_ches_update');
+        Route::get('/distribution_ches_delete/{id}', [MasterDataController::class, 'distribution_ches_delete'])->name('distribution_ches_delete');
+
         Route::get('/territories', [MasterDataController::class, 'territoryIndex'])->name('territoryIndex');
         Route::get('/trade_categories', [MasterDataController::class, 'tradeCategoryIndex'])->name('tradeCategoryIndex');
         Route::get('/sold_to_parties', [MasterDataController::class, 'soldToParties'])->name('soldToParties');

@@ -92,7 +92,7 @@ class MasterDataController extends Controller
         return view('masterData.businessTeam.index', compact('businessTeams'));
     }
 
-        public function business_team_store(Request $request){
+    public function business_team_store(Request $request){
         $request->validate([
             'name' => 'required|unique:business_teams',
             'code' => 'nullable|unique:business_teams',
@@ -165,6 +165,71 @@ class MasterDataController extends Controller
         $distributionChes = DistributionCh::orderBy('name', 'asc')->get();
         return view('masterData.distributionChannels.index', compact('distributionChes'));
     }
+
+    public function distribution_ches_store(Request $request){
+        $request->validate([
+            'name' => 'required|unique:distribution_ches',
+            'code' => 'nullable|unique:distribution_ches',
+            'sap_code' => 'nullable|unique:distribution_ches'
+        ]);
+
+        $distributionCh = new DistributionCh();
+        $distributionCh->name = $request->name;
+        $distributionCh->code = $request->code;
+        $distributionCh->sap_code = $request->sap_code;
+        $distributionCh->description = $request->description;
+        $distributionCh->created_by = auth()->user()->id;
+        $distributionCh->hostname = request()->ip();
+        $distributionCh->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Distribution Channel created successfully.',
+            'redirect_url' => route('masterData.distributionChannelIndex')
+            
+        ]);
+    }
+
+    public function distribution_ches_edit($id){
+        $distributionCh = DistributionCh::find($id);
+
+        return response()->json([
+            'status' => 'success',
+            'distributionCh' => $distributionCh
+        ]);
+    }
+
+    public function distribution_ches_update(Request $request, $id){
+        $request->validate([
+            'name' => 'required|unique:distribution_ches,name,' . $id,
+            'code' => 'nullable|unique:distribution_ches,code,' . $id,
+            'sap_code' => 'nullable|unique:distribution_ches,sap_code,' . $id
+        ]);
+
+        $distributionCh = DistributionCh::find($id);
+        $distributionCh->name = $request->name;
+        $distributionCh->code = $request->code;
+        $distributionCh->sap_code = $request->sap_code;
+        $distributionCh->description = $request->description;
+        $distributionCh->update();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Distribution Channel updated successfully.",
+            'redirect_url' => route('masterData.distributionChannelIndex')
+        ]);
+    }
+
+    public function distribution_ches_delete($id){
+        // dd($id);
+        $distributionCh = DistributionCh::find($id)->delete();
+         return response()->json([
+            'status' => 'success',
+            'message' => "Distribution Channel deleted successfully.",
+            'redirect_url' => route('masterData.distributionChannelIndex')
+        ]);
+    }
+
     public function territoryIndex(){
         $territories = Territory::orderBy('name', 'asc')->get();
         return view('masterData.territories.index', compact('territories'));
