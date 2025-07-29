@@ -161,6 +161,72 @@ class MasterDataController extends Controller
         $regions = Region::orderBy('name', 'asc')->get();
         return view('masterData.regions.index', compact('regions'));
     }
+
+    public function regions_store(Request $request){
+        $request->validate([
+            'name' => 'required|unique:regions',
+            'code' => 'nullable|unique:regions',
+            'sap_code' => 'nullable|unique:regions'
+        ]);
+
+        $region = new Region();
+        $region->name = $request->name;
+        $region->code = $request->code;
+        $region->sap_code = $request->sap_code;
+        $region->description = $request->description;
+        $region->created_by = auth()->user()->id;
+        $region->hostname = request()->ip();
+        $region->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Region created successfully.',
+            'redirect_url' => route('masterData.regionsIndex')
+            
+        ]);
+    }
+
+    public function regions_edit($id){
+        $region = Region::find($id);
+
+        return response()->json([
+            'status' => 'success',
+            'region' => $region
+        ]);
+    }
+
+    public function regions_update(Request $request, $id){
+        $request->validate([
+            'name' => 'required|unique:regions,name,' . $id,
+            'code' => 'nullable|unique:regions,code,' . $id,
+            'sap_code' => 'nullable|unique:regions,sap_code,' . $id
+        ]);
+
+        $region = Region::find($id);
+        $region->name = $request->name;
+        $region->code = $request->code;
+        $region->sap_code = $request->sap_code;
+        $region->description = $request->description;
+        $region->update();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Region updated successfully.",
+            'redirect_url' => route('masterData.regionsIndex')
+        ]);
+    }
+
+    public function regions_delete($id){
+        // dd($id);
+        $distributionCh = Region::find($id)->delete();
+         return response()->json([
+            'status' => 'success',
+            'message' => "Region deleted successfully.",
+            'redirect_url' => route('masterData.regionsIndex')
+        ]);
+    }
+
+
     public function distributionChannelIndex(){
         $distributionChes = DistributionCh::orderBy('name', 'asc')->get();
         return view('masterData.distributionChannels.index', compact('distributionChes'));

@@ -44,10 +44,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/business_team_edit/{id}', [MasterDataController::class, 'business_team_edit'])->name('business_team_edit');
         Route::post('/business_team_update/{id}', [MasterDataController::class, 'business_team_update'])->name('business_team_update');
         Route::get('/business_team_delete/{id}', [MasterDataController::class, 'business_team_delete'])->name('business_team_delete');
+
         Route::get('/regions', [MasterDataController::class, 'regionsIndex'])->name('regionsIndex');
+        Route::post('/regions_store', [MasterDataController::class, 'regions_store'])->name('regions_store');
+        Route::get('/regions_edit/{id}', [MasterDataController::class, 'regions_edit'])->name('regions_edit');
+        Route::post('/regions_update/{id}', [MasterDataController::class, 'regions_update'])->name('regions_update');
+        Route::get('/regions_delete/{id}', [MasterDataController::class, 'regions_delete'])->name('regions_delete');
 
         Route::get('/distribution_ches', [MasterDataController::class, 'distributionChannelIndex'])->name('distributionChannelIndex');
-         Route::post('/distribution_ches_store', [MasterDataController::class, 'distribution_ches_store'])->name('distribution_ches_store');
+        Route::post('/distribution_ches_store', [MasterDataController::class, 'distribution_ches_store'])->name('distribution_ches_store');
         Route::get('/distribution_ches_edit/{id}', [MasterDataController::class, 'distribution_ches_edit'])->name('distribution_ches_edit');
         Route::post('/distribution_ches_update/{id}', [MasterDataController::class, 'distribution_ches_update'])->name('distribution_ches_update');
         Route::get('/distribution_ches_delete/{id}', [MasterDataController::class, 'distribution_ches_delete'])->name('distribution_ches_delete');
