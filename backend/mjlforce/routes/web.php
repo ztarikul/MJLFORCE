@@ -58,6 +58,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/distribution_ches_delete/{id}', [MasterDataController::class, 'distribution_ches_delete'])->name('distribution_ches_delete');
 
         Route::get('/territories', [MasterDataController::class, 'territoryIndex'])->name('territoryIndex');
+        Route::post('/territories_store', [MasterDataController::class, 'territories_store'])->name('territories_store');
+        Route::get('/territories_edit/{id}', [MasterDataController::class, 'territories_edit'])->name('territories_edit');
+        Route::post('/territories_update/{id}', [MasterDataController::class, 'territories_update'])->name('territories_update');
+        Route::get('/territories_delete/{id}', [MasterDataController::class, 'territories_delete'])->name('territories_delete');
+
+
+
         Route::get('/trade_categories', [MasterDataController::class, 'tradeCategoryIndex'])->name('tradeCategoryIndex');
         Route::get('/sold_to_parties', [MasterDataController::class, 'soldToParties'])->name('soldToParties');
 

@@ -16,28 +16,6 @@
 
                                 </div>
                             </div>
-                            {{-- Division --}}
-
-
-                            <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button class="btn-close" type="button" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">...</div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-primary" type="button"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button class="btn btn-secondary" type="button">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <div class="card-body">
@@ -61,8 +39,12 @@
                                             <td>{{ $territory->sap_code }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-success btn-sm" href="#"><i class="fa fa-edit"></i></a>
-                                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                                    <button class="btn btn-success btn-sm"
+                                                        onclick="element_edit('{{ $territory->id }}')"><i
+                                                            class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-danger btn-sm"
+                                                        onclick="element_delete('{{ $territory->id }}')"><i
+                                                            class="fa fa-trash-o"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -71,11 +53,388 @@
                             </table>
                         </div>
                     </div>
+                    {{-- create modal --}}
+                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form class="theme-form mega-form" id="addForm">
+                                    <div class="modal-body">
+
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Territory Name</label>
+                                                <input type="text" class="form-control" name="name" id="name">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Region</label>
+                                                <select class="form-select" id="region_id" name="region_id">
+                                                    <option value="">Please Select</option>
+                                                    @foreach ($regions as $region)
+                                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Code</label>
+                                                <input type="text" class="form-control" name="code" id="code">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Sap Code</label>
+                                                <input type="text" class="form-control" name="sap_code" id="sap_code">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Description</label>
+                                                <textarea class="form-control" name="description" id="description" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- edit modal --}}
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form class="theme-form mega-form" id="editForm">
+                                    <div class="modal-body">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Region Name</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    id="edit_name">
+                                                <input type="hidden" id="edit_id">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Region</label>
+                                                <select class="form-select" id="edit_region_id" name="region_id">
+
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Code</label>
+                                                <input type="text" class="form-control" name="code"
+                                                    id="edit_code">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Sap Code</label>
+                                                <input type="text" class="form-control" name="sap_code"
+                                                    id="edit_sap_code">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Description</label>
+                                                <textarea class="form-control" name="description" id="edit_description" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+
+            $('#addForm').submit(function(e) {
+                let formData = new FormData(this);
+                e.preventDefault();
+                $.confirm({
+                    title: 'Confirm!',
+                    content: 'Are you sure you want to add this territory?',
+                    btnClass: 'btn-blue',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ route('masterData.territories_store') }}",
+                                    data: formData,
+                                    contentType: false,
+                                    processData: false,
+                                    cache: false,
+                                    beforeSend: function() {
+                                        $('.loader_div').show();
+                                    },
+                                    complete: function() {
+                                        $('.loader_div').hide();
+                                    },
+                                    success: function(res) {
+                                        if (res.status === 'success') {
+                                            $.toast({
+                                                heading: 'Success',
+                                                text: res.message,
+                                                icon: 'success',
+                                                position: 'top-right'
+                                            });
+                                            setTimeout(function() { // wait for 5 secs(2)
+                                                window.location.href = res
+                                                    .redirect_url; // then redirect
+                                            }, 3000);
+
+                                        } else {
+
+                                            $.toast({
+                                                heading: 'Failed',
+                                                text: res.message,
+                                                icon: 'error',
+                                                position: 'top-right'
+                                            });
+                                        }
+                                    },
+                                    error: function(error) {
+                                        // $('.loader_div').hide();
+                                        console.log(error);
+                                        $.toast({
+                                            heading: 'Error',
+                                            text: error.responseJSON
+                                                .message,
+                                            icon: 'error',
+                                            position: 'top-right'
+                                        });
+
+                                    }
+                                });
+                            }
+                        },
+                        cancel: function() {
+                            $.alert('Canceled!');
+                        },
+
+                    }
+                });
+
+            });
+            // end of addfunction
+
+
+            $('#editForm').submit(function(e) {
+                let formData = new FormData(this);
+                let id = $('#edit_id').val();
+                e.preventDefault();
+                $.confirm({
+                    title: 'Confirm!',
+                    content: 'Are you sure you want to update this territory?',
+                    btnClass: 'btn-blue',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ url('masterData/territories_update') }}" +
+                                        "/" + id,
+                                    data: formData,
+                                    contentType: false,
+                                    processData: false,
+                                    cache: false,
+                                    beforeSend: function() {
+                                        $('.loader_div').show();
+                                    },
+                                    complete: function() {
+                                        $('.loader_div').hide();
+                                    },
+                                    success: function(res) {
+                                        if (res.status === 'success') {
+                                            $.toast({
+                                                heading: 'Success',
+                                                text: res.message,
+                                                icon: 'success',
+                                                position: 'top-right'
+                                            });
+                                            setTimeout(function() { // wait for 5 secs(2)
+                                                window.location.href = res
+                                                    .redirect_url; // then redirect
+                                            }, 3000);
+
+                                        } else {
+
+                                            $.toast({
+                                                heading: 'Failed',
+                                                text: res.message,
+                                                icon: 'error',
+                                                position: 'top-right'
+                                            });
+                                        }
+                                    },
+                                    error: function(error) {
+                                        // $('.loader_div').hide();
+                                        console.log(error);
+                                        $.toast({
+                                            heading: 'Error',
+                                            text: error.responseJSON
+                                                .message,
+                                            icon: 'error',
+                                            position: 'top-right'
+                                        });
+
+                                    }
+                                });
+                            }
+                        },
+                        cancel: function() {
+                            $.alert('Canceled!');
+                        },
+
+                    }
+                });
+
+            });
+            // end of editfunction
+
+            ///end of jQuery Onload
+        });
+
+        function element_edit(id) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('masterData/territories_edit') }}" + "/" + id,
+                success: function(res) {
+                    if (res.status === 'success') {
+                        console.log(res.territory)
+                        $('#edit_id').val(res.territory.id);
+                        $('#edit_name').val(res.territory.name);
+                        $('#edit_region_id').empty(); // Clear existing options
+
+                        // Add default option if region_id is null or undefined
+                        if (!res.territory || !res.territory.region_id) {
+                            $('#edit_region_id').append($('<option>', {
+                                value: '',
+                                text: 'Please select',
+                                selected: true,
+                                disabled: true
+                            }));
+                        }
+
+                        $.each(res.regions, function(key, value) {
+                            $('#edit_region_id').append($('<option>', {
+                                value: value.id,
+                                text: value.name,
+                                selected: (value.id === res.territory?.region_id)
+                            }));
+                        });
+                        $('#edit_code').val(res.territory.code);
+                        $('#edit_sap_code').val(res.territory.sap_code);
+                        $('#edit_description').val(res.territory.description);
+                        $('#editModal').modal('show');
+                    } else {
+                        $.toast({
+                            heading: 'Failed',
+                            text: res.message,
+                            icon: 'error',
+                            position: 'top-right'
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    $.toast({
+                        heading: 'Error',
+                        text: error.responseJSON.message,
+                        icon: 'error',
+                        position: 'top-right'
+                    });
+                }
+            });
+        }
+
+        function element_delete(id) {
+            $.confirm({
+                title: 'Confirm Delete!',
+                content: 'Are you sure you want to delete this territory?',
+                btnClass: 'btn-red',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-red',
+                        action: function() {
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ url('masterData/territories_delete') }}" +
+                                    "/" + id,
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                beforeSend: function() {
+                                    $('.loader_div').show();
+                                },
+                                complete: function() {
+                                    $('.loader_div').hide();
+                                },
+                                success: function(res) {
+                                    if (res.status === 'success') {
+                                        $.toast({
+                                            heading: 'Success',
+                                            text: res.message,
+                                            icon: 'success',
+                                            position: 'top-right'
+                                        });
+                                        setTimeout(function() { // wait for 5 secs(2)
+                                            window.location.href = res
+                                                .redirect_url; // then redirect
+                                        }, 3000);
+
+                                    } else {
+
+                                        $.toast({
+                                            heading: 'Failed',
+                                            text: res.message,
+                                            icon: 'error',
+                                            position: 'top-right'
+                                        });
+                                    }
+                                },
+                                error: function(error) {
+                                    // $('.loader_div').hide();
+                                    console.log(error);
+                                    $.toast({
+                                        heading: 'Error',
+                                        text: error?.responseJSON
+                                            ?.message,
+                                        icon: 'error',
+                                        position: 'top-right'
+                                    });
+
+                                }
+                            });
+                        }
+                    },
+                    cancel: function() {
+                        $.alert('Canceled!');
+                    },
+
+                }
+            });
+        }
+    </script>
 
 @endsection

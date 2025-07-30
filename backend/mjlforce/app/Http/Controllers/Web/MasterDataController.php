@@ -298,8 +298,78 @@ class MasterDataController extends Controller
 
     public function territoryIndex(){
         $territories = Territory::orderBy('name', 'asc')->get();
-        return view('masterData.territories.index', compact('territories'));
+        $regions = Region::orderBy('name', 'asc')->get();
+        return view('masterData.territories.index', compact('territories', 'regions'));
     }
+
+        public function territories_store(Request $request){
+        $request->validate([
+            'name' => 'required|unique:territories',
+            'code' => 'nullable|unique:territories',
+            'sap_code' => 'nullable|unique:territories'
+        ]);
+
+        $territory = new Territory();
+        $territory->name = $request->name;
+        $territory->region_id = $request->region_id;
+        $territory->code = $request->code;
+        $territory->sap_code = $request->sap_code;
+        $territory->description = $request->description;
+        $territory->created_by = auth()->user()->id;
+        $territory->hostname = request()->ip();
+        $territory->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Territory created successfully.',
+            'redirect_url' => route('masterData.territoryIndex')
+            
+        ]);
+    }
+
+    public function territories_edit($id){
+        $territory = Territory::with('region')->find($id);
+        $regions = Region::orderBy('name', 'asc')->get();
+        return response()->json([
+            'status' => 'success',
+            'territory' => $territory,
+            'regions' => $regions
+        ]);
+    }
+
+    public function territories_update(Request $request, $id){
+        $request->validate([
+            'name' => 'required|unique:territories,name,' . $id,
+            'code' => 'nullable|unique:territories,code,' . $id,
+            'sap_code' => 'nullable|unique:territories,sap_code,' . $id
+        ]);
+
+        $territory = Territory::find($id);
+        $territory->name = $request->name;
+        $territory->region_id = $request->region_id;
+        $territory->code = $request->code;
+        $territory->sap_code = $request->sap_code;
+        $territory->description = $request->description;
+        $territory->update();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Territory updated successfully.",
+            'redirect_url' => route('masterData.territoryIndex')
+        ]);
+    }
+
+    public function territories_delete($id){
+        // dd($id);
+        $territory = Territory::find($id)->delete();
+         return response()->json([
+            'status' => 'success',
+            'message' => "Territory deleted successfully.",
+            'redirect_url' => route('masterData.territoryIndex')
+        ]);
+    }
+
+
     public function tradeCategoryIndex(){
         $tradeSubCategories = TradeSubCategory::orderBy('trade_category_id', 'asc')->get();
         return view('masterData.tradeCategories.index', compact('tradeSubCategories'));
