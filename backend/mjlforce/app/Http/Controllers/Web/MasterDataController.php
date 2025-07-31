@@ -302,7 +302,7 @@ class MasterDataController extends Controller
         return view('masterData.territories.index', compact('territories', 'regions'));
     }
 
-        public function territories_store(Request $request){
+    public function territories_store(Request $request){
         $request->validate([
             'name' => 'required|unique:territories',
             'code' => 'nullable|unique:territories',
