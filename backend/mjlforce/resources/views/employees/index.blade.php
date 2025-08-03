@@ -115,7 +115,8 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Date of Join</label>
-                                                <input type="text" class="form-control" name="doj" id="doj">
+                                                <input type="text" class="form-control datepicker" name="doj"
+                                                    id="doj">
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">NKN</label>
@@ -148,10 +149,7 @@
 
                                                 </select>
                                             </div>
-                                            <div class="col-md-12">
-                                                <label class="col-form-label">Description</label>
-                                                <textarea class="form-control" name="description" id="description" rows="5"></textarea>
-                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" type="button"
@@ -178,15 +176,20 @@
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Group Name</label>
+                                                <label class="col-form-label">Name</label>
                                                 <input type="text" class="form-control" name="name"
                                                     id="edit_name">
                                                 <input type="hidden" id="edit_id">
                                             </div>
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Code</label>
-                                                <input type="text" class="form-control" name="code"
-                                                    id="edit_code">
+                                                <label class="col-form-label">Card ID</label>
+                                                <input type="text" class="form-control" name="card_id"
+                                                    id="edit_card_id">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">EMP Code</label>
+                                                <input type="text" class="form-control" name="emp_code"
+                                                    id="edit_emp_code">
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Sap Code</label>
@@ -194,9 +197,67 @@
                                                     id="edit_sap_code">
                                             </div>
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Description</label>
-                                                <textarea class="form-control" name="description" id="edit_description" rows="5"></textarea>
+                                                <label class="col-form-label">Gender</label>
+                                                <select class="form-select" id="edit_gender" name="gender">
+                                                    <option value="">Please Select</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                    <option value="3">Others</option>
+                                                </select>
                                             </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Mobile</label>
+                                                <input type="tel" class="form-control" name="mobile"
+                                                    id="edit_mobile">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    id="edit_email">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Address</label>
+                                                <input type="text" class="form-control" name="address"
+                                                    id="edit_address">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Date of Join</label>
+                                                <input type="text" class="form-control datepicker" name="doj"
+                                                    id="edit_doj">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">NKN</label>
+                                                <input type="text" class="form-control" name="nkn_code"
+                                                    id="edit_nkn_code">
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Designation</label>
+                                                <select class="form-select" id="edit_designation_id"
+                                                    name="designation_id">
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Business Team</label>
+                                                <select class="form-select" id="edit_business_team_id"
+                                                    name="business_team_id">
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Territory</label>
+                                                <select class="form-select" id="edit_territory_id" name="territory_id">
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="col-form-label">Supervsor</label>
+                                                <select class="form-select" id="edit_supervisor_id" name="supervisor_id">
+
+                                                </select>
+                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" type="button"
@@ -215,6 +276,13 @@
 
     <script>
         $(document).ready(function() {
+
+            $(".datepicker").datepicker({
+                dateFormat: "yy-mm-dd", // Format: 2025-08-01
+                changeMonth: true,
+                changeYear: true,
+
+            });
 
             $('#addForm').submit(function(e) {
                 let formData = new FormData(this);
@@ -421,18 +489,14 @@
             });
         }
 
+
         function element_edit(id) {
             $.ajax({
                 type: "GET",
-                url: "{{ url('masterData/customerGroup_edit') }}" + "/" + id,
+                url: "{{ url('employees/edit') }}" + "/" + id,
                 success: function(res) {
+                    console.log(res);
                     if (res.status === 'success') {
-                        console.log(res.customerGroup)
-                        $('#edit_id').val(res.customerGroup.id);
-                        $('#edit_name').val(res.customerGroup.name);
-                        $('#edit_code').val(res.customerGroup.code);
-                        $('#edit_sap_code').val(res.customerGroup.sap_code);
-                        $('#edit_description').val(res.customerGroup.description);
                         $('#editModal').modal('show');
                     } else {
                         $.toast({

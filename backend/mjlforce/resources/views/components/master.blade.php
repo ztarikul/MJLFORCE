@@ -38,7 +38,7 @@
     <!-- Plugins css start-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chartist.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/date-picker.css') }}" />
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/date-picker.css') }}" /> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/prism.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vector-map.css') }}" />
     <!-- Plugins css Ends-->
@@ -53,6 +53,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 </head>
@@ -121,9 +122,10 @@
     <script src="{{ asset('assets/js/vector-map/map/jquery-jvectormap-asia-mill.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard/default.js') }}"></script>
     <script src="{{ asset('assets/js/notify/index.js') }}"></script>
-    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js') }}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
-    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script> --}}
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{ asset('assets/js/script.js') }}"></script>
