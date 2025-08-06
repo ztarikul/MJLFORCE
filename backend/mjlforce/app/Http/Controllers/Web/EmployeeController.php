@@ -40,9 +40,14 @@ class EmployeeController extends Controller
      public function store(Request $request){
         // dd($request->all());
         $request->validate([
-            'name' => 'required|unique:territories',
-            'code' => 'nullable|unique:territories',
-            'sap_code' => 'nullable|unique:territories'
+            'code' => 'nullable|unique:employees',
+            'card_id' => 'nullable|unique:employees',
+            'sap_code' => 'nullable|unique:employees',
+            'email' => 'nullable|unique:employees',
+            'nkn_code' => 'nullable|unique:employees',
+            'mobile' => 'nullable|unique:employees',
+            'doj' => 'required',
+
         ]);
 
         $employee = new Employee();
@@ -87,6 +92,41 @@ class EmployeeController extends Controller
             'supervisors' => $supervisors,
             'status' => 'success',
         ], 200);
+    }
+
+    public function update(request $request, $id){
+        // dd($request->all());
+
+        $request->validate([
+            
+            'code' => 'nullable|unique:employees,code,' . $id,
+            'card_id' => 'nullable|unique:employees,card_id,' . $id,
+            'sap_code' => 'nullable|unique:employees,sap_code,' . $id,
+            'email' => 'nullable|unique:employees,email,' . $id,
+            'nkn_code' => 'nullable|unique:employees,nkn_code,' . $id,
+            'mobile' => 'nullable|unique:employees,mobile,' .$id,
+            'doj' => 'required',
+        ]);
+
+
+        $employee = Employee::find($id);
+        $employee->name = $request->name;
+        $employee->card_id = $request->card_id;
+        $employee->emp_code = $request->emp_code;
+        $employee->sap_code = $request->sap_code;
+        $employee->gender = $request->gender;
+        $employee->mobile = $request->mobile;
+        $employee->email = $request->email;
+        $employee->address = $request->address;
+        $employee->doj = $request->doj;
+        $employee->nkn_code = $request->nkn_code;
+        $employee->designation_id = $request->designation_id;
+        $employee->business_team_id = $request->business_team_id;
+        $employee->territory_id = $request->territory_id;
+        $employee->supervisor_id = $request->supervisor_id;
+        $employee->created_by = auth()->user()->id;
+        $employee->hostname = request()->ip();
+        $employee->update();
     }
 
     

@@ -199,10 +199,7 @@
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Gender</label>
                                                 <select class="form-select" id="edit_gender" name="gender">
-                                                    <option value="">Please Select</option>
-                                                    <option value="1">Male</option>
-                                                    <option value="2">Female</option>
-                                                    <option value="3">Others</option>
+                                                    
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
@@ -371,7 +368,7 @@
                             action: function() {
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{ url('masterData/customerGroup_update') }}" +
+                                    url: "{{ url('employees/update') }}" +
                                         "/" + id,
                                     data: formData,
                                     contentType: false,
@@ -497,6 +494,59 @@
                 success: function(res) {
                     console.log(res);
                     if (res.status === 'success') {
+                        $('#edit_id').val(res.employee.id);
+                        $('#edit_name').val(res.employee.name);
+                        $('#edit_card_id').val(res.employee.card_id);
+                        $('#edit_emp_code').val(res.employee.emp_code);
+                        $('#edit_sap_code').val(res.employee.sap_code);
+                        res.employee.gender === "1" ? $('#edit_gender').append(`
+                                                    <option value="1" seleceted>Male</option>
+                                                    <option value="2">Female</option>
+                                                    <option value="3">Others</option>`) : (res.employee.gender === "2" ? $('edit_gender').append(`
+                                                    <option value="1">Male</option>
+                                                    <option value="2" selected>Female</option>
+                                                    <option value="3">Others</option>`) : $('edit_gender').append(`
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                    <option value="3" selected>Others</option>`)); 
+                        $('#edit_mobile').val(res.employee.mobile);
+                        $('#edit_email').val(res.employee.email);
+                        $('#edit_address').val(res.employee.address);
+                        $('#edit_doj').val(res.employee.doj);
+                        $('#edit_nkn_code').val(res.employee.nkn_code); 
+                        
+                        let _businessTeams = res.employee.business_team ? '<option value="'+res.employee.business_team.id+'">'+res.employee.business_team.name+'</option>' : '<option value="">Please Select</option>';
+                        $.each(res.businessTeams, function(key, value) {
+                            if (value.id !== res.employee.business_team?.id) {
+                                _businessTeams += `<option value="${value.id}">${value.name}</option>`;
+                            }
+                        });
+                        $('#edit_business_team_id').html(_businessTeams);
+
+                        let _designations = res.employee.designation ? '<option value="'+res.employee.designation.id+'">'+res.employee.designation.name+'</option>' : '<option value="">Please Select</option>';
+                        $.each(res.designations, function(key, value) {
+                            if (value.id !== res.employee.designations?.id) {
+                                _designations += `<option value="${value.id}">${value.name}</option>`;
+                            }
+                        });
+                        $('#edit_designation_id').html(_designations);
+
+                        let _territories = res.employee.territory ? '<option value="'+res.employee.territory.id+'">'+res.employee.territory.name+'</option>' : '<option value="">Please Select</option>';
+                        $.each(res.territories, function(key, value) {
+                            if (value.id !== res.employee.designations?.id) {
+                                _territories += `<option value="${value.id}">${value.name}</option>`;
+                            }
+                        });
+                        $('#edit_territory_id').html(_territories);
+
+                        let _supervisors = res.employee.supervisor_of_employee ? '<option value="'+res.employee.supervisor_of_employee.id+'">'+res.employee.supervisor_of_employee.name+'</option>' : '<option value="">Please Select</option>';
+                        $.each(res.supervisors, function(key, value) {
+                            if (value.id !== res.employee.designations?.id) {
+                                _supervisors += `<option value="${value.id}">${value.name}</option>`;
+                            }
+                        });
+                        $('#edit_supervisor_id').html(_supervisors);
+
                         $('#editModal').modal('show');
                     } else {
                         $.toast({
