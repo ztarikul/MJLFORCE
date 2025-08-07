@@ -87,12 +87,12 @@ Route::group(['middleware' => ['auth']], function () {
 
      Route::group(['prefix' => 'roles', 'as' => 'roles.',], function () {
         Route::get('/', [RoleController::class, 'index'])->name('index');
-        // Route::get('/create', [RoleController::class, 'create'])->name('create');
-        // Route::post('/store', [RoleController::class, 'store'])->name('store');
-        // Route::get('/show/{id}', [RoleController::class, 'show'])->name('show');
-        // Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
-        // Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
-        // Route::get('/destroy/{id}', [RoleController::class, 'destroy'])->name('destroy');
+        Route::get('/create', [RoleController::class, 'create'])->name('create');
+        Route::post('/store', [RoleController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [RoleController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [RoleController::class, 'destroy'])->name('destroy');
 
         // Route::get('permissions/', [RoleController::class, 'permission_index'])->name('permission_index');
         // Route::post('permissions_store/', [RoleController::class, 'permissions_store'])->name('permissions_store');
