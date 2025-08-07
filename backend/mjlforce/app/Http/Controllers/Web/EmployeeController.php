@@ -127,6 +127,22 @@ class EmployeeController extends Controller
         $employee->created_by = auth()->user()->id;
         $employee->hostname = request()->ip();
         $employee->update();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Employee updated successfully.',
+            'redirect_url' => route('employees.index')
+        ]);
+    }
+
+    public function delete($id){
+        $employee  = Employee::find($id)->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Employee deleted successfully.',
+            'redirect_url' => route('employees.index')
+        ]);
     }
 
     
