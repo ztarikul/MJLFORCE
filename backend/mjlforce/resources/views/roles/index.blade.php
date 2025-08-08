@@ -85,7 +85,7 @@
                                                 @foreach ($permissions as $idx => $permission)
                                                     <label class="d-block" for="chk-ani">
                                                         <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                                                            value="{{ $permission->id }}" name="permission[]">
+                                                            value="{{ $permission->name }}" name="permission[]">
                                                         {{ $permission->name }}
                                                     </label>
                                                 @endforeach
@@ -116,23 +116,23 @@
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Group Name</label>
+                                                <label class="col-form-label">Role Name</label>
                                                 <input type="text" class="form-control" name="name" id="edit_name">
                                                 <input type="hidden" id="edit_id">
                                             </div>
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Code</label>
-                                                <input type="text" class="form-control" name="code"
-                                                    id="edit_code">
+                                                <label class="col-form-label">Guard Name</label>
+                                                <input type="text" class="form-control" name="guard_name"
+                                                    id="edit_guard_name">
                                             </div>
-                                            <div class="col-md-12">
-                                                <label class="col-form-label">Sap Code</label>
-                                                <input type="text" class="form-control" name="sap_code"
-                                                    id="edit_sap_code">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label class="col-form-label">Description</label>
-                                                <textarea class="form-control" name="description" id="edit_description" rows="5"></textarea>
+                                            <div class="col-md-12 mt-3" id="permission_list">
+                                                
+                                                    {{-- <label class="d-block" for="chk-ani">
+                                                        <input class="checkbox_animated" id="chk-ani" type="checkbox"
+                                                            value="{{ $permission->name }}" name="permission[]">
+                                                        {{ $permission->name }}
+                                                    </label>
+                                                --}}
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -232,7 +232,7 @@
                 e.preventDefault();
                 $.confirm({
                     title: 'Confirm!',
-                    content: 'Are you sure you want to update this customer group?',
+                    content: 'Are you sure you want to update this role?',
                     btnClass: 'btn-blue',
                     buttons: {
                         confirm: {
@@ -240,7 +240,7 @@
                             action: function() {
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{ url('masterData/customerGroup_update') }}" +
+                                    url: "{{ url('roles/update') }}" +
                                         "/" + id,
                                     data: formData,
                                     contentType: false,
@@ -306,15 +306,23 @@
         function element_edit(id) {
             $.ajax({
                 type: "GET",
-                url: "{{ url('masterData/customerGroup_edit') }}" + "/" + id,
+                url: "{{ url('roles/edit') }}" + "/" + id,
                 success: function(res) {
                     if (res.status === 'success') {
-                        console.log(res.customerGroup)
-                        $('#edit_id').val(res.customerGroup.id);
-                        $('#edit_name').val(res.customerGroup.name);
-                        $('#edit_code').val(res.customerGroup.code);
-                        $('#edit_sap_code').val(res.customerGroup.sap_code);
-                        $('#edit_description').val(res.customerGroup.description);
+                        console.log(res)
+
+                        $('#edit_id').val(res.role.id);
+                        $('#edit_name').val(res.role.name);
+                        $('#edit_guard_name').val(res.role.guard_name);
+                        let _permissions = "";
+                        $.each(res.permissions, function(index, permission) {
+                            _permissions += `<label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated" id="chk-ani" type="checkbox"
+                                                value="${permission.name}" name="permission[]" ${res.rolePermissions.includes(permission.name) ? 'checked' : ''}>
+                                                ${permission.name}
+                                            </label>`;
+                        });
+                        $('#permission_list').html(_permissions);
                         $('#editModal').modal('show');
                     } else {
                         $.toast({
@@ -340,7 +348,7 @@
         function element_delete(id) {
             $.confirm({
                 title: 'Confirm Delete!',
-                content: 'Are you sure you want to delete this customer group?',
+                content: 'Are you sure you want to delete this role?',
                 btnClass: 'btn-red',
                 buttons: {
                     confirm: {
@@ -348,7 +356,7 @@
                         action: function() {
                             $.ajax({
                                 type: "GET",
-                                url: "{{ url('masterData/customerGroup_delete') }}" +
+                                url: "{{ url('roles/delete') }}" +
                                     "/" + id,
                                 contentType: false,
                                 processData: false,
