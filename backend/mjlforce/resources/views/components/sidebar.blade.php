@@ -59,12 +59,12 @@
                         <a class="nav-link menu-title" href="javascript:void(0)"><i
                                 data-feather="layout"></i><span>Reports</span></a>
                         <ul class="nav-submenu menu-content">
-                            <li><a href="box-layout.html">Boxed</a></li>
+                            {{-- <li><a href="box-layout.html">Boxed</a></li>
                             <li><a href="layout-rtl.html">RTL</a></li>
                             <li><a href="layout-dark.html">Dark</a></li>
                             <li><a href="footer-light.html">Footer Light</a></li>
                             <li><a href="footer-dark.html">Footer Dark</a></li>
-                            <li><a href="footer-fixed.html">Footer Fixed</a></li>
+                            <li><a href="footer-fixed.html">Footer Fixed</a></li> --}}
                         </ul>
                     </li>
 
@@ -79,23 +79,7 @@
 
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="nav-link menu-title" href="javascript:void(0)"><i
-                                data-feather="bar-chart"></i><span>Charts</span></a>
-                        <ul class="nav-submenu menu-content">
-                            <li><a href="chart-apex.html">Apex Chart</a></li>
-                            <li><a href="chart-google.html">Google Chart</a></li>
-                            <li>
-                                <a href="chart-sparkline.html">Sparkline chart</a>
-                            </li>
-                            <li><a href="chart-flot.html">Flot Chart</a></li>
-                            <li><a href="chart-knob.html">Knob Chart</a></li>
-                            <li><a href="chart-morris.html">Morris Chart</a></li>
-                            <li><a href="chartjs.html">Chatjs Chart</a></li>
-                            <li><a href="chartist.html">Chartist Chart</a></li>
-                            <li><a href="chart-peity.html">Peity Chart</a></li>
-                        </ul>
-                    </li>
+                 
 
 
                 </ul>

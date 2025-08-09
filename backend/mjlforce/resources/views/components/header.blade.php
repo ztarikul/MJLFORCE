@@ -28,10 +28,10 @@
                     <ul class="notification-dropdown onhover-show-div">
                         <li>
                             <p class="f-w-700 mb-0">
-                                You have 3 Notifications<span class="pull-right badge badge-primary badge-pill">4</span>
+                                You have 0 Notifications<span class="pull-right badge badge-primary badge-pill">0</span>
                             </p>
                         </li>
-                        <li class="noti-primary">
+                        {{-- <li class="noti-primary">
                             <div class="media">
                                 <span class="notification-bg bg-light-primary"><i data-feather="activity"> </i></span>
                                 <div class="media-body">
@@ -67,7 +67,7 @@
                                     <span>6 hour ago</span>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li>
@@ -76,7 +76,7 @@
                 <li class="onhover-dropdown">
                     <i data-feather="message-square"></i>
                     <ul class="chat-dropdown onhover-show-div">
-                        <li>
+                        {{-- <li>
                             <div class="media">
                                 <img class="img-fluid rounded-circle me-3" src="../assets/images/user/4.jpg"
                                     alt="" />
@@ -114,7 +114,7 @@
                                 </div>
                                 <p class="f-12">1 hr ago</p>
                             </div>
-                        </li>
+                        </li> --}}
                         <li class="text-center">
                             <a class="f-w-700" href="javascript:void(0)">See All </a>
                         </li>

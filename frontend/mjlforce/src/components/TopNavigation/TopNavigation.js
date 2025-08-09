@@ -61,7 +61,7 @@ export default function TopNavigation(props) {
         <div className="left-menu-header col">
           <ul>
             <li>
-              <form className="form-inline search-form">
+              {/* <form className="form-inline search-form">
                 <div className="search-bg">
                   <i className="fa fa-search"></i>
                   <input
@@ -69,7 +69,7 @@ export default function TopNavigation(props) {
                     placeholder="Search here....."
                   />
                 </div>
-              </form>
+              </form> */}
               <span className="d-sm-none mobile-search search-bg">
                 <i className="fa fa-search"></i>
               </span>
@@ -86,13 +86,13 @@ export default function TopNavigation(props) {
               <ul className="notification-dropdown onhover-show-div">
                 <li>
                   <p className="f-w-700 mb-0">
-                    You have 3 Notifications
+                    You have 0 Notifications
                     <span className="pull-right badge badge-primary badge-pill">
-                      4
+                      0
                     </span>
                   </p>
                 </li>
-                <li className="noti-primary">
+                {/* <li className="noti-primary">
                   <div className="media">
                     <span className="notification-bg bg-light-primary">
                       <i data-feather="activity"> </i>
@@ -135,13 +135,13 @@ export default function TopNavigation(props) {
                       <span>6 hour ago</span>
                     </div>
                   </div>
-                </li>
+                </li> */}
               </ul>
             </li>
 
             <li className="onhover-dropdown">
               <MessageSquare />
-              <ul className="chat-dropdown onhover-show-div">
+              {/* <ul className="chat-dropdown onhover-show-div">
                 <li>
                   <div className="media">
                     <img
@@ -195,7 +195,7 @@ export default function TopNavigation(props) {
                     See All{" "}
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </li>
             <li className="onhover-dropdown p-0">
               <button className="btn btn-primary-light" type="button">
