@@ -80,5 +80,24 @@ class RoleController extends Controller
         return view('roles.userRolePermission_index', compact('users'));
     }
 
+    public function userRolePermission_edit($userId){
+        $user = User::find($userId);
+        $roles = Role::orderBy('name', 'asc')->get();
+        $permissions = Permission::orderBy('name', 'asc')->get();
+        $userRoles = $user->roles->pluck('name')->all();
+        $userPermissionsViaRoles = $user->getPermissionsViaRoles()->pluck('name')->all();
+        $userDirectPermissions = $user->getDirectPermissions()->pluck('name')->all();
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'roles' => $roles,
+            'permissions' => $permissions,
+            'userRoles' => $userRoles,
+            'userPermissionsViaRoles' => $userPermissionsViaRoles,
+            'userDirectPermissions' => $userDirectPermissions
+        ]);
+    }
+
   
 }

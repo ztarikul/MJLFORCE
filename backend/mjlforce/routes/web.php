@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
         // Route::get('permissions_destroy/{id}', [RoleController::class, 'permissions_destroy'])->name('permissions_destroy');
 
         Route::get('userRolePermission/', [RoleController::class, 'userRolePermission_index'])->name('userRolePermission_index');
-        // Route::get('userRolePermission_edit/{userId}', [RoleController::class, 'userRolePermission_edit'])->name('userRolePermission_edit');
+        Route::get('userRolePermission_edit/{userId}', [RoleController::class, 'userRolePermission_edit'])->name('userRolePermission_edit');
         // Route::post('userRolePermission_update/{userId}', [RoleController::class, 'userRolePermission_update'])->name('userRolePermission_update');
     });
 
