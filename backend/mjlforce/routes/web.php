@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\CmaController;
 use App\Http\Controllers\Web\EmployeeController;
 use App\Http\Controllers\Web\LocationController;
@@ -103,6 +104,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('userRolePermission/', [RoleController::class, 'userRolePermission_index'])->name('userRolePermission_index');
         // Route::get('userRolePermission_edit/{userId}', [RoleController::class, 'userRolePermission_edit'])->name('userRolePermission_edit');
         // Route::post('userRolePermission_update/{userId}', [RoleController::class, 'userRolePermission_update'])->name('userRolePermission_update');
+    });
+
+    
+     Route::group(['prefix' => 'users', 'as' => 'users.',], function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/store', [UserController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+
+       
     });
 });
 

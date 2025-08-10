@@ -57,6 +57,14 @@
 
                     <li class="dropdown">
                         <a class="nav-link menu-title" href="javascript:void(0)"><i
+                                data-feather="layout"></i><span>Admin</span></a>
+                        <ul class="nav-submenu menu-content">
+                            <li><a href="{{ route('users.index') }}">User</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link menu-title" href="javascript:void(0)"><i
                                 data-feather="layout"></i><span>Reports</span></a>
                         <ul class="nav-submenu menu-content">
                             {{-- <li><a href="box-layout.html">Boxed</a></li>
@@ -79,7 +87,7 @@
 
                         </ul>
                     </li>
-                 
+
 
 
                 </ul>
