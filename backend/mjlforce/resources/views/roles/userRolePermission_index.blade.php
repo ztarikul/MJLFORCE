@@ -83,6 +83,9 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Role</label>
+                                                <div class="row" id="role_name_div">
+                                                {{-- Coming from Jquery --}}
+                                                </div>
 
                                             </div>
                                             <hr />
@@ -90,7 +93,9 @@
                                                 <label class="col-form-label">Permission</label>
                                                 <span class="text-secondary"><i>(Permission those are already assigned by
                                                         Roles are not allowed to change)</i></span>
-
+                                                    <div class="row" id="permission_via_role_name_div">
+                                                        {{-- Coming from Jquery --}}
+                                                    </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -198,22 +203,38 @@
                 url: "{{ url('roles/userRolePermission_edit') }}" + "/" + id,
                 success: function(res) {
                     if (res.status === 'success') {
-                        console.log(res)
+                        console.log(res);
 
-                        // $('#edit_id').val(res.role.id);
-                        // $('#edit_name').val(res.role.name);
-                        // $('#edit_guard_name').val(res.role.guard_name);
-                        // let _permissions = "";
-                        // $.each(res.permissions, function(index, permission) {
-                        //     _permissions += `<label class="d-block" for="chk-ani">
-                    //                         <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                    //                         value="${permission.name}" name="permission[]" ${res.rolePermissions.includes(permission.name) ? 'checked' : ''}>
-                    //                         ${permission.name}
-                    //                     </label>`;
-                        // });
-                        // $('#permission_list').html(_permissions);
+                       $('#username').val(res.user.username);
+                        var userRoles = Object.values(res.userRoles);
+                        var userPermissionsViaRoles = Object.values(res.userPermissionsViaRoles);
+                        var userDirectPermissions = Object.values(res.userDirectPermissions);
+                        var _roleNameHtml = '';
+                        res.roles.map(role => {
+                        _roleNameHtml += `<label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated" id="chk-ani" type="checkbox"
+                                                value="${role.name}" name="role_id[]" ${userRoles.includes(role.name) ? 'checked' : ''}>
+                                                ${role.name}
+                                            </label>`;
+                        });
+
+                        $('#role_name_div').html(_roleNameHtml);
+
+                        var _permissionsHtml = '';
+                        res.permissions.map(permission => {
+                       
+                        _permissionsHtml += `<label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated" id="chk-ani" type="checkbox"
+                                                value="${permission.name}" name="permission_id[]" ${userPermissionsViaRoles.includes(permission.id) ? 'checked disabled' : (userDirectPermissions.includes(permission.id) ? 'checked' : "")}>
+                                                ${permission.name}
+                                            </label>`;
+                        
+                        
+                        
+                        });
+                        $('#permission_via_role_name_div').html(_permissionsHtml);
                         $('#editModal').modal('show');
-                    } else {
+                    }else {
                         $.toast({
                             heading: 'Failed',
                             text: res.message,
