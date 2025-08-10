@@ -35,6 +35,7 @@ export default function Profile() {
     http
       .get("/me")
       .then((res) => {
+        console.log(res);
         setFetchdata({
           address: res.data.employee.address,
           business_team: res.data.employee.business_team,

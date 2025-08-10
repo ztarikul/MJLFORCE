@@ -62,7 +62,14 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json($this->guard()->user()->with(['employee', 'employee.designation:id,name',  'employee.businessTeam:id,name', 'employee.region:id,name', 'employee.territory:id,name', 'employee.supervisorOfEmployee:id,name',  ])->first());
+        $user = auth('api')->user();
+        $employee = Employee::with(['designation:id,name',  'businessTeam:id,name', 'region:id,name', 'territory:id,name', 'supervisorOfEmployee:id,name'])->where('user_id', $user->id)->first();
+
+        return response()->json([
+            'user' => $user,
+            'employee' => $employee,
+        ]);
+        
     }
 
     /**
