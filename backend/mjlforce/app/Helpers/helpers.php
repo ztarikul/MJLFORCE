@@ -62,6 +62,7 @@ if (!function_exists('storeEmployeeActivityLog')) {
             'action' => $data['action'],
             'remarks' => $data['remarks'],
             'log_type' => $data['log_type'],
+            'address' => $data['address'] ?? null,
             'lat' => $data['lat'],
             'long' => $data['long'],
             'created_by' => auth()->user()->id,

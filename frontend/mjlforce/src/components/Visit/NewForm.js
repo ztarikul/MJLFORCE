@@ -239,7 +239,7 @@ export default function NewForm() {
       text: "Do you want to check-in? This action will take your current location",
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes, submit it!",
+      confirmButtonText: "check me in!",
       cancelButtonText: "Cancel",
     });
     locationHadler();

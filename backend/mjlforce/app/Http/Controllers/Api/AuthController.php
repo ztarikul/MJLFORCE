@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -62,7 +63,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        $user = auth('api')->user();
+        $user = auth()->user();
         $employee = Employee::with(['designation:id,name',  'businessTeam:id,name', 'region:id,name', 'territory:id,name', 'supervisorOfEmployee:id,name'])->where('user_id', $user->id)->first();
 
         return response()->json([
@@ -120,7 +121,7 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
-        $user = auth()->user();
+        $user = auth('api')->user();
 
         if (!Hash::check($request->old_password, $user->password)) {
             return response()->json(['error' => 'Old password is incorrect'], 422);
@@ -137,12 +138,39 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Contracts\Auth\Guard
      */
-    public function guard()
-    {
-        return Auth::guard('api');
-    }
+
 
     public function checkIn(Request $request){
-         return response()->json($request->all());
+        //  return response()->json($request->all());
+        $lat = $request->lat;
+        $long = $request->long;
+
+        if($lat == null || $long == null){
+            return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
+        }
+
+        $locationResponse = getReverseGeoLocation($lat, $long);
+        if(isset($locationResponse->original) && $locationResponse->original['error']){
+             return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+        }else{
+            
+            $activityLog = [
+                'user' => auth()->id(),
+                'action' => "checked-in",
+                'remarks' => "Checked-in "  . Carbon::now()->toDateTimeString(),
+                'address' => $locationResponse['display_name'],
+                'log_type' => 2,// General actions
+                'lat' => $request->lat,
+                'long' => $request->long,
+
+            ];
+        }
+        storeEmployeeActivityLog($activityLog);
+
+
+    }
+
+    public function guard(){
+        return Auth::guard('api');
     }
 }
