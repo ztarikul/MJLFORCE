@@ -141,4 +141,8 @@ class AuthController extends Controller
     {
         return Auth::guard('api');
     }
+
+    public function checkIn(Request $request){
+         return response()->json($request->all());
+    }
 }

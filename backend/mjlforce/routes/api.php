@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/refresh', [AuthController::class, 'refresh']);
         Route::get('/me', [AuthController::class, 'me']);
         Route::post('/password_change', [AuthController::class, 'passwordChange']);
+        Route::post('/check_in', [AuthController::class, 'checkIn']);
         Route::get('/welcome_dashboad', [HomeController::class, 'welcomeDashboard']);
         Route::get('/sidebar_user', [HomeController::class, 'sidebarUser']);
         Route::post('/startday_attendance', [HomeController::class, 'startdayAttendance']);

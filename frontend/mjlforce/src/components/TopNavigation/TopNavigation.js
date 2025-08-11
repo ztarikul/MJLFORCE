@@ -70,9 +70,9 @@ export default function TopNavigation(props) {
                   />
                 </div>
               </form> */}
-              <span className="d-sm-none mobile-search search-bg">
+              {/* <span className="d-sm-none mobile-search search-bg">
                 <i className="fa fa-search"></i>
-              </span>
+              </span> */}
             </li>
           </ul>
         </div>

@@ -61,16 +61,11 @@ export default function NewForm() {
   }, []);
 
   useEffect(() => {
+    locationHadler();
     fetchFormData();
   }, [fetchFormData]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
+  const locationHadler = () => {
     if (!formData.lat && !formData.long) {
       getCurrentLocation()
         .then((location) => {
@@ -108,6 +103,16 @@ export default function NewForm() {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    locationHadler();
+  };
+
   const formSubmit = async (e) => {
     e.preventDefault();
 
@@ -128,6 +133,7 @@ export default function NewForm() {
           },
         })
         .then((res) => {
+          console.log(res);
           Swal.fire({
             title: "Submitted!",
             text: "Your form has been submitted.",
@@ -227,10 +233,61 @@ export default function NewForm() {
     }));
   };
 
+  const checkInHandler = async (e) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to check-in? This action will take your current location",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "Cancel",
+    });
+    locationHadler();
+    if (formData.lat == "" || formData.long == "") {
+      console.log("empty");
+    }
+
+    if (result.isConfirmed) {
+      http
+        .post("/check_in", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "Submitted!",
+            text: "You have checked in",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
+        });
+    }
+  };
+
   return (
     <form className="form theme-form" onSubmit={formSubmit}>
       <div className="card-body">
         <div className="row">
+          <div className="col-12">
+            <div className="mb-3">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={checkInHandler}
+              >
+                Check-in
+              </button>
+            </div>
+          </div>
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="customer_name">

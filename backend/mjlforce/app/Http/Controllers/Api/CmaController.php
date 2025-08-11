@@ -50,6 +50,8 @@ class CmaController extends Controller
 
     public function storeSoldToParty(Request $request){
         $msg = "";
+
+        return response()->json($request->all());
         
         $request->validate([
             'account_name' => 'required',

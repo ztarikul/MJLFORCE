@@ -1,5 +1,5 @@
 @extends('components.master')
-@section('title', 'Role Management')
+@section('title', 'User Role & Permission Management')
 @section('content')
 
     <div class="container-fluid">
@@ -88,7 +88,10 @@
                                                 </div>
 
                                             </div>
-                                            <hr />
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+
                                             <div class="col-md-12 mt-3">
                                                 <label class="col-form-label">Permission</label>
                                                 <span class="text-secondary"><i>(Permission those are already assigned by

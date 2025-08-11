@@ -102,8 +102,8 @@ class RoleController extends Controller
     public function userRolePermission_update(Request $request, $userId){
 
         // dd($request->all());
-        $permissions = $request->input('permission', []);
-        $roles = $request->input('role', []);
+        $permissions = $request->input('permission');
+        $roles = $request->input('role');
         $user = User::find($userId);
 
         if($request->has('permission_id')){
