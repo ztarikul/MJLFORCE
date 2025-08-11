@@ -84,7 +84,7 @@
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Role</label>
                                                 <div class="row" id="role_name_div">
-                                                {{-- Coming from Jquery --}}
+                                                    {{-- Coming from Jquery --}}
                                                 </div>
 
                                             </div>
@@ -93,9 +93,9 @@
                                                 <label class="col-form-label">Permission</label>
                                                 <span class="text-secondary"><i>(Permission those are already assigned by
                                                         Roles are not allowed to change)</i></span>
-                                                    <div class="row" id="permission_via_role_name_div">
-                                                        {{-- Coming from Jquery --}}
-                                                    </div>
+                                                <div class="row" id="permission_via_role_name_div">
+                                                    {{-- Coming from Jquery --}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -122,11 +122,11 @@
 
             $('#editForm').submit(function(e) {
                 let formData = new FormData(this);
-                let id = $('#edit_id').val();
+                let id = $('#edit_user_id').val();
                 e.preventDefault();
                 $.confirm({
                     title: 'Confirm!',
-                    content: 'Are you sure you want to update this role?',
+                    content: 'Are you sure you want to update this roles & permissions?',
                     btnClass: 'btn-blue',
                     buttons: {
                         confirm: {
@@ -134,7 +134,7 @@
                             action: function() {
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{ url('roles/update') }}" +
+                                    url: "{{ url('roles/userRolePermission_update') }}" +
                                         "/" + id,
                                     data: formData,
                                     contentType: false,
@@ -204,16 +204,16 @@
                 success: function(res) {
                     if (res.status === 'success') {
                         console.log(res);
-
-                       $('#username').val(res.user.username);
+                        $('#edit_user_id').val(id);
+                        $('#username').val(res.user.username);
                         var userRoles = Object.values(res.userRoles);
                         var userPermissionsViaRoles = Object.values(res.userPermissionsViaRoles);
                         var userDirectPermissions = Object.values(res.userDirectPermissions);
                         var _roleNameHtml = '';
                         res.roles.map(role => {
-                        _roleNameHtml += `<label class="d-block" for="chk-ani">
-                                                <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                                                value="${role.name}" name="role_id[]" ${userRoles.includes(role.name) ? 'checked' : ''}>
+                            _roleNameHtml += `<label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated" id="chk-ani" type="checkbox" onclick="roleClick();"
+                                                value="${role.name}" name="role[]" ${userRoles.includes(role.name) ? 'checked' : ''}>
                                                 ${role.name}
                                             </label>`;
                         });
@@ -222,19 +222,19 @@
 
                         var _permissionsHtml = '';
                         res.permissions.map(permission => {
-                       
-                        _permissionsHtml += `<label class="d-block" for="chk-ani">
-                                                <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                                                value="${permission.name}" name="permission_id[]" ${userPermissionsViaRoles.includes(permission.id) ? 'checked disabled' : (userDirectPermissions.includes(permission.id) ? 'checked' : "")}>
+
+                            _permissionsHtml += `<label class="d-block" for="chk-ani">
+                                                <input class="checkbox_animated permission" id="chk-ani" type="checkbox"
+                                                value="${permission.name}" name="permission[]" ${userPermissionsViaRoles.includes(permission.name) ? 'checked disabled' : (userDirectPermissions.includes(permission.name) ? 'checked' : "")}>
                                                 ${permission.name}
                                             </label>`;
-                        
-                        
-                        
+
+
+
                         });
                         $('#permission_via_role_name_div').html(_permissionsHtml);
                         $('#editModal').modal('show');
-                    }else {
+                    } else {
                         $.toast({
                             heading: 'Failed',
                             text: res.message,
@@ -255,72 +255,8 @@
             });
         }
 
-        function element_delete(id) {
-            $.confirm({
-                title: 'Confirm Delete!',
-                content: 'Are you sure you want to delete this role?',
-                btnClass: 'btn-red',
-                buttons: {
-                    confirm: {
-                        btnClass: 'btn-red',
-                        action: function() {
-                            $.ajax({
-                                type: "GET",
-                                url: "{{ url('roles/delete') }}" +
-                                    "/" + id,
-                                contentType: false,
-                                processData: false,
-                                cache: false,
-                                beforeSend: function() {
-                                    $('.loader_div').show();
-                                },
-                                complete: function() {
-                                    $('.loader_div').hide();
-                                },
-                                success: function(res) {
-                                    if (res.status === 'success') {
-                                        $.toast({
-                                            heading: 'Success',
-                                            text: res.message,
-                                            icon: 'success',
-                                            position: 'top-right'
-                                        });
-                                        setTimeout(function() { // wait for 5 secs(2)
-                                            window.location.href = res
-                                                .redirect_url; // then redirect
-                                        }, 3000);
-
-                                    } else {
-
-                                        $.toast({
-                                            heading: 'Failed',
-                                            text: res.message,
-                                            icon: 'error',
-                                            position: 'top-right'
-                                        });
-                                    }
-                                },
-                                error: function(error) {
-                                    // $('.loader_div').hide();
-                                    console.log(error);
-                                    $.toast({
-                                        heading: 'Error',
-                                        text: error?.responseJSON
-                                            ?.message,
-                                        icon: 'error',
-                                        position: 'top-right'
-                                    });
-
-                                }
-                            });
-                        }
-                    },
-                    cancel: function() {
-                        $.alert('Canceled!');
-                    },
-
-                }
-            });
+        function roleClick() {
+            $('.permission').attr('disabled', true).hide();
         }
     </script>
 

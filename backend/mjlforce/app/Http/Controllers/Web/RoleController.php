@@ -99,5 +99,26 @@ class RoleController extends Controller
         ]);
     }
 
+    public function userRolePermission_update(Request $request, $userId){
+
+        // dd($request->all());
+        $permissions = $request->input('permission', []);
+        $roles = $request->input('role', []);
+        $user = User::find($userId);
+
+        if($request->has('permission_id')){
+            $user->syncPermissions($permissions);
+        }else{
+            $user->syncPermissions([]);
+            $user->syncRoles($roles);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User roles and permissions updated successfully',
+            'redirect_url' => route('roles.userRolePermission_index')
+        ]);
+    }
+
   
 }
