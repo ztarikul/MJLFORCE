@@ -133,6 +133,13 @@ export default function Complaint() {
     }));
   };
 
+  const removeImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: true,
@@ -258,17 +265,37 @@ export default function Complaint() {
                           }}
                         >
                           {formData.images.map((file, idx) => (
-                            <img
+                            <div
                               key={idx}
-                              src={URL.createObjectURL(file)}
-                              alt="Preview"
-                              style={{
-                                width: "100px",
-                                height: "100px",
-                                objectFit: "cover",
-                                margin: "5px",
-                              }}
-                            />
+                              style={{ position: "relative", margin: "5px" }}
+                            >
+                              <img
+                                key={idx}
+                                src={URL.createObjectURL(file)}
+                                alt="Preview"
+                                style={{
+                                  width: "100px",
+                                  height: "100px",
+                                  objectFit: "cover",
+                                  margin: "5px",
+                                }}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => removeImage(idx)}
+                                style={{
+                                  position: "absolute",
+                                  top: 0,
+                                  right: 0,
+                                  background: "red",
+                                  color: "white",
+                                  border: "none",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                X
+                              </button>
+                            </div>
                           ))}
                         </div>
                       </div>
