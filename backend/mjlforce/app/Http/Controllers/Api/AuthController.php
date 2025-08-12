@@ -133,12 +133,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Password changed successfully']);
     }
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-
+   
 
     public function checkIn(Request $request){
         //  return response()->json($request->all());
@@ -169,6 +164,12 @@ class AuthController extends Controller
 
 
     }
+
+     /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
 
     public function guard(){
         return Auth::guard('api');
