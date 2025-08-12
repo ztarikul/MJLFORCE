@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import Main from "../Main";
 import Auth from "../../auth/Auth";
 import Swal from "sweetalert2";
@@ -16,6 +17,7 @@ export default function Complaint() {
     complaint: "",
     long: "",
     lat: "",
+    images: [], //for upload file
   });
   const [errors, setErrors] = useState({});
 
@@ -49,8 +51,19 @@ export default function Complaint() {
     });
 
     if (result.isConfirmed) {
+      const sendData = new FormData();
+      sendData.append("sold_to_party_id", formData.sold_to_party_id);
+      sendData.append("complaint_type", formData.complaint_type);
+      sendData.append("complaint", formData.complaint);
+      sendData.append("long", formData.long);
+      sendData.append("lat", formData.lat);
+
+      formData.images.forEach((file) => {
+        sendData.append("files[]", file);
+      });
+
       http
-        .post("/store_complaint", formData, {
+        .post("/store_complaint", sendData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -69,6 +82,9 @@ export default function Complaint() {
               sold_to_party_id: "",
               complaint_type: "",
               complaint: "",
+              long: "",
+              lat: "",
+              images: [],
             });
 
             // navigate("/");
@@ -105,6 +121,24 @@ export default function Complaint() {
         });
     }
   };
+
+  const onDrop = (acceptedFiles) => {
+    if (formData.images.length + acceptedFiles.length > 3) {
+      alert("You can upload a maximum of 3 images.");
+      return;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      images: [...prev.images, ...acceptedFiles], // append new files
+    }));
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    multiple: true,
+    accept: { "image/*": [] },
+    maxFiles: 3, // Dropzone-level restriction
+  });
 
   return (
     <Main>
@@ -180,7 +214,7 @@ export default function Complaint() {
                       </div>
 
                       <div className="col-md-4">
-                        <div>
+                        <div className="mb-3">
                           <label className="form-label" htmlFor="complaint">
                             Complaint <span style={{ color: "red" }}>*</span>
                           </label>
@@ -197,6 +231,46 @@ export default function Complaint() {
                             {errors.complaint[0]}
                           </span>
                         )}
+                      </div>
+                      <div className="col-md-4">
+                        <div
+                          {...getRootProps()}
+                          style={{
+                            border: "2px dashed #ccc",
+                            padding: "20px",
+                            textAlign: "center",
+                          }}
+                        >
+                          <input {...getInputProps()} />
+                          {isDragActive ? (
+                            <p>Drop images here...</p>
+                          ) : (
+                            <p>Drag & drop images, or click to select</p>
+                          )}
+                        </div>
+
+                        {/* Preview */}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            marginTop: "10px",
+                          }}
+                        >
+                          {formData.images.map((file, idx) => (
+                            <img
+                              key={idx}
+                              src={URL.createObjectURL(file)}
+                              alt="Preview"
+                              style={{
+                                width: "100px",
+                                height: "100px",
+                                objectFit: "cover",
+                                margin: "5px",
+                              }}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

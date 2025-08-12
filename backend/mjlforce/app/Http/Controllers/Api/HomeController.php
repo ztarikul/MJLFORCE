@@ -252,6 +252,15 @@ class HomeController extends Controller
             $complaint->created_by = auth()->user()->id;
             $complaint->hostname = gethostname();
 
+             if ($request->hasFile('files')) {
+                foreach ($request->file('files')  as $idx => $file) {
+                    $fileName = $idx .'-'.$soldToParty->acc_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+                    $image_url = $file->storeAs('complaints', $fileName, 'public');
+                    $column = 'image_' . ($idx + 1); // image_1, image_2, image_3
+                    $complaint->$column = $image_url;
+                }
+            }
+
             $complaint->save();
             $msg = "Complaint submitted successfully";
             $status = "success";

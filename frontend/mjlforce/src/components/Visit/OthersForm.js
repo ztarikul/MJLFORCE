@@ -19,6 +19,7 @@ export default function OthersForm() {
     remarks: "",
     long: "",
     lat: "",
+    accuracy: null,
   });
   const [errors, setErrors] = useState({});
 
@@ -47,8 +48,47 @@ export default function OthersForm() {
   }, []);
 
   useEffect(() => {
+    locationHadler();
     fetchFormData();
   }, [fetchFormData]);
+
+  const locationHadler = () => {
+    if (!formData.lat && !formData.long) {
+      getCurrentLocation()
+        .then((location) => {
+          console.log("map", location);
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          setFormData((prev) => ({
+            ...prev,
+
+            long: location.longitude,
+            lat: location.latitude,
+            accuracy: location.accuracy,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (formData.accuracy) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          if (location.accuracy < formData.accuracy) {
+            console.log("Revisemap", location);
+            setFormData((prev) => ({
+              ...prev,
+              long: location.longitude,
+              lat: location.latitude,
+              accuracy: location.accuracy,
+            }));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,20 +97,7 @@ export default function OthersForm() {
       [name]: value,
     }));
 
-    if (!formData.lat && !formData.long) {
-      getCurrentLocation()
-        .then((location) => {
-          // setFormData({ lat: location.latitude, long: location.longitude });
-          setFormData((prev) => ({
-            ...prev,
-            long: location.longitude,
-            lat: location.latitude,
-          }));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    locationHadler();
   };
 
   const divisionChangeHnadler = (event) => {
@@ -154,6 +181,44 @@ export default function OthersForm() {
             remarks: "",
             long: "",
             lat: "",
+            accuracy: "",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.ststus !== 401) {
+            setErrors(error.response.data.errors);
+          }
+        });
+    }
+  };
+
+  const checkInHandler = async (e) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to check-in? This action will take your current location",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "check me in!",
+      cancelButtonText: "Cancel",
+    });
+    locationHadler();
+
+    if (result.isConfirmed) {
+      http
+        .post("/check_in", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "Submitted!",
+            text: "You have checked in",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
           });
         })
         .catch((error) => {
@@ -169,6 +234,17 @@ export default function OthersForm() {
     <form className="form theme-form" onSubmit={formSubmit}>
       <div className="card-body">
         <div className="row">
+          <div className="col-12">
+            <div className="mb-3">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={checkInHandler}
+              >
+                Check-in
+              </button>
+            </div>
+          </div>
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="exampleFormControlInput1">

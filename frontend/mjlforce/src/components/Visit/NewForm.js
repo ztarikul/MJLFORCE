@@ -243,9 +243,6 @@ export default function NewForm() {
       cancelButtonText: "Cancel",
     });
     locationHadler();
-    if (formData.lat == "" || formData.long == "") {
-      console.log("empty");
-    }
 
     if (result.isConfirmed) {
       http
