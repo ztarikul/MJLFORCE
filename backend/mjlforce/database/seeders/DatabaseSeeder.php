@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(LocationSeeder::class);
+        // $this->call(LocationSeeder::class);
         // $this->call(DesignationSeeder::class);
         // $this->call(CustomerGroupSeeder::class);
         // $this->call(DistributionChannelSeeder::class);
@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(TerritoriesSeeder::class);
         // $this->call(TradeCaegoriesSeeder::class);
         // $this->call(TradeSubCategoriesSeeder::class);
+        $this->call(SoldToPartySeeder::class);
     }
 }
