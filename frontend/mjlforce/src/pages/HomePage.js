@@ -290,7 +290,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="col-xs-6 col-xl-3 col-lg-6">
+          {/* <div className="col-xs-6 col-xl-3 col-lg-6">
             <Link to="/sh2p_create">
               <div className="card o-hidden border-0">
                 <div className="bg-primary b-r-4 card-body">
@@ -317,7 +317,7 @@ export default function HomePage() {
                 </div>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           <div className="col-xs-6 col-xl-3 col-lg-6">
             <Link to="/leads">
