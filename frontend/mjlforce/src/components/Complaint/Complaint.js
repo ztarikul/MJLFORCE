@@ -149,7 +149,9 @@ export default function Complaint() {
   });
 
   const openCamera = () => {
-    cameraInputRef.current.click();
+    if (cameraInputRef.current) {
+      cameraInputRef.current.click();
+    }
   };
 
   const handleCameraCapture = (e) => {
@@ -276,13 +278,18 @@ export default function Complaint() {
                         </div>
 
                         {/* Take Photo Button */}
-                        <button
-                          type="button"
+                        <div
                           onClick={openCamera}
-                          className="btn btn-sm btn-secondary mt-2"
+                          style={{
+                            border: "2px dashed #ccc",
+                            padding: "20px",
+                            textAlign: "center",
+                            cursor: "pointer",
+                          }}
                         >
-                          Take Photo
-                        </button>
+                          <p>Click here to take photo or select from gallery</p>
+                        </div>
+
                         <input
                           ref={cameraInputRef}
                           type="file"
