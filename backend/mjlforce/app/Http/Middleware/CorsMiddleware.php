@@ -15,19 +15,23 @@ class CorsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->getMethod() === 'OPTIONS') {
-            return response('', 200)
-                ->header('Access-Control-Allow-Origin', 'http://158.24.116.70')
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-            }
+        if ($request->getMethod() === "OPTIONS") {
+            $response = response('', 200);
+        } else {
+            $response = $next($request);
+        }
 
-        $response = $next($request);
+        // Allow React front-end
+        $response->headers->set('Access-Control-Allow-Origin', '*');
 
-        // Set CORS headers for non-OPTIONS requests
-        $response->headers->set('Access-Control-Allow-Origin', 'http://158.24.116.81');
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        // Allow HTTP methods
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+
+        // Allow headers including JWT Authorization
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+
+        // Optional: expose headers to front-end
+        $response->headers->set('Access-Control-Expose-Headers', 'Authorization');
 
         return $response;
     }
