@@ -7,7 +7,7 @@ import "../../utils/datepicker.css";
 import Auth from "../../auth/Auth";
 import { format } from "date-fns";
 
-export default function ActivityLog() {
+export default function ComplaintReport() {
   const { http } = Auth();
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -113,7 +113,7 @@ export default function ActivityLog() {
           <div className="row">
             <div className="col-12">
               <div className="card-header pb-0">
-                <h5>Activity Log</h5>
+                <h5>Complaint Report</h5>
               </div>
 
               <form className="form theme-form" onSubmit={formSubmit}>

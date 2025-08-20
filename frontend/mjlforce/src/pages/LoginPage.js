@@ -77,6 +77,11 @@ export default function LoginPage() {
             icon: "error",
           });
         } else {
+          Swal.fire({
+            title: "Warning",
+            text: error.response.data.errors || "Something went wrong.",
+            icon: "error",
+          });
           setErrors(error.response.data.errors);
         }
       });

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Main from "../Main";
 import Auth from "../../auth/Auth";
@@ -11,7 +11,6 @@ export default function Complaint() {
   const { http } = Auth();
   const [soldToParties, setSoldToParties] = useState([]);
   const [complaintTypes, setComplaintTypes] = useState([]);
-  const cameraInputRef = useRef(null);
   const [formData, setFormData] = useState({
     sold_to_party_id: "",
     complaint_type: "",
@@ -148,26 +147,6 @@ export default function Complaint() {
     maxFiles: 3, // Dropzone-level restriction
   });
 
-  const openCamera = () => {
-    if (cameraInputRef.current) {
-      cameraInputRef.current.click();
-    }
-  };
-
-  const handleCameraCapture = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (formData.images.length >= 3) {
-        alert("You can upload a maximum of 3 images.");
-        return;
-      }
-      setFormData((prev) => ({
-        ...prev,
-        images: [...prev.images, file],
-      }));
-    }
-  };
-
   return (
     <Main>
       <div className="container-fluid">
@@ -276,28 +255,6 @@ export default function Complaint() {
                             <p>Drag & drop images, or click to select</p>
                           )}
                         </div>
-
-                        {/* Take Photo Button */}
-                        <div
-                          onClick={openCamera}
-                          style={{
-                            border: "2px dashed #ccc",
-                            padding: "20px",
-                            textAlign: "center",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <p>Click here to take photo or select from gallery</p>
-                        </div>
-
-                        <input
-                          ref={cameraInputRef}
-                          type="file"
-                          accept="image/*"
-                          capture="environment"
-                          style={{ display: "none" }}
-                          onChange={handleCameraCapture}
-                        />
 
                         {/* Preview */}
                         <div

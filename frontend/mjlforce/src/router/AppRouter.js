@@ -144,6 +144,14 @@ export default function AppRouter(props) {
         }
       />
       <Route
+        path="/complaint_report"
+        element={
+          <AuthMiddleware>
+            <VisitLog />
+          </AuthMiddleware>
+        }
+      />
+      <Route
         path="/me"
         element={
           <AuthMiddleware>
