@@ -1,0 +1,30 @@
+  "private": true,
+  "proxy": "http://158.24.116.80:80",
+  "proxy": "http://localhost:8000",
+
+
+npm install cors
+
+--- React web.config --
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+
+<system.webServer>
+  <rewrite>
+    <rules>
+      <rule name="Angular Routes" stopProcessing="true">
+        <match url=".*" />
+        <conditions logicalGrouping="MatchAll">
+          <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+          <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+        </conditions>
+        <action type="Rewrite" url="/" />
+      </rule>
+    </rules>
+  </rewrite>
+</system.webServer>
+
+</configuration>
+
+---- End ---
+
