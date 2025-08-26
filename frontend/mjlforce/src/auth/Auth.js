@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
@@ -35,7 +35,7 @@ export default function Auth() {
   };
 
   const http = axios.create({
-    baseURL: "/api",
+    baseURL: `${"http://158.24.116.80"}/api`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
