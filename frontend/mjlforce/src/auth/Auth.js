@@ -34,11 +34,14 @@ export default function Auth() {
     navigate("/login");
   };
 
+  const API_URL = process.env.REACT_APP_API_URL;
   const http = axios.create({
-    baseURL: `${"http://158.24.116.80"}/api`,
+    baseURL: `${API_URL}/api`,
+    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
   });
 
