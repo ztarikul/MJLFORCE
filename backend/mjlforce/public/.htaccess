@@ -23,3 +23,29 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+
+
+
+
+<IfModule mod_headers.c>
+    # Allow all origins
+    Header always set Access-Control-Allow-Origin "*"
+
+    # Allow common HTTP methods
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+
+    # Allow common headers
+    Header always set Access-Control-Allow-Headers "Authorization, Content-Type, X-Requested-With, X-XSRF-TOKEN"
+
+    # If you want to expose certain headers to the browser
+    Header always set Access-Control-Expose-Headers "Authorization"
+
+    # Handle preflight (OPTIONS requests)
+    <If "%{REQUEST_METHOD} == 'OPTIONS'">
+        Header always set Access-Control-Max-Age "86400"
+        Header always set Content-Length "0"
+        Header always set Content-Type "text/plain; charset=UTF-8"
+        Require all granted
+    </If>
+</IfModule>

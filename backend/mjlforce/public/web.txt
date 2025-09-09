@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <!-- Enable URL Rewrite -->
+        <rewrite>
+            <rules>
+                <!-- Redirect all requests to index.php -->
+                <rule name="Laravel" stopProcessing="true">
+                    <match url="^(.*)$" ignoreCase="false" />
+                    <conditions logicalGrouping="MatchAll">
+                        <!-- Skip files and folders -->
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="index.php" appendQueryString="true" />
+                </rule>
+            </rules>
+        </rewrite>
+
+        <!-- Handle CORS and JWT Authorization Headers -->
+        <httpProtocol>
+            <customHeaders>
+                <!-- Allow requests from your React frontend -->
+                <add name="Access-Control-Allow-Origin" value="*" />
+
+                
+                <!-- Allow sending cookies, tokens, sessions -->
+                <add name="Access-Control-Allow-Credentials" value="true" />
+
+                <!-- Allow necessary HTTP methods -->
+                <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, PATCH, DELETE, OPTIONS" />
+
+                <!-- Allow Authorization header for JWT -->
+                <add name="Access-Control-Allow-Headers" value="Authorization, Content-Type, X-Requested-With, X-XSRF-TOKEN" />
+
+                <!-- Expose Authorization header for React -->
+                <add name="Access-Control-Expose-Headers" value="Authorization" />
+
+                <!-- Keep OPTIONS requests alive longer -->
+                <add name="Access-Control-Max-Age" value="86400" />
+            </customHeaders>
+        </httpProtocol>
+
+        <!-- Make sure Authorization header is passed to PHP -->
+        <security>
+            <requestFiltering>
+                <hiddenSegments>
+                    <remove segment="bin" />
+                </hiddenSegments>
+            </requestFiltering>
+        </security>
+    </system.webServer>
+</configuration>

@@ -51,7 +51,6 @@ class CmaController extends Controller
     public function storeSoldToParty(Request $request){
         $msg = "";
 
-        return response()->json($request->all());
         
         $request->validate([
             'account_name' => 'required',
@@ -224,7 +223,7 @@ class CmaController extends Controller
 
     public function updateLeadProcess(Request $request, $id){
 
-        // return response()->json($request->all());
+  
 
         $msg = "";
         $request->validate([
@@ -346,7 +345,7 @@ class CmaController extends Controller
 
      public function storeShipToParty(Request $request){
 
-        // return response()->json($request->all());
+    
         $msg = "";
         
         $request->validate([

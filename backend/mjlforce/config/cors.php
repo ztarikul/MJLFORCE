@@ -1,19 +1,14 @@
 <?php
 
 return [
-    'paths' => ['api/*'], // JWT API endpoints
 
-    'allowed_methods' => ['*'], // GET, POST, PUT, DELETE, etc.
-
-    'allowed_origins' => ['*'], // React front-end
-
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'allowed_methods' => ['*'],
+    'allowed_origins' => ['*'],  // React app domain
     'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'], // Allow Authorization header for JWT
-
-    'exposed_headers' => ['Authorization'], // Optional: expose Authorization header
-
+    'allowed_headers' => ['*'],
+    'exposed_headers' => [],
     'max_age' => 0,
+    'supports_credentials' => true, // No need for production, but useful for local development
 
-    'supports_credentials' => false, // JWT doesn’t need cookies
 ];
