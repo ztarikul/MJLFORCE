@@ -45,6 +45,16 @@
                     </li>
 
                     <li class="dropdown">
+                        <a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Offer
+                                & Discount</span></a>
+                        <ul class="nav-submenu menu-content">
+                            <li><a href="{{ route('offer_and_discount.promotions') }}">Promotions</a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="dropdown">
                         <a class="nav-link menu-title" href="javascript:void(0)"><i
                                 data-feather="airplay"></i><span>Privilege</span></a>
                         <ul class="nav-submenu menu-content">

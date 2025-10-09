@@ -501,7 +501,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc Division</label>
                                         <input type="text" class="form-control" name="loc_division_id"
-                                            value="{{ $soldToParty->locDivision->name }}" placeholder="Division"
+                                            value="{{ $soldToParty->locDivision?->name }}" placeholder="Division"
                                             disabled>
 
                                     </div>
@@ -510,7 +510,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc District</label>
                                         <input type="text" class="form-control" name="loc_district_id"
-                                            value="{{ $soldToParty->LocDistrict->name }}" placeholder="District Name"
+                                            value="{{ $soldToParty->LocDistrict?->name }}" placeholder="District Name"
                                             disabled>
                                     </div>
                                 </div>
@@ -518,7 +518,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc Upazila</label>
                                         <input type="text" class="form-control" name="loc_upazila_id"
-                                            value="{{ $soldToParty->LocUpazila->name }}" placeholder="Upazila Name"
+                                            value="{{ $soldToParty->LocUpazila?->name }}" placeholder="Upazila Name"
                                             disabled>
                                     </div>
                                 </div>
@@ -526,7 +526,7 @@
                                     <div class="mb-3">
                                         <label class="col-form-label">Loc Post Office</label>
                                         <input type="text" class="form-control" name="loc_post_office_id"
-                                            value="{{ $soldToParty->LocPostOffice->name }}"
+                                            value="{{ $soldToParty->LocPostOffice?->name }}"
                                             placeholder="Post Office Name" disabled>
 
                                     </div>

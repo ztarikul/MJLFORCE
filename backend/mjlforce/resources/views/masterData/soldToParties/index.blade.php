@@ -32,7 +32,7 @@
                                             <td>{{ $soldToParty->acc_name }}</td>
                                             <td>{{ $soldToParty->customer_code ? $soldToParty->customer_code : 'NA' }}</td>
                                             <td>{{ $soldToParty->address }}</td>
-                                            <td>{{ $soldToParty->employee->name }}</td>
+                                            <td>{{ $soldToParty->employee?->name }}</td>
                                             <td><a type="button"
                                                     href="{{ route('cma.soldToPartyRequestForm', $soldToParty->id) }}"
                                                     class="btn btn-secondary"><i class="fa fa-folder-open-o"></i></a>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\CmaController;
 use App\Http\Controllers\Web\EmployeeController;
 use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\MasterDataController;
+use App\Http\Controllers\Web\PromotionController;
 use App\Http\Controllers\Web\RoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +85,20 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/shipToParty_request_form/{id}', [CmaController::class, 'shipToPartyRequestForm'])->name('shipToPartyRequestForm');
         Route::post('/shipToPartyMisToSAP/{id}', [CmaController::class, 'shipToPartyMisToSAP'])->name('shipToPartyMisToSAP');
 
+    });
+
+    Route::group(['prefix' => 'offer_and_discount', 'as' => 'offer_and_discount.',], function () {
+        Route::get('/promotions', [PromotionController::class, 'promotions_index'])->name('promotions');
+        Route::get('/create_promotion', [PromotionController::class, 'create_promotion'])->name('createPromotion');
+        Route::post('/store_promotion', [PromotionController::class, 'store_promotion'])->name('storePromotion');
+        Route::get('/edit_promotion/{id}', [PromotionController::class, 'edit_promotion'])->name('editPromotion');
+        Route::post('/update_promotion/{id}', [PromotionController::class, 'update_promotion'])->name('updatePromotion');
+        Route::get('/delete_promotion/{id}', [PromotionController::class, 'delete_promotion'])->name('deletePromotion');
+        Route::get('/promotional_items/{id}', [PromotionController::class, 'promotional_items'])->name('promotionalItems');
+        Route::get('/create_promotional_items/{promotion_id}', [PromotionController::class, 'create_promotional_items'])->name('createPromotionalItems');
+        Route::post('/store_promotional_items', [PromotionController::class, 'store_promotional_items'])->name('storePromotionalItems');
+        Route::get('/delete_promotional_items/{id}', [PromotionController::class, 'delete_promotional_items'])->name('deletePromotionalItems');
+  
     });
 
      Route::group(['prefix' => 'roles', 'as' => 'roles.',], function () {
