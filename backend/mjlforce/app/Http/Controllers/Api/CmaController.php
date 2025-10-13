@@ -674,6 +674,16 @@ class CmaController extends Controller
         ]);
     }
 
+    public function search_other_visit_site(Request $request)
+    {
+        $query = $request->get('search');
+        $sites = OtherVisit::where('site_name', 'LIKE', "%{$query}%")
+            ->limit(10)
+            ->pluck('site_name'); // only return site names
+
+        return response()->json(['data' => $sites]);
+    }
+
     public function salesVsTarget(Request $request){
        $employee = Employee::select('id', 'user_id', 'sap_code', 'name', 'card_id', )->where('user_id', auth()->id())->first();
        $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();

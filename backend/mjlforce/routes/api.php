@@ -47,6 +47,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/sales_vs_target', [CmaController::class, 'salesVsTarget']);
         Route::get('/complaint', [HomeController::class, 'complaint']);
         Route::post('/store_complaint', [HomeController::class, 'storeComplaint']);
+        Route::get('/search_other_visit_site', [CmaController::class, 'search_other_visit_site']);
 
          Route::group(['prefix' => 'report', 'as' => 'report.',], function () {
             Route::get('/activity_log', [ReportController::class, 'activityLog'])->name('activityLog');

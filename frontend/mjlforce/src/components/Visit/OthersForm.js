@@ -21,6 +21,10 @@ export default function OthersForm() {
     lat: "",
     accuracy: null,
   });
+
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const [errors, setErrors] = useState({});
 
   const [fetchData, setFetchdata] = useState({
@@ -51,6 +55,33 @@ export default function OthersForm() {
     locationHadler();
     fetchFormData();
   }, [fetchFormData]);
+
+  let typingTimer;
+  const fetchSuggestions = (search) => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(async () => {
+      http
+        .get("/search_other_visit_site", {
+          params: {
+            search: search,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setSuggestions(res.data);
+          setShowSuggestions(true);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }, 300); // delay to prevent too many API calls
+  };
+
+  // Handle selection
+  // const handleSelect = (site) => {
+  //   setFormData({ ...formData, site_name: site });
+  //   setShowSuggestions(false);
+  // };
 
   const locationHadler = () => {
     if (!formData.lat && !formData.long) {
@@ -96,6 +127,15 @@ export default function OthersForm() {
       ...prev,
       [name]: value,
     }));
+
+    if (name == "site_name") {
+      if (value.length > 1) {
+        fetchSuggestions(value);
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    }
 
     locationHadler();
   };
@@ -258,7 +298,26 @@ export default function OthersForm() {
                 placeholder="xyz group limited"
                 onChange={handleChange}
                 value={formData.site_name}
+                autoComplete="off"
               />
+
+              {showSuggestions && suggestions.length > 0 && (
+                <ul
+                  className="list-group position-absolute w-100"
+                  style={{ zIndex: 1000 }}
+                >
+                  {suggestions.map((site, index) => (
+                    <li
+                      key={index}
+                      className="list-group-item list-group-item-action"
+                      onClick={() => handleChange(site)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {site}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
 

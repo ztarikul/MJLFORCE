@@ -34,8 +34,11 @@ export default function Auth() {
     navigate("/login");
   };
 
+  // For using Global env
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const http = axios.create({
-    baseURL: `${"http://localhost:8000"}/api`,
+    baseURL: `${API_URL}/api`,
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
