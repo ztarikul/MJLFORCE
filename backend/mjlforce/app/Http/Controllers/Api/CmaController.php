@@ -677,11 +677,13 @@ class CmaController extends Controller
     public function search_other_visit_site(Request $request)
     {
         $query = $request->get('search');
-        $sites = OtherVisit::where('site_name', 'LIKE', "%{$query}%")
+        $sites = OtherVisit::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice'])->where('site_name', 'LIKE', "%{$query}%")
+            ->where('employee_id', auth()->user()->employee->id)
+            ->distinct()
             ->limit(10)
-            ->pluck('site_name'); // only return site names
+            ->get(); // only return site names
 
-        return response()->json(['data' => $sites]);
+        return response()->json(['sites' => $sites]);
     }
 
     public function salesVsTarget(Request $request){

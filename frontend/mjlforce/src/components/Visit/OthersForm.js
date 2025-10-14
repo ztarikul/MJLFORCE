@@ -67,8 +67,8 @@ export default function OthersForm() {
           },
         })
         .then((res) => {
-          console.log(res.data);
-          setSuggestions(res.data);
+          console.log(res.data.sites);
+          setSuggestions(res.data.sites);
           setShowSuggestions(true);
         })
         .catch((res) => {
@@ -151,6 +151,8 @@ export default function OthersForm() {
       (district) => district.loc_division_id === selectedId
     );
     setDistricts(selectedDistricts);
+    setUpazilas([]);
+    setPostOffice([]);
   };
 
   const districtChangeHnadler = (event) => {
@@ -270,6 +272,26 @@ export default function OthersForm() {
     }
   };
 
+  const handleSiteNameSelect = (site) => {
+    setFormData((prev) => ({
+      ...prev,
+      site_name: site.site_name,
+      post_code: site.post_code,
+      address: site.address,
+      visit_purpose_id: site.visit_purpose_id,
+      other_purpose: site.other_purpose,
+      loc_division: site.loc_division_id,
+      loc_district: site.loc_district_id,
+      loc_thana: site.loc_upazila_id,
+      post_office: site.loc_post_office_id,
+    }));
+
+    setDistricts(site.loc_division.loc_districts);
+    setUpazilas(site.loc_district.loc_upazilas);
+    setPostOffice(site.loc_district.loc_post_offices);
+    setShowSuggestions(false);
+  };
+
   return (
     <form className="form theme-form" onSubmit={formSubmit}>
       <div className="card-body">
@@ -302,18 +324,14 @@ export default function OthersForm() {
               />
 
               {showSuggestions && suggestions.length > 0 && (
-                <ul
-                  className="list-group position-absolute w-100"
-                  style={{ zIndex: 1000 }}
-                >
+                <ul className="list-group">
                   {suggestions.map((site, index) => (
                     <li
                       key={index}
-                      className="list-group-item list-group-item-action"
-                      onClick={() => handleChange(site)}
-                      style={{ cursor: "pointer" }}
+                      className="list-group-item"
+                      onClick={() => handleSiteNameSelect(site)}
                     >
-                      {site}
+                      {site.site_name}
                     </li>
                   ))}
                 </ul>

@@ -7,6 +7,7 @@ use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\SoldToParty;
 use App\Models\ShipToParty;
+use App\Models\OtherVisit;
 use Illuminate\Database\Eloquent\Model;
 
 class LocDistrict extends Model
@@ -36,5 +37,9 @@ class LocDistrict extends Model
         return $this->hasMany(ShipToParty::class);
     }
 
+    public function otherVisits()
+    {
+        return $this->hasMany(OtherVisit::class);
+    }
     
 }

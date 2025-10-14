@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\LocDistrict;
 use App\Models\SoldToParty;
 use App\Models\ShipToParty;
+use App\Models\OtherVisit;
 
 
 class LocUpazila extends Model
@@ -27,5 +28,10 @@ class LocUpazila extends Model
     public function shipToParties()
     {
         return $this->hasMany(ShipToParty::class);
+    }
+
+    public function otherVisits()
+    {
+        return $this->hasMany(OtherVisit::class);
     }
 }
