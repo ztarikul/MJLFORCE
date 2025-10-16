@@ -35,8 +35,8 @@ class HomeController extends Controller
         $total_sales_target = 0;
         $total_sales = 0;
         if($salesTargets){
-            $total_sales_target = number_format($salesTargets->total_target * 0.0062898108, 3);
-            $total_sales = number_format($salesTargets->total_sales * 0.0062898108, 3);
+            $total_sales_target = number_format($salesTargets->total_target * 0.0062898108, 3);  //Barrel conversion
+            $total_sales = number_format($salesTargets->total_sales * 0.0062898108, 3); //Barrel conversion
         }
         $sidebarUser = [
             'employee_name' => $employee->name,
@@ -44,7 +44,8 @@ class HomeController extends Controller
             'employee_businessTeam' => $employee->businessTeam->name,
             'total_sales_target' =>$total_sales_target,
             'total_sales' => $total_sales,
-            'total_customer' => $employee->soldToParties()->count()
+            'total_customer' => $employee->soldToParties()->count(),
+            'updated_at' => $salesTargets->updated_at->toDateTimeString()
         ];
         return response()->json(['sidebarUser' => $sidebarUser], 200);
     }
