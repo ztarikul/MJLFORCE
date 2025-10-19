@@ -7,6 +7,7 @@ use App\Models\LocDistrict;
 use App\Models\SoldToParty;
 use App\Models\ShipToParty;
 use App\Models\OtherVisit;
+use App\Models\OtherVisitSite;
 
 
 class LocUpazila extends Model
@@ -33,5 +34,10 @@ class LocUpazila extends Model
     public function otherVisits()
     {
         return $this->hasMany(OtherVisit::class);
+    }
+
+    public function otherVisitSites()
+    {
+        return $this->hasMany(OtherVisitSite::class);
     }
 }

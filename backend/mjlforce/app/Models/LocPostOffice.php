@@ -8,6 +8,7 @@ use App\Models\LocDivision;
 use App\Models\SoldToParty;
 use App\Models\ShipToParty;
 use App\Models\OtherVisit;
+use App\Models\OtherVisitSite;
 
 
 class LocPostOffice extends Model
@@ -37,5 +38,10 @@ class LocPostOffice extends Model
     public function otherVisits()
     {
         return $this->hasMany(OtherVisit::class);
+    }
+
+    public function otherVisitSites()
+    {
+        return $this->hasMany(OtherVisitSite::class);
     }
 }

@@ -7,6 +7,7 @@ export default function OthersForm() {
   const { http } = Auth();
   const [formData, setFormData] = useState({
     site_name: "",
+    site_id: "",
     post_code: "",
     address: "",
     visit_purpose_id: "",
@@ -76,12 +77,6 @@ export default function OthersForm() {
         });
     }, 300); // delay to prevent too many API calls
   };
-
-  // Handle selection
-  // const handleSelect = (site) => {
-  //   setFormData({ ...formData, site_name: site });
-  //   setShowSuggestions(false);
-  // };
 
   const locationHadler = () => {
     if (!formData.lat && !formData.long) {
@@ -166,6 +161,11 @@ export default function OthersForm() {
       (upazila) => upazila.loc_district_id === selectedId
     );
     setUpazilas(selectedUpazilas);
+
+    const selectedPostOffices = fetchData.postOffice.filter(
+      (office) => office.loc_district_id === selectedId
+    );
+    setPostOffice(selectedPostOffices);
   };
 
   const upazilaChangeHnadler = (event) => {
@@ -174,11 +174,11 @@ export default function OthersForm() {
       ...prev,
       [name]: value,
     }));
-    const selectedId = parseInt(event.target.value);
-    const selectedPostOffices = fetchData.postOffice.filter(
-      (office) => office.loc_upazila_id === selectedId
-    );
-    setPostOffice(selectedPostOffices);
+    // const selectedId = parseInt(event.target.value);
+    // const selectedPostOffices = fetchData.postOffice.filter(
+    //   (office) => office.loc_upazila_id === selectedId
+    // );
+    // setPostOffice(selectedPostOffices);
   };
 
   const formSubmit = async (e) => {
@@ -276,6 +276,7 @@ export default function OthersForm() {
     setFormData((prev) => ({
       ...prev,
       site_name: site.site_name,
+      site_id: site.id,
       post_code: site.post_code,
       address: site.address,
       visit_purpose_id: site.visit_purpose_id,

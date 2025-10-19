@@ -11,6 +11,7 @@ use App\Models\LocDivision;
 use App\Models\LocPostOffice;
 use App\Models\LocUpazila;
 use App\Models\OtherVisit;
+use App\Models\OtherVisitSite;
 use App\Models\SalesTargetVsAchievement;
 use App\Models\ShipToParty;
 use App\Models\ShipToPartyprocessLog;
@@ -557,6 +558,38 @@ class CmaController extends Controller
         
 
         try{
+
+            if(!$request->site_id){
+                $site = new OtherVisitSite;
+                $site->site_name = $request->site_name;
+                $site->address = $request->address;
+                $site->post_code = $request->post_code;
+                $site->loc_division_id = $request->loc_division;
+                $site->loc_district_id = $request->loc_district;
+                $site->loc_upazila_id = $request->loc_thana;
+                $site->loc_post_office_id = $request->post_office;
+                $site->employee_id = auth()->user()->employee->id;
+                $site->status = 1; //pending
+                $site->created_by = auth()->user()->id;
+                $site->hostname = gethostname();
+                $site->save();
+
+            }else{
+                $site = OtherVisitSite::find($request->site_id);
+                $site->site_name = $request->site_name;
+                $site->address = $request->address;
+                $site->post_code = $request->post_code;
+                $site->loc_division_id = $request->loc_division;
+                $site->loc_district_id = $request->loc_district;
+                $site->loc_upazila_id = $request->loc_thana;
+                $site->loc_post_office_id = $request->post_office;
+                $site->employee_id = auth()->user()->employee->id;
+                // $site->status = 1; //pending
+                // $site->created_by = auth()->user()->id;
+                // $site->hostname = gethostname();
+                $site->update();
+            }
+ 
             $otherVisit = new OtherVisit();
             $otherVisit->site_name = $request->site_name;
             $otherVisit->address = $request->address;
@@ -677,15 +710,15 @@ class CmaController extends Controller
     public function search_other_visit_site(Request $request)
     {
         $query = $request->get('search');
-        $sites = OtherVisit::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice'])->where('site_name', 'LIKE', "%{$query}%")
+        $sites = OtherVisitSite::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice'])->where('site_name', 'LIKE', "%{$query}%")
+        ->distinct()
             ->where('employee_id', auth()->user()->employee->id)
-            ->distinct()
-            ->limit(10)
             ->get(); // only return site names
 
         return response()->json(['sites' => $sites]);
     }
 
+    
     public function salesVsTarget(Request $request){
        $employee = Employee::select('id', 'user_id', 'sap_code', 'name', 'card_id', )->where('user_id', auth()->id())->first();
        $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();

@@ -185,6 +185,8 @@ export default function NewForm() {
       (district) => district.loc_division_id === selectedId
     );
     setDistricts(selectedDistricts);
+    setUpazilas([]);
+    setPostOffice([]);
   };
 
   const districtChangeHnadler = (event) => {
@@ -225,6 +227,7 @@ export default function NewForm() {
     );
     setTradeSubCategories(selectedtradeSubCategories);
   };
+
   const customerTypeHandler = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({
