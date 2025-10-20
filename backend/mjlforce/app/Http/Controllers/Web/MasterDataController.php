@@ -7,6 +7,7 @@ use App\Models\BusinessTeam;
 use App\Models\CustomerGroup;
 use App\Models\DistributionCh;
 use App\Models\Region;
+use App\Models\ShipToParty;
 use App\Models\SoldToParty;
 use App\Models\Territory;
 use App\Models\TradeSubCategory;
@@ -378,5 +379,10 @@ class MasterDataController extends Controller
        $soldToParties = SoldToParty::where('activeStatus', true)->orderBy('acc_name', 'asc')->get();
         
         return view('masterData.soldToParties.index', compact('soldToParties'));
+    }
+    public function shipToParties(){
+       $shipToParties = ShipToParty::where('activeStatus', true)->orderBy('acc_name', 'asc')->get();
+        
+        return view('masterData.shipToParty.index', compact('shipToParties'));
     }
 }

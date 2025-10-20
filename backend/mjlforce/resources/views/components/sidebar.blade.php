@@ -93,7 +93,7 @@
                             <li><a href="{{ route('cma.newSoldToPartyIndex') }}">New CMA(S2P)</a></li>
                             <li><a href="{{ route('cma.newShipToPartyIndex') }}">New CMA(SH2P)</a></li>
                             <li><a href="{{ route('masterData.soldToParties') }}">Sold-to-Party</a></li>
-                            <li><a href="raised-button.html">Ship-To-Party</a></li>
+                            <li><a href="{{ route('masterData.shipToParties') }}">Ship-To-Party</a></li>
 
                         </ul>
                     </li>
