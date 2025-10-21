@@ -6,6 +6,9 @@ use App\Models\Employee;
 use App\Models\SoldToParty;
 use Exception;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Throwable;
 
 class SoldToPartySeeder extends Seeder
 {
@@ -20,7 +23,18 @@ class SoldToPartySeeder extends Seeder
             $json = file_get_contents(public_path('data/soldToParty.json'));
             $soldToParties = json_decode($json, true);
             foreach($soldToParties as $data){
+                
+                // DB::beginTransaction();
                 try{
+                    $validator = Validator::make($data, [
+                        'Customer_Code' => 'unique:sold_to_parties,customer_code',
+                        // Add other validation rules as needed
+                    ]);
+
+                    if ($validator->fails()) {
+                        throw new Exception('Duplicate Customer_Code: ' . $data['Customer_Code']);
+                    }
+
                     SoldToParty::create([
                         'customer_code' => trim($data['Customer_Code'] ?? '') === '' ? null : $data['Customer_Code'],
                         'customer_acc_group' => trim($data['Account_Group'] ?? '') === '' ? null : $data['Account_Group'],
@@ -81,9 +95,12 @@ class SoldToPartySeeder extends Seeder
                     // 'status' => 1,
                     // 'remarks' => null,
                     // 'activeStatus' => true,
+                 
                     ]);
+                        // DB::commit();
 
                 }catch(Exception $e){
+                    // DB::rollBack();
                     // Handle exception if needed
                     echo "Error: " . $e->getMessage();
                     continue;

@@ -21,13 +21,16 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // $this->call(LocationSeeder::class);
-        // $this->call(DesignationSeeder::class);
         // $this->call(CustomerGroupSeeder::class);
+        // $this->call(BusinessTeamSeeder::class);
+        // $this->call(DesignationSeeder::class);
         // $this->call(DistributionChannelSeeder::class);
         // $this->call(RegionSeeder::class);
         // $this->call(TerritoriesSeeder::class);
         // $this->call(TradeCaegoriesSeeder::class);
         // $this->call(TradeSubCategoriesSeeder::class);
-        $this->call(SoldToPartySeeder::class);
+        // $this->call(EmployeeSeeder::class);
+        // $this->call(LeadStageSeeder::class);
+        // $this->call(SoldToPartySeeder::class);
     }
 }

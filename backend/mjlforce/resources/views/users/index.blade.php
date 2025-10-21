@@ -38,7 +38,7 @@
                                     @foreach ($users as $idx => $user)
                                         <tr>
                                             <td>{{ $user->username }}</td>
-                                            <td>{{ $user->employee->name }}</td>
+                                            <td>{{ $user->employee?->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at }}</td>
                                             <td>
@@ -105,11 +105,11 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Password</label>
-                                                <input type="text" class="form-control" name="password" id="password">
+                                                <input type="password" class="form-control" name="password" id="password">
                                             </div>
                                             <div class="col-md-12">
                                                 <label class="col-form-label">Confirm Password</label>
-                                                <input type="text" class="form-control" name="password_confirmation"
+                                                <input type="password" class="form-control" name="password_confirmation"
                                                     id="password_confirmation">
                                             </div>
                                         </div>
