@@ -36,7 +36,7 @@
                                             <td>{{ $shipToParty->address }}</td>
                                             <td>{{ $shipToParty->employee?->name }}</td>
                                             <td><a type="button"
-                                                    href="{{ route('cma.shipToPartyRequestForm', $shipToParty->id) }}"
+                                                    href="{{ route('masterData.detailsShipToParties', $shipToParty->id) }}"
                                                     class="btn btn-secondary"><i class="fa fa-folder-open-o"></i></a>
                                             </td>
                                         </tr>

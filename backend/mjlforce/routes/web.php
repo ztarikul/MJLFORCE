@@ -74,7 +74,9 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/trade_categories', [MasterDataController::class, 'tradeCategoryIndex'])->name('tradeCategoryIndex');
         Route::get('/sold_to_parties', [MasterDataController::class, 'soldToParties'])->name('soldToParties');
+        Route::get('/details_sold_to_parties/{id}', [MasterDataController::class, 'detailsSoldToParties'])->name('detailsSoldToParties');
         Route::get('/shipToParties', [MasterDataController::class, 'shipToParties'])->name('shipToParties');
+         Route::get('/details_ship_to_parties/{id}', [MasterDataController::class, 'detailsShipToParties'])->name('detailsShipToParties');
 
     });
 

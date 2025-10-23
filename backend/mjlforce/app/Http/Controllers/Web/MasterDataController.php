@@ -5,11 +5,18 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessTeam;
 use App\Models\CustomerGroup;
+use App\Models\CustomerType;
 use App\Models\DistributionCh;
 use App\Models\Region;
+use App\Models\LocDivision;
+use App\Models\LocDistrict;
+use App\Models\LocPostOffice;
+use App\Models\LocUpazila;
 use App\Models\ShipToParty;
 use App\Models\SoldToParty;
+use App\Models\SoldToPartySalesArea;
 use App\Models\Territory;
+use App\Models\TradeCategory;
 use App\Models\TradeSubCategory;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
@@ -385,4 +392,147 @@ class MasterDataController extends Controller
         
         return view('masterData.shipToParty.index', compact('shipToParties'));
     }
+
+    public function detailsSoldToParties(Request $request, $id){
+
+    
+        $soldToParty = SoldToParty::findOrFail($id);
+        $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
+        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
+        $tradeCategories = TradeCategory::select('id', 'name', 'sap_code')->get();
+        $tradeSubCategories = $soldToParty->tradeCategory->tradeSubCategories()->get();
+        $customerTypes = CustomerType::select('id', 'name', 'sap_code')->orderBy('sap_code', 'asc')->get();
+        $territories = Territory::select('id', 'name', 'sap_code')->orderBy('name', 'asc')->get();
+        $fiPaymentTerms = [
+         [ 'id' => 1, 'term' => "Z001", 'duration' => "At Sight" ], 
+         [ 'id' => 2, 'term' => "Z002", 'duration' => "7 Days" ], 
+         [ 'id' => 3, 'term' => "Z003", 'duration' => "15 Days" ], 
+         [ 'id' => 4, 'term' => "Z004", 'duration' => "30 Days" ]
+        ];
+        $currencies = [
+         [ 'id' => 1, 'name' => "BDT" ], 
+         [ 'id' => 2, 'name' => "USD" ], 
+        
+        ];
+        $accAssignmentGroups = [
+         [ 'id' => 1, 'name' => "01" ], 
+         [ 'id' => 2, 'name' => "02" ], 
+         [ 'id' => 3, 'name' => "03" ], 
+         [ 'id' => 4, 'name' => "04" ],
+         [ 'id' => 4, 'name' => "06" ],
+         [ 'id' => 4, 'name' => "10" ]
+        ];
+
+        if($request->ajax()){
+            if($request->action === "tradeChange"){
+                $tradeSubCategories = TradeCategory::find($request->trade_category)->tradeSubCategories()->get();
+                return response()->json([
+                    'tradeSubCategories' => $tradeSubCategories, 
+                    'status' => 'success'
+                ]);
+            }
+            if($request->action ===  "tradeSubChange"){
+                $salesArea = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first();
+                return response()->json([
+                    'customerGroup' => $salesArea->customerGroup()->first(), 
+                    'distributionCh' => $salesArea->distributionCh()->first(),
+                    'status' => 'success'
+                ]);
+            }
+            
+        }
+        
+      
+        return view('masterData.soldToParties.details_soldToParty', [
+            'soldToParty' => $soldToParty,
+            'divisions' => $divisions,
+            'districts' => $districts,
+            'upazilas' => $upazilas,
+            'postOffice' => $postOffice,
+            'salesTerritories' => $salesTerritories,
+            'tradeCategories' => $tradeCategories,
+            'tradeSubCategories' => $tradeSubCategories,
+            'customerTypes' => $customerTypes,
+            'fiPaymentTerms' => $fiPaymentTerms,
+            'currencies' => $currencies,
+            'accAssignmentGroups' => $accAssignmentGroups,
+            'territories' => $territories
+        ]);
+    }
+
+    public function detailsShipToParties(Request $request, $id){
+
+    
+        $shipToParty = ShipToParty::findOrFail($id);
+        $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
+        $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
+        $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
+        $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
+        $salesTerritories = Territory::select('id', 'name', 'region_id')->get();
+        $tradeCategories = TradeCategory::select('id', 'name', 'sap_code')->get();
+        $tradeSubCategories = $shipToParty->soldToParty->tradeCategory->tradeSubCategories()->get();
+        $customerTypes = CustomerType::select('id', 'name', 'sap_code')->orderBy('sap_code', 'asc')->get();
+        $territories = Territory::select('id', 'name', 'sap_code')->orderBy('name', 'asc')->get();
+        $fiPaymentTerms = [
+         [ 'id' => 1, 'term' => "Z001", 'duration' => "At Sight" ], 
+         [ 'id' => 2, 'term' => "Z002", 'duration' => "7 Days" ], 
+         [ 'id' => 3, 'term' => "Z003", 'duration' => "15 Days" ], 
+         [ 'id' => 4, 'term' => "Z004", 'duration' => "30 Days" ]
+        ];
+        $currencies = [
+         [ 'id' => 1, 'name' => "BDT" ], 
+         [ 'id' => 2, 'name' => "USD" ], 
+        
+        ];
+        $accAssignmentGroups = [
+         [ 'id' => 1, 'name' => "01" ], 
+         [ 'id' => 2, 'name' => "02" ], 
+         [ 'id' => 3, 'name' => "03" ], 
+         [ 'id' => 4, 'name' => "04" ],
+         [ 'id' => 4, 'name' => "06" ],
+         [ 'id' => 4, 'name' => "10" ]
+        ];
+
+        if($request->ajax()){
+            if($request->action === "tradeChange"){
+                $tradeSubCategories = TradeCategory::find($request->trade_category)->tradeSubCategories()->get();
+                return response()->json([
+                    'tradeSubCategories' => $tradeSubCategories, 
+                    'status' => 'success'
+                ]);
+            }
+            if($request->action ===  "tradeSubChange"){
+                $salesArea = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_sub_category)->first();
+                return response()->json([
+                    'customerGroup' => $salesArea->customerGroup()->first(), 
+                    'distributionCh' => $salesArea->distributionCh()->first(),
+                    'status' => 'success'
+                ]);
+            }
+            
+        }
+        
+      
+        return view('masterData.shipToParty.details_shipToParty', [
+            'shipToParty' => $shipToParty,
+            'divisions' => $divisions,
+            'districts' => $districts,
+            'upazilas' => $upazilas,
+            'postOffice' => $postOffice,
+            'salesTerritories' => $salesTerritories,
+            'tradeCategories' => $tradeCategories,
+            'tradeSubCategories' => $tradeSubCategories,
+            'customerTypes' => $customerTypes,
+            'fiPaymentTerms' => $fiPaymentTerms,
+            'currencies' => $currencies,
+            'accAssignmentGroups' => $accAssignmentGroups,
+            'territories' => $territories
+        ]);
+    }
+
+
+
 }

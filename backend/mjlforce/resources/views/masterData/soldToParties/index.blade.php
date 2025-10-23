@@ -34,7 +34,7 @@
                                             <td>{{ $soldToParty->address }}</td>
                                             <td>{{ $soldToParty->employee?->name }}</td>
                                             <td><a type="button"
-                                                    href="{{ route('cma.soldToPartyRequestForm', $soldToParty->id) }}"
+                                                    href="{{ route('masterData.detailsSoldToParties', $soldToParty->id) }}"
                                                     class="btn btn-secondary"><i class="fa fa-folder-open-o"></i></a>
                                             </td>
                                         </tr>
