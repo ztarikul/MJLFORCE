@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Settings as SettingsIcon } from "react-feather";
 
 export default function SidebarUser(props) {
-  console.log(props);
   return (
     <div className="sidebar-user text-center">
       <Link className="setting-primary" to="javascript:void(0)">

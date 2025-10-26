@@ -17,15 +17,51 @@ export default function Auth() {
     return userDetails;
   };
 
+  const getUserRoles = () => {
+    const userString = sessionStorage.getItem("user_roles");
+    const userRoles = JSON.parse(userString);
+    return userRoles;
+  };
+
+  const getUserPermissions = () => {
+    const userString = sessionStorage.getItem("user_permissions");
+    const userPermissions = JSON.parse(userString);
+    return userPermissions;
+  };
+
+  const getIsSupervisor = () => {
+    const userString = sessionStorage.getItem("is_supervisor");
+    const userIsSupervisor = JSON.parse(userString);
+    return userIsSupervisor;
+  };
+
   const [token, setToken] = useState(getToken());
   const [user, setUser] = useState(getUser());
+  const [userRoles, setUserRoles] = useState(getUserRoles());
+  const [userPermissions, setUserPermissions] = useState(getUserPermissions());
+  const [isSupervisor, setIsSupervisor] = useState(getIsSupervisor());
 
-  const saveToken = (user, token) => {
+  const saveToken = (
+    user,
+    token,
+    user_roles,
+    user_permissions,
+    is_supervisor
+  ) => {
     sessionStorage.setItem("token", JSON.stringify(token));
     sessionStorage.setItem("user", JSON.stringify(user));
+    sessionStorage.setItem("user_roles", JSON.stringify(user_roles));
+    sessionStorage.setItem(
+      "user_permissions",
+      JSON.stringify(user_permissions)
+    );
+    sessionStorage.setItem("is_supervisor", JSON.stringify(is_supervisor));
 
     setToken(token);
     setUser(user);
+    setUserRoles(user_roles);
+    setUserPermissions(user_permissions);
+    setIsSupervisor(is_supervisor);
     navigate("/");
   };
 
@@ -77,5 +113,8 @@ export default function Auth() {
     getToken,
     http,
     logout,
+    userRoles,
+    userPermissions,
+    isSupervisor,
   };
 }

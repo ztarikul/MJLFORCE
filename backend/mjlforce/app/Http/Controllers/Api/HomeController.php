@@ -45,7 +45,7 @@ class HomeController extends Controller
             'total_sales_target' =>$total_sales_target,
             'total_sales' => $total_sales,
             'total_customer' => $employee->soldToParties()->count(),
-            'updated_at' => $salesTargets->updated_at->toDateTimeString()
+            'updated_at' => $salesTargets?->updated_at->toDateTimeString()
         ];
         return response()->json(['sidebarUser' => $sidebarUser], 200);
     }

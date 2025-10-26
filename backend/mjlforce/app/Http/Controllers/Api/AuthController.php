@@ -109,6 +109,9 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => 60 * 60 * 60,
             'user' => auth()->user(),
+            'user_roles' => auth()->user()->getRoleNames(),
+            'user_permissions' => auth()->user()->getAllPermissions()->pluck('name'),
+            'is_supervisor' => auth()->user()->employee ? (auth()->user()->employee->employeesOfSupervisor->count() > 0 ? true : false) : false,
            
         ]);
     }

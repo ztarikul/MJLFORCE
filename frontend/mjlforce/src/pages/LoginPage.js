@@ -65,7 +65,13 @@ export default function LoginPage() {
       .post("/login", formData)
       .then((res) => {
         console.log(res);
-        setToken(res.data.user, res.data.access_token);
+        setToken(
+          res.data.user,
+          res.data.access_token,
+          res.data.user_roles,
+          res.data.user_permissions,
+          res.data.is_supervisor
+        );
       })
       .catch((error) => {
         console.log(error);
