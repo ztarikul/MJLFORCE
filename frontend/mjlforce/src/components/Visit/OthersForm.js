@@ -125,6 +125,10 @@ export default function OthersForm() {
 
     if (name == "site_name") {
       if (value.length > 1) {
+        setFormData((prev) => ({
+          ...prev,
+          site_id: null,
+        }));
         fetchSuggestions(value);
       } else {
         setSuggestions([]);
@@ -225,6 +229,8 @@ export default function OthersForm() {
             lat: "",
             accuracy: "",
           });
+          setShowSuggestions(false);
+          setSuggestions(null);
         })
         .catch((error) => {
           console.log(error);

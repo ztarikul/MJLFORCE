@@ -136,7 +136,7 @@ export default function NewForm() {
           console.log(res);
           Swal.fire({
             title: "Submitted!",
-            text: "Your form has been submitted.",
+            text: res.data.msg,
             icon: "success",
             timer: 2000,
             showConfirmButton: false,
