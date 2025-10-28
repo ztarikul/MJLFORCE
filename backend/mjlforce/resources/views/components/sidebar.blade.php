@@ -41,6 +41,7 @@
                             </li>
                             <li><a href="{{ route('masterData.territoryIndex') }}">Territories</a></li>
                             <li><a href="{{ route('masterData.tradeCategoryIndex') }}">Trade Categories</a></li>
+                            <li><a href="{{ route('masterData.salesAreaIndex') }}">Sales Area</a></li>
                         </ul>
                     </li>
 

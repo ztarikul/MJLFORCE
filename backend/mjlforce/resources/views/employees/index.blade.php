@@ -31,6 +31,7 @@
                                         <th>Business Team</th>
                                         <th>Region</th>
                                         <th>Territory</th>
+                                        <th>Reports to</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -44,6 +45,7 @@
                                             <th>{{ $employee->businessTeam?->name }}</th>
                                             <th>{{ $employee->region?->name }}</th>
                                             <th>{{ $employee->territory?->name }}</th>
+                                            <th>{{ $employee->supervisorOfEmployee?->name }}</th>
                                             <th>
                                                 <div class="btn-group">
                                                     <button class="btn btn-success btn-sm"

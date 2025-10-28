@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('code')->unique()->nullable();
+            $table->integer('code')->unique()->nullable();
             $table->string('sap_code')->unique()->nullable();
             $table->string('description')->nullable();
             $table->boolean('activeStatus')->default(true);

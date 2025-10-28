@@ -534,5 +534,11 @@ class MasterDataController extends Controller
     }
 
 
+    public function salesAreaIndex(){
+        $salesAreas = SoldToPartySalesArea::orderBy('id', 'asc')->get();
+        return view('masterData.salesAreas.index', compact('salesAreas'));
+    }
+
+
 
 }

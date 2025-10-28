@@ -16,16 +16,16 @@ class EmployeeController extends Controller
 
     public function index(){
         $employees = Employee::orderBy('name', 'asc')->get();
-        $designations = Designation::orderBy('name', 'asc')->get();
-        $businessTeams = BusinessTeam::orderBy('name', 'asc')->get();
-        $territories = Territory::orderBy('name', 'asc')->get();
+        // $designations = Designation::orderBy('name', 'asc')->get();
+        // $businessTeams = BusinessTeam::orderBy('name', 'asc')->get();
+        // $territories = Territory::orderBy('name', 'asc')->get();
         return view('employees.index', compact('employees'));
     }
 
     public function create()
     {
         $employees = Employee::orderBy('name', 'asc')->get();
-        $designations = Designation::orderBy('name', 'asc')->get();
+        $designations = Designation::orderBy('code', 'asc')->get();
         $businessTeams = BusinessTeam::orderBy('name', 'asc')->get();
         $territories = Territory::orderBy('name', 'asc')->get();
         return response()->json([
@@ -80,7 +80,7 @@ class EmployeeController extends Controller
     public function edit($id){
         $employee = Employee::with('designation:id,name', 'businessTeam:id,name', 'territory:id,name', 'supervisorOfEmployee:id,name')->find($id);
         $supervisors = Employee::orderBy('name', 'asc')->get();
-        $designations = Designation::orderBy('name', 'asc')->get();
+        $designations = Designation::orderBy('code', 'asc')->get();
         $businessTeams = BusinessTeam::orderBy('name', 'asc')->get();
         $territories = Territory::orderBy('name', 'asc')->get();
 
