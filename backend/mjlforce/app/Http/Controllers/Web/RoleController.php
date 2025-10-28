@@ -101,16 +101,28 @@ class RoleController extends Controller
 
     public function userRolePermission_update(Request $request, $userId){
 
-        // dd($request->all());
+      
         $permissions = $request->input('permission');
         $roles = $request->input('role');
         $user = User::find($userId);
 
-        if($request->has('permission_id')){
-            $user->syncPermissions($permissions);
+        if($request->has('permission')){
+            $getPermissions = Permission::whereIn('name', $permissions)->get();
+            if($getPermissions->isNotEmpty()){
+                $guard = $getPermissions->first()->guard_name;
+                $user->guard_name = $guard;
+                $user->syncPermissions($getPermissions);
+            }
+            
         }else{
-            $user->syncPermissions([]);
-            $user->syncRoles($roles);
+            $getRoles = Role::whereIn('name', $roles)->get();
+            if($getRoles->isNotEmpty()){
+                $guard = $getRoles->first()->guard_name;
+                $user->guard_name = $guard;
+                $user->syncPermissions([]);
+                $user->syncRoles($roles);
+            }
+            
         }
 
         return response()->json([
