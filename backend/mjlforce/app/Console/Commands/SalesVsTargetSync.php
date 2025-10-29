@@ -37,7 +37,7 @@ class SalesVsTargetSync extends Command
             $year = Carbon::now()->format('Y');
 
             $client = new Client();
-            $response = $client->get('http://10.24.242.8:56000/RESTAdapter/SalesTargetAchievement', [
+            $response = $client->get('http://10.24.242.9:56000/RESTAdapter/SalesTargetAchievement', [
                 'auth' => ['sappo_app_user', 'LpYUQ93ITgkE'], // Basic Auth
                 'headers' => [
                     'Accept' => 'application/json',

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sold_to_party_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('complaint_type_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('sold_to_party_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('complaint_type_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('complaint_type')->nullable();
             $table->text('complaint')->nullable();
             $table->foreignId('employee_id')->nullable()->constrained();

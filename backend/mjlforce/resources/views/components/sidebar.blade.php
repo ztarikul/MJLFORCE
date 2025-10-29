@@ -60,7 +60,7 @@
                                 data-feather="airplay"></i><span>Privilege</span></a>
                         <ul class="nav-submenu menu-content">
                             <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                            <li><a href="#">Permissions</a></li>
+                            <li><a href="{{ route('roles.permissions_index') }}">Permissions</a></li>
                             <li><a href="{{ route('roles.userRolePermission_index') }}">User
                                     Role</a></li>
                         </ul>

@@ -7,6 +7,7 @@ use App\Models\ShipToPartyprocessLog;
 use App\Models\SoldToParty;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class MyCustomSeeder extends Seeder
 {
@@ -17,17 +18,9 @@ class MyCustomSeeder extends Seeder
     {
         //
 
-        $soldToParties = ShipToParty::pluck('id');
-      
-        foreach ($soldToParties as $party) {
-            // For each SoldToParty, create a SoldToPartyLeadLog entry
-            ShipToPartyprocessLog::create([
-                'ship_to_party_id' => $party, 
-                'chk_from' => 4,
-                'chk_to' => 5,
-                'status' => 2,
-            ]);
-        }
+        Schema::disableForeignKeyConstraints();
+        SoldToParty::truncate();
+        Schema::enableForeignKeyConstraints();
 
 
     }

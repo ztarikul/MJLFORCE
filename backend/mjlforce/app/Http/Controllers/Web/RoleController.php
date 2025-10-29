@@ -132,5 +132,63 @@ class RoleController extends Controller
         ]);
     }
 
+    public function permissions_index(){
+        $permissions = Permission::orderBy('name', 'asc')->get();
+        return view('roles.permission_index', compact('permissions'));
+    }
+
+    
+    public function permissions_store(Request $request){
+        $request->validate([
+            'name' => 'required|unique:permissions',
+            'guard_name' => 'required'
+        ],
+        [
+            'name.required' => "Permission name is required",
+            'name.unique' => "Name is already taken!",
+            'guard_name' => "Guard is required"
+        ]);
+
+        $permission = new Permission();
+        $permission->name = $request->name;
+        $permission->guard_name = $request->guard_name;
+        $permission->save();
+
+        return response()->json(['status' => 'success', 'msg' => "Permission is created successfully", 'redirect_url' => route('roles.permissions_index')]);
+    }
+
+    public function permissions_edit($id){
+        $permission = Permission::find($id);
+        return response()->json(['status' => 'success', 'permission' => $permission]);
+    }
+
+    public function permissions_update(Request $request, $id){
+
+        $request->validate([
+            'name' => 'required|unique:permissions,name,' . $id,
+            'guard_name' => 'required'
+        ],
+        [
+            'name.required' => "Permission name is required",
+            'name.unique' => "Name is already taken!",
+            'guard_name' => "Guard is required"
+        ]);
+
+        $permission = Permission::find($id);
+        $permission->name = $request->name;
+        $permission->guard_name = $request->guard_name;
+        $permission->update();
+
+        return response()->json(['status' => 'success', 'msg' => "Permission has been updated", 'redirect_url' => route('roles.permissions_index')]);
+    }
+
+    
+    public function permissions_destroy($id)
+    {
+        //
+        $permission = Permission::find($id)->delete();
+        return response()->json(['status' => 'success', 'msg' => "Permission has been deleted", 'redirect_url' => route('roles.permissions_index')]);
+    }
+
   
 }

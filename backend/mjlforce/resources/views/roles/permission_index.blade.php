@@ -34,18 +34,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($roles as $idx => $role)
+                                    @foreach ($permissions as $idx => $permission)
                                         <tr>
-                                            <td>{{ $role->name }}</td>
-                                            <td>{{ $role->guard_name }}</td>
-                                            <td>{{ $role->created_at }}</td>
+                                            <td>{{ $permission->name }}</td>
+                                            <td>{{ $permission->guard_name }}</td>
+                                            <td>{{ $permission->created_at }}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button class="btn btn-success btn-sm"
-                                                        onclick="element_edit('{{ $role->id }}')"><i
+                                                        onclick="element_edit('{{ $permission->id }}')"><i
                                                             class="fa fa-edit"></i></button>
                                                     <button class="btn btn-danger btn-sm"
-                                                        onclick="element_delete('{{ $role->id }}')"><i
+                                                        onclick="element_delete('{{ $permission->id }}')"><i
                                                             class="fa fa-trash-o"></i></button>
                                                 </div>
                                             </td>
@@ -73,7 +73,7 @@
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Role Name</label>
+                                                <label class="col-form-label">Permission Name</label>
                                                 <input type="text" class="form-control" name="name" id="name">
                                             </div>
                                             <div class="col-md-12">
@@ -81,15 +81,7 @@
                                                 <input type="text" class="form-control" name="guard_name"
                                                     id="guard_name">
                                             </div>
-                                            <div class="col-md-12 mt-3">
-                                                @foreach ($permissions as $idx => $permission)
-                                                    <label class="d-block" for="chk-ani">
-                                                        <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                                                            value="{{ $permission->name }}" name="permission[]">
-                                                        {{ $permission->name }}
-                                                    </label>
-                                                @endforeach
-                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" type="button"
@@ -116,7 +108,7 @@
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label class="col-form-label">Role Name</label>
+                                                <label class="col-form-label">Permission Name</label>
                                                 <input type="text" class="form-control" name="name" id="edit_name">
                                                 <input type="hidden" id="edit_id">
                                             </div>
@@ -125,15 +117,7 @@
                                                 <input type="text" class="form-control" name="guard_name"
                                                     id="edit_guard_name">
                                             </div>
-                                            <div class="col-md-12 mt-3" id="permission_list">
 
-                                                {{-- <label class="d-block" for="chk-ani">
-                                                        <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                                                            value="{{ $permission->name }}" name="permission[]">
-                                                        {{ $permission->name }}
-                                                    </label>
-                                                --}}
-                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" type="button"
@@ -166,7 +150,7 @@
                             action: function() {
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{ route('roles.store') }}",
+                                    url: "{{ route('roles.permissions_store') }}",
                                     data: formData,
                                     contentType: false,
                                     processData: false,
@@ -240,7 +224,7 @@
                             action: function() {
                                 $.ajax({
                                     type: "POST",
-                                    url: "{{ url('roles/update') }}" +
+                                    url: "{{ url('roles/permissions_update') }}" +
                                         "/" + id,
                                     data: formData,
                                     contentType: false,
@@ -260,6 +244,7 @@
                                                 icon: 'success',
                                                 position: 'top-right'
                                             });
+                                            $('#editModal').modal('hide');
                                             setTimeout(function() { // wait for 5 secs(2)
                                                 window.location.href = res
                                                     .redirect_url; // then redirect
@@ -306,23 +291,14 @@
         function element_edit(id) {
             $.ajax({
                 type: "GET",
-                url: "{{ url('roles/edit') }}" + "/" + id,
+                url: "{{ url('roles/permissions_edit') }}" + "/" + id,
                 success: function(res) {
+                    console.log(res);
                     if (res.status === 'success') {
-                        console.log(res)
 
-                        $('#edit_id').val(res.role.id);
-                        $('#edit_name').val(res.role.name);
-                        $('#edit_guard_name').val(res.role.guard_name);
-                        let _permissions = "";
-                        $.each(res.permissions, function(index, permission) {
-                            _permissions += `<label class="d-block" for="chk-ani">
-                                                <input class="checkbox_animated" id="chk-ani" type="checkbox"
-                                                value="${permission.name}" name="permission[]" ${res.rolePermissions.includes(permission.name) ? 'checked' : ''}>
-                                                ${permission.name}
-                                            </label>`;
-                        });
-                        $('#permission_list').html(_permissions);
+                        $('#edit_id').val(res.permission.id);
+                        $('#edit_name').val(res.permission.name);
+                        $('#edit_guard_name').val(res.permission.guard_name);
                         $('#editModal').modal('show');
                     } else {
                         $.toast({
@@ -356,7 +332,7 @@
                         action: function() {
                             $.ajax({
                                 type: "GET",
-                                url: "{{ url('roles/delete') }}" +
+                                url: "{{ url('roles/permissions_update') }}" +
                                     "/" + id,
                                 contentType: false,
                                 processData: false,
