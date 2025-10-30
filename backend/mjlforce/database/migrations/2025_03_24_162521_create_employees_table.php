@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('emp_code')->nullable()->unique();
             $table->string('sap_code')->nullable()->unique();
             $table->string('gender')->nullable()->comment('1=>male, 2=>female, 3=>others');
-            $table->string('image')->nullable()->unique();
+            $table->string('image')->nullable();
             $table->string('mobile')->nullable()->unique();
             $table->string('email')->nullable()->unique();
-            $table->string('address')->nullable()->unique();
-            $table->string('doj')->nullable()->unique();
+            $table->string('address')->nullable();
+            $table->string('doj')->nullable();
             $table->string('nkn_code')->nullable()->unique();
             $table->foreignId('designation_id')->nullable()->constrained();
             $table->foreignId('business_team_id')->nullable()->constrained();
