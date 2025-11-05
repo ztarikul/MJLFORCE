@@ -30,6 +30,7 @@ class HomeController extends Controller
     }
 
     public function sidebarUser(){
+        
         $employee =  Employee::select('id', 'user_id', 'sap_code', 'name', 'designation_id', 'business_team_id')->where('user_id', auth()->id())->first();
         $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();
         $total_sales_target = 0;
@@ -40,8 +41,8 @@ class HomeController extends Controller
         }
         $sidebarUser = [
             'employee_name' => $employee->name,
-            'employee_designation' => $employee->designation->name,
-            'employee_businessTeam' => $employee->businessTeam->name,
+            'employee_designation' => $employee->designation?->name,
+            'employee_businessTeam' => $employee->businessTeam?->name,
             'total_sales_target' =>$total_sales_target,
             'total_sales' => $total_sales,
             'total_customer' => $employee->soldToParties()->count(),

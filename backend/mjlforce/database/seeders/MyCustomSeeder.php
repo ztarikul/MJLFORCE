@@ -20,12 +20,12 @@ class MyCustomSeeder extends Seeder
     {
         //
 
-        Schema::disableForeignKeyConstraints();
-        // SoldToParty::truncate();
-        // Employee::truncate();
-        ShipToParty::truncate();
-        // ShipToPartyprocessLog::truncate();
-        Schema::enableForeignKeyConstraints();
+        // Schema::disableForeignKeyConstraints();
+        // // SoldToParty::truncate();
+        // // Employee::truncate();
+        // ShipToParty::truncate();
+        // // ShipToPartyprocessLog::truncate();
+        // Schema::enableForeignKeyConstraints();
 
 
         // $soldToParties = ShipToParty::pluck('id');
