@@ -2,17 +2,20 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import Main from "../Main";
 import TargetCharts from "../Charts/TargetCharts";
 import Auth from "../../auth/Auth";
+import PageLoader from "../../utils/PageLoader";
 
 export default function SalesTarget() {
   const { http } = Auth();
   const [salesVsTarget, setSalesVsTarget] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const fetchData = useCallback(() => {
     http
       .get("/sales_vs_target")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setSalesVsTarget(res.data.salesTargets);
+        setPageLoading(false);
       })
       .catch((res) => {
         console.log(res);
@@ -40,6 +43,9 @@ export default function SalesTarget() {
 
     return className;
   };
+  if (pageLoading) {
+    return <PageLoader />;
+  }
 
   return (
     <Main>

@@ -20,62 +20,62 @@ export default function TargetCharts(props) {
     colors: [
       props.value.jan_percentage >= 90
         ? "#00E396"
-        : props.value.jan_percentage >= 80 && props.value.jan_percentage < 90
+        : props.value.jan_percentage >= 70 && props.value.jan_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.feb_percentage >= 90
         ? "#00E396"
-        : props.value.feb_percentage >= 80 && props.value.feb_percentage < 90
+        : props.value.feb_percentage >= 70 && props.value.feb_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.mar_percentage >= 90
         ? "#00E396"
-        : props.value.mar_percentage >= 80 && props.value.mar_percentage < 90
+        : props.value.mar_percentage >= 70 && props.value.mar_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.apr_percentage >= 90
         ? "#00E396"
-        : props.value.apr_percentage >= 80 && props.value.apr_percentage < 90
+        : props.value.apr_percentage >= 70 && props.value.apr_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.may_percentage >= 90
         ? "#00E396"
-        : props.value.may_percentage >= 80 && props.value.may_percentage < 90
+        : props.value.may_percentage >= 70 && props.value.may_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.jun_percentage >= 90
         ? "#00E396"
-        : props.value.jun_percentage >= 80 && props.value.jun_percentage < 90
+        : props.value.jun_percentage >= 70 && props.value.jun_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.jul_percentage >= 90
         ? "#00E396"
-        : props.value.jul_percentage >= 80 && props.value.jul_percentage < 90
+        : props.value.jul_percentage >= 70 && props.value.jul_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.aug_percentage >= 90
         ? "#00E396"
-        : props.value.aug_percentage >= 80 && props.value.aug_percentage < 90
+        : props.value.aug_percentage >= 70 && props.value.aug_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.sep_percentage >= 90
         ? "#00E396"
-        : props.value.sep_percentage >= 80 && props.value.sep_percentage < 90
+        : props.value.sep_percentage >= 70 && props.value.sep_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.oct_percentage >= 90
         ? "#00E396"
-        : props.value.oct_percentage >= 80 && props.value.oct_percentage < 90
+        : props.value.oct_percentage >= 70 && props.value.oct_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.nov_percentage >= 90
         ? "#00E396"
-        : props.value.nov_percentage >= 80 && props.value.nov_percentage < 90
+        : props.value.nov_percentage >= 70 && props.value.nov_percentage < 90
         ? "#FEB019"
         : "#FF4560",
       props.value.dec_percentage >= 90
         ? "#00E396"
-        : props.value.dec_percentage >= 80 && props.value.dec_percentage < 90
+        : props.value.dec_percentage >= 70 && props.value.dec_percentage < 90
         ? "#FEB019"
         : "#FF4560",
     ],

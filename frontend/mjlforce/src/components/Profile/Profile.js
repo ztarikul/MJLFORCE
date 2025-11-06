@@ -150,7 +150,7 @@ export default function Profile() {
                           <h3 className="mb-1 f-20 txt-primary">
                             {fetchData.name}
                           </h3>
-                          <p className="f-12">{fetchData.designation.name}</p>
+                          <p className="f-12">{fetchData.designation?.name}</p>
                         </div>
                       </div>
                     </div>
