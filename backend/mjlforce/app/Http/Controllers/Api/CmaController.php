@@ -308,6 +308,16 @@ class CmaController extends Controller
                     'status' => 2,
                     'remarks' => "Create CMA",
                 ]);  
+
+                //CMA form pdf generate here
+
+                // $data = [
+                //     'title' => 'Customer Master Advice',
+                //     'soldToParty' => $soldToParty,
+                //     'content' => 'This PDF is generated and stored using Laravel 12 and DomPDF.'
+                // ];
+
+
             }
 
             SoldToPartyLeadLog::create([

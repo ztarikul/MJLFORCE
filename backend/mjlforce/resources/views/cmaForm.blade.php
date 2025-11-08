@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Customer Master Advice</title>
+    <title>{!! $title !!}</title>
     <style>
       body {
         margin: 0;
@@ -127,7 +127,7 @@
         </div>
         <div style="text-align: right">
           <span style="font-weight: bold; display: block"
-            >Customer Master Advice</span
+            ></span
           >
           <div
             class="date"
@@ -136,7 +136,6 @@
             <span style="margin-right: 10px">Date:</span>
             <span class="large-square">0</span>
             <span class="large-square">7</span>
-            <span class="large-square"></span>
             <span class="large-square"></span>
             <span class="large-square"></span>
             <span class="large-square"></span>
