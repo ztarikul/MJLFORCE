@@ -33,161 +33,144 @@ class MyCustomCommand extends Command
         //
         $soldToParty = SoldToParty::latest()->first();
         $date = now()->format('d-m-Y');
-        $date_digits = str_split(preg_replace('/\D/', '', $date));
-        $bin_digits =  str_split(preg_replace('/\D/', '', $soldToParty->bin_no));
-        $bin_html = "";
+        // $date_digits = str_split(preg_replace('/\D/', '', $date));
+        // $bin_digits =  str_split(preg_replace('/\D/', '', $soldToParty->bin_no));
+        // $bin_html = "";
      
-        foreach ($bin_digits as $digit) {
-            $bin_html .= '<div class="bin-box">' . $digit . '</div>';
-        }
+        // foreach ($bin_digits as $digit) {
+        //     $bin_html .= '<div class="bin-box">' . $digit . '</div>';
+        // }
      
 
-         $content = '<div class="container">
-      <div class="header">
-        <div style="display: inLine-block;">
-          <h1 style="font-weight: bold; margin: 0">MJL Bangladesh PLC.</h1>
-          <div style="display: inLine-block; align-items: center; margin-top: px">
-            <label style="margin-right: 5px">New</label>
-            <span class="checkbox">&#10003</span>
-            <label style="margin-left: 5px; margin-right: 5px">Existing</label>
-            <span class="checkbox"></span>
-          </div>
-        </div>
-        <div style="text-align: right">
-          <span style="font-weight: bold; display: block"
-            ></span
-          >
-          <div
-            class="date"
-            style="margin-top: 5px; display: inLine-block; align-items: center"
-          >
-            <span style="margin-right: 10px">Date:</span>
-            <span class="large-square">'.$date_digits[0].'</span>
-            <span class="large-square">'.$date_digits[1].'</span>
-            <span class="large-square">'.$date_digits[2].'</span>
-            <span class="large-square">'.$date_digits[3].'</span>
-            <span class="large-square">'.$date_digits[4].'</span>
-            <span class="large-square">'.$date_digits[5].'</span>
-            <span class="large-square">'.$date_digits[6].'</span>
-            <span class="large-square">'.$date_digits[7].'</span>
-          </div>
-        </div>
-      </div>
+         $content = '<header class="mt-2">
+              <div style="width:100%;">
+                  <div style="display:inline-block; width:48%; vertical-align:top;">
+                      <h5>MJL Bangladesh PLC.</h5>
+                      <table class="">
+                          <tr class="">
+                              <td style="display: inline-block"><input type="checkbox" checked /> New</td>
+                              <td style="display: inline-block"><input type="checkbox" /> Exsiting</td>
+                          </tr>
+                      </table>
+                  </div>
 
-      <div class="section">
-        <h2>Customer Information:</h2>
-        <div style="display: inLine-block; flex-wrap: wrap; gap: 4px">
-          <div style="display: inLine-block; min-width: 300px">
-            <div class="field">
-              <label>*Account Name:</label>
-              <div class="input">'.$soldToParty->acc_name.'</div>
-            </div>
-            <div class="field">
-              <label>*Office Address:</label>
-              <div class="input">'.$soldToParty->address.'</div>
-            </div>
-            <div class="field">
-              <label>Post Office:</label>
-              <div class="input">'.$soldToParty->LocPostOffice->post_office.'</div>
-            </div>
-            <div class="field">
-              <label>*Contact Person:</label>
-              <div class="input">'.$soldToParty->contact_person_name.'</div>
-            </div>
-          </div>
-
-          <div style="display: inLine-block; align="right; min-width: 100px; gap: 0px">
-            <div class="field">
-              <label>Group:</label>
-              <div class="input">'.$soldToParty->group.'</div>
-            </div>
-            <div class="field">
-              <label>*District:</label>
-              <div class="input">'.$soldToParty->distict.'</div>
-            </div>
-            <div class="field">
-              <label>*BIN:</label>
-              <div style="display: inLine-block; gap: 0px; align-items: center">
-                <div style="display: inLine-block; gap: 0px">
-                  '.$bin_html.'
-                </div>
+                  <div style="display:inline-block; width:48%; text-align:right; vertical-align:top;">
+                      <h6>Customer Master Advice</h6>
+                      <p>Date: '.$date.'</p>
+                  </div>
               </div>
-            </div>
-            <div class="field">
-              <label>*Phone No. (Cell):</label>
-              <div class="input">'.$soldToParty->contact_person_mobile.'</div>
-            </div>
+          </header>
+          <div class="p-2 mt-2">
+              <h6 class="fw-bold">Customer Information:</h6>
+              <table class="text-center customer-info-table" style="width: 100%">
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Account Name</td>
+                      <td>'.$soldToParty->acc_name.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Office Address:</td>
+                      <td>'.$soldToParty->address.'</td>
+                  </tr>
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Post Office:</td>
+                      <td>'.$soldToParty->LocPostOffice->post_office.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Contact Person:</td>
+                      <td>'.$soldToParty->contact_person_name.'</td>
+                  </tr>
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Group</td>
+                      <td>'.$soldToParty->group.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*District</td>
+                      <td>'.$soldToParty->district.'</td>
+                  </tr>
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*BIN</td>
+                      <td>'.$soldToParty->bin_no.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Phone No. (Cell):</td>
+                      <td>'.$soldToParty->contact_person_mobile.'</td>
+                  </tr>
+              </table>
           </div>
-        </div>
-      </div>
+          <div class="p-2 mt-2">
+              <h6 class="fw-bold">Company Information:</h6>
+              <table class="text-center customer-info-table" style="width: 100%">
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">CEO/MD/Owner:</td>
+                      <td>'.$soldToParty->ceo.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Office Phone:</td>
+                      <td>'.$soldToParty->mobile_phone.'</td>
+                  </tr>
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Telephone:</td>
+                      <td>'.$soldToParty->phone.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Email</td>
+                      <td>'.$soldToParty->email.'</td>
+                  </tr>
+              </table>
+          </div>
+          <div class="p-2 mt-2">
+              <h6 class="fw-bold">Sales Information:</h6>
+              <table class="text-center customer-info-table" style="width: 100%">
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Customer Type:</td>
+                      <td>'.$soldToParty->customerType->name.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Sales Territory:</td>
+                      <td>'.$soldToParty->territorySToP->name.'</td>
+                  </tr>
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Trade Category:</td>
+                      <td>'.$soldToParty->tradeCategory->name.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Sub Category:</td>
+                      <td>'.$soldToParty->tradeSubCategory->name.'</td>
+                  </tr>
+                  <tr class="text-start">
+                      <td style="font-weight: bold; background-color: #A5A8A6;">*Sales Person (Mobil):</td>
+                      <td>'.$soldToParty->employee->name.'</td>
+                      <td style="font-weight: bold; background-color: #A5A8A6;">Remarks:</td>
+                      <td>'.$soldToParty->remarks.'</td>
+                  </tr>
+              </table>
+          </div>
+          <div class="p-2 mt-2">
+              <h6>Payment Mode:</h6>
+              <table class="">
+                  <tr class="mt-5">
+                      <td style="display: inline-block"><input type="checkbox" checked /> Check</td>
+                      <td style="display: inline-block"><input type="checkbox" /> Cash</td>
+                      <td style="display: inline-block"><input type="checkbox" /> PO</td>
+                      <td style="display: inline-block"><input type="checkbox" /> DD</td>
+                  </tr>
+              </table>
+          </div>
 
-      <div class="section">
-        <h2>Company Information:</h2>
-        <div class="field">
-          <label>CEO/MD/Owner:</label>
-          <div class="input">'.$soldToParty->ceo.'</div>
-        </div>
-        <div class="field">
-          <label>Office Phone:</label>
-          <div class="input">'.$soldToParty->mobile_phone.'</div>
-        </div>
-        <div class="field">
-          <label>Telephone:</label>
-          <div class="input">'.$soldToParty->phone.'</div>
-        </div>
-        <div class="field">
-          <label>Email:</label>
-          <div class="input">'.$soldToParty->email.'</div>
-        </div>
-      </div>
+          <div class="p-2 mt-3 empsignature">
+              <table class="text-center empsignature-table" style="width: 100%">
+                  <tr>
+                      <td style="height: 30px">'.$soldToParty->employee->name.'</td>
 
-      <div class="section">
-        <h2>Sales Information:</h2>
-        <div class="field">
-          <label>*Customer Type:</label>
-          <div class="input">'.$soldToParty->customerType->name.'</div>
-        </div>
-        <div class="field">
-          <label>*Sales Territory:</label>
-          <div class="input">'.$soldToParty->territorySToP->name.'</div>
-        </div>
-        <div class="field">
-          <label>*Trade Category:</label>
-          <div class="input">'.$soldToParty->tradeCategory->name.'</div>
-        </div>
-        <div class="field">
-          <label>*Sub Category:</label>
-          <div class="input">'.$soldToParty->tradeSubCategory->name.'</div>
-        </div>
-        <div class="field">
-          <label>*Sales Person (Mobil):</label>
-          <div class="input">'.$soldToParty->employee->mobile.'</div>
-        </div>
-        <div class="field">
-          <label>Remarks:</label>
-          <div class="input">'.$soldToParty->remarks.'</div>
-        </div>
-        <div class="field">
-          <label>Payment Mode:</label>
-          <div class="checkbox">x</div>
-          Check
-          <div class="checkbox"></div>
-          Cash
-          <div class="checkbox"></div>
-          PO
-          <div class="checkbox"></div>
-          DD
-          <div class="checkbox"></div>
-          Transfer
-        </div>
-      </div>
+                      <td style="height: 30px; font-weight: bold">'.$soldToParty->employee->supervisorOfEmployee?->name.'</td>
+                  </tr>
+                  <tr>
+                      <td style="font-weight: bold">
+                          <hr
+                              style="
+                                      border: 1px solid black;
+                                      width: 80%;
+                                      margin: auto;
+                                  " />
+                          Submitted By
+                      </td>
 
-      <div class="footer">
-        <div class="signature">Submitted by:'.$soldToParty->employee->name.'</div>
-        <div class="signature" style="align="rightdisplay: inline-block;">Approved by:'.$soldToParty->employee->supervisorOfEmployee?->name.'</div>
-        
-      </div>
-    </div>';
+                      <td style="font-weight: bold">
+                          <hr
+                              style="
+                                      border: 1px solid black;
+                                      width: 80%;
+                                      margin: auto;
+                                  " />
+                          Approved By
+                      </td>
+                  </tr>
+              </table>
+          </div>';
 
 
         $data = [
@@ -199,13 +182,13 @@ class MyCustomCommand extends Command
         $filePath = $soldToParty->employee->sap_code .'_cma_form_' . $soldToParty->id . '.pdf';
         Storage::put('cma_forms/'. $filePath, $pdf->output());
 
-        // $mail_data = [
-        //   'customer_name' => $soldToParty->acc_name,
-        //   'sales_person' => $soldToParty->employee->name,
-        // ];
+        $mail_data = [
+          'customer_name' => $soldToParty->acc_name,
+          'sales_person' => $soldToParty->employee->name,
+        ];
 
-        // $mailFilepath = Storage::path('cma_forms/'. $filePath);
-        // Mail::to('tarikul.islam@mobilbd.com')
-        // ->send(new CmaFromMail($mail_data, $mailFilepath));
+        $mailFilepath = Storage::path('cma_forms/'. $filePath);
+        Mail::to('tarikul.islam@mobilbd.com')
+        ->send(new CmaFromMail($mail_data, $mailFilepath));
     }
 }

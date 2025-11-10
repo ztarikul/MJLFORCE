@@ -9,344 +9,152 @@
             rel="stylesheet"
         />
         <style>
-            label {
-                font-size: 0.8rem;
+            body {
+                font-family: "Times New Roman", Times, serif;
+                margin: 20px;
             }
-            .input-group {
-                height: 25px;
+            .customer-info-table th,
+            .customer-info-table td {
+                border: 1px solid black;
+                font-size: 12px;
+            }
+            .td-header {
+                background-color: #a5a8a6;
+                font-weight: bold;
             }
         </style>
     </head>
     <body>
-        <div class="container border p-3 my-3">
-            <!-- Header -->
-            <div class="row mb-3">
-                <div class="col">
-                    <h4 class="fw-bold mb-0">MJL Bangladesh PLC.</h4>
-                    <div class="d-flex align-items-center mt-1">
-                        <label class="me-2">New</label>
-                        <span
-                            class="border d-inline-block"
-                            style="width: 25px; height: 25px"
-                        ></span>
-                        <label class="mx-2">Existing</label>
-                        <span
-                            class="border d-inline-block"
-                            style="width: 20px; height: 20px"
-                        ></span>
-                    </div>
+        <header class="mt-2">
+            <div class="row">
+                <div class="col-6 col-md-6">
+                    <h5>MJL Bangladesh PLC.</h5>
+                    <table class="">
+                        <tr>
+                            <td><input type="checkbox" checked /> New</td>
+                            <td><input type="checkbox" /> Exsiting</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="col text-end">
-                    <span class="fw-bold d-block">Customer Master Advice</span>
-                    <div
-                        class="d-flex justify-content-end align-items-center mt-2"
-                    >
-                        <span class="me-2">Date:</span>
-                        <div class="d-flex">
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                                >0</span
-                            >
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                                >7</span
-                            >
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                            ></span>
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                            ></span>
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                            ></span>
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                            ></span>
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                            ></span>
-                            <span
-                                class="border d-inline-block text-center me-1"
-                                style="width: 25px; height: 25px"
-                            ></span>
-                        </div>
-                    </div>
+
+                <div class="col-6 col-md-6" style="text-align: right">
+                    <h6>Customer Master Advice</h6>
+                    <p>Date: 2025-11-15</p>
                 </div>
             </div>
+        </header>
+        <div class="p-2 mt-2">
+            <h6 class="fw-bold">Customer Information:</h6>
+            <table class="text-center customer-info-table" style="width: 100%">
+                <tr class="text-start">
+                    <td style="font-weight: bold">Account Name</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">*Office Address:</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+                <tr class="text-start">
+                    <td style="font-weight: bold">Post Office:</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">*Contact Person:</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+                <tr class="text-start">
+                    <td style="font-weight: bold">Group</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">*District</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+                <tr class="text-start">
+                    <td style="font-weight: bold">*BIN</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">*Phone No. (Cell):</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+            </table>
+        </div>
+        <div class="p-2 mt-2">
+            <h6 class="fw-bold">Company Information:</h6>
+            <table class="text-center customer-info-table" style="width: 100%">
+                <tr class="text-start">
+                    <td style="font-weight: bold">CEO/MD/Owner:</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">Office Phone:</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+                <tr class="text-start">
+                    <td style="font-weight: bold">Telephone:</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">Email</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+            </table>
+        </div>
+        <div class="p-2 mt-2">
+            <h6 class="fw-bold">Sales Information:</h6>
+            <table class="text-center customer-info-table" style="width: 100%">
+                <tr class="text-start">
+                    <td style="font-weight: bold">*Customer Type:</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">*Sales Territory:</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+                <tr class="text-start">
+                    <td style="font-weight: bold">*Trade Category:</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">*Sub Category:</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+                <tr class="text-start">
+                    <td style="font-weight: bold">*Sales Person (Mobil):</td>
+                    <td>Test Customer test customer</td>
+                    <td style="font-weight: bold">Remarks:</td>
+                    <td>Taltola, Khilgao Dhaka, Bangladesh</td>
+                </tr>
+            </table>
+        </div>
+        <div class="p-2 mt-2">
+            <table class="">
+                <label>Payment Mode:</label>
+                <tr>
+                    <td><input type="checkbox" checked /> Check</td>
+                    <td><input type="checkbox" /> Cash</td>
+                    <td><input type="checkbox" /> PO</td>
+                    <td><input type="checkbox" /> DD</td>
+                </tr>
+            </table>
+        </div>
 
-            <!-- Customer Information -->
-            <div class="mb-3">
-                <h6 class="fw-bold">Customer Information:</h6>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>*Account Name:</label>
-                            <div class="border bg-light p-1 input-group">
-                                Test Customer test customer
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*Office Address:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Post Office:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*Contact Person:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>Group:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*District:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*BIN:</label>
-                            <div class="d-flex flex-wrap gap-1">
-                                <span
-                                    class="border d-inline-block text-center"
-                                    style="width: 25px; height: 25px"
-                                    >8</span
-                                >
-                                <span
-                                    class="border d-inline-block text-center"
-                                    style="width: 25px; height: 25px"
-                                    >8</span
-                                >
-                                <span
-                                    class="border d-inline-block text-center"
-                                    style="width: 25px; height: 25px"
-                                    >8</span
-                                >
-                                <span
-                                    class="border d-inline-block text-center"
-                                    style="width: 25px; height: 25px"
-                                    >8</span
-                                >
-                                <span
-                                    class="border d-inline-block text-center"
-                                    style="width: 25px; height: 25px"
-                                    >8</span
-                                >
-                                <span
-                                    class="border d-inline-block text-center"
-                                    style="width: 25px; height: 25px"
-                                    >8</span
-                                >
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*Phone No. (Cell):</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="p-2 mt-3 empsignature">
+            <table class="text-center empsignature-table" style="width: 100%">
+                <tr>
+                    <td style="height: 30px">asdsa</td>
 
-            <!-- Ship To Party 1 -->
-            <!-- <div class="mb-3">
-                <h6 class="fw-bold mb-2">Ship To Party 1:</h6>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>Post Office:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Contact Person 1:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>BIN (If different):</label>
-                            <div class="d-flex flex-wrap gap-1">
-                                <span
-                                    class="border d-inline-block"
-                                    style="width: 15px; height: 15px"
-                                ></span>
-                                <span
-                                    class="border d-inline-block"
-                                    style="width: 15px; height: 15px"
-                                ></span>
-                                <span
-                                    class="border d-inline-block"
-                                    style="width: 15px; height: 15px"
-                                ></span>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>District:</label>
-                            <div class="border bg-light p-1"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Phone No. (Cell):</label>
-                            <div class="border bg-light p-1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+                    <td style="height: 30px; font-weight: bold">as</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">
+                        <hr
+                            style="
+                                border: 1px solid black;
+                                width: 80%;
+                                margin: auto;
+                            "
+                        />
+                        Submitted By
+                    </td>
 
-            <!-- Ship To Party 2 -->
-            <!-- <div class="mb-3">
-                <h6 class="fw-bold mb-2">Ship To Party 2:</h6>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>Post Office:</label>
-                            <div class="border bg-light p-1"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Contact Person 2:</label>
-                            <div class="border bg-light p-1"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>BIN (If different):</label>
-                            <div class="d-flex flex-wrap gap-1">
-                                <span
-                                    class="border d-inline-block"
-                                    style="width: 15px; height: 15px"
-                                ></span>
-                                <span
-                                    class="border d-inline-block"
-                                    style="width: 15px; height: 15px"
-                                ></span>
-                                <span
-                                    class="border d-inline-block"
-                                    style="width: 15px; height: 15px"
-                                ></span>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label>District:</label>
-                            <div class="border bg-light p-1"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Phone No. (Cell):</label>
-                            <div class="border bg-light p-1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Company Information -->
-            <div class="mb-3">
-                <h6 class="fw-bold">Company Information:</h6>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>CEO/MD/Owner:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Office Phone:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>Telephone:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Email:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sales Information -->
-            <div class="mb-3">
-                <h6 class="fw-bold">Sales Information:</h6>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>*Customer Type:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*Sales Territory:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*Trade Category:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label>*Sub Category:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>*Sales Person (Mobile):</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                        <div class="mb-2">
-                            <label>Remarks:</label>
-                            <div class="border bg-light p-1 input-group"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <label>Payment Mode:</label>
-                    <span
-                        class="border d-inline-block text-center mx-1"
-                        style="width: 25px; height: 25px"
-                        >X</span
-                    >
-                    Check
-                    <span
-                        class="border d-inline-block text-center mx-1"
-                        style="width: 25px; height: 25px"
-                    ></span>
-                    Cash
-                    <span
-                        class="border d-inline-block text-center mx-1"
-                        style="width: 25px; height: 25px"
-                    ></span>
-                    PO
-                    <span
-                        class="border d-inline-block text-center mx-1"
-                        style="width: 25px; height: 25px"
-                    ></span>
-                    DD
-                    <span
-                        class="border d-inline-block text-center mx-1"
-                        style="width: 25px; height: 25px"
-                    ></span>
-                    Transfer
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div class="row text-center mt-5">
-                <div class="col border-top pt-2">
-                    Submitted by:<br /><strong>Employee Name</strong>
-                </div>
-                <div class="col border-top pt-2">&nbsp;</div>
-                <div class="col border-top pt-2">
-                    Approved by:<br /><strong>Supervisor Name</strong>
-                </div>
-            </div>
+                    <td style="font-weight: bold">
+                        <hr
+                            style="
+                                border: 1px solid black;
+                                width: 80%;
+                                margin: auto;
+                            "
+                        />
+                        Approved By
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
