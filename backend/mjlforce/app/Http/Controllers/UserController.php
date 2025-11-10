@@ -44,6 +44,7 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully.',
+            'redirect_url' => route('users.index'),
             // 'user' => $user,
         ]);
     }
