@@ -192,8 +192,7 @@ export default function Complaint() {
                       <div className="col-md-4">
                         <div className="mb-3">
                           <label className="form-label" htmlFor="sold_to_party">
-                            Customer Name{" "}
-                            <span style={{ color: "red" }}>*</span>
+                            Customer Name
                           </label>
                           <select
                             className="form-select"
@@ -296,7 +295,12 @@ export default function Complaint() {
                           </span>
                         )}
                       </div>
+
                       <div className="col-md-4">
+                        <label className="form-label" htmlFor="complaint_type">
+                          Image <span style={{ color: "red" }}>* </span>{" "}
+                          <span>(Max 3 images)</span>
+                        </label>
                         <div
                           {...getRootProps()}
                           style={{

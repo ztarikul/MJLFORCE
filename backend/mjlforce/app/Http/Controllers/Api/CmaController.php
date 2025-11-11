@@ -64,14 +64,14 @@ class CmaController extends Controller
             'contact_person' => 'required',
             'mobile_co' => 'required',
             'telephone_co' => 'required',
-            'owner_name' => 'required',
-            'owner_telephone' => 'required',
-            'owner_mobile' => 'required',
+            // 'owner_name' => 'required',
+            // 'owner_telephone' => 'required',
+            // 'owner_mobile' => 'required',
             'customer_type' => 'required',
             'territory' => 'required',
             'trade_category' => 'required',
             'trade_s_category' => 'required',
-            'remarks' => 'nullable|string|max:500',
+           
 
         ]);
         try{
@@ -572,7 +572,7 @@ class CmaController extends Controller
             'loc_division' => 'required',
             'loc_district' => 'required',
             'loc_thana' => 'required',
-            'post_office' => 'nullable',
+            'post_office' => 'required',
             'remarks' => 'nullable|string|max:500',
             'long' => 'required',
             'lat' => 'required',

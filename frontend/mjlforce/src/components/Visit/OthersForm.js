@@ -317,7 +317,7 @@ export default function OthersForm() {
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="exampleFormControlInput1">
-                Visiting Site
+                Visiting Site <span style={{ color: "red" }}>* </span>
               </label>
               <input
                 className="form-control"
@@ -343,13 +343,18 @@ export default function OthersForm() {
                   ))}
                 </ul>
               )}
+              {errors.site_name && (
+                <span className="" style={{ color: "red" }}>
+                  {errors.site_name[0]}
+                </span>
+              )}
             </div>
           </div>
 
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="group">
-                Address
+                Address <span style={{ color: "red" }}>* </span>
               </label>
               <input
                 className="form-control"
@@ -360,13 +365,18 @@ export default function OthersForm() {
                 value={formData.address}
                 onChange={handleChange}
               />
+              {errors.loc_district && (
+                <span className="" style={{ color: "red" }}>
+                  {errors.loc_district[0]}
+                </span>
+              )}
             </div>
           </div>
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="division">
-                Division
+                Division <span style={{ color: "red" }}>* </span>
               </label>
               <select
                 className="form-select"
@@ -393,7 +403,7 @@ export default function OthersForm() {
           <div className="col-6 col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="district">
-                District
+                District <span style={{ color: "red" }}>* </span>
               </label>
               <select
                 className="form-select"
@@ -420,7 +430,7 @@ export default function OthersForm() {
           <div className="col-6 col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="thana">
-                Upazilla/Thana
+                Upazilla/Thana <span style={{ color: "red" }}>* </span>
               </label>
               <select
                 className="form-select"
@@ -437,12 +447,17 @@ export default function OthersForm() {
                 ))}
               </select>
             </div>
+            {errors.loc_thana && (
+              <span className="" style={{ color: "red" }}>
+                {errors.loc_thana[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-6 col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="postOffice">
-                Post Office
+                Post Office <span style={{ color: "red" }}>* </span>
               </label>
               <select
                 className="form-select"
@@ -486,7 +501,7 @@ export default function OthersForm() {
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="officeAddress">
-                Reason of Visit
+                Reason of Visit <span style={{ color: "red" }}>* </span>
               </label>
               <select
                 className="form-select"
@@ -503,6 +518,11 @@ export default function OthersForm() {
                 ))}
               </select>
             </div>
+            {errors.visit_purpose_id && (
+              <span className="" style={{ color: "red" }}>
+                {errors.visit_purpose_id[0]}
+              </span>
+            )}
           </div>
 
           <div className="col-md-4">

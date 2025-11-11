@@ -37,8 +37,10 @@ class HomeController extends Controller
         $total_sales_target = 0;
         $total_sales = 0;
         if($salesTargets){
-            $total_sales_target = number_format($salesTargets->total_target * 0.0062898108, 3);  //Barrel conversion
-            $total_sales = number_format($salesTargets->total_sales * 0.0062898108, 3); //Barrel conversion
+            $total_sales_target = number_format($salesTargets->total_target, 3);  //Barrel conversion
+            $total_sales = number_format($salesTargets->total_sales, 3); //Barrel conversion
+            // $total_sales_target = number_format($salesTargets->total_target * 0.0062898108, 3);  //Barrel conversion
+            // $total_sales = number_format($salesTargets->total_sales * 0.0062898108, 3); //Barrel conversion
         }
         $sidebarUser = [
             'employee_name' => $employee->name,
@@ -77,7 +79,7 @@ class HomeController extends Controller
                 $attendanceHistory->verification = $locationResponse->original['status'] . "api error";
                 $attendanceHistory->street_name =  "Not Found!";
             }else{
-                $attendanceHistory->verification = "succeess";
+                $attendanceHistory->verification = "success";
                 $attendanceHistory->street_name =  $locationResponse['display_name'];
             }
             $attendanceHistory->save();
