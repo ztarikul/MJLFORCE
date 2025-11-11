@@ -10,8 +10,12 @@ export default function Complaint() {
   //   const navigate = useNavigate();
   const { http } = Auth();
   const [soldToParties, setSoldToParties] = useState([]);
+  const [otherVisitSites, setOtherVisitSites] = useState([]);
   const [complaintTypes, setComplaintTypes] = useState([]);
+  const [isCustomerDisabled, setIsCustomerDisabled] = useState(false);
+  const [isOtherVisitDisabled, setIsOtherVisitDisabled] = useState(false);
   const [formData, setFormData] = useState({
+    other_visit_site_id: "",
     sold_to_party_id: "",
     complaint_type: "",
     complaint: "",
@@ -28,6 +32,7 @@ export default function Complaint() {
         console.log(res);
         setSoldToParties(res.data.soldToParties);
         setComplaintTypes(res.data.complaintTypes);
+        setOtherVisitSites(res.data.otherVisitSites);
       })
       .catch((res) => {
         console.log(res);
@@ -52,6 +57,7 @@ export default function Complaint() {
 
     if (result.isConfirmed) {
       const sendData = new FormData();
+      sendData.append("other_visit_site_id", formData.other_visit_site_id);
       sendData.append("sold_to_party_id", formData.sold_to_party_id);
       sendData.append("complaint_type", formData.complaint_type);
       sendData.append("complaint", formData.complaint);
@@ -80,6 +86,7 @@ export default function Complaint() {
             });
             setFormData({
               sold_to_party_id: "",
+              other_visit_site_id: "",
               complaint_type: "",
               complaint: "",
               long: "",
@@ -101,6 +108,14 @@ export default function Complaint() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "sold_to_party_id") {
+      setIsOtherVisitDisabled(true);
+    }
+    if (name === "other_visit_site_id") {
+      setIsCustomerDisabled(true);
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -147,6 +162,20 @@ export default function Complaint() {
     maxFiles: 3, // Dropzone-level restriction
   });
 
+  const resetHandler = () => {
+    setFormData({
+      sold_to_party_id: "",
+      other_visit_site_id: "",
+      complaint_type: "",
+      complaint: "",
+      long: "",
+      lat: "",
+      images: [],
+    });
+    setIsCustomerDisabled(false);
+    setIsOtherVisitDisabled(false);
+  };
+
   return (
     <Main>
       <div className="container-fluid">
@@ -171,6 +200,7 @@ export default function Complaint() {
                             id="sold_to_party_id"
                             name="sold_to_party_id"
                             onChange={handleChange}
+                            disabled={isCustomerDisabled}
                           >
                             <option value="">Please Select</option>
                             {soldToParties.map((soldToParty) => (
@@ -186,6 +216,33 @@ export default function Complaint() {
                         {errors.sold_to_party_id && (
                           <span className="" style={{ color: "red" }}>
                             {errors.sold_to_party_id[0]}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="col-md-4">
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="sold_to_party">
+                            Other Visit Site
+                          </label>
+                          <select
+                            className="form-select"
+                            id="other_visit_site_id"
+                            name="other_visit_site_id"
+                            onChange={handleChange}
+                            disabled={isOtherVisitDisabled}
+                          >
+                            <option value="">Please Select</option>
+                            {otherVisitSites.map((site) => (
+                              <option key={site.id} value={site.id}>
+                                {site.site_name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        {errors.other_visit_site_id && (
+                          <span className="" style={{ color: "red" }}>
+                            {errors.other_visit_site_id[0]}
                           </span>
                         )}
                       </div>
@@ -302,14 +359,18 @@ export default function Complaint() {
                     </div>
                   </div>
                   <div className="card-footer text-end">
-                    <button className="btn btn-primary" type="submit">
-                      Submit
-                    </button>
-                    <input
-                      className="btn btn-light"
-                      type="reset"
-                      value="Cancel"
-                    />
+                    <div className="btn-group">
+                      <button className="btn btn-primary" type="submit">
+                        Submit
+                      </button>
+                      <button
+                        className="btn btn-light"
+                        type="button"
+                        onClick={resetHandler}
+                      >
+                        Reset
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>

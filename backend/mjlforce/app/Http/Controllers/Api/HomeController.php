@@ -11,6 +11,7 @@ use App\Models\AttendanceHistory;
 use App\Models\Complaint;
 use App\Models\ComplaintType;
 use App\Models\Employee;
+use App\Models\OtherVisitSite;
 use App\Models\Promotion;
 use App\Models\PromotionItems;
 use App\Models\SalesTargetVsAchievement;
@@ -225,13 +226,14 @@ class HomeController extends Controller
         $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
         $complaintTypes = ComplaintType::select('id', 'name')->where('activeStatus', true)->orderBy('code', 'asc')->get();
         $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'employee_id')->where('employee_id', $employee->id)->get();
+        $otherVisitSites = OtherVisitSite::select('id', 'site_name', 'address', 'employee_id')->where('employee_id', $employee->id)->get();
 
 
-        return response()->json(['soldToParties' => $soldToParties, 'complaintTypes' => $complaintTypes], 200);
+        return response()->json(['soldToParties' => $soldToParties, 'complaintTypes' => $complaintTypes, 'otherVisitSites' => $otherVisitSites], 200);
     }
 
     public function storeComplaint(Request $request){
-        // return response($request->all());
+        return response($request->all());
         $msg = '';
         $status = '';
         $request->validate([
@@ -247,11 +249,13 @@ class HomeController extends Controller
                 $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
                 $site_name = $soldToParty->acc_name;
             }else{
+                $otherVisitSite = OtherVisitSite::select('id', 'site_name')->findOrFail($request->other_visit_site_id);
                 $site_name = $request->site_name;
             }
            
             $complaint->site_name = $site_name;
             $complaint->sold_to_party_id = $request->sold_to_party_id;
+            $complaint->sold_to_party_id = $request->other_visit_site_id;
             $complaint->complaint_type_id = $request->complaint_type;
             $complaint->complaint_type = ComplaintType::find($request->complaint_type)->name;
             $complaint->complaint = $request->complaint;
