@@ -235,7 +235,6 @@ class HomeController extends Controller
         $msg = '';
         $status = '';
         $request->validate([
-            'sold_to_party_id' => "required",
             'complaint_type' => "required",
             'complaint' => "required",
           
@@ -243,16 +242,25 @@ class HomeController extends Controller
 
         try{
             $complaint = new Complaint();
-            $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
+            $site_name = '';
+            if($request->has('sold_to_party_id')){
+                $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
+                $site_name = $soldToParty->acc_name;
+            }else{
+                $site_name = $request->site_name;
+            }
+           
+            $complaint->site_name = $site_name;
             $complaint->sold_to_party_id = $request->sold_to_party_id;
             $complaint->complaint_type_id = $request->complaint_type;
             $complaint->complaint_type = ComplaintType::find($request->complaint_type)->name;
             $complaint->complaint = $request->complaint;
             $complaint->employee_id = auth()->user()->employee->id;
             $complaint->lat = $request->lat;
-            $complaint->long = $request->long;;
+            $complaint->long = $request->long;
             $complaint->created_by = auth()->user()->id;
             $complaint->hostname = gethostname();
+            $complaint->date = Carbon::now()->toDateString();
 
              if ($request->hasFile('files')) {
                 foreach ($request->file('files')  as $idx => $file) {

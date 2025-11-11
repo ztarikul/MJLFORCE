@@ -4,6 +4,7 @@ import Auth from "../../auth/Auth";
 import Swal from "sweetalert2";
 import Main from "../Main";
 import PageLoader from "../../utils/PageLoader";
+import { getCurrentLocation } from "../../utils/getCurrentLocation";
 
 export default function LeadsProcess() {
   const { id } = useParams();
@@ -32,6 +33,9 @@ export default function LeadsProcess() {
     post_office: "",
     loc_thana: "",
     lead_stage_id: "",
+    long: "",
+    lat: "",
+    accuracy: null,
   });
 
   const [errors, setErrors] = useState({});
@@ -119,8 +123,47 @@ export default function LeadsProcess() {
   }, []);
 
   useEffect(() => {
+    locationHadler();
     fetchFormData();
   }, [fetchFormData]);
+
+  const locationHadler = () => {
+    if (!formData.lat && !formData.long) {
+      getCurrentLocation()
+        .then((location) => {
+          console.log("map", location);
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          setFormData((prev) => ({
+            ...prev,
+
+            long: location.longitude,
+            lat: location.latitude,
+            accuracy: location.accuracy,
+          }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (formData.accuracy) {
+      getCurrentLocation()
+        .then((location) => {
+          // setFormData({ lat: location.latitude, long: location.longitude });
+          if (location.accuracy < formData.accuracy) {
+            console.log("Revisemap", location);
+            setFormData((prev) => ({
+              ...prev,
+              long: location.longitude,
+              lat: location.latitude,
+              accuracy: location.accuracy,
+            }));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -128,6 +171,7 @@ export default function LeadsProcess() {
       ...prev,
       [name]: value,
     }));
+    locationHadler();
   };
 
   const formSubmit = async (e) => {
@@ -233,7 +277,7 @@ export default function LeadsProcess() {
     const selectedPostOffices = fetchData.postOffice.filter(
       (office) => office.loc_district_id === selectedId
     );
-   
+
     setPostOffice(selectedPostOffices);
   };
 
@@ -721,7 +765,10 @@ export default function LeadsProcess() {
                           value={formData.territory}
                         >
                           {fetchData.salesTerritories.map((territory) => (
-                            <option key={territory.sap_code} value={territory.sap_code}>
+                            <option
+                              key={territory.sap_code}
+                              value={territory.sap_code}
+                            >
                               {territory.name}
                             </option>
                           ))}

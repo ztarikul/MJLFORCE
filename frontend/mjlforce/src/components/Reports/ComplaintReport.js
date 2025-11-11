@@ -53,7 +53,7 @@ export default function ComplaintReport() {
   });
   const fetchFormData = useCallback(() => {
     http
-      .get("report/activity_log")
+      .get("report/complaint_report")
       .then((res) => {
         console.log(res);
         setFetchdata(res.data);
@@ -78,14 +78,14 @@ export default function ComplaintReport() {
     };
 
     http
-      .post("/report/get_activity_log", formData, {
+      .post("/report/get_complaint_report", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
         console.log(res.data); // Handle success response
-        setLogs(res.data.activityLogs);
+        setLogs(res.data.complaints);
       })
       .catch((error) => {
         console.log(error);
@@ -215,7 +215,7 @@ export default function ComplaintReport() {
               <div className="row">
                 <div className="table-responsive">
                   <DataTable
-                    title="Employee Logs"
+                    title="Complaint Report"
                     columns={columns}
                     data={logs}
                     pagination

@@ -170,17 +170,23 @@ class CmaController extends Controller
                 'remarks' => "Leads Processing",
             ]);
 
-            $activityLog = [
-                'user' => auth()->id(),
-                'action' => "visit",
-                'remarks' => "New Visit/New Client enlist",
-                'log_type' => 2,// General actions
-                'lat' => $request->lat,
-                'long' => $request->long,
+             $locationResponse = getReverseGeoLocation($request->lat, $request->long);
+            if(isset($locationResponse->original) && $locationResponse->original['error']){
+                return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+            }else{
+                $activityLog = [
+                    'user' => auth()->id(),
+                    'action' => "visit",
+                    'remarks' => "New Visit/New Client enlist",
+                    'address' => $locationResponse['display_name'],
+                    'log_type' => 2,// General actions
+                    'lat' => $request->lat,
+                    'long' => $request->long,
 
-            ];
-        
-            storeEmployeeActivityLog($activityLog);
+                ];
+            
+                storeEmployeeActivityLog($activityLog);
+            }
             
         }catch(Exception $e){
             $msg = $e->getMessage();
@@ -327,17 +333,23 @@ class CmaController extends Controller
               
             ]);
 
-             $activityLog = [
-                'user' => auth()->id(),
-                'action' => "Lead Change",
-                'remarks' => "Own Lead change",
-                'log_type' => 2,// General actions
-                'lat' => $request->lat,
-                'long' => $request->long,
+            $locationResponse = getReverseGeoLocation($request->lat, $request->long);
+            if(isset($locationResponse->original) && $locationResponse->original['error']){
+                return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+            }else{
+                $activityLog = [
+                    'user' => auth()->id(),
+                    'action' => "Lead Change",
+                    'remarks' => "Own Lead change",
+                     'address' => $locationResponse['display_name'],
+                    'log_type' => 2,// General actions
+                    'lat' => $request->lat,
+                    'long' => $request->long,
 
-            ];
-        
-            storeEmployeeActivityLog($activityLog);
+                ];
+            
+                storeEmployeeActivityLog($activityLog);
+            }
 
             $soldToParty->update();
             $msg = 'Sold To Party updated successfully';

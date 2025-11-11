@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Complaint;
 use App\Models\Employee;
 use App\Models\EmployeeActivityLog;
 use Illuminate\Http\Request;
@@ -63,7 +64,7 @@ class ReportController extends Controller
         return response()->json(['activityLogs' => $activityLogs], 200);
     }
 
-     public function visitLog(Request $request){
+    public function visitLog(Request $request){
         $employees = Employee::select('id', 'user_id', 'name', 'card_id', 'sap_code')->where('user_id', auth()->id())->first()->employeesOfSupervisor()->get();
 
          return response()->json(['employees' => $employees], 200);
@@ -118,6 +119,59 @@ class ReportController extends Controller
 
     }
 
+    
+    public function complaintReport(Request $request){
+        $employees = Employee::select('id', 'user_id', 'name', 'card_id', 'sap_code')->where('user_id', auth()->id())->first()->employeesOfSupervisor()->get();
+
+         return response()->json(['employees' => $employees], 200);
+    }
+
+    public function getComplaintReport(Request $request){
+
+        $complaints = [];
+        if($request->has('report_type')){
+            if($request->report_type == 'own'){
+                $complaints = Complaint::with('employee:id,name')->where('employee_id', Employee::where('user_id', auth()->id())->first()->id)
+                    ->whereBetween('date', [$request->start_date, $request->end_date])
+                    ->orderBy('date', 'asc')
+                    ->get();
+            } 
+            if($request->report_type == 'all_emp') {
+                $complaints = Complaint::with('employee:id,name')->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))
+                    ->whereBetween('date', [$request->start_date, $request->end_date])
+                    ->orderBy('date', 'asc')
+                    ->get();
+            }
+        }else{
+            $complaints = Complaint::with('employee:id,name')->where('employee_id', $request->employee_id)
+                ->whereBetween('date', [$request->start_date, $request->end_date])
+                ->orderBy('date', 'asc')
+                ->get();
+        }
+
+        $complaints = $complaints->map(function ($item) {
+            return [
+                'id'             => $item->id,
+                'employee_id'    => $item->employee_id,
+                'site_name'      => $item->site_name,
+                'employee_name'  => $item->employee->name ?? null,
+                'complaint_type'  => $item->complaint_type,
+                'date'           => $item->date,
+                'complaint'         => $item->complaint,
+                'image_1'   => $item->image_1,
+                'image_2'        => $item->image_2,
+                'image_3'       => $item->image_3,
+            ];
+        })->toArray();
+
+        return response()->json(['complaints' => $complaints], 200);
+
+    }
+
+
+    
+    
+    
 
      /**
      * Get the guard to be used during authentication.

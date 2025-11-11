@@ -10,6 +10,7 @@ use App\Models\Territory;
 use App\Models\AttendanceHistory;
 use App\Models\SoldToParty;
 use App\Models\EmployeeActivityLog;
+use App\Models\Complaint;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,5 +60,9 @@ class Employee extends Model
 
     public function activityLogs(){
         return $this->hasMany(EmployeeActivityLog::class);
+    }
+
+    public function complaints(){
+        return $this->hasMany(Complaint::class);
     }
 }

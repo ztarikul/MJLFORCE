@@ -18,6 +18,7 @@ use App\Models\ShipToParty;
 use App\Models\CustomerType;
 use App\Models\CustomerGroup;
 use App\Models\DistributionCh;
+use App\Models\Complaint;
 
 class SoldToParty extends Model
 {
@@ -83,6 +84,10 @@ class SoldToParty extends Model
     }
     public function distributionCh(){
         return $this->belongsTo(DistributionCh::class, 'distribution_ch', 'sap_code');
+    }
+
+     public function complaints(){
+        return $this->hasMany(Complaint::class);
     }
 
 }

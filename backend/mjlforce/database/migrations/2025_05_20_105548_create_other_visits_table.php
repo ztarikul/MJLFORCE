@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('site_name')->nullable();
             $table->string('address')->nullable();
             $table->string('post_code')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('visit_purpose_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->text('other_purpose')->nullable();
             $table->foreignId('loc_division_id')->nullable()->constrained();//non sap

@@ -54,6 +54,8 @@ use Illuminate\Support\Facades\Route;
             Route::post('/get_activity_log', [ReportController::class, 'getActivityLog'])->name('getActivityLog');
             Route::get('/visit_log', [ReportController::class, 'visitLog'])->name('visitLog');
             Route::post('/get_visit_log', [ReportController::class, 'getVisitLog'])->name('getVisitLog');
+            Route::get('/complaint_report', [ReportController::class, 'complaintReport'])->name('complaintReport');
+            Route::post('/get_complaint_report', [ReportController::class, 'getComplaintReport'])->name('getComplaintReport');
          });
 
 

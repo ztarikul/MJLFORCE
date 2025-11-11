@@ -18,6 +18,7 @@ import Reports from "../components/Reports/Reports";
 import ActivityLog from "../components/Reports/ActivityLog";
 import VisitLog from "../components/Reports/VisitLog";
 import Profile from "../components/Profile/Profile";
+import ComplaintReport from "../components/Reports/ComplaintReport";
 
 export default function AppRouter(props) {
   const routes = (
@@ -147,7 +148,7 @@ export default function AppRouter(props) {
         path="/complaint_report"
         element={
           <AuthMiddleware>
-            <VisitLog />
+            <ComplaintReport />
           </AuthMiddleware>
         }
       />

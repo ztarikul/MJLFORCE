@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('site_name')->nullable();
             $table->string('address')->nullable();
             $table->string('post_code')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('loc_division_id')->nullable()->constrained();//non sap
             $table->foreignId('loc_district_id')->nullable()->constrained(); //non sap
             $table->foreignId('loc_upazila_id')->nullable()->constrained(); //non sap
