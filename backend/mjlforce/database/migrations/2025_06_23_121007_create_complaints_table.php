@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('other_visit_site_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('site_name')->nullable();
             $table->string('phone')->nullable();
+            $table->text('site_address')->nullable();
             $table->foreignId('complaint_type_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('complaint_type')->nullable();
             $table->text('complaint')->nullable();

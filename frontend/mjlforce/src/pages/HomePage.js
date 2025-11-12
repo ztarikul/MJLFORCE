@@ -152,7 +152,7 @@ export default function HomePage() {
           {userPermissions.includes("can-remote-attendance") && (
             <Fragment>
               {!isStartedDay.status ? (
-                <div className="col-xl-6 col-md-12 box-col-6 des-xl-50">
+                <div className="col-xl-12 col-md-12 box-col-6 des-xl-50">
                   <div className="card profile-greeting">
                     <div className="card-header">
                       <div className="header-top">

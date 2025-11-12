@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ComplaintRaiseMail;
 use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocPostOffice;
@@ -21,6 +22,7 @@ use App\Models\VisitPurpose;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -169,7 +171,7 @@ class HomeController extends Controller
        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
         if($request->query('sold_to_party_id')){
             
-                $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->whereHas('currentProcess', function($query){
+                $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'address', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->whereHas('currentProcess', function($query){
                      $query->where('chk_to', 5);
                 })->get();
                 return response()->json(['shipToParties' => $shipToParties], 200);
@@ -235,7 +237,7 @@ class HomeController extends Controller
     }
 
     public function storeComplaint(Request $request){
-        return response($request->all());
+        // return response($request->all());
         $msg = '';
         $status = '';
         $request->validate([
@@ -247,18 +249,24 @@ class HomeController extends Controller
         try{
             $complaint = new Complaint();
             $site_name = '';
+            $site_address = '';
             if($request->has('sold_to_party_id')){
-                $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
+                $soldToParty = SoldToParty::select('id', 'acc_name', 'address')->findOrFail($request->sold_to_party_id);
                 $site_name = $soldToParty->acc_name;
+                $site_address = $soldToParty->address;
+                
             }else{
-                $otherVisitSite = OtherVisitSite::select('id', 'site_name')->findOrFail($request->other_visit_site_id);
-                $site_name = $request->site_name;
+                $otherVisitSite = OtherVisitSite::select('id', 'site_name', 'address')->findOrFail($request->other_visit_site_id);
+                $site_name = $otherVisitSite->site_name;
+                $site_address = $otherVisitSite->address;
             }
            
             $complaint->site_name = $site_name;
+            $complaint->site_address = $site_address;
             $complaint->sold_to_party_id = $request->sold_to_party_id;
-            $complaint->sold_to_party_id = $request->other_visit_site_id;
+            $complaint->other_visit_site_id = $request->other_visit_site_id;
             $complaint->complaint_type_id = $request->complaint_type;
+            $complaint->phone = $request->phone;
             $complaint->complaint_type = ComplaintType::find($request->complaint_type)->name;
             $complaint->complaint = $request->complaint;
             $complaint->employee_id = auth()->user()->employee->id;
@@ -277,7 +285,14 @@ class HomeController extends Controller
                 }
             }
 
+           
+
+            // ComplaintRaise Email Generates Here...
+
+  
+
             $complaint->save();
+
             $msg = "Complaint submitted successfully";
             $status = "success";
 

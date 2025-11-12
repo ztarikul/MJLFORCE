@@ -262,7 +262,7 @@ export default function ExistingForm() {
                 <option value="">Please Select</option>
                 {fetchData.shipToParties?.map((sp) => (
                   <option key={sp.id} value={sp.id}>
-                    {sp.acc_name} - {sp.customer_code}
+                    {sp.acc_name} | {sp.address}
                   </option>
                 ))}
               </select>
