@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h2>{! $messageText !}</h2>
+    <h2>{{ $messageText }}</h2>
     <p>All files are attached to this email.</p>
     <p>Thank you,<br>{{ config('app.name') }}</p>
 </body>

@@ -195,25 +195,16 @@ class MyCustomCommand extends Command
         // ->send(new CmaFromMail($mail_data, $mailFilepath));
 
 
-            $complaint = Complaint::latest()->first();  
-            $site_name = '';
-            $site_address = '';
 
-            if($complaint->sold_to_party_id){
-                $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($complaint->sold_to_party_id);
-                $site_name = $soldToParty->acc_name;
-               
-                
-            }else{
-                $otherVisitSite = OtherVisit::select('id', 'site_name')->findOrFail($complaint->other_visit_site_id);
-                $site_name = $otherVisitSite->site_name;
-               
-            }
+            /// Complaint Email
+
+            $complaint = Complaint::latest()->first();  
+      
 
             $toEmail = "tarikul.islam@mobilbd.com";
             // $toEmail = auth()->user()->employee->email;
-            $subject = "New Complaint Raised - " . $site_name;
-            $messageText = "A new complaint has been raised for the site: " . $site_name . ". Please find the details below:\n\n" .
+            $subject = "New Complaint Raised - " . $complaint->site_name;
+            $messageText = "A new complaint has been raised for the site: " . $complaint->site_name . ". Please find the details below:\n\n" .
                            "Complaint Type: " . $complaint->complaint_type . "\n" .
                            "Complaint Details: " . $complaint->complaint . "\n" .
                            "contact Phone: " . $complaint->phone . "\n" .

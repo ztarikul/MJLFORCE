@@ -237,7 +237,7 @@ class HomeController extends Controller
     }
 
     public function storeComplaint(Request $request){
-        // return response($request->all());
+        return response($request->all());
         $msg = '';
         $status = '';
         $request->validate([
@@ -250,19 +250,23 @@ class HomeController extends Controller
             $complaint = new Complaint();
             $site_name = '';
             $site_address = '';
+            $phone = '';
             if($request->has('sold_to_party_id')){
                 $soldToParty = SoldToParty::select('id', 'acc_name', 'address')->findOrFail($request->sold_to_party_id);
                 $site_name = $soldToParty->acc_name;
                 $site_address = $soldToParty->address;
+                $phone = $soldToParty->contact_person_mobile;
                 
             }else{
                 $otherVisitSite = OtherVisitSite::select('id', 'site_name', 'address')->findOrFail($request->other_visit_site_id);
                 $site_name = $otherVisitSite->site_name;
                 $site_address = $otherVisitSite->address;
+                $phone = $otherVisitSite->phone;
             }
            
             $complaint->site_name = $site_name;
             $complaint->site_address = $site_address;
+            $complaint->phone = $phone;
             $complaint->sold_to_party_id = $request->sold_to_party_id;
             $complaint->other_visit_site_id = $request->other_visit_site_id;
             $complaint->complaint_type_id = $request->complaint_type;
@@ -278,18 +282,14 @@ class HomeController extends Controller
 
              if ($request->hasFile('files')) {
                 foreach ($request->file('files')  as $idx => $file) {
-                    $fileName = $idx .'-'.$soldToParty->acc_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+                    $fileName = $idx .'-'.$site_name . '-' . time() . '.' . $file->getClientOriginalExtension();
                     $image_url = $file->storeAs('complaints', $fileName, 'public');
                     $column = 'image_' . ($idx + 1); // image_1, image_2, image_3
                     $complaint->$column = $image_url;
                 }
             }
 
-           
-
             // ComplaintRaise Email Generates Here...
-
-  
 
             $complaint->save();
 
