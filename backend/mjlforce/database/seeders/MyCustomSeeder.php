@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Complaint;
 use App\Models\Employee;
 use App\Models\ShipToParty;
 use App\Models\ShipToPartyprocessLog;
@@ -20,12 +21,13 @@ class MyCustomSeeder extends Seeder
     {
         //
 
-        // Schema::disableForeignKeyConstraints();
-        // // SoldToParty::truncate();
-        // // Employee::truncate();
+        Schema::disableForeignKeyConstraints();
+        // SoldToParty::truncate();
+        // Employee::truncate();
         // ShipToParty::truncate();
-        // // ShipToPartyprocessLog::truncate();
-        // Schema::enableForeignKeyConstraints();
+        // ShipToPartyprocessLog::truncate();
+        // Complaint::truncate();
+        Schema::enableForeignKeyConstraints();
 
 
         // $soldToParties = ShipToParty::pluck('id');

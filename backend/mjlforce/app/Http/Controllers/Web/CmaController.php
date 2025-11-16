@@ -28,6 +28,7 @@ class CmaController extends Controller
     //
 
     public function newSoldToPartyIndex(){
+        // where currentProcess is 4 = MIS admin
         $soldToParties = SoldToParty::whereHas('currentProcess', function($query){
              $query->where('chk_to', 4);
         })->get();

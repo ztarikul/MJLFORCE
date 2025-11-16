@@ -171,7 +171,7 @@ class CmaController extends Controller
                 'chk_from' => 1,
                 'chk_to' => 2, //Leads
                 'status' => 1,
-                'remarks' => "Leads Processing",
+                'remarks' => "New Customer to Leads Processing",
             ]);
 
              $locationResponse = getReverseGeoLocation($request->lat, $request->long);
@@ -248,15 +248,17 @@ class CmaController extends Controller
             'contact_person' => 'required',
             'mobile_co' => 'required',
             'telephone_co' => 'required',
-            'owner_name' => 'required',
-            'owner_telephone' => 'required',
-            'owner_mobile' => 'required',
-            // 'customer_type' => 'required',
-            // 'territory' => 'required',
-            // 'trade_category' => 'required',
-            // 'trade_s_category' => 'required',
+            // 'owner_name' => 'required',
+            // 'owner_telephone' => 'required',
+            // 'owner_mobile' => 'required',
+            'customer_type' => 'required',
+            'territory' => 'required',
+            'trade_category' => 'required',
+            'trade_s_category' => 'required',
             // 'remarks' => '',
+
         ]);
+
         try{
    
             $soldToParty = SoldToParty::findOrFail($id);
@@ -314,9 +316,9 @@ class CmaController extends Controller
                 SoldToPartyProcessLog::create([
                     'sold_to_party_id' => $soldToParty->id,
                     'chk_from' => 2, //Leads
-                    'chk_to' => 3, //SV
+                    'chk_to' => 4, //MIS
                     'status' => 2,
-                    'remarks' => "Create CMA",
+                    'remarks' => "Lead Process: Create CMA",
                 ]);  
 
                 //CMA form pdf generate here
@@ -504,7 +506,6 @@ class CmaController extends Controller
         }catch(Exception $e){
             $msg = $e->getMessage();
             
-
         }
 
         return response()->json([

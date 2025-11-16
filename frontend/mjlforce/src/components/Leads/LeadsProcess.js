@@ -368,7 +368,7 @@ export default function LeadsProcess() {
                     <div className="col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="customer_name">
-                          Customer Name
+                          Customer Name <span style={{ color: "red" }}>* </span>
                         </label>
                         <input
                           className="form-control"
@@ -412,6 +412,7 @@ export default function LeadsProcess() {
                       <div className="mb-3">
                         <label className="form-label" htmlFor="officeAddress">
                           Office Address
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <input
                           className="form-control"
@@ -433,7 +434,7 @@ export default function LeadsProcess() {
                     <div className="col-6 col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="loc_division">
-                          Division
+                          Division <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -462,7 +463,7 @@ export default function LeadsProcess() {
                     <div className="col-6 col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="loc_district">
-                          District
+                          District <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -492,6 +493,7 @@ export default function LeadsProcess() {
                       <div className="mb-3">
                         <label className="form-label" htmlFor="loc_thana">
                           Upazilla/Thana
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -520,7 +522,7 @@ export default function LeadsProcess() {
                     <div className="col-6 col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="postOffice">
-                          Post Office
+                          Post Office <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -547,7 +549,7 @@ export default function LeadsProcess() {
                     <div className="col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="bin">
-                          BIN
+                          BIN <span style={{ color: "red" }}> * </span>
                         </label>
                         <input
                           className="form-control"
@@ -570,6 +572,7 @@ export default function LeadsProcess() {
                       <div className="mb-3">
                         <label className="form-label" htmlFor="contactPerson">
                           Contact Person
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <input
                           className="form-control"
@@ -595,6 +598,7 @@ export default function LeadsProcess() {
                           htmlFor="mobileNumberOfContactPerson"
                         >
                           Mobile Phone(Contact Person)
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <input
                           className="form-control"
@@ -620,6 +624,7 @@ export default function LeadsProcess() {
                           htmlFor="mobileNumberOfContactPerson"
                         >
                           Telephone(Contact Person)
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <input
                           className="form-control"
@@ -671,7 +676,7 @@ export default function LeadsProcess() {
                           type="text"
                           name="owner_telephone"
                           value={formData.owner_telephone}
-                          placeholder="Owner Telephone"
+                          placeholder=""
                           onChange={handleChange}
                         />
                       </div>
@@ -693,7 +698,7 @@ export default function LeadsProcess() {
                           type="text"
                           name="owner_mobile"
                           value={formData.owner_mobile}
-                          placeholder="Owner Mobile"
+                          placeholder=""
                           onChange={handleChange}
                         />
                       </div>
@@ -715,7 +720,7 @@ export default function LeadsProcess() {
                           type="text"
                           name="owner_email"
                           value={formData.owner_email}
-                          placeholder="Owner Email"
+                          placeholder=""
                           onChange={handleChange}
                         />
                       </div>
@@ -729,7 +734,7 @@ export default function LeadsProcess() {
                     <div className="col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="customerType">
-                          Customer Type
+                          Customer Type <span style={{ color: "red" }}>* </span>
                         </label>
                         <select
                           className="form-select"
@@ -756,6 +761,7 @@ export default function LeadsProcess() {
                       <div className="mb-3">
                         <label className="form-label" htmlFor="salesTerritory">
                           Sales Territoty
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -785,6 +791,7 @@ export default function LeadsProcess() {
                       <div className="mb-3">
                         <label className="form-label" htmlFor="tradeCategory">
                           Trade Category
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -817,6 +824,7 @@ export default function LeadsProcess() {
                           htmlFor="tradeSubCategory"
                         >
                           Trade Sub Category
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <select
                           className="form-select"
@@ -842,7 +850,7 @@ export default function LeadsProcess() {
                       )}
                     </div>
 
-                    <div className="col-md-4">
+                    {/* <div className="col-md-4">
                       <div className="mb-3">
                         <div className="form-group m-t-5 m-checkbox-inline mb-0 custom-radio-ml">
                           <div className="checkbox checkbox-dark">
@@ -867,7 +875,7 @@ export default function LeadsProcess() {
                           {errors.special_discount[0]}
                         </span>
                       )}
-                    </div>
+                    </div> */}
 
                     <div className="col-md-4">
                       <div>

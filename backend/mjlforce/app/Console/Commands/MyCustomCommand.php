@@ -198,29 +198,26 @@ class MyCustomCommand extends Command
 
             /// Complaint Email
 
-            $complaint = Complaint::latest()->first();  
-      
+            // $complaint = Complaint::latest()->first();  
+            // $toEmail = "tarikul.islam@mobilbd.com";
+            // // $toEmail = auth()->user()->employee->email;
+            // $subject = "New Complaint Raised - " . $complaint->site_name;
+            // $messageText = "A new complaint has been raised for the site: " . $complaint->site_name . ". Please find the details below:\n\n" .
+            //                "Complaint Type: " . $complaint->complaint_type . "\n" .
+            //                "Complaint Details: " . $complaint->complaint . "\n" .
+            //                "contact Phone: " . $complaint->phone . "\n" .
+            //                "Site Address: " . $complaint->site_address . "\n" .
+            //                "Date: " . $complaint->date . "\n\n" .
+            //                "Please address this complaint at the earliest convenience.";
 
-            $toEmail = "tarikul.islam@mobilbd.com";
-            // $toEmail = auth()->user()->employee->email;
-            $subject = "New Complaint Raised - " . $complaint->site_name;
-            $messageText = "A new complaint has been raised for the site: " . $complaint->site_name . ". Please find the details below:\n\n" .
-                           "Complaint Type: " . $complaint->complaint_type . "\n" .
-                           "Complaint Details: " . $complaint->complaint . "\n" .
-                           "contact Phone: " . $complaint->phone . "\n" .
-                           "Site Address: " . $complaint->site_address . "\n" .
-                           "Date: " . $complaint->date . "\n\n" .
-                           "Please address this complaint at the earliest convenience.";
-
-            $attachments = [
-                public_path($complaint->image_1),
-                public_path($complaint->image_2),
-                // public_path($complaint->image_3),
+            // $attachments = [
+            //     public_path($complaint->image_1),
+            //     public_path($complaint->image_2),
+            //     // public_path($complaint->image_3),
                 
-            ];
+            // ];
 
-            // dd(new ComplaintRaiseMail($subject, $messageText, $attachments));
 
-            Mail::to($toEmail)->send(new ComplaintRaiseMail($subject, $messageText, $attachments));
+            // Mail::to($toEmail)->send(new ComplaintRaiseMail($complaint->id));
     }
 }

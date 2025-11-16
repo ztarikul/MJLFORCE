@@ -355,7 +355,7 @@ export default function SoldToPartyVerify() {
                 ></iframe>
               </div>
             </ul>
-            <div className="card-footer text-center">
+            {/* <div className="card-footer text-center">
               <div className="btn-group">
                 <button
                   className="btn btn-success"
@@ -366,7 +366,7 @@ export default function SoldToPartyVerify() {
                 <button className="btn btn-warning">Reverse</button>
                 <button className="btn btn-danger">Reject</button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -457,7 +457,7 @@ export default function SoldToPartyVerify() {
                   ></iframe>
                 </div>
               </ul>
-              <div className="card-footer text-center">
+              {/* <div className="card-footer text-center">
                 <div className="btn-group">
                   <button
                     className="btn btn-success"
@@ -468,7 +468,7 @@ export default function SoldToPartyVerify() {
                   <button className="btn btn-warning">Reverse</button>
                   <button className="btn btn-danger">Reject</button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

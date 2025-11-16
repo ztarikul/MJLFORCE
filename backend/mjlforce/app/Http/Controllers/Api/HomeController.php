@@ -212,8 +212,9 @@ class HomeController extends Controller
     }
 
     public function cmaVarification(){
+
         $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
-            $query->where('chk_to', 3); // SV check
+            $query->where('chk_to', 4); // MIS Check
         })->orderBy('created_at', 'asc')->get();
         $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
             $query->where('chk_to', 3); //SV check
@@ -237,7 +238,7 @@ class HomeController extends Controller
     }
 
     public function storeComplaint(Request $request){
-        return response($request->all());
+        // return response($request->all());
         $msg = '';
         $status = '';
         $request->validate([
@@ -251,11 +252,14 @@ class HomeController extends Controller
             $site_name = '';
             $site_address = '';
             $phone = '';
+          
             if($request->has('sold_to_party_id')){
                 $soldToParty = SoldToParty::select('id', 'acc_name', 'address')->findOrFail($request->sold_to_party_id);
                 $site_name = $soldToParty->acc_name;
                 $site_address = $soldToParty->address;
                 $phone = $soldToParty->contact_person_mobile;
+
+
                 
             }else{
                 $otherVisitSite = OtherVisitSite::select('id', 'site_name', 'address')->findOrFail($request->other_visit_site_id);
@@ -263,6 +267,7 @@ class HomeController extends Controller
                 $site_address = $otherVisitSite->address;
                 $phone = $otherVisitSite->phone;
             }
+            //  return response($site_name);
            
             $complaint->site_name = $site_name;
             $complaint->site_address = $site_address;
@@ -270,7 +275,6 @@ class HomeController extends Controller
             $complaint->sold_to_party_id = $request->sold_to_party_id;
             $complaint->other_visit_site_id = $request->other_visit_site_id;
             $complaint->complaint_type_id = $request->complaint_type;
-            $complaint->phone = $request->phone;
             $complaint->complaint_type = ComplaintType::find($request->complaint_type)->name;
             $complaint->complaint = $request->complaint;
             $complaint->employee_id = auth()->user()->employee->id;
@@ -282,16 +286,19 @@ class HomeController extends Controller
 
              if ($request->hasFile('files')) {
                 foreach ($request->file('files')  as $idx => $file) {
-                    $fileName = $idx .'-'.$site_name . '-' . time() . '.' . $file->getClientOriginalExtension();
+                    $fileName = $idx .'_EMP_'. auth()->user()->employee->id . '_' . time() . '.' . $file->getClientOriginalExtension();
                     $image_url = $file->storeAs('complaints', $fileName, 'public');
                     $column = 'image_' . ($idx + 1); // image_1, image_2, image_3
                     $complaint->$column = $image_url;
                 }
             }
 
-            // ComplaintRaise Email Generates Here...
-
             $complaint->save();
+            // ComplaintRaise Email Generates Here...
+            $toEmail = "tarikul.islam@mobilbd.com";
+            Mail::to($toEmail)->send(new ComplaintRaiseMail($complaint->id));
+
+            
 
             $msg = "Complaint submitted successfully";
             $status = "success";
@@ -299,7 +306,7 @@ class HomeController extends Controller
              $activityLog = [
                 'user' => auth()->id(),
                 'action' => "complaint",
-                'remarks' => "New complaint noted, customer name: " . $soldToParty->acc_name,
+                'remarks' => "New complaint noted, customer name: " . $site_name,
                 'log_type' => 2,// General actions
                 'lat' => $request->lat,
                 'long' => $request->long,
