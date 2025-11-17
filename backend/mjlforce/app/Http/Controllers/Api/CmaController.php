@@ -322,7 +322,7 @@ class CmaController extends Controller
                 ]);  
 
                 //CMA form pdf generate here
-                $date = now()->format('d-m-Y');
+                $date = now()->format('d-M-Y');
                 
                 $content = '<header class="mt-2">
                         <div style="width:100%;">
