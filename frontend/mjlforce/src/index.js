@@ -5,6 +5,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/style.css";
+import "./assets/css/responsive.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
