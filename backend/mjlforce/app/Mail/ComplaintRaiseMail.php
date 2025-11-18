@@ -43,7 +43,7 @@ class ComplaintRaiseMail extends Mailable
                         "<br><b>Complaint Details:</b> " . $complaint->complaint . 
                         "<br><b>contact Phone:</b> " . $complaint->phone .
                         "<br><b>Site Address:</b> " . $complaint->site_address . 
-                        "<br><br><b>Complaint Raised By:</b> " . auth()->user()->employee->id . 
+                        "<br><br><b>Complaint Raised By:</b> " . auth()->user()->employee->name . 
                         "<br><b>Date:</b> " . $complaint->date . "\n\n" .
                         "<br>Please address this complaint at the earliest convenience.</p>";
 

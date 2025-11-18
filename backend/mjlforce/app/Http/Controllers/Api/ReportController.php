@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\EmployeeActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
@@ -154,13 +155,14 @@ class ReportController extends Controller
                 'id'             => $item->id,
                 'employee_id'    => $item->employee_id,
                 'site_name'      => $item->site_name,
+                'site_address'    => $item->site_address,
                 'employee_name'  => $item->employee->name ?? null,
                 'complaint_type'  => $item->complaint_type,
                 'date'           => $item->date,
                 'complaint'         => $item->complaint,
-                'image_1'   => $item->image_1,
-                'image_2'        => $item->image_2,
-                'image_3'       => $item->image_3,
+                'image_1'   => asset('storage/'. $item->image_1 ? $item->image_1 : null),
+                'image_2'        => asset('storage/'.$item->image_2 ? $item->image_2 : null),
+                'image_3'       => asset('storage/'.$item->image_3 ? $item->image_3 : null),
             ];
         })->toArray();
 
@@ -170,9 +172,6 @@ class ReportController extends Controller
 
 
     
-    
-    
-
      /**
      * Get the guard to be used during authentication.
      *

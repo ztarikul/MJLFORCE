@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../utils/datepicker.css";
 import Auth from "../../auth/Auth";
+import Modal from "react-modal";
 import { format } from "date-fns";
 
 export default function ComplaintReport() {
@@ -16,41 +17,72 @@ export default function ComplaintReport() {
   const [reportType, setReportType] = useState();
   const [logs, setLogs] = useState({});
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImages, setModalImages] = useState([]);
+
+  const openModal = (images) => {
+    console.log(images);
+    setModalImages(images);
+    setModalOpen(true);
+  };
+
   const columns = [
     {
       name: "Date",
       selector: (row) => row.date,
       sortable: true,
-      minWidth: "120px",
+      minWidth: "90px",
     },
     {
       name: "EMP",
       selector: (row) => row.employee_name,
       sortable: true,
-      minWidth: "180px",
-    },
-    {
-      name: "Action",
-      selector: (row) => row.action,
       minWidth: "150px",
     },
     {
-      name: "Remarks",
-      selector: (row) => row.remarks,
+      name: "Site",
+      selector: (row) => row.site_name,
+      wrap: true, // allows multi-line text
+      minWidth: "180px",
+    },
+    {
+      name: "Address",
+      selector: (row) => row.site_address,
+      wrap: true, // allows multi-line text
+      minWidth: "180px",
+    },
+    {
+      name: "Complaint Type",
+      selector: (row) => row.complaint_type,
+      wrap: true, // allows multi-line text
+      minWidth: "180px",
+    },
+    {
+      name: "Complaint",
+      selector: (row) => row.complaint,
       wrap: true, // allows multi-line text
       minWidth: "250px",
     },
     {
-      name: "Address",
-      selector: (row) => row.address,
-      wrap: true,
-      minWidth: "300px",
+      name: "Action",
+      cell: (row) => (
+        <div className="btn-group">
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => openModal([row.image_1, row.image_2, row.image_3])}
+          >
+            View
+          </button>
+        </div>
+      ),
+      minWidth: "150px",
     },
   ];
 
   const [fetchData, setFetchdata] = useState({
     employees: [],
   });
+
   const fetchFormData = useCallback(() => {
     http
       .get("report/complaint_report")
@@ -231,6 +263,42 @@ export default function ComplaintReport() {
               </div>
             )}
           </div>
+
+          <Modal
+            isOpen={modalOpen}
+            onRequestClose={() => setModalOpen(false)}
+            className="p-5 mb-5 bg-white modal-dialog"
+          >
+            <div className="modal-header">
+              <h5 v="modal-title" id="exampleModalLabel">
+                Images
+              </h5>
+              <button
+                className="btn-close"
+                type="button"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body">
+              {modalImages.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt="Preview"
+                  className="w-full h-24 object-cover rounded"
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => setModalOpen(false)}
+              className="mt-4 px-4 py-2 btn-danger text-white rounded"
+            >
+              Close
+            </button>
+          </Modal>
         </div>
       </div>
     </Main>
