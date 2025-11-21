@@ -17,15 +17,6 @@ export default function ComplaintReport() {
   const [reportType, setReportType] = useState();
   const [logs, setLogs] = useState({});
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalImages, setModalImages] = useState([]);
-
-  const openModal = (images) => {
-    console.log(images);
-    setModalImages(images);
-    setModalOpen(true);
-  };
-
   const columns = [
     {
       name: "Date",
@@ -67,12 +58,7 @@ export default function ComplaintReport() {
       name: "Action",
       cell: (row) => (
         <div className="btn-group">
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => openModal([row.image_1, row.image_2, row.image_3])}
-          >
-            View
-          </button>
+          <button className="btn btn-primary btn-sm">View</button>
         </div>
       ),
       minWidth: "150px",
@@ -243,62 +229,88 @@ export default function ComplaintReport() {
                 </div>
               </form>
             </div>
-            {logs.length > 0 && (
-              <div className="row">
-                <div className="table-responsive">
-                  <DataTable
-                    title="Complaint Report"
-                    columns={columns}
-                    data={logs}
-                    pagination
-                    highlightOnHover
-                    dense
-                    striped
-                    responsive={true} // disable auto-resize
-                    fixedHeader
-                    fixedHeaderScrollHeight="500px"
-                    persistTableHead
-                  />
+            <div classNameName="col-sm-12">
+              <div className="card">
+                <div className="card-body">
+                  <div className="tab-content" id="top-tabContent">
+                    <div
+                      className="tab-pane fade show active"
+                      id="top-home"
+                      role="tabpanel"
+                      aria-labelledby="top-home-tab"
+                    >
+                      <div className="row">
+                        {logs.length > 0 &&
+                          logs.map((log) => (
+                            <div className="col-xxl-4 col-lg-6" key={log.id}>
+                              <div className="project-box">
+                                <span className="badge badge-primary">
+                                  {log.date}
+                                </span>
+                                <h6>{log.site_name}</h6>
+                                <div className="media">
+                                  <img
+                                    className="img-20 me-2 rounded-circle"
+                                    src="../assets/images/dashboard/1.png"
+                                    alt=""
+                                    data-original-title=""
+                                    title=""
+                                  />
+                                  <div className="media-body">
+                                    <p>{log.employee_name}</p>
+                                  </div>
+                                </div>
+                                <p>Complaint: {log.complaint}</p>
+                                <div className="row details">
+                                  <div className="col-6">
+                                    <span>Complaint Type </span>
+                                  </div>
+                                  <div className="col-6 font-primary">
+                                    {log.complaint_type}
+                                  </div>
+                                  <div className="col-6">
+                                    {" "}
+                                    <span>Site Address</span>
+                                  </div>
+                                  <div className="col-6 font-primary">
+                                    {log.site_address}
+                                  </div>
+                                  <div className="col-6">
+                                    {" "}
+                                    <span>Phone</span>
+                                  </div>
+                                  <div className="col-6 font-primary">
+                                    {log.phone}
+                                  </div>
+                                </div>
+                                <img
+                                  className=""
+                                  src={log.image_1}
+                                  style={{
+                                    width: "150px",
+                                    height: "auto",
+                                    objectFit: "cover",
+                                  }}
+                                />
+                                <img
+                                  className=""
+                                  src={log.image_1}
+                                  style={{
+                                    width: "150px",
+                                    height: "auto",
+                                    objectFit: "cover",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
-
-          <Modal
-            isOpen={modalOpen}
-            onRequestClose={() => setModalOpen(false)}
-            className="p-5 mb-5 bg-white modal-dialog"
-          >
-            <div className="modal-header">
-              <h5 v="modal-title" id="exampleModalLabel">
-                Images
-              </h5>
-              <button
-                className="btn-close"
-                type="button"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <div className="modal-body">
-              {modalImages.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt="Preview"
-                  className="w-full h-24 object-cover rounded"
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={() => setModalOpen(false)}
-              className="mt-4 px-4 py-2 btn-danger text-white rounded"
-            >
-              Close
-            </button>
-          </Modal>
         </div>
       </div>
     </Main>

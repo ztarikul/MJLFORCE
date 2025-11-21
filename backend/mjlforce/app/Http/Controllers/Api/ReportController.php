@@ -160,9 +160,9 @@ class ReportController extends Controller
                 'complaint_type'  => $item->complaint_type,
                 'date'           => $item->date,
                 'complaint'         => $item->complaint,
-                'image_1'   => asset('storage/'. $item->image_1 ? $item->image_1 : null),
-                'image_2'        => asset('storage/'.$item->image_2 ? $item->image_2 : null),
-                'image_3'       => asset('storage/'.$item->image_3 ? $item->image_3 : null),
+                'image_1'   => asset('storage/'. $item->image_1 ),
+                'image_2'        => asset('storage/'.$item->image_2),
+                'image_3'       => asset('storage/'.$item->image_3),
             ];
         })->toArray();
 
