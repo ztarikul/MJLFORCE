@@ -229,7 +229,7 @@ export default function ComplaintReport() {
                 </div>
               </form>
             </div>
-            <div classNameName="col-sm-12">
+            <div className="col-sm-12">
               <div className="card">
                 <div className="card-body">
                   <div className="tab-content" id="top-tabContent">
@@ -283,24 +283,98 @@ export default function ComplaintReport() {
                                     {log.phone}
                                   </div>
                                 </div>
-                                <img
-                                  className=""
-                                  src={log.image_1}
-                                  style={{
-                                    width: "150px",
-                                    height: "auto",
-                                    objectFit: "cover",
-                                  }}
-                                />
-                                <img
-                                  className=""
-                                  src={log.image_1}
-                                  style={{
-                                    width: "150px",
-                                    height: "auto",
-                                    objectFit: "cover",
-                                  }}
-                                />
+                                <div
+                                  className="gallery my-gallery card-body row"
+                                  itemScope
+                                >
+                                  {log.image_1 && (
+                                    <figure
+                                      className="col-xl-3 col-md-4 col-12"
+                                      itemProp="associatedMedia"
+                                      itemScope={true}
+                                    >
+                                      <img
+                                        className="img-thumbnail"
+                                        src={log.image_1}
+                                        itemProp="thumbnail"
+                                        alt="Image_1"
+                                        style={{
+                                          transition: "0.3s",
+                                        }}
+                                        onMouseEnter={(e) =>
+                                          (e.currentTarget.style.transform =
+                                            "scale(1.5)")
+                                        }
+                                        onMouseLeave={(e) =>
+                                          (e.currentTarget.style.transform =
+                                            "scale(1)")
+                                        }
+                                      />
+
+                                      <figcaption itemProp="caption description">
+                                        Img 1
+                                      </figcaption>
+                                    </figure>
+                                  )}
+                                  {log.image_2 && (
+                                    <figure
+                                      className="col-xl-3 col-md-4 col-12"
+                                      itemProp="associatedMedia"
+                                      itemScope={true}
+                                    >
+                                      <img
+                                        className="img-thumbnail"
+                                        src={log.image_2}
+                                        itemProp="thumbnail"
+                                        alt="Image_2"
+                                        style={{
+                                          transition: "0.3s",
+                                        }}
+                                        onMouseEnter={(e) =>
+                                          (e.currentTarget.style.transform =
+                                            "scale(1.5)")
+                                        }
+                                        onMouseLeave={(e) =>
+                                          (e.currentTarget.style.transform =
+                                            "scale(1)")
+                                        }
+                                      />
+
+                                      <figcaption itemProp="caption description">
+                                        Img 2
+                                      </figcaption>
+                                    </figure>
+                                  )}
+                                  {log.image_3 && (
+                                    <figure
+                                      className="col-xl-3 col-md-4 col-12"
+                                      itemProp="associatedMedia"
+                                      itemScope={true}
+                                    >
+                                      <img
+                                        className="img-thumbnail"
+                                        src={log.image_3}
+                                        itemProp="thumbnail"
+                                        alt="image_3"
+                                        style={{
+                                          transition: "0.3s",
+                                        }}
+                                        onMouseEnter={(e) =>
+                                          (e.currentTarget.style.transform =
+                                            "scale(1.5)")
+                                        }
+                                        onMouseLeave={(e) =>
+                                          (e.currentTarget.style.transform =
+                                            "scale(1)")
+                                        }
+                                      />
+
+                                      <figcaption itemProp="caption description">
+                                        Img 3
+                                      </figcaption>
+                                    </figure>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           ))}
