@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AttendanceHistory;
 use App\Models\Complaint;
 use App\Models\Employee;
 use App\Models\EmployeeActivityLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -174,6 +176,16 @@ class ReportController extends Controller
         return response()->json(['complaints' => $complaints], 200);
     }
 
+
+    public function attendanceToHrm(Request $request)
+    {
+        $datetime = $request->query('datetime');
+
+        $date = Carbon::parse($datetime)->toDateString();
+        $time = Carbon::parse($datetime)->toTimeString();
+        $attendance_histories = AttendanceHistory::where('time', '>', $time)->get();
+        return response()->json(['date' => $date, 'time' => $time, 'attendance_histories' => $attendance_histories], 200);
+    }
 
 
     /**
