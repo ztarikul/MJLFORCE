@@ -183,7 +183,7 @@ class ReportController extends Controller
 
         $date = Carbon::parse($datetime)->toDateString();
         $time = Carbon::parse($datetime)->toTimeString();
-        $attendance_histories = AttendanceHistory::where('time', '>', $time)->get();
+        $attendance_histories = AttendanceHistory::where('date', $date)->where('time', '<', $time)->orderBy('time', 'asc')->get();
         return response()->json(['date' => $date, 'time' => $time, 'attendance_histories' => $attendance_histories], 200);
     }
 
