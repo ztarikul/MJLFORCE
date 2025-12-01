@@ -26,6 +26,7 @@
                                     <tr>
                                         <th>Date</th>
                                         <th>Site name</th>
+                                        <th>Address</th>
                                         <th>Complaint Type</th>
                                         <th>Complaint</th>
                                         <th>Sales Person</th>
@@ -36,16 +37,17 @@
                                 <tbody>
                                     @foreach ($complaints as $idx => $item)
                                         <tr>
-                                            <td>{{ $item->date }}</td>
-                                            <td>{{ $item->site_address }}</td>
-                                            <td>{{ $item->complaintType->name }}</td>
-                                            <td>{{ $item->complaint }}</td>
-                                            <td>{{ $item->employee->name }}</td>
+                                            <td>{{ $item['date'] }}</td>
+                                            <td>{{ $item['site_name'] }}</td>
+                                            <td>{{ $item['site_address'] }}</td>
+                                            <td>{{ $item['complaint_type'] }}</td>
+                                            <td>{{ $item['complaint'] }}</td>
+                                            <td>{{ $item['employee_name'] }}</td>
                                             <td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button class="btn btn-success btn-sm"
-                                                        onclick="element_edit('{{ $item->image_1 }}, {{ $item->image_2 }}, {{ $item->image_3 }}')"><i
+                                                        onclick="element_edit('{{ $item['image_1'] }}', '{{ $item['image_2'] }}', '{{ $item['image_3']}}')"><i
                                                             class="fa fa-edit"></i></button>
                                                   
                                                 </div>
@@ -73,16 +75,8 @@
 
 
                                 <div class="modal-body">
-                                    <div class="gallery my-gallery card-body row" itemscope="">
-                                        <figure class="col-xl-4 col-md-4 xl-33" itemprop="associatedMedia" itemscope=""><a href="../assets/images/big-lightgallry/01.jpg" itemprop="contentUrl" data-size="1600x950"><img class="img-thumbnail" src="../assets/images/lightgallry/01.jpg" itemprop="thumbnail" alt="Image description"></a>
-                                        <figcaption itemprop="caption description">Image caption  1</figcaption>
-                                        </figure>
-                                        <figure class="col-xl-4 col-md-4 xl-33" itemprop="associatedMedia" itemscope=""><a href="../assets/images/big-lightgallry/02.jpg" itemprop="contentUrl" data-size="1600x950"><img class="img-thumbnail" src="../assets/images/lightgallry/02.jpg" itemprop="thumbnail" alt="Image description"></a>
-                                        <figcaption itemprop="caption description">Image caption  2</figcaption>
-                                        </figure>
-                                        <figure class="col-xl-4 col-md44 xl-33" itemprop="associatedMedia" itemscope=""><a href="../assets/images/big-lightgallry/03.jpg" itemprop="contentUrl" data-size="1600x950"><img class="img-thumbnail" src="../assets/images/lightgallry/03.jpg" itemprop="thumbnail" alt="Image description"></a>
-                                        <figcaption itemprop="caption description">Image caption  3</figcaption>
-                                        </figure>
+                                    <div class="gallery my-gallery card-body row complaint-imagebox" itemscope="">
+                                       
                                     
                                     </div>
                                 </div>
@@ -142,6 +136,20 @@
 
         
         function element_edit(image_1, image_2, image_3) {
+
+            console.log('image1', image_1, 'image_2',image_2, 'image_3', image_3);
+
+            let _html = ` <figure class="col-xl-4 col-md-4 xl-33" itemprop="associatedMedia" itemscope=""><a href="`+image_1+`" class="big-image_1" itemprop="contentUrl" data-size="1600x950"><img class="img-thumbnail small-image_1" src="`+image_1+`" itemprop="thumbnail" alt="Image description"></a>
+                                        <figcaption itemprop="caption description">Image 1</figcaption>
+                                        </figure>
+                                        <figure class="col-xl-4 col-md-4 xl-33" itemprop="associatedMedia" itemscope=""><a  href="`+image_2+`" class="big-image_2" itemprop="contentUrl" data-size="1600x950"><img class="img-thumbnail small-image_2" src="`+image_2+`"  itemprop="thumbnail" alt="Image description"></a>
+                                        <figcaption itemprop="caption description">Image 2</figcaption>
+                                        </figure>
+                                        <figure class="col-xl-4 col-md-4 xl-33" itemprop="associatedMedia" itemscope=""><a href="`+image_3+`" class="big-image_3" itemprop="contentUrl" data-size="1600x950"><img class="img-thumbnail small-image_3" src="`+image_3+`" itemprop="thumbnail" alt="Image description"></a>
+                                        <figcaption itemprop="caption description">Image 3</figcaption>
+                                        </figure>`
+
+             $('.complaint-imagebox').html(_html);                          
              $('#editModal').modal('show');
     
         }
