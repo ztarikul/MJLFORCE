@@ -78,12 +78,8 @@
                         <a class="nav-link menu-title" href="javascript:void(0)"><i
                                 data-feather="layout"></i><span>Reports</span></a>
                         <ul class="nav-submenu menu-content">
-                            {{-- <li><a href="box-layout.html">Boxed</a></li>
-                            <li><a href="layout-rtl.html">RTL</a></li>
-                            <li><a href="layout-dark.html">Dark</a></li>
-                            <li><a href="footer-light.html">Footer Light</a></li>
-                            <li><a href="footer-dark.html">Footer Dark</a></li>
-                            <li><a href="footer-fixed.html">Footer Fixed</a></li> --}}
+                            <li><a href="{{route('reports.complaintIndex')}}">Complaint</a></li>
+                      
                         </ul>
                     </li>
 
