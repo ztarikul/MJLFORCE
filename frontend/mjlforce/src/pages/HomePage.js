@@ -149,122 +149,125 @@ export default function HomePage() {
     <Main>
       <div className="container-fluid general-widget">
         <div className="row">
-          {userPermissions.includes("can-remote-attendance") && (
-            <Fragment>
-              {!isStartedDay.status ? (
-                <div className="col-xl-12 col-md-12 box-col-6 des-xl-50">
-                  <div className="card profile-greeting">
-                    <div className="card-header">
-                      <div className="header-top">
-                        <div className="setting-list bg-primary position-unset">
-                          <ul className="list-unstyled setting-option">
-                            <li>
-                              <div className="setting-white">
-                                <i className="icon-settings"></i>
-                              </div>
-                            </li>
-                            <li>
-                              <i className="view-html fa fa-code font-white"></i>
-                            </li>
-                            <li>
-                              <i className="icofont icofont-maximize full-card font-white"></i>
-                            </li>
-                            <li>
-                              <i className="icofont icofont-minus minimize-card font-white"></i>
-                            </li>
-                            <li>
-                              <i className="icofont icofont-refresh reload-card font-white"></i>
-                            </li>
-                            <li>
-                              <i className="icofont icofont-error close-card font-white"></i>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="card-body text-center p-t-0">
-                      <h3 className="font-light">
-                        Welcome Back, {employee?.name}
-                      </h3>
-                      <p>
-                        {getGreeting()} You haven't started your day on the
-                        system. By starting your day, your attendance status
-                        will be calculated from the current location
-                      </p>
-                      <button
-                        className="btn btn-light"
-                        onClick={startDaySubmit}
-                      >
-                        Start Day
-                      </button>
-                    </div>
-                    <div className="confetti">
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="confetti-piece"></div>
-                      <div className="code-box-copy">
-                        <button
-                          className="code-box-copy__btn btn-clipboard"
-                          data-clipboard-target="#profile-greeting"
-                          title="Copy"
-                        >
-                          <i className="icofont icofont-copy-alt"></i>
-                        </button>
-                        <pre>
-                          <code
-                            className="language-html"
-                            id="profile-greeting"
-                          ></code>
-                        </pre>
+          <Fragment>
+            {!isStartedDay.status ? (
+              <div className="col-xl-12 col-md-12 box-col-6 des-xl-50">
+                <div className="card profile-greeting">
+                  <div className="card-header">
+                    <div className="header-top">
+                      <div className="setting-list bg-primary position-unset">
+                        <ul className="list-unstyled setting-option">
+                          <li>
+                            <div className="setting-white">
+                              <i className="icon-settings"></i>
+                            </div>
+                          </li>
+                          <li>
+                            <i className="view-html fa fa-code font-white"></i>
+                          </li>
+                          <li>
+                            <i className="icofont icofont-maximize full-card font-white"></i>
+                          </li>
+                          <li>
+                            <i className="icofont icofont-minus minimize-card font-white"></i>
+                          </li>
+                          <li>
+                            <i className="icofont icofont-refresh reload-card font-white"></i>
+                          </li>
+                          <li>
+                            <i className="icofont icofont-error close-card font-white"></i>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <div className="col-xl-12 col-md-12 col-sm-6 box-col-3 des-xl-25 rate-sec">
-                  <div className="card income-card card-secondary">
-                    <Link>
-                      <div className="card-body text-center">
-                        <div className="round-box"></div>
-                        <img
-                          src={checkIcon}
-                          alt="check-in-location"
-                          width="60"
-                          height="60"
-                        />
-                        <h5 className="mt-2">{isStartedDay.in_time}</h5>
-
-                        <p className="mt-1">{isStartedDay.street_name}</p>
-
-                        <p className="btn-arrow arrow-secondary">
-                          <i className="toprightarrow-secondary  me-2"></i>
-                          Attendance Status
+                  <div className="card-body text-center p-t-0">
+                    <h3 className="font-light">
+                      Welcome Back, {employee?.name}
+                    </h3>
+                    {userPermissions.includes("can-remote-attendance") && (
+                      <div>
+                        <p>
+                          {getGreeting()} You haven't started your day on the
+                          system. By starting your day, your attendance status
+                          will be calculated from the current location
                         </p>
-                        <div className="parrten"></div>
-                        {!isEndedDay.status ? (
-                          <button className="btn btn-dark">End Day</button>
-                        ) : (
-                          <button className="btn btn-light">
-                            Day Ended @{isEndedDay.out_time}
-                          </button>
-                        )}
+                        <button
+                          className="btn btn-light"
+                          onClick={startDaySubmit}
+                        >
+                          Start Day
+                        </button>
                       </div>
-                    </Link>
+                    )}
+                  </div>
+                  <div className="confetti">
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="confetti-piece"></div>
+                    <div className="code-box-copy">
+                      <button
+                        className="code-box-copy__btn btn-clipboard"
+                        data-clipboard-target="#profile-greeting"
+                        title="Copy"
+                      >
+                        <i className="icofont icofont-copy-alt"></i>
+                      </button>
+                      <pre>
+                        <code
+                          className="language-html"
+                          id="profile-greeting"
+                        ></code>
+                      </pre>
+                    </div>
                   </div>
                 </div>
-              )}
-            </Fragment>
-          )}
+              </div>
+            ) : (
+              <div className="col-xl-12 col-md-12 col-sm-6 box-col-3 des-xl-25 rate-sec">
+                <div className="card income-card card-secondary">
+                  <Link>
+                    <div className="card-body text-center">
+                      <div className="round-box"></div>
+                      <img
+                        src={checkIcon}
+                        alt="check-in-location"
+                        width="60"
+                        height="60"
+                      />
+                      <h5 className="mt-2">{isStartedDay.in_time}</h5>
+
+                      <p className="mt-1">{isStartedDay.street_name}</p>
+
+                      <p className="btn-arrow arrow-secondary">
+                        <i className="toprightarrow-secondary  me-2"></i>
+                        Attendance Status
+                      </p>
+                      <div className="parrten"></div>
+                      {!isEndedDay.status ? (
+                        <button className="btn btn-dark">End Day</button>
+                      ) : (
+                        <button className="btn btn-light">
+                          Day Ended @{isEndedDay.out_time}
+                        </button>
+                      )}
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </Fragment>
+
           <div className="col-xs-6 col-xl-3 col-lg-6">
             <Link to="/visit">
               <div className="card o-hidden border-0">

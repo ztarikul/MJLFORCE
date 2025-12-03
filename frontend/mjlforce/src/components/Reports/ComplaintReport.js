@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../utils/datepicker.css";
 import Auth from "../../auth/Auth";
-import Modal from "react-modal";
 import { format } from "date-fns";
 
 export default function ComplaintReport() {
