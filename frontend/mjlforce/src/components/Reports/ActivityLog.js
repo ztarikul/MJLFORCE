@@ -119,7 +119,7 @@ export default function ActivityLog() {
               <form className="form theme-form" onSubmit={formSubmit}>
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-md-4 col-6">
+                    <div className="col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="employee">
                           Employee Name
@@ -142,7 +142,7 @@ export default function ActivityLog() {
                       </div>
                     </div>
 
-                    <div className="col-md-4 col-6">
+                    <div className="col-md-4">
                       <div className="mb-3">
                         <label className="form-label" htmlFor="date-range">
                           Date Range
@@ -165,7 +165,7 @@ export default function ActivityLog() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-4 col-6">
+                    <div className="col-md-4">
                       <div className="form-group m-t-15 m-checkbox-inline mb-0 custom-radio-ml">
                         <div className="radio radio-primary">
                           <input

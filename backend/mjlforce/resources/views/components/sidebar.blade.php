@@ -8,7 +8,7 @@
         <a href="user-profile.html">
             <h6 class="mt-3 f-14 f-w-600">{{ auth()->user()->username }}</h6>
         </a>
-        <p class="mb-0 font-roboto">Human Resources Department</p>
+        <p class="mb-0 font-roboto">MIS/Admin</p>
 
     </div>
     <nav>
