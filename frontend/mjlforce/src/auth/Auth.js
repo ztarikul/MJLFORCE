@@ -62,7 +62,8 @@ export default function Auth() {
     setUserRoles(user_roles);
     setUserPermissions(user_permissions);
     setIsSupervisor(is_supervisor);
-    navigate("/");
+    // navigate("/");
+    return "success";
   };
 
   const logout = () => {

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Auth from "../auth/Auth";
 import Swal from "sweetalert2";
 import { getCurrentLocation } from "../utils/getCurrentLocation";
 
 export default function LoginPage() {
   const { http, setToken } = Auth();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: null,
@@ -15,6 +16,7 @@ export default function LoginPage() {
     accuracy: null,
   });
   const [errors, setErrors] = useState({});
+  const [signingBtn, setSigningBtn] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,17 +63,21 @@ export default function LoginPage() {
   };
 
   const submitForm = () => {
+    setSigningBtn(true);
     http
       .post("/login", formData)
       .then((res) => {
-        console.log(res);
-        setToken(
+        let authToken = setToken(
           res.data.user,
           res.data.access_token,
           res.data.user_roles,
           res.data.user_permissions,
           res.data.is_supervisor
         );
+
+        if (authToken === "success") {
+          navigate("/");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -166,8 +172,9 @@ export default function LoginPage() {
                     className="btn btn-primary btn-block"
                     type="button"
                     onClick={submitForm}
+                    disabled={signingBtn}
                   >
-                    Sign in
+                    {signingBtn ? "Signing In..." : "Sign In"}
                   </button>
                 </div>
               </form>
