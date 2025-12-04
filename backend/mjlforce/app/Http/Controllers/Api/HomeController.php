@@ -27,18 +27,20 @@ use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     //
-    public function welcomeDashboard(){
+    public function welcomeDashboard()
+    {
         $employee =  Employee::select('id', 'user_id', 'name', 'card_id', 'sap_code')->where('user_id', auth()->id())->first();
         return response()->json(['employee' => $employee], 200);
     }
 
-    public function sidebarUser(){
-        
+    public function sidebarUser()
+    {
+
         $employee =  Employee::select('id', 'user_id', 'sap_code', 'name', 'designation_id', 'business_team_id')->where('user_id', auth()->id())->first();
         $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();
         $total_sales_target = 0;
         $total_sales = 0;
-        if($salesTargets){
+        if ($salesTargets) {
             $total_sales_target = number_format($salesTargets->total_target, 3);  //Barrel conversion
             $total_sales = number_format($salesTargets->total_sales, 3); //Barrel conversion
             // $total_sales_target = number_format($salesTargets->total_target * 0.0062898108, 3);  //Barrel conversion
@@ -48,7 +50,7 @@ class HomeController extends Controller
             'employee_name' => $employee->name,
             'employee_designation' => $employee->designation?->name,
             'employee_businessTeam' => $employee->businessTeam?->name,
-            'total_sales_target' =>$total_sales_target,
+            'total_sales_target' => $total_sales_target,
             'total_sales' => $total_sales,
             'total_customer' => $employee->soldToParties()->count(),
             'updated_at' => $salesTargets?->updated_at->toDateTimeString()
@@ -56,17 +58,18 @@ class HomeController extends Controller
         return response()->json(['sidebarUser' => $sidebarUser], 200);
     }
 
-    public function startdayAttendance(Request $request){
+    public function startdayAttendance(Request $request)
+    {
         $msg = "";
-        try{
+        try {
             $lat = $request->lat;
             $long = $request->long;
-    
-            if($lat == null || $long == null){
+
+            if ($lat == null || $long == null) {
                 return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
             }
-    
-          
+
+
             $attendanceHistory = new AttendanceHistory();
             $attendanceHistory->card_id = $request->card_id;
             $attendanceHistory->date = Carbon::now()->toDateString();
@@ -74,65 +77,66 @@ class HomeController extends Controller
             $attendanceHistory->in_out = 1;
             $attendanceHistory->lat = $request->lat;
             $attendanceHistory->long = $request->long;
-    
+
 
             $locationResponse = getReverseGeoLocation($lat, $long);
-            if(isset($locationResponse->original) && $locationResponse->original['error']){
+            if (isset($locationResponse->original) && $locationResponse->original['error']) {
                 $attendanceHistory->verification = $locationResponse->original['status'] . "api error";
                 $attendanceHistory->street_name =  "Not Found!";
-            }else{
+            } else {
                 $attendanceHistory->verification = "success";
                 $attendanceHistory->street_name =  $locationResponse['display_name'];
             }
             $attendanceHistory->save();
             $msg = 'Attendance placed successfuly';
 
-             $activityLog = [
+            $activityLog = [
                 'user' => auth()->id(),
                 'action' => "attendance",
                 'remarks' => "Day Started" . Carbon::now()->toDateTimeString(),
-                'log_type' => 2,// General actions
+                'log_type' => 2, // General actions
                 'lat' => $request->lat,
                 'long' => $request->long,
 
             ];
 
             storeEmployeeActivityLog($activityLog);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
         }
-       
 
-       
+
+
         return response()->json(['status' => 1, 'msg' => $msg, 'location_name' => $locationResponse], 201);
     }
 
-    public function attendanceHistory(){
+    public function attendanceHistory()
+    {
         $attendanceHistory = [];
-        try{
+        try {
             $employee = Employee::select('id', 'user_id', 'name', 'card_id')->where('user_id', auth()->id())->first();
-            if(!empty($employee)){
-                
+            if (!empty($employee)) {
+
                 $attendanceHistory =  $employee->attendanceHistory()->where('date', Carbon::today()->toDateString())->get();
             }
-        }catch(Exception $e){
-            
+        } catch (Exception $e) {
         }
-        
+
 
         return response()->json($attendanceHistory);
     }
 
-    public function leads(){
-       $leads = [];
-        try{
-            $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
-            if(!empty($employee)){
+    public function leads()
+    {
+        $leads = [];
+        try {
+            $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
+            if (!empty($employee)) {
                 $soldToPaties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('employee_id', $employee->id)->latest()->get();
-               
-                foreach($soldToPaties as $idx => $soldToParty){
-                     
-                    if($soldToParty->currentProcess->chk_to === 2){
+
+                foreach ($soldToPaties as $idx => $soldToParty) {
+
+                    if ($soldToParty->currentProcess->chk_to === 2) {
                         $leads[] = [
                             'id' => $soldToParty->id,
                             'acc_name' => $soldToParty->acc_name,
@@ -140,55 +144,56 @@ class HomeController extends Controller
                             'created_at' => $soldToParty->created_at
                         ];
                     }
-                    
                 }
             }
-        }catch(Exception $e){
-            
+        } catch (Exception $e) {
         }
-        
+
         return response()->json(['leads' => $leads], 200);
     }
 
-       public function create_sh2p(Request $request){
-        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+    public function create_sh2p(Request $request)
+    {
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
         $postOffice = LocPostOffice::select('id', 'loc_division_id', 'loc_district_id', 'post_office')->orderBy('post_office', 'asc')->get();
-        if($request->query('sold_to_party_id')){
-          
-             $soldToParty = SoldToParty::select('id', 'acc_name', 'acc_name2', 'address', 'address_2', 'address_3', 'contact_person_name', 'contact_person_mobile', 'bin_no', 'loc_division_id', 'loc_district_id', 'loc_upazila_id', 'loc_post_office_id', 'created_at')->with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice'])->findOrFail($request->query('sold_to_party_id'));
-              return response()->json(['soldToParty' => $soldToParty], 200);
+        if ($request->query('sold_to_party_id')) {
+
+            $soldToParty = SoldToParty::select('id', 'acc_name', 'acc_name2', 'address', 'address_2', 'address_3', 'contact_person_name', 'contact_person_mobile', 'bin_no', 'loc_division_id', 'loc_district_id', 'loc_upazila_id', 'loc_post_office_id', 'created_at')->with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice'])->findOrFail($request->query('sold_to_party_id'));
+            return response()->json(['soldToParty' => $soldToParty], 200);
         }
 
         $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->withCount('shipToParties')->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
 
-        return response()->json(['soldToParties' => $soldToParties, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice], 200);
+        return response()->json(['soldToParties' => $soldToParties, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice], 200);
     }
 
-    public function existingVisit(Request $request){
-       $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
-        if($request->query('sold_to_party_id')){
-            
-                $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'address', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->whereHas('currentProcess', function($query){
-                     $query->where('chk_to', 5);
-                })->get();
-                return response()->json(['shipToParties' => $shipToParties], 200);
+    public function existingVisit(Request $request)
+    {
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
+        if ($request->query('sold_to_party_id')) {
+
+            $shipToParties = ShipToParty::select('id', 'customer_code', 'acc_name', 'address', 'created_at')->where('sold_to_party_id', $request->query('sold_to_party_id'))->whereHas('currentProcess', function ($query) {
+                $query->where('chk_to', 5);
+            })->get();
+            return response()->json(['shipToParties' => $shipToParties], 200);
         }
 
         //sold_to_party those are approved.
-        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 5);
         })->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
 
         $visitPurposes = VisitPurpose::all();
-        
+
 
         return response()->json(['soldToParties' => $soldToParties, 'visitPurposes' => $visitPurposes], 200);
     }
 
-    public function otherVisit(Request $request){
+    public function otherVisit(Request $request)
+    {
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
@@ -196,79 +201,79 @@ class HomeController extends Controller
 
         $visitPurposes = VisitPurpose::all();
 
-         return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'visitPurposes' => $visitPurposes], 200);
+        return response()->json(['divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'visitPurposes' => $visitPurposes], 200);
     }
 
-    public function promotions(){
+    public function promotions()
+    {
         $Promotions = Promotion::orderBy('start_from', 'asc')->get();
 
         return response()->json(['promotions' => $Promotions], 200);
     }
 
-    public function promotionalItems(Request $request){
-        $id = $request->query('id'); 
+    public function promotionalItems(Request $request)
+    {
+        $id = $request->query('id');
         $promotionalItems = PromotionItems::where('promotion_id', $id)->where('activeStatus', true)->get();
         return response()->json(['promotionalItems' => $promotionalItems], 200);
     }
 
-    public function cmaVarification(){
+    public function cmaVarification()
+    {
 
-        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 4); // MIS Check
         })->orderBy('created_at', 'asc')->get();
-        $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function($query){
+        $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 3); //SV check
         })->orderBy('created_at', 'asc')->get();
 
         $cmas = $soldToParties->merge($shipToParties)->sortBy('created_at')->values();
 
         return response()->json(['cmas' => $cmas], 200);
-
-
     }
 
-    public function complaint(Request $request){
-        $employee = Employee::select('id', 'user_id', 'name', 'card_id', )->where('user_id', auth()->id())->first();
+    public function complaint(Request $request)
+    {
+        $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
         $complaintTypes = ComplaintType::select('id', 'name')->where('activeStatus', true)->orderBy('code', 'asc')->get();
-        $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'employee_id')->where('employee_id', $employee->id)->get();
-        $otherVisitSites = OtherVisitSite::select('id', 'site_name', 'address', 'employee_id')->where('employee_id', $employee->id)->get();
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'employee_id')->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+        $otherVisitSites = OtherVisitSite::select('id', 'site_name', 'address', 'employee_id')->where('employee_id', $employee->id)->orderBy('site_name', 'asc')->get();
 
 
         return response()->json(['soldToParties' => $soldToParties, 'complaintTypes' => $complaintTypes, 'otherVisitSites' => $otherVisitSites], 200);
     }
 
-    public function storeComplaint(Request $request){
+    public function storeComplaint(Request $request)
+    {
         // return response($request->all());
         $msg = '';
         $status = '';
         $request->validate([
             'complaint_type' => "required",
             'complaint' => "required",
-          
+
         ]);
 
-        try{
+        try {
             $complaint = new Complaint();
             $site_name = '';
             $site_address = '';
             $phone = '';
-          
-            if($request->has('sold_to_party_id')){
+
+            if ($request->has('sold_to_party_id')) {
                 $soldToParty = SoldToParty::select('id', 'acc_name', 'address')->findOrFail($request->sold_to_party_id);
                 $site_name = $soldToParty->acc_name;
                 $site_address = $soldToParty->address;
                 $phone = $soldToParty->contact_person_mobile;
-
-
-                
-            }else{
+            } else {
                 $otherVisitSite = OtherVisitSite::select('id', 'site_name', 'address')->findOrFail($request->other_visit_site_id);
                 $site_name = $otherVisitSite->site_name;
                 $site_address = $otherVisitSite->address;
                 $phone = $otherVisitSite->phone;
             }
             //  return response($site_name);
-           
+
             $complaint->site_name = $site_name;
             $complaint->site_address = $site_address;
             $complaint->phone = $phone;
@@ -284,9 +289,9 @@ class HomeController extends Controller
             $complaint->hostname = gethostname();
             $complaint->date = Carbon::now()->toDateString();
 
-             if ($request->hasFile('files')) {
+            if ($request->hasFile('files')) {
                 foreach ($request->file('files')  as $idx => $file) {
-                    $fileName = $idx .'_EMP_'. auth()->user()->employee->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                    $fileName = $idx . '_EMP_' . auth()->user()->employee->id . '_' . time() . '.' . $file->getClientOriginalExtension();
                     $image_url = $file->storeAs('complaints', $fileName, 'public');
                     $column = 'image_' . ($idx + 1); // image_1, image_2, image_3
                     $complaint->$column = $image_url;
@@ -298,29 +303,27 @@ class HomeController extends Controller
             $toEmail = "tarikul.islam@mobilbd.com";
             Mail::to($toEmail)->send(new ComplaintRaiseMail($complaint->id));
 
-            
+
 
             $msg = "Complaint submitted successfully";
             $status = "success";
 
-             $activityLog = [
+            $activityLog = [
                 'user' => auth()->id(),
                 'action' => "complaint",
                 'remarks' => "New complaint noted, customer name: " . $site_name,
-                'log_type' => 2,// General actions
+                'log_type' => 2, // General actions
                 'lat' => $request->lat,
                 'long' => $request->long,
 
             ];
 
             storeEmployeeActivityLog($activityLog);
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
-            
         }
 
-         return response()->json([
+        return response()->json([
             'message' => $msg,
             'status' => $status
         ]);

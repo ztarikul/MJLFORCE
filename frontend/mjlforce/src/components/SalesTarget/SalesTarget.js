@@ -541,6 +541,29 @@ export default function SalesTarget() {
                       </tfoot>
                     </table>
                   </div>
+                  <div
+                    className="card-footer text-muted"
+                    style={{ color: "red" }}
+                  >
+                    Diclaimer
+                    <ol style={{ color: "red" }}>
+                      <li>
+                        Current-month sales figures are provisional and may be
+                        adjusted upon completion of accounting reconciliations
+                        or product-return processing.
+                      </li>
+                      <li>
+                        Sales figures shown are provisional and may be adjusted
+                        post-reconciliation for product returns or month-end
+                        closing.
+                      </li>
+                      <li>
+                        Sales figures shown here are preliminary and may change
+                        after accounting for product returns or month-end
+                        reconciliation.
+                      </li>
+                    </ol>
+                  </div>
                 </div>
               </div>
             </div>

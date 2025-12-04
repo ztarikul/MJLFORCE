@@ -6,6 +6,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../utils/datepicker.css";
 import Auth from "../../auth/Auth";
 import { format } from "date-fns";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function ActivityLog() {
   const { http } = Auth();
@@ -104,6 +107,39 @@ export default function ActivityLog() {
   const resetHandler = () => {
     setReportType(null);
     setReportDisable(false);
+  };
+
+  const exportExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(logs);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    XLSX.writeFile(workbook, "table.xlsx");
+  };
+
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    doc.setFontSize(18);
+    doc.text("Activity Log - MJL FORCE", pageWidth / 2, 15, {
+      align: "center",
+    });
+
+    autoTable(doc, {
+      head: [columns.map((c) => c.name)],
+      body: logs.map((row) =>
+        columns.map((c) => {
+          const val =
+            typeof c.selector === "function"
+              ? c.selector(row)
+              : row[c.selector];
+          return val ?? "";
+        })
+      ),
+      startY: 10,
+      margin: { horizontal: 10 },
+    });
+
+    doc.save("table.pdf");
   };
 
   return (
@@ -215,7 +251,22 @@ export default function ActivityLog() {
               <div className="row">
                 <div className="table-responsive">
                   <DataTable
-                    title="Employee Logs"
+                    title={
+                      <div style={{ display: "flex", gap: "10px" }}>
+                        <button
+                          className="btn btn-info btn-xs"
+                          onClick={exportExcel}
+                        >
+                          Excel
+                        </button>
+                        <button
+                          className="btn btn-info btn-xs"
+                          onClick={exportPDF}
+                        >
+                          PDF
+                        </button>
+                      </div>
+                    }
                     columns={columns}
                     data={logs}
                     pagination
