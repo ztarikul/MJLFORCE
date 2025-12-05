@@ -491,7 +491,7 @@ class CmaController extends Controller
                     'action' => "Lead Change",
                     'remarks' => "Own Lead change",
                      'address' => $locationResponse['display_name'],
-                    'log_type' => 2,// General actions
+                    'log_type' => 2,// Visit
                     'lat' => $request->lat,
                     'long' => $request->long,
 
@@ -689,17 +689,23 @@ class CmaController extends Controller
             $existingVisit->save();
             $msg = 'Existing Visit created successfully';
 
-            $activityLog = [
-                'user' => auth()->id(),
-                'action' => "visit",
-                'remarks' => "Existing visit for customer- " . $soldToParty->acc_name,
-                'log_type' => 2,// General actions
-                'lat' => $request->lat,
-                'long' => $request->long,
+            $locationResponse = getReverseGeoLocation($request->lat, $request->long);
+            if(isset($locationResponse->original) && $locationResponse->original['error']){
+                return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+            }else{
+                $activityLog = [
+                    'user' => auth()->id(),
+                    'action' => "visit",
+                    'remarks' => "Existing visit for customer- " . $soldToParty->acc_name,
+                    'address' => $locationResponse['display_name'],
+                    'log_type' => 2,// Visit
+                    'lat' => $request->lat,
+                    'long' => $request->long,
 
-            ];
+                ];
 
-            storeEmployeeActivityLog($activityLog);
+                storeEmployeeActivityLog($activityLog);
+            }
         }catch(Exception $e){
             $msg = $e->getMessage();
         }
@@ -780,17 +786,24 @@ class CmaController extends Controller
             $otherVisit->save();
             $msg = 'Other Visit created successfully';
 
-            $activityLog = [
-                'user' => auth()->id(),
-                'action' => "visit",
-                'remarks' => "Other visit, site name: " . $request->site_name,
-                'log_type' => 2,// General actions
-                'lat' => $request->lat,
-                'long' => $request->long,
 
-            ];
+            $locationResponse = getReverseGeoLocation($request->lat, $request->long);
+            if(isset($locationResponse->original) && $locationResponse->original['error']){
+                return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+            }else{
+                $activityLog = [
+                    'user' => auth()->id(),
+                    'action' => "visit",
+                    'remarks' => "Other visit, site name: " . $request->site_name,
+                    'address' => $locationResponse['display_name'],
+                    'log_type' => 2,// General actions
+                    'lat' => $request->lat,
+                    'long' => $request->long,
 
-            storeEmployeeActivityLog($activityLog);
+                ];
+
+                storeEmployeeActivityLog($activityLog);
+            }
            
         }catch(Exception $e){
             $msg = $e->getMessage();

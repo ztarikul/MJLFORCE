@@ -308,17 +308,24 @@ class HomeController extends Controller
             $msg = "Complaint submitted successfully";
             $status = "success";
 
-            $activityLog = [
-                'user' => auth()->id(),
-                'action' => "complaint",
-                'remarks' => "New complaint noted, customer name: " . $site_name,
-                'log_type' => 2, // General actions
-                'lat' => $request->lat,
-                'long' => $request->long,
+            $locationResponse = getReverseGeoLocation($request->lat, $request->long);
+            if(isset($locationResponse->original) && $locationResponse->original['error']){
+                return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+            }else{
 
-            ];
+                $activityLog = [
+                    'user' => auth()->id(),
+                    'action' => "complaint",
+                    'remarks' => "New complaint noted, customer name: " . $site_name,
+                    'address' => $locationResponse['display_name'],
+                    'log_type' => 3, // Form entry
+                    'lat' => $request->lat,
+                    'long' => $request->long,
 
-            storeEmployeeActivityLog($activityLog);
+                ];
+
+                storeEmployeeActivityLog($activityLog);
+            }
         } catch (Exception $e) {
             $msg = $e->getMessage();
         }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->string('action')->nullable();
             $table->text('remarks')->nullable();
-            $table->integer('log_type')->nullable(); // 1= Authenticate, 2=Form-entry, 3=browsing
+            $table->integer('log_type')->nullable(); // 1= Authenticate, 2=visit, 3=form-entry
             $table->decimal('lat', 9, 6)->nullable();
             $table->decimal('long', 9, 6)->nullable();
             $table->text('address')->nullable();

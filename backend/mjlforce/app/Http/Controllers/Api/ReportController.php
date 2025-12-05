@@ -64,7 +64,9 @@ class ReportController extends Controller
                 'updated_at'     => $log->updated_at,
                 'created_by'     => $log->created_by,
             ];
-        })->toArray();
+        });
+
+        $activityLogs = collect($activityLogs)->groupBy('employee_name')->collapse()->values()->toArray();
 
         return response()->json(['activityLogs' => $activityLogs], 200);
     }
@@ -91,8 +93,9 @@ class ReportController extends Controller
                 $visitLogs = EmployeeActivityLog::with('employee:id,name')->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))
                     ->where('log_type', 2)
                     ->whereBetween('date', [$request->start_date, $request->end_date])
-                    ->orderBy('created_at', 'asc')
+                    ->orderBy('created_at', 'desc') 
                     ->get();
+                   
             }
         } else {
             $visitLogs = EmployeeActivityLog::with('employee:id,name')->where('employee_id', $request->employee_id)
@@ -120,7 +123,9 @@ class ReportController extends Controller
                 'updated_at'     => $log->updated_at,
                 'created_by'     => $log->created_by,
             ];
-        })->toArray();
+        });
+
+        $visitLogs = collect($visitLogs)->groupBy('employee_name')->collapse()->values()->toArray();
 
         return response()->json(['visitLogs' => $visitLogs], 200);
     }

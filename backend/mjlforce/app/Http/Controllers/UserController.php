@@ -50,6 +50,7 @@ class UserController extends Controller
     }
 
     public function edit($id){
+        return response()->json(['status' => "success"]);
         
     }
 

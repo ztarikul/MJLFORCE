@@ -347,7 +347,7 @@
                     //                     </label>`;
                         // });
                         // $('#permission_list').html(_permissions);
-                        // $('#editModal').modal('show');
+                        $('#editModal').modal('show');
                     } else {
                         $.toast({
                             heading: 'Failed',
