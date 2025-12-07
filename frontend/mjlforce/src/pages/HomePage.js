@@ -23,6 +23,7 @@ export default function HomePage() {
   const { http, userPermissions, isSupervisor } = Auth();
   const [employee, setEmployee] = useState({});
   const [varificationCnt, setVarificationCnt] = useState(0);
+  const [leadProcessCnt, setLeadProcessCnt] = useState(0);
   const [isStartedDay, setIsStartedDay] = useState({
     in_time: null,
     out_time: null,
@@ -49,6 +50,7 @@ export default function HomePage() {
         console.log(res);
         setEmployee(res.data.employee);
         setVarificationCnt(res.data.varificationCnt);
+        setLeadProcessCnt(res.data.leadProcessCnt);
       })
       .catch((res) => {
         console.log(res);
@@ -342,7 +344,10 @@ export default function HomePage() {
                       />
                     </div>
                     <div className="media-body">
-                      <span className="m-0">Customer (2)</span>
+                      <span className="m-0">
+                        Customer{" "}
+                        {leadProcessCnt > 0 && "(" + leadProcessCnt + ")"}
+                      </span>
                       <h4 className="mb-0 counter">Leads </h4>
 
                       <ApertureIcon

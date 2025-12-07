@@ -34,7 +34,12 @@ class HomeController extends Controller
         $varificationCnt = SoldToParty::whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 4); // MIS Check
         })->count();
-        return response()->json(['employee' => $employee, 'varificationCnt' => $varificationCnt], 200);
+
+        $leadProcessCnt =  SoldToParty::whereHas('currentProcess', function ($query) {
+            $query->where('chk_to', 2); // MIS Check
+        })->where('employee_id', $employee->id)->latest()->count();
+
+        return response()->json(['employee' => $employee, 'varificationCnt' => $varificationCnt, 'leadProcessCnt' => $leadProcessCnt], 200);
     }
 
     public function sidebarUser()
@@ -136,7 +141,7 @@ class HomeController extends Controller
         try {
             $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
             if (!empty($employee)) {
-                $soldToPaties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->where('employee_id', $employee->id)->latest()->get();
+                $soldToPaties = SoldToParty::select('id', 'acc_name', 'address', 'employee_id', 'created_at')->where('employee_id', $employee->id)->latest()->get();
 
                 foreach ($soldToPaties as $idx => $soldToParty) {
 
@@ -313,9 +318,9 @@ class HomeController extends Controller
             $status = "success";
 
             $locationResponse = getReverseGeoLocation($request->lat, $request->long);
-            if(isset($locationResponse->original) && $locationResponse->original['error']){
+            if (isset($locationResponse->original) && $locationResponse->original['error']) {
                 return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
-            }else{
+            } else {
 
                 $activityLog = [
                     'user' => auth()->id(),

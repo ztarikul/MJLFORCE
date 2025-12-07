@@ -79,7 +79,7 @@ export default function Complaint() {
           if (res.data.status === "success") {
             Swal.fire({
               title: "Submitted!",
-              text: "Your form has been submitted.",
+              text: "Your complaint has been submitted.",
               icon: "success",
               timer: 2000,
               showConfirmButton: false,
