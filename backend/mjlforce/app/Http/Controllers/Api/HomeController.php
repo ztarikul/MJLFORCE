@@ -30,7 +30,11 @@ class HomeController extends Controller
     public function welcomeDashboard()
     {
         $employee =  Employee::select('id', 'user_id', 'name', 'card_id', 'sap_code')->where('user_id', auth()->id())->first();
-        return response()->json(['employee' => $employee], 200);
+
+        $varificationCnt = SoldToParty::whereHas('currentProcess', function ($query) {
+            $query->where('chk_to', 4); // MIS Check
+        })->count();
+        return response()->json(['employee' => $employee, 'varificationCnt' => $varificationCnt], 200);
     }
 
     public function sidebarUser()

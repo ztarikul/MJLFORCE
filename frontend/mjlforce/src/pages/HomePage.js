@@ -22,6 +22,7 @@ import TargetCharts from "../components/Charts/TargetCharts";
 export default function HomePage() {
   const { http, userPermissions, isSupervisor } = Auth();
   const [employee, setEmployee] = useState({});
+  const [varificationCnt, setVarificationCnt] = useState(0);
   const [isStartedDay, setIsStartedDay] = useState({
     in_time: null,
     out_time: null,
@@ -47,6 +48,7 @@ export default function HomePage() {
       .then((res) => {
         console.log(res);
         setEmployee(res.data.employee);
+        setVarificationCnt(res.data.varificationCnt);
       })
       .catch((res) => {
         console.log(res);
@@ -283,7 +285,7 @@ export default function HomePage() {
                     </div>
                     <div className="media-body">
                       {/* <span className="m-0">Visit</span> */}
-                      <h4 className="mb-0 counter">VISIT</h4>
+                      <h4 className="mb-0 counter">Visit</h4>
 
                       <ApertureIcon
                         className="icon-bg"
@@ -341,7 +343,7 @@ export default function HomePage() {
                     </div>
                     <div className="media-body">
                       <span className="m-0">Customer (2)</span>
-                      <h4 className="mb-0 counter">LEADS </h4>
+                      <h4 className="mb-0 counter">Leads </h4>
 
                       <ApertureIcon
                         className="icon-bg"
@@ -369,8 +371,11 @@ export default function HomePage() {
                         />
                       </div>
                       <div className="media-body">
-                        <span className="m-0">Verify (2)</span>
-                        <h4 className="mb-0 counter">NEW CMA</h4>
+                        <span className="m-0">
+                          New CMA{" "}
+                          {varificationCnt > 0 && "(" + varificationCnt + ")"}
+                        </span>
+                        <h4 className="mb-0 counter">Verification</h4>
 
                         <ApertureIcon
                           className="icon-bg"
