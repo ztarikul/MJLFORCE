@@ -80,7 +80,7 @@ export default function LoginPage() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        setSigningBtn(false);
         if (error.status === 401) {
           // setErrors(error.response.data.error);
           Swal.fire({

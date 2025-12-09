@@ -33,7 +33,8 @@ use Illuminate\Support\Facades\Storage;
 class CmaController extends Controller
 {
     //
-    public function visitNewSoldToPary(){
+    public function visitNewSoldToPary()
+    {
         $divisions = LocDivision::select('id', 'name')->orderBy('name', 'asc')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->orderBy('name', 'asc')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->orderBy('name', 'asc')->get();
@@ -50,13 +51,14 @@ class CmaController extends Controller
             ['id' => 7, 'name' => "OTC", 'sap_code' => "Z011"],
             ['id' => 8, 'name' => "Other Customer", 'sap_code' => "Z014"],
         ];
-        return response()->json(['divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes], 200);
-    } 
+        return response()->json(['divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes], 200);
+    }
 
-    public function storeSoldToParty(Request $request){
+    public function storeSoldToParty(Request $request)
+    {
         $msg = "";
 
-        
+
         $request->validate([
             'account_name' => 'required',
             'office_address' => 'required',
@@ -64,7 +66,7 @@ class CmaController extends Controller
             'loc_district' => 'required',
             'loc_thana' => 'required',
             'post_office' => 'nullable',
-            'bin' => 'required',
+            'bin' => 'nullable|unique:sold_to_parties,bin_no',
             'contact_person' => 'required',
             'mobile_co' => 'required',
             'telephone_co' => 'required',
@@ -75,18 +77,18 @@ class CmaController extends Controller
             'territory' => 'required',
             'trade_category' => 'required',
             'trade_s_category' => 'required',
-           
+
 
         ]);
-        try{
-   
+        try {
+
 
             $soldToParty = new SoldToParty();
             $soldToParty->customer_code = null;
             $soldToParty->customer_acc_group = $request->customer_type;
             $soldToParty->company_code = "1100";
-            $soldToParty->sales_org = "1100";	
-            $soldToParty->distribution_ch = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->distributionCh->sap_code ;   
+            $soldToParty->sales_org = "1100";
+            $soldToParty->distribution_ch = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->distributionCh->sap_code;
             $soldToParty->sales_division = "00";    //Common
             list($acc_name1, $acc_name2) = splitByLastCharBeforeLimit($request->account_name, 40, " ");
             $soldToParty->acc_name = $acc_name1;
@@ -134,7 +136,7 @@ class CmaController extends Controller
             // $soldToParty->acc_assignment_group = $request->acc_assignment_group;
             // $soldToParty->tax_classification = $request->tax_classification;
             $soldToParty->territory = Territory::find($request->territory)->sap_code;
-          
+
             $soldToParty->customer_group = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->customerGroup()->first()->sap_code;
             $soldToParty->trade_category = TradeCategory::find($request->trade_category)->sap_code;
             $soldToParty->trade_sub_category = TradeSubCategory::find($request->trade_s_category)->sap_code;
@@ -161,7 +163,7 @@ class CmaController extends Controller
             $soldToParty->created_by = auth()->user()->id;
             $soldToParty->hostname = gethostname();
             $soldToParty->save();
-  
+
             $msg = 'Sold To Party created successfully';
 
 
@@ -174,39 +176,35 @@ class CmaController extends Controller
                 'remarks' => "New Customer to Leads Processing",
             ]);
 
-             $locationResponse = getReverseGeoLocation($request->lat, $request->long);
-            if(isset($locationResponse->original) && $locationResponse->original['error']){
+            $locationResponse = getReverseGeoLocation($request->lat, $request->long);
+            if (isset($locationResponse->original) && $locationResponse->original['error']) {
                 return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
-            }else{
+            } else {
                 $activityLog = [
                     'user' => auth()->id(),
                     'action' => "visit",
                     'remarks' => "New Visit/New Client enlist",
                     'address' => $locationResponse['display_name'],
-                    'log_type' => 2,// General actions
+                    'log_type' => 2, // General actions
                     'lat' => $request->lat,
                     'long' => $request->long,
 
                 ];
-            
+
                 storeEmployeeActivityLog($activityLog);
             }
-            
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
-            
-
         }
         return response()->json([
             'message' => $msg,
         ]);
-
-
     }
 
 
-    public function leadsProcess(Request $request){
-        $id = $request->query('id');  
+    public function leadsProcess(Request $request)
+    {
+        $id = $request->query('id');
         $divisions = LocDivision::select('id', 'name')->get();
         $districts = LocDistrict::select('id', 'loc_division_id', 'name')->get();
         $upazilas = LocUpazila::select('id', 'loc_district_id', 'name')->get();
@@ -229,12 +227,13 @@ class CmaController extends Controller
         $soldToParty = SoldToParty::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice', 'territorySToP', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'currentLead'])->find($id);
 
 
-        return response()->json(['soldToParty' => $soldToParty, 'divisions'=> $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes, 'leadStages' => $leadStages], 200);
+        return response()->json(['soldToParty' => $soldToParty, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'postOffice' => $postOffice, 'salesTerritories' => $salesTerritories, 'tradeCategories' => $tradeCategories, 'tradeSubCategories' => $tradeSubCategories, 'customerTypes' => $customerTypes, 'leadStages' => $leadStages], 200);
     }
 
-    public function updateLeadProcess(Request $request, $id){
+    public function updateLeadProcess(Request $request, $id)
+    {
 
-  
+
 
         $msg = "";
         $request->validate([
@@ -259,12 +258,12 @@ class CmaController extends Controller
 
         ]);
 
-        try{
-   
+        try {
+
             $soldToParty = SoldToParty::findOrFail($id);
-            
+
             $soldToParty->customer_acc_group = $request->customer_type;
-            $soldToParty->distribution_ch = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->distributionCh->sap_code ;   
+            $soldToParty->distribution_ch = SoldToPartySalesArea::where('trade_category_id', $request->trade_category)->where('trade_sub_category_id', $request->trade_s_category)->first()->distributionCh->sap_code;
 
             list($acc_name1, $acc_name2) = splitByLastCharBeforeLimit($request->account_name, 40, " ");
             $soldToParty->acc_name = $acc_name1;
@@ -281,9 +280,9 @@ class CmaController extends Controller
 
             $soldToParty->phone = $request->owner_telephone;
             $soldToParty->mobile_phone = $request->owner_mobile;
-     
+
             $soldToParty->email = $request->owner_email;
-         
+
             $soldToParty->postal_code = $request->post_office ? LocPostOffice::find($request->post_office)->post_code : null;
             $soldToParty->contact_person_name = $request->contact_person;
             $soldToParty->contact_person_tel = $request->telephone_co;
@@ -305,25 +304,25 @@ class CmaController extends Controller
             $soldToParty->loc_district_id = $request->loc_district;
             $soldToParty->loc_upazila_id = $request->loc_thana;
             $soldToParty->loc_post_office_id = $request->post_office;
-      
+
 
             $soldToParty->is_eligible_discount = $request->special_discount === "on" ? true : false;
 
             $soldToParty->remarks = $request->remarks;
             $soldToParty->status = 2; //processing
 
-            if($request->lead_stage_id === "7"){
+            if ($request->lead_stage_id === "7") {
                 SoldToPartyProcessLog::create([
                     'sold_to_party_id' => $soldToParty->id,
                     'chk_from' => 2, //Leads
                     'chk_to' => 4, //MIS
                     'status' => 2,
                     'remarks' => "Lead Process: Create CMA",
-                ]);  
+                ]);
 
                 //CMA form pdf generate here
                 $date = now()->format('d-M-Y');
-                
+
                 $content = '<header class="mt-2">
                         <div style="width:100%;">
                             <div style="display:inline-block; width:48%; vertical-align:top;">
@@ -338,7 +337,7 @@ class CmaController extends Controller
 
                             <div style="display:inline-block; width:48%; text-align:right; vertical-align:top;">
                                 <h6>Customer Master Advice</h6>
-                                <p>Date: '.$date.'</p>
+                                <p>Date: ' . $date . '</p>
                             </div>
                         </div>
                     </header>
@@ -347,27 +346,27 @@ class CmaController extends Controller
                         <table class="text-center customer-info-table" style="width: 100%">
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Account Name</td>
-                                <td>'.$soldToParty->acc_name.'</td>
+                                <td>' . $soldToParty->acc_name . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Office Address:</td>
-                                <td>'.$soldToParty->address.'</td>
+                                <td>' . $soldToParty->address . '</td>
                             </tr>
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Post Office:</td>
-                                <td>'.$soldToParty->LocPostOffice->post_office.'</td>
+                                <td>' . $soldToParty->LocPostOffice->post_office . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Contact Person:</td>
-                                <td>'.$soldToParty->contact_person_name.'</td>
+                                <td>' . $soldToParty->contact_person_name . '</td>
                             </tr>
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Group</td>
-                                <td>'.$soldToParty->group.'</td>
+                                <td>' . $soldToParty->group . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*District</td>
-                                <td>'.$soldToParty->district.'</td>
+                                <td>' . $soldToParty->district . '</td>
                             </tr>
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*BIN</td>
-                                <td>'.$soldToParty->bin_no.'</td>
+                                <td>' . $soldToParty->bin_no . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Phone No. (Cell):</td>
-                                <td>'.$soldToParty->contact_person_mobile.'</td>
+                                <td>' . $soldToParty->contact_person_mobile . '</td>
                             </tr>
                         </table>
                     </div>
@@ -376,15 +375,15 @@ class CmaController extends Controller
                         <table class="text-center customer-info-table" style="width: 100%">
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">CEO/MD/Owner:</td>
-                                <td>'.$soldToParty->ceo.'</td>
+                                <td>' . $soldToParty->ceo . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Office Phone:</td>
-                                <td>'.$soldToParty->mobile_phone.'</td>
+                                <td>' . $soldToParty->mobile_phone . '</td>
                             </tr>
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Telephone:</td>
-                                <td>'.$soldToParty->phone.'</td>
+                                <td>' . $soldToParty->phone . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Email</td>
-                                <td>'.$soldToParty->email.'</td>
+                                <td>' . $soldToParty->email . '</td>
                             </tr>
                         </table>
                     </div>
@@ -393,21 +392,21 @@ class CmaController extends Controller
                         <table class="text-center customer-info-table" style="width: 100%">
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Customer Type:</td>
-                                <td>'.$soldToParty->customerType->name.'</td>
+                                <td>' . $soldToParty->customerType->name . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Sales Territory:</td>
-                                <td>'.$soldToParty->territorySToP->name.'</td>
+                                <td>' . $soldToParty->territorySToP->name . '</td>
                             </tr>
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Trade Category:</td>
-                                <td>'.$soldToParty->tradeCategory->name.'</td>
+                                <td>' . $soldToParty->tradeCategory->name . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Sub Category:</td>
-                                <td>'.$soldToParty->tradeSubCategory->name.'</td>
+                                <td>' . $soldToParty->tradeSubCategory->name . '</td>
                             </tr>
                             <tr class="text-start">
                                 <td style="font-weight: bold; background-color: #A5A8A6;">*Sales Person (Mobil):</td>
-                                <td>'.$soldToParty->employee->name.'</td>
+                                <td>' . $soldToParty->employee->name . '</td>
                                 <td style="font-weight: bold; background-color: #A5A8A6;">Remarks:</td>
-                                <td>'.$soldToParty->remarks.'</td>
+                                <td>' . $soldToParty->remarks . '</td>
                             </tr>
                         </table>
                     </div>
@@ -426,9 +425,9 @@ class CmaController extends Controller
                     <div class="p-2 mt-3 empsignature">
                         <table class="text-center empsignature-table" style="width: 100%">
                             <tr>
-                                <td style="height: 30px">'.$soldToParty->employee->name.'</td>
+                                <td style="height: 30px">' . $soldToParty->employee->name . '</td>
 
-                                <td style="height: 30px; font-weight: bold">'.$soldToParty->employee->supervisorOfEmployee?->name.'</td>
+                                <td style="height: 30px; font-weight: bold">' . $soldToParty->employee->supervisorOfEmployee?->name . '</td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold">
@@ -456,56 +455,53 @@ class CmaController extends Controller
 
 
                 $data = [
-                'title' => 'Customer Master Advice',
-                'content' => $content
+                    'title' => 'Customer Master Advice',
+                    'content' => $content
                 ];
 
                 $pdf = Pdf::loadView('pdf.cmaForm', $data);
-                $filePath = $soldToParty->employee->sap_code .'_cma_form_' . $soldToParty->id . '.pdf';
-                Storage::put('cma_forms/'. $filePath, $pdf->output());
+                $filePath = $soldToParty->employee->sap_code . '_cma_form_' . $soldToParty->id . '.pdf';
+                Storage::put('cma_forms/' . $filePath, $pdf->output());
 
                 $mail_data = [
                     'customer_name' => $soldToParty->acc_name,
                     'sales_person' => $soldToParty->employee->name,
                 ];
 
-                $mailFilepath = Storage::path('cma_forms/'. $filePath);
+                $mailFilepath = Storage::path('cma_forms/' . $filePath);
                 Mail::to('tarikul.islam@mobilbd.com')
-                ->send(new CmaFromMail($mail_data, $mailFilepath));
-
+                    ->send(new CmaFromMail($mail_data, $mailFilepath));
             }
 
             SoldToPartyLeadLog::create([
                 'sold_to_party_id' => $soldToParty->id,
                 'lead_stage_id' => $request->lead_stage_id,
                 'stage' => LeadStage::find($request->lead_stage_id)->stage,
-              
+
             ]);
 
             $locationResponse = getReverseGeoLocation($request->lat, $request->long);
-            if(isset($locationResponse->original) && $locationResponse->original['error']){
+            if (isset($locationResponse->original) && $locationResponse->original['error']) {
                 return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
-            }else{
+            } else {
                 $activityLog = [
                     'user' => auth()->id(),
                     'action' => "Lead Change",
                     'remarks' => "Own Lead change",
-                     'address' => $locationResponse['display_name'],
-                    'log_type' => 2,// Visit
+                    'address' => $locationResponse['display_name'],
+                    'log_type' => 2, // Visit
                     'lat' => $request->lat,
                     'long' => $request->long,
 
                 ];
-            
+
                 storeEmployeeActivityLog($activityLog);
             }
 
             $soldToParty->update();
             $msg = 'Sold To Party updated successfully';
-         
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
-            
         }
 
         return response()->json([
@@ -514,11 +510,12 @@ class CmaController extends Controller
     }
 
 
-     public function storeShipToParty(Request $request){
+    public function storeShipToParty(Request $request)
+    {
 
-    
+
         $msg = "";
-        
+
         $request->validate([
             'account_name' => 'required',
             'office_address' => 'required',
@@ -532,16 +529,16 @@ class CmaController extends Controller
             'remarks' => 'nullable|string|max:500',
 
         ]);
-        try{
-   
+        try {
+
             $soldToParty = SoldToParty::findOrFail($request->sold_to_party_id);
             $shipToParty = new ShipToParty();
             $shipToParty->sold_to_party_id = $request->sold_to_party_id;
             $shipToParty->customer_code = $soldToParty->customer_code;
             $shipToParty->customer_acc_group = 'Z009';
             $shipToParty->company_code = $soldToParty->company_code;
-            $shipToParty->sales_org =  $soldToParty->sales_org;	
-            $shipToParty->distribution_ch = $soldToParty->distribution_ch;   
+            $shipToParty->sales_org =  $soldToParty->sales_org;
+            $shipToParty->distribution_ch = $soldToParty->distribution_ch;
             $shipToParty->sales_division = $soldToParty->sales_division;    //Common
             // list($acc_name1, $acc_name2) = splitByLastCharBeforeLimit($request->account_name, 40, " ");
             $shipToParty->acc_name = $soldToParty->acc_name;
@@ -611,7 +608,7 @@ class CmaController extends Controller
             $shipToParty->lat = $request->lat;
             $shipToParty->long = $request->long;
             $shipToParty->employee_id =  auth()->user()->employee->id;
-            
+
             $shipToParty->remarks = $request->remarks;
             $shipToParty->created_by = auth()->user()->id;
             $shipToParty->hostname = gethostname();
@@ -624,36 +621,30 @@ class CmaController extends Controller
                 'status' => 1,
                 'remarks' => "Verification Processing",
             ]);
-  
+
             $msg = 'Ship To Party created successfully';
 
             $activityLog = [
                 'user' => auth()->id(),
                 'action' => "visit",
                 'remarks' => "New Ship-to-Party enlist for customer- " . $soldToParty->acc_name,
-                'log_type' => 2,// General actions
+                'log_type' => 2, // General actions
                 'lat' => $request->lat,
                 'long' => $request->long,
 
             ];
 
             storeEmployeeActivityLog($activityLog);
-
-         
-            
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
-            
-
         }
         return response()->json([
             'message' => $msg,
         ]);
-
-
     }
 
-    public function storeExistingVisit(Request $request){
+    public function storeExistingVisit(Request $request)
+    {
         // return response()->json($request->all());
 
         $request->validate([
@@ -668,7 +659,7 @@ class CmaController extends Controller
             'long' => 'required',
         ]);
 
-        try{
+        try {
             $existingVisit = new ExistingVisit();
             $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->sold_to_party_id);
             $existingVisit->sold_to_party_id = $request->sold_to_party_id;
@@ -690,15 +681,15 @@ class CmaController extends Controller
             $msg = 'Existing Visit created successfully';
 
             $locationResponse = getReverseGeoLocation($request->lat, $request->long);
-            if(isset($locationResponse->original) && $locationResponse->original['error']){
+            if (isset($locationResponse->original) && $locationResponse->original['error']) {
                 return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
-            }else{
+            } else {
                 $activityLog = [
                     'user' => auth()->id(),
                     'action' => "visit",
                     'remarks' => "Existing visit for customer- " . $soldToParty->acc_name,
                     'address' => $locationResponse['display_name'],
-                    'log_type' => 2,// Visit
+                    'log_type' => 2, // Visit
                     'lat' => $request->lat,
                     'long' => $request->long,
 
@@ -706,7 +697,7 @@ class CmaController extends Controller
 
                 storeEmployeeActivityLog($activityLog);
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
         }
         return response()->json([
@@ -715,7 +706,8 @@ class CmaController extends Controller
     }
 
 
-       public function storeOtherVisit(Request $request){
+    public function storeOtherVisit(Request $request)
+    {
         // return response()->json($request->all());
 
         $request->validate([
@@ -731,11 +723,11 @@ class CmaController extends Controller
             'long' => 'required',
             'lat' => 'required',
         ]);
-        
 
-        try{
 
-            if(!$request->site_id){
+        try {
+
+            if (!$request->site_id) {
                 $site = new OtherVisitSite;
                 $site->site_name = $request->site_name;
                 $site->address = $request->address;
@@ -749,8 +741,7 @@ class CmaController extends Controller
                 $site->created_by = auth()->user()->id;
                 $site->hostname = gethostname();
                 $site->save();
-
-            }else{
+            } else {
                 $site = OtherVisitSite::find($request->site_id);
                 $site->site_name = $request->site_name;
                 $site->address = $request->address;
@@ -765,7 +756,7 @@ class CmaController extends Controller
                 // $site->hostname = gethostname();
                 $site->update();
             }
- 
+
             $otherVisit = new OtherVisit();
             $otherVisit->site_name = $request->site_name;
             $otherVisit->address = $request->address;
@@ -788,15 +779,15 @@ class CmaController extends Controller
 
 
             $locationResponse = getReverseGeoLocation($request->lat, $request->long);
-            if(isset($locationResponse->original) && $locationResponse->original['error']){
+            if (isset($locationResponse->original) && $locationResponse->original['error']) {
                 return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
-            }else{
+            } else {
                 $activityLog = [
                     'user' => auth()->id(),
                     'action' => "visit",
                     'remarks' => "Other visit, site name: " . $request->site_name,
                     'address' => $locationResponse['display_name'],
-                    'log_type' => 2,// General actions
+                    'log_type' => 2, // General actions
                     'lat' => $request->lat,
                     'long' => $request->long,
 
@@ -804,8 +795,7 @@ class CmaController extends Controller
 
                 storeEmployeeActivityLog($activityLog);
             }
-           
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
         }
         return response()->json([
@@ -813,34 +803,36 @@ class CmaController extends Controller
         ]);
     }
 
-    public function cmaVarificationProcess(Request $request){
-        $id = $request->query('id');  
-        $category = $request->query('category');  
+    public function cmaVarificationProcess(Request $request)
+    {
+        $id = $request->query('id');
+        $category = $request->query('category');
         $soldToParty = [];
-         $shipToParties = [];
-        if ($category === "s2p"){
+        $shipToParties = [];
+        if ($category === "s2p") {
             $soldToParty = SoldToParty::with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'territorySToP', 'tradeCategory.tradeSubCategories', 'tradeSubCategory', 'distributionCh', 'customerGroup', 'customerType', 'employee:id,name'])->find($id);
 
 
-            $shipToParties = $soldToParty->shipToParties()->with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'employee:id,name'])->whereHas('currentProcess', function($query){
+            $shipToParties = $soldToParty->shipToParties()->with(['LocDivision', 'LocDistrict', 'LocUpazila', 'LocPostOffice', 'employee:id,name'])->whereHas('currentProcess', function ($query) {
                 $query->where('chk_to', 3);
             })->orderBy('created_at', 'asc')->get();
         }
-    
-       
+
+
         return response()->json([
             'soldToParty' => $soldToParty,
-            'shipToParties' =>$shipToParties
+            'shipToParties' => $shipToParties
         ]);
     }
 
-    public function varification(Request $request){
+    public function varification(Request $request)
+    {
         // return response()->json($request->all());
         $msg = '';
         $status = 0;
-        try{
-            if($request->action === "approve"){
-                if($request->category === "s2p"){
+        try {
+            if ($request->action === "approve") {
+                if ($request->category === "s2p") {
                     // Sold To Party Approve functions here...
                     $soldToParty = SoldToParty::select('id', 'acc_name')->findOrFail($request->target_id);
                     SoldToPartyProcessLog::create([
@@ -853,9 +845,9 @@ class CmaController extends Controller
                     $msg = "Sold-To-Party has been approved and sent to the MIS";
                     $status = 1;
                 }
-                if($request->category === "incSh2p"){
+                if ($request->category === "incSh2p") {
                     // ship To Party Approve functions here...
-                    $shipToParty = ShipToParty::select('id', 'sold_to_party_id','acc_name')->findOrFail($request->target_id);
+                    $shipToParty = ShipToParty::select('id', 'sold_to_party_id', 'acc_name')->findOrFail($request->target_id);
                     SoldToPartyProcessLog::create([
                         'sold_to_party_id' => $shipToParty->sold_to_party_id,
                         'chk_from' => 3, // SV
@@ -873,15 +865,12 @@ class CmaController extends Controller
 
                     $msg = "Both Sold-To-Party & Ship-To-Party have been approved and sent to the MIS";
                     $status = 1;
-
                 }
-
-
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $msg = $e->getMessage();
         }
-        
+
 
         return response()->json([
             'message' => $msg,
@@ -894,22 +883,22 @@ class CmaController extends Controller
     {
         $query = $request->get('search');
         $sites = OtherVisitSite::with(['LocDivision.LocDistricts', 'LocDistrict.LocUpazilas', 'LocDistrict.LocPostOffices', 'LocPostOffice'])->where('site_name', 'LIKE', "%{$query}%")
-        ->distinct()
+            ->distinct()
             ->where('employee_id', auth()->user()->employee->id)
             ->get(); // only return site names
 
         return response()->json(['sites' => $sites]);
     }
 
-    
-    public function salesVsTarget(Request $request){
-       $employee = Employee::select('id', 'user_id', 'sap_code', 'name', 'card_id', )->where('user_id', auth()->id())->first();
-       $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();
+
+    public function salesVsTarget(Request $request)
+    {
+        $employee = Employee::select('id', 'user_id', 'sap_code', 'name', 'card_id',)->where('user_id', auth()->id())->first();
+        $salesTargets = SalesTargetVsAchievement::where('emp_sap_code', $employee->sap_code)->where('year', Carbon::now()->year)->first();
 
         return response()->json([
             'salesTargets' => $salesTargets,
-            
+
         ]);
     }
-
 }

@@ -465,7 +465,7 @@ export default function NewForm() {
           <div className="col-md-4">
             <div className="mb-3">
               <label className="form-label" htmlFor="bin">
-                BIN <span style={{ color: "red" }}>* </span>
+                BIN
               </label>
               <input
                 className="form-control"

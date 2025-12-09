@@ -40,22 +40,22 @@ export default function AppRouter(props) {
           </AuthMiddleware>
         }
       />
-      <Route
+      {/* <Route
         path="/sh2p_create"
         element={
           <AuthMiddleware>
             <ShipToParty />
           </AuthMiddleware>
         }
-      />
-      <Route
+      /> */}
+      {/* <Route
         path="/sales_target"
         element={
           <AuthMiddleware>
             <SalesTarget />
           </AuthMiddleware>
         }
-      />
+      /> */}
       <Route
         path="/complaint"
         element={

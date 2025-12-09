@@ -34,10 +34,10 @@ export default function SidebarUser(props) {
         Total Sales Target - {props?.sidebarUserData?.total_sales_target}{" "}
         <span>Ltr</span>
       </p> */}
-      <p className="mb-0 font-roboto f-w-600">
+      {/* <p className="mb-0 font-roboto f-w-600">
         Total Sales - {props?.sidebarUserData?.total_sales}{" "}
         <span>Ltr (YTD)</span>
-      </p>
+      </p> */}
       <p>Last Sync: {props.sidebarUserData.updated_at}</p>
     </div>
   );
