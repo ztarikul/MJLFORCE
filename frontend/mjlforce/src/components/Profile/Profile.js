@@ -93,7 +93,7 @@ export default function Profile() {
           },
         })
         .then((res) => {
-          console.log(res.data); // Handle success response
+          //console.log(res.data); // Handle success response
           Swal.fire({
             title: "Submitted!",
             text: res.data.message,
@@ -106,6 +106,7 @@ export default function Profile() {
             password: null,
             password_confirmation: null,
           });
+          setIsPasswordEnable(false);
         })
         .catch((error) => {
           console.log(error);
@@ -177,7 +178,7 @@ export default function Profile() {
                     Reset Password
                   </button>
                   {isPasswordResetEnable && (
-                    <div className="mb-3">
+                    <div className="mb-3 mt-3">
                       <form className="form theme-form" onSubmit={formSubmit}>
                         <div className="row">
                           <div className="col-md-12">
@@ -227,13 +228,12 @@ export default function Profile() {
                             )}
                           </div>
                         </div>
-                        <div className="form-footer text-end">
-                          <button
-                            type="submit"
-                            className="btn btn-primary btn-block"
-                          >
-                            Save
-                          </button>
+                        <div className="form-footer">
+                          <div className="mt-2 ">
+                            <button type="submit" className="btn btn-primary">
+                              Save
+                            </button>
+                          </div>
                         </div>
                       </form>
                     </div>
