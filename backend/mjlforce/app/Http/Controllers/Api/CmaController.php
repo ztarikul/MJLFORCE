@@ -374,16 +374,16 @@ class CmaController extends Controller
                         <h6 class="fw-bold">Company Information:</h6>
                         <table class="text-center customer-info-table" style="width: 100%">
                             <tr class="text-start">
-                                <td style="font-weight: bold; background-color: #A5A8A6;">CEO/MD/Owner:</td>
-                                <td>' . $soldToParty->ceo . '</td>
-                                <td style="font-weight: bold; background-color: #A5A8A6;">Office Phone:</td>
-                                <td>' . $soldToParty->mobile_phone . '</td>
+                                <td style="font-weight: bold; background-color: #A5A8A6; width: 50%">CEO/MD/Owner:</td>
+                                <td style="width: 50%">' . $soldToParty->ceo . '</td>
+                                <td style="font-weight: bold; background-color: #A5A8A6; width: 50%">Office Phone:</td>
+                                <td style="width: 50%">' . $soldToParty->mobile_phone . '</td>
                             </tr>
                             <tr class="text-start">
-                                <td style="font-weight: bold; background-color: #A5A8A6;">Telephone:</td>
-                                <td>' . $soldToParty->phone . '</td>
-                                <td style="font-weight: bold; background-color: #A5A8A6;">Email</td>
-                                <td>' . $soldToParty->email . '</td>
+                                <td style="font-weight: bold; background-color: #A5A8A6; width: 50%">Telephone:</td>
+                                <td style="width: 50%">' . $soldToParty->phone . '</td>
+                                <td style="font-weight: bold; background-color: #A5A8A6; width: 50%">Email</td>
+                                <td style="width: 50%">' . $soldToParty->email . '</td>
                             </tr>
                         </table>
                     </div>

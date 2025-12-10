@@ -27,6 +27,7 @@ export default function OthersForm() {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [errors, setErrors] = useState({});
+  const [signingBtn, setSigningBtn] = useState(false);
 
   const [fetchData, setFetchdata] = useState({
     divisions: [],
@@ -198,6 +199,7 @@ export default function OthersForm() {
     });
 
     if (result.isConfirmed) {
+      setSigningBtn(true);
       http
         .post("/store_other_visit", formData, {
           headers: {
@@ -205,6 +207,7 @@ export default function OthersForm() {
           },
         })
         .then((res) => {
+          setSigningBtn(false);
           console.log(res.data); // Handle success response
           Swal.fire({
             title: "Submitted!",
@@ -231,8 +234,10 @@ export default function OthersForm() {
           });
           setShowSuggestions(false);
           setSuggestions(null);
+          setErrors({});
         })
         .catch((error) => {
+          setSigningBtn(false);
           console.log(error);
           if (error.ststus !== 401) {
             setErrors(error.response.data.errors);
@@ -543,8 +548,8 @@ export default function OthersForm() {
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="submit">
-          Submit
+        <button className="btn btn-primary" type="submit" disabled={signingBtn}>
+          {signingBtn ? "Submitting..." : "Submit"}
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />
       </div>

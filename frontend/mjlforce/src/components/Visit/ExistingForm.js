@@ -27,6 +27,7 @@ export default function ExistingForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [signingBtn, setSigningBtn] = useState(false);
 
   const fetchFormData = useCallback(() => {
     http
@@ -135,6 +136,7 @@ export default function ExistingForm() {
     });
 
     if (result.isConfirmed) {
+      setSigningBtn(true);
       http
         .post("/store_existing_visit", formData, {
           headers: {
@@ -142,6 +144,7 @@ export default function ExistingForm() {
           },
         })
         .then((res) => {
+          setSigningBtn(false);
           console.log(res.data); // Handle success response
           Swal.fire({
             title: "Submitted!",
@@ -163,8 +166,10 @@ export default function ExistingForm() {
             lat: "",
             accuracy: "",
           });
+          setErrors({});
         })
         .catch((error) => {
+          setSigningBtn(false);
           console.log(error);
           if (error.ststus !== 401) {
             setErrors(error.response.data.errors);
@@ -386,8 +391,8 @@ export default function ExistingForm() {
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="submit">
-          Submit
+        <button className="btn btn-primary" type="submit" disabled={signingBtn}>
+          {signingBtn ? "Submitting..." : "Submit"}
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />
       </div>

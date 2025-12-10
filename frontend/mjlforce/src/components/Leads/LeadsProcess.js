@@ -39,6 +39,7 @@ export default function LeadsProcess() {
   });
 
   const [errors, setErrors] = useState({});
+  const [signingBtn, setSigningBtn] = useState(false);
 
   const [fetchData, setFetchdata] = useState({
     divisions: [],
@@ -187,6 +188,7 @@ export default function LeadsProcess() {
     });
 
     if (result.isConfirmed) {
+      setSigningBtn(true);
       http
         .post(`/updateLeadProcess/${id}`, formData, {
           headers: {
@@ -195,6 +197,7 @@ export default function LeadsProcess() {
         })
         .then((res) => {
           console.log(res.data); // Handle success response
+          setSigningBtn(false);
           Swal.fire({
             title: "Submitted!",
             text: res.data.msg,
@@ -225,9 +228,11 @@ export default function LeadsProcess() {
             special_discount: "",
             remarks: "",
           });
+          setErrors({});
         })
         .catch((error) => {
           console.log(error);
+          setSigningBtn(false);
           if (error.ststus !== 401) {
             setErrors(error.response.data.errors);
           }
@@ -900,8 +905,12 @@ export default function LeadsProcess() {
                   </div>
                 </div>
                 <div className="card-footer text-end">
-                  <button className="btn btn-primary" type="submit">
-                    Submit
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    disabled={signingBtn}
+                  >
+                    {signingBtn ? "Submitting..." : "Submit"}
                   </button>
                   <input
                     className="btn btn-light"

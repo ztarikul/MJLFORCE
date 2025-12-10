@@ -32,6 +32,7 @@ export default function NewForm() {
     accuracy: null,
   });
   const [errors, setErrors] = useState({});
+  const [signingBtn, setSigningBtn] = useState(false);
 
   const [fetchData, setFetchdata] = useState({
     divisions: [],
@@ -126,6 +127,7 @@ export default function NewForm() {
     });
 
     if (result.isConfirmed) {
+      setSigningBtn(true);
       http
         .post("/store_s2p", formData, {
           headers: {
@@ -133,6 +135,7 @@ export default function NewForm() {
           },
         })
         .then((res) => {
+          setSigningBtn(false);
           console.log(res);
           Swal.fire({
             title: "Submitted!",
@@ -164,14 +167,17 @@ export default function NewForm() {
             special_discount: "",
             remarks: "",
           });
+          setErrors({});
         })
         .catch((error) => {
+          setSigningBtn(false);
           console.log(error);
           if (error.ststus !== 401) {
             setErrors(error.response.data.errors);
           }
         });
     }
+    // setSigningBtn(false);
   };
 
   const divisionChangeHnadler = (event) => {
@@ -802,8 +808,8 @@ export default function NewForm() {
         </div>
       </div>
       <div className="card-footer text-end">
-        <button className="btn btn-primary" type="submit">
-          Submit
+        <button className="btn btn-primary" type="submit" disabled={signingBtn}>
+          {signingBtn ? "Submitting..." : "Submit"}
         </button>
         <input className="btn btn-light" type="reset" value="Cancel" />
       </div>
