@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         $varificationCnt = SoldToParty::whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 4); // MIS Check
-        })->count();
+        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->count();
 
         $leadProcessCnt =  SoldToParty::whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 2); // MIS Check
@@ -232,10 +232,10 @@ class HomeController extends Controller
 
         $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 4); // MIS Check
-        })->orderBy('created_at', 'asc')->get();
+        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orderBy('created_at', 'asc')->get();
         $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 3); //SV check
-        })->orderBy('created_at', 'asc')->get();
+        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orderBy('created_at', 'asc')->get();
 
         $cmas = $soldToParties->merge($shipToParties)->sortBy('created_at')->values();
 
