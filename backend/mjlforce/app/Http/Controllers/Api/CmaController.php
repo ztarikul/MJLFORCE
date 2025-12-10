@@ -428,6 +428,7 @@ class CmaController extends Controller
                                 <td style="height: 30px">' . $soldToParty->employee->name . '</td>
 
                                 <td style="height: 30px; font-weight: bold">' . $soldToParty->employee->supervisorOfEmployee?->name . '</td>
+                                <td style="height: 30px; font-weight: bold"> </td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold">
@@ -438,6 +439,15 @@ class CmaController extends Controller
                                                 margin: auto;
                                             " />
                                     Submitted By
+                                </td>
+                                <td style="font-weight: bold">
+                                    <hr
+                                        style="
+                                                border: 1px solid black;
+                                                width: 80%;
+                                                margin: auto;
+                                            " />
+                                    Supervisor
                                 </td>
 
                                 <td style="font-weight: bold">

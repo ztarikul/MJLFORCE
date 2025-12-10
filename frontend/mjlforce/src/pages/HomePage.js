@@ -41,7 +41,47 @@ export default function HomePage() {
     street_name: null,
   });
   const [pageLoading, setPageLoading] = useState(true);
-  const [coords, setCoords] = useState({ lat: null, long: null });
+  const [coords, setCoords] = useState({
+    lat: null,
+    long: null,
+    accuracy: null,
+  });
+
+  useEffect(() => {
+    let intervalId;
+
+    const fetchCoords = () => {
+      getCurrentLocation()
+        .then((location) => {
+          const newAcc = location.accuracy;
+          if (!coords.lat && !coords.long) {
+            setCoords({
+              lat: location.latitude,
+              long: location.longitude,
+              accuracy: newAcc,
+            });
+            console.log("Current Accuracy:", newAcc);
+          }
+          if (newAcc < coords.accuracy) {
+            setCoords({
+              lat: location.latitude,
+              long: location.longitude,
+              accuracy: newAcc,
+            });
+            console.log("Updated Accuracy:", newAcc);
+            // <-- change condition as you want
+            // clearInterval(intervalId);
+          }
+        })
+        .catch((err) => console.log(err));
+    };
+
+    // Call every 1 second
+    intervalId = setInterval(fetchCoords, 1000);
+
+    // Cleanup when component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   const welcomeCardData = async () => {
     await http
