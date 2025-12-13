@@ -27,67 +27,88 @@ class SoldToParty extends Model
     protected $guarded = [];
 
 
-    public function employee(){
+    public function employee()
+    {
         return $this->belongsTo(Employee::class);
     }
 
-    public function processLogs(){
+    public function omeraEmployee()
+    {
+        return $this->belongsTo(Employee::class, 'id', 'omera_employee_id');
+    }
+
+    public function processLogs()
+    {
         return $this->hasMany(SoldToPartyProcessLog::class)->latest();
     }
 
-    public function currentProcess(){
+    public function currentProcess()
+    {
         return $this->hasOne(SoldToPartyProcessLog::class)->latestOfMany();
     }
 
-    public function leadStageLogs(){
+    public function leadStageLogs()
+    {
         return $this->hasMany(SoldToPartyLeadLog::class);
     }
 
-    public function currentLead(){
+    public function currentLead()
+    {
         return $this->hasOne(SoldToPartyLeadLog::class)->latestOfMany();
     }
 
-    public function locDivision(){
+    public function locDivision()
+    {
         return $this->belongsTo(LocDivision::class);
     }
-    public function LocDistrict(){
+    public function LocDistrict()
+    {
         return $this->belongsTo(LocDistrict::class);
     }
-    public function LocUpazila(){
+    public function LocUpazila()
+    {
         return $this->belongsTo(LocUpazila::class);
     }
-    public function LocPostOffice(){
+    public function LocPostOffice()
+    {
         return $this->belongsTo(LocPostOffice::class);
     }
-    public function territorySToP(){
+    public function territorySToP()
+    {
         return $this->belongsTo(Territory::class, 'territory', 'sap_code');
     }
 
-    public function tradeCategory(){
-        return $this->belongsTo(TradeCategory::class,'trade_category', 'sap_code');
+    public function tradeCategory()
+    {
+        return $this->belongsTo(TradeCategory::class, 'trade_category', 'sap_code');
     }
 
-    public function tradeSubCategory(){
-        return $this->belongsTo(TradeSubCategory::class,'trade_sub_category', 'sap_code');
+    public function tradeSubCategory()
+    {
+        return $this->belongsTo(TradeSubCategory::class, 'trade_sub_category', 'sap_code');
     }
 
-    public function shipToParties(){
+    public function shipToParties()
+    {
         return $this->hasMany(ShipToParty::class);
     }
 
-    public function customerType(){
+    public function customerType()
+    {
         return $this->belongsTo(CustomerType::class, 'customer_acc_group', 'sap_code');
     }
 
-    public function customerGroup(){
+    public function customerGroup()
+    {
         return $this->belongsTo(CustomerGroup::class, 'customer_group', 'sap_code');
     }
-    public function distributionCh(){
+    public function distributionCh()
+    {
         return $this->belongsTo(DistributionCh::class, 'distribution_ch', 'sap_code');
     }
 
-     public function complaints(){
+    public function complaints()
+    {
         return $this->hasMany(Complaint::class);
     }
-
 }

@@ -18,32 +18,46 @@ class ShipToParty extends Model
 
     protected $guarded = [];
 
-    public function employee(){
+    public function employee()
+    {
         return $this->belongsTo(Employee::class);
     }
 
-    public function soldToParty(){
+
+    public function omeraEmployee()
+    {
+        return $this->belongsTo(Employee::class, 'id', 'omera_employee_id');
+    }
+
+    public function soldToParty()
+    {
         return $this->belongsTo(SoldToParty::class);
     }
-    
-    public function processLogs(){
+
+    public function processLogs()
+    {
         return $this->hasMany(ShipToPartyprocessLog::class);
     }
 
-    public function currentProcess(){
+    public function currentProcess()
+    {
         return $this->hasOne(ShipToPartyprocessLog::class)->latestOfMany();
     }
 
-     public function locDivision(){
+    public function locDivision()
+    {
         return $this->belongsTo(LocDivision::class);
     }
-    public function LocDistrict(){
+    public function LocDistrict()
+    {
         return $this->belongsTo(LocDistrict::class);
     }
-    public function LocUpazila(){
+    public function LocUpazila()
+    {
         return $this->belongsTo(LocUpazila::class);
     }
-    public function LocPostOffice(){
+    public function LocPostOffice()
+    {
         return $this->belongsTo(LocPostOffice::class);
     }
 }

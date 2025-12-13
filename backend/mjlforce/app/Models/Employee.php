@@ -20,49 +20,63 @@ class Employee extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function designation(){
+    public function designation()
+    {
         return $this->belongsTo(Designation::class);
     }
-    public function businessTeam(){
+    public function businessTeam()
+    {
         return $this->belongsTo(BusinessTeam::class);
     }
-    public function region(){
+    public function region()
+    {
         return $this->belongsTo(Region::class);
     }
-    public function territory(){
+    public function territory()
+    {
         return $this->belongsTo(Territory::class);
     }
 
     // Supervsor er Employees
-     public function employeesOfSupervisor()
+    public function employeesOfSupervisor()
     {
         return $this->hasMany(Employee::class, 'supervisor_id')->withTrashed();
     }
-    
+
     // Employee er supervisor  
     public function supervisorOfEmployee()
     {
         return $this->belongsTo(Employee::class, 'supervisor_id')->withTrashed();
     }
 
-    public function soldToParties(){
+    public function soldToParties()
+    {
         return $this->hasMany(SoldToParty::class);
     }
 
-    public function attendanceHistory(){
+    public function omeraSoldToParties()
+    {
+        return $this->hasMany(SoldToParty::class, 'omera_employee_id', 'id');
+    }
+
+    public function attendanceHistory()
+    {
         // return $this->hasMany(Comment::class, 'foreign_key', 'local_key');
         return $this->hasMany(AttendanceHistory::class, 'card_id', 'card_id');
     }
 
-    public function activityLogs(){
+    public function activityLogs()
+    {
         return $this->hasMany(EmployeeActivityLog::class);
     }
 
-    public function complaints(){
+    public function complaints()
+    {
         return $this->hasMany(Complaint::class);
     }
 }

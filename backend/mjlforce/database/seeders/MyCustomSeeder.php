@@ -21,21 +21,23 @@ class MyCustomSeeder extends Seeder
     {
         //
 
-        Schema::disableForeignKeyConstraints();
-        // SoldToParty::truncate();
-        // Employee::truncate();
-        // ShipToParty::truncate();
-        // ShipToPartyprocessLog::truncate();
-        // Complaint::truncate();
-        Schema::enableForeignKeyConstraints();
+        // Schema::disableForeignKeyConstraints();
+        // // SoldToParty::truncate();
+        // // Employee::truncate();
+        // // ShipToParty::truncate();
+        // // ShipToPartyprocessLog::truncate();
+        // // Complaint::truncate();
+        // Schema::enableForeignKeyConstraints();
 
 
-        // $soldToParties = ShipToParty::pluck('id');
-      
+        // $soldToParties = ShipToParty::where('id', '>', '2844')->pluck('id');
+
+        // print_r($soldToParties->toArray());
+        // // die();
         // foreach ($soldToParties as $party) {
         //     // For each SoldToParty, create a SoldToPartyLeadLog entry
         //     ShipToPartyprocessLog::create([
-        //         'ship_to_party_id' => $party, 
+        //         'ship_to_party_id' => $party,
         //         'chk_from' => 4,
         //         'chk_to' => 5,
         //         'status' => 2,
@@ -43,17 +45,18 @@ class MyCustomSeeder extends Seeder
         // }
 
 
-        // $soldToParties = SoldToParty::pluck('id');
-      
+        // $soldToParties = SoldToParty::where('id', '>', '3912')->pluck('id');
+
+        // print_r($soldToParties->toArray());
+
         // foreach ($soldToParties as $party) {
         //     // For each SoldToParty, create a SoldToPartyLeadLog entry
         //     SoldToPartyProcessLog::create([
-        //         'sold_to_party_id' => $party, 
+        //         'sold_to_party_id' => $party,
         //         'chk_from' => 4,
         //         'chk_to' => 5,
         //         'status' => 2,
         //     ]);
         // }
-
     }
 }

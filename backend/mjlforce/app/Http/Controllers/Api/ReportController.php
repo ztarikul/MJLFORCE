@@ -93,9 +93,8 @@ class ReportController extends Controller
                 $visitLogs = EmployeeActivityLog::with('employee:id,name')->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))
                     ->where('log_type', 2)
                     ->whereBetween('date', [$request->start_date, $request->end_date])
-                    ->orderBy('created_at', 'desc') 
+                    ->orderBy('created_at', 'desc')
                     ->get();
-                   
             }
         } else {
             $visitLogs = EmployeeActivityLog::with('employee:id,name')->where('employee_id', $request->employee_id)
@@ -184,12 +183,9 @@ class ReportController extends Controller
 
     public function attendanceToHrm(Request $request)
     {
-        $datetime = $request->query('datetime');
-
-        $date = Carbon::parse($datetime)->toDateString();
-        $time = Carbon::parse($datetime)->toTimeString();
-        $attendance_histories = AttendanceHistory::where('date', $date)->where('time', '>', $time)->orderBy('time', 'asc')->get();
-        return response()->json(['date' => $date, 'time' => $time, 'attendance_histories' => $attendance_histories], 200);
+        $lastSyncedId = $request->query('lastSyncedId');
+        $attendance_histories = AttendanceHistory::where('id', '>', $lastSyncedId)->get();
+        return response()->json(['attendance_histories' => $attendance_histories], 200);
     }
 
 
