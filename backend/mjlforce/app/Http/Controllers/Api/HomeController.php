@@ -141,7 +141,7 @@ class HomeController extends Controller
         try {
             $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
             if (!empty($employee)) {
-                $soldToPaties = SoldToParty::select('id', 'acc_name', 'address', 'employee_id', 'created_at')->where('employee_id', $employee->id)->latest()->get();
+                $soldToPaties = SoldToParty::select('id', 'acc_name', 'address', 'employee_id', 'created_at')->where('employee_id', $employee->id)->orWhere('omera_employee_id', $employee->id)->latest()->get();
 
                 foreach ($soldToPaties as $idx => $soldToParty) {
 
@@ -193,7 +193,7 @@ class HomeController extends Controller
         //sold_to_party those are approved.
         $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 5);
-        })->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+        })->where('employee_id', $employee->id)->orWhere('omera_employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
 
         $visitPurposes = VisitPurpose::all();
 
@@ -246,7 +246,7 @@ class HomeController extends Controller
     {
         $employee = Employee::select('id', 'user_id', 'name', 'card_id',)->where('user_id', auth()->id())->first();
         $complaintTypes = ComplaintType::select('id', 'name')->where('activeStatus', true)->orderBy('code', 'asc')->get();
-        $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'employee_id')->where('employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
+        $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'employee_id')->where('employee_id', $employee->id)->orWhere('omera_employee_id', $employee->id)->orderBy('acc_name', 'asc')->get();
         $otherVisitSites = OtherVisitSite::select('id', 'site_name', 'address', 'employee_id')->where('employee_id', $employee->id)->orderBy('site_name', 'asc')->get();
 
 
