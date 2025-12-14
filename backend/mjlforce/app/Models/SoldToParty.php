@@ -34,7 +34,7 @@ class SoldToParty extends Model
 
     public function omeraEmployee()
     {
-        return $this->belongsTo(Employee::class, 'id', 'omera_employee_id');
+        return $this->belongsTo(Employee::class, 'omera_employee_id');
     }
 
     public function processLogs()

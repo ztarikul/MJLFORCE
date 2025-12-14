@@ -22,7 +22,8 @@
                                         <th>Name</th>
                                         <th>Cust. Code</th>
                                         <th>Address</th>
-                                        <th>EMP</th>
+                                        <th>Mobil</th>
+                                        <th>Omera</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -32,7 +33,8 @@
                                             <td>{{ $soldToParty->acc_name }}</td>
                                             <td>{{ $soldToParty->customer_code ? $soldToParty->customer_code : 'NA' }}</td>
                                             <td>{{ $soldToParty->address }}</td>
-                                            <td>{{ $soldToParty->employee?->name }}</td>
+                                            <td>{{  $soldToParty->employee?->name }}</td>
+                                            <td>{{  $soldToParty->omeraEmployee?->name }}</td>
                                             <td><a type="button"
                                                     href="{{ route('masterData.detailsSoldToParties', $soldToParty->id) }}"
                                                     class="btn btn-secondary"><i class="fa fa-folder-open-o"></i></a>
