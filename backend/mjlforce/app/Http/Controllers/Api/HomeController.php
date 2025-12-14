@@ -33,11 +33,11 @@ class HomeController extends Controller
 
         $varificationCnt = SoldToParty::whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 4); // MIS Check
-        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->count();
+        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orWhereIn('omera_employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->count();
 
         $leadProcessCnt =  SoldToParty::whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 2); // MIS Check
-        })->where('employee_id', $employee->id)->latest()->count();
+        })->where('employee_id', $employee->id)->orWhere('omera_employee_id', $employee->id)->latest()->count();
 
         return response()->json(['employee' => $employee, 'varificationCnt' => $varificationCnt, 'leadProcessCnt' => $leadProcessCnt], 200);
     }
@@ -232,10 +232,10 @@ class HomeController extends Controller
 
         $soldToParties = SoldToParty::select('id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 4); // MIS Check
-        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orderBy('created_at', 'asc')->get();
+        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orWhereIn('omera_employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orderBy('created_at', 'asc')->get();
         $shipToParties = ShipToParty::select('id', 'sold_to_party_id', 'acc_name', 'address', 'created_at')->whereHas('currentProcess', function ($query) {
             $query->where('chk_to', 3); //SV check
-        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orderBy('created_at', 'asc')->get();
+        })->whereIn('employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orWhereIn('omera_employee_id', Employee::where('user_id', auth()->id())->first()->employeesOfSupervisor()->pluck('id'))->orderBy('created_at', 'asc')->get();
 
         $cmas = $soldToParties->merge($shipToParties)->sortBy('created_at')->values();
 

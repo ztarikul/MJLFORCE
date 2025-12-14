@@ -414,7 +414,7 @@ class CmaController extends Controller
                         <h6>Payment Mode:</h6>
                         <table class="">
                             <tr class="mt-5">
-                                <td style="display: inline-block"><input type="checkbox" checked /> Check</td>
+                                <td style="display: inline-block"><input type="checkbox" checked /> Cheeque</td>
                                 <td style="display: inline-block"><input type="checkbox" /> Cash</td>
                                 <td style="display: inline-block"><input type="checkbox" /> PO</td>
                                 <td style="display: inline-block"><input type="checkbox" /> DD</td>
@@ -427,15 +427,15 @@ class CmaController extends Controller
                             <tr>
                                 <td style="height: 30px">' . $soldToParty->employee->name . '</td>
 
-                                <td style="height: 30px; font-weight: bold">' . $soldToParty->employee->supervisorOfEmployee?->name . '</td>
-                                <td style="height: 30px; font-weight: bold"> </td>
+                                <td style="height: 30px;">' . $soldToParty->employee->supervisorOfEmployee?->name . '</td>
+                                <td style="height: 30px;"> </td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold">
                                     <hr
                                         style="
                                                 border: 1px solid black;
-                                                width: 80%;
+                                                width: 100%;
                                                 margin: auto;
                                             " />
                                     Submitted By
@@ -444,7 +444,7 @@ class CmaController extends Controller
                                     <hr
                                         style="
                                                 border: 1px solid black;
-                                                width: 80%;
+                                                width: 100%;
                                                 margin: auto;
                                             " />
                                     Supervisor
@@ -454,7 +454,7 @@ class CmaController extends Controller
                                     <hr
                                         style="
                                                 border: 1px solid black;
-                                                width: 80%;
+                                                width: 100%;
                                                 margin: auto;
                                             " />
                                     Approved By
@@ -470,7 +470,7 @@ class CmaController extends Controller
                 ];
 
                 $pdf = Pdf::loadView('pdf.cmaForm', $data);
-                $filePath = $soldToParty->employee->sap_code . '_cma_form_' . $soldToParty->id . '.pdf';
+                $filePath = 'Customer_Master_Advise_' .$soldToParty->employee->sap_code .'_'. $soldToParty->id . '.pdf';
                 Storage::put('cma_forms/' . $filePath, $pdf->output());
 
                 $mail_data = [
