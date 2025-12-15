@@ -53,7 +53,7 @@ class SoldToPartySync extends Command
 
         $json = json_decode($response->getBody(), true);
         $last_sold_to_party = SoldToParty::select('id', 'customer_code')->latest()->first();
-        $records = collect($json['RESPONSE'])->unique('Customer_Code')->where('Customer_Code', '>', $last_sold_to_party->customer_code)->sortBy('Customer_Code')->values()->all();
+        $records = collect($json['RESPONSE'])->unique('Customer_Code')->where('Customer_Code', '>', '11003959')->sortBy('Customer_Code')->values()->all();
         // print_r($records);
         // die();
 
