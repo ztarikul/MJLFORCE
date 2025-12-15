@@ -31,8 +31,8 @@ class ShipToPartySync extends Command
     public function handle()
     {
         //
-        try{
-            
+        try {
+
 
             $client = new Client();
             $response_soldToParty = $client->get('http://10.24.242.9:56000/RESTAdapter/CustomerList', [
@@ -61,10 +61,8 @@ class ShipToPartySync extends Command
                     ],
                 ],
             ]);
-        }
-        catch(Exception $e){
-            print( $e->getMessage());
-            
+        } catch (Exception $e) {
+            print($e->getMessage());
         }
 
         $json_soldToParty = json_decode($response_soldToParty->getBody(), true);
@@ -73,17 +71,15 @@ class ShipToPartySync extends Command
         // die();
         $soldToParties = collect($json_soldToParty['RESPONSE'])->sortBy('Customer_Code')->values()->all();
         $shipToParties = collect($json_shipToParty['RESPONSE'])->sortBy('Customer_Code')->values()->all();
-     
-        foreach($shipToParties as $data ){
-            try{
+
+        foreach ($shipToParties as $data) {
+            try {
                 $result = collect($soldToParties)->where('Ship_to_Party', trim($data['Customer_Code']))->first();
-             
-            
-                $shipToParty = ShipToParty::firstOrNew(
+
+
+                $shipToParty = ShipToParty::create(
                     [
                         'customer_code' => trim($data['Customer_Code'] ?? '') === '' ? null : $data['Customer_Code'],
-                    ],
-                    [
                         'sold_to_party_id' => isset($data['Customer_Code']) ? SoldToParty::where('customer_code', $result['Customer_Code'])->first()->id : null,
                         'customer_acc_group' => trim($data['Account_Group'] ?? '') === '' ? null : $data['Account_Group'],
                         'company_code' => trim($data['Company_Code'] ?? '') === '' ? null : $data['Company_Code'],
@@ -139,20 +135,16 @@ class ShipToPartySync extends Command
                         'attr_4' => trim($data['Attribute_4'] ?? '') === '' ? null : $data['Attribute_4'],
                         'attr_5' => trim($data['Attribute_5'] ?? '') === '' ? null : $data['Attribute_5'],
                         'employee_id' => trim($data['Sales_Employee'] ?? '') === '' ? null : Employee::where('sap_code', $data['Sales_Employee'])->value('id'),
-                            // Optional fields can be added later if needed
-                            // 'status' => 1,
-                            // 'remarks' => null,
-                            // 'activeStatus' => true,
-                    ]);
-                    $shipToParty->save();
-
-    
-                } catch(Exception $e){
-                    print( $e->getMessage());
-                    continue;
-                }
-                
+                        // Optional fields can be added later if needed
+                        // 'status' => 1,
+                        // 'remarks' => null,
+                        // 'activeStatus' => true,
+                    ]
+                );
+            } catch (Exception $e) {
+                print($e->getMessage());
+                continue;
+            }
         }
-    }    
-
+    }
 }

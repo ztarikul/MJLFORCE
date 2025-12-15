@@ -476,10 +476,11 @@ class CmaController extends Controller
                 $mail_data = [
                     'customer_name' => $soldToParty->acc_name,
                     'sales_person' => $soldToParty->employee->name,
+                    'omera_sales_person' => $soldToParty->omeraEmployee->name,
                 ];
 
                 $mailFilepath = Storage::path('cma_forms/' . $filePath);
-                Mail::to('tarikul.islam@mobilbd.com')
+                Mail::to($soldToParty->employee->email)
                     ->send(new CmaFromMail($mail_data, $mailFilepath));
             }
 

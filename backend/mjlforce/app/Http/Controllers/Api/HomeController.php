@@ -309,7 +309,7 @@ class HomeController extends Controller
 
             $complaint->save();
             // ComplaintRaise Email Generates Here...
-            $toEmail = "tarikul.islam@mobilbd.com";
+            $toEmail = auth()->user()->employee->email;
             Mail::to($toEmail)->send(new ComplaintRaiseMail($complaint->id));
 
 

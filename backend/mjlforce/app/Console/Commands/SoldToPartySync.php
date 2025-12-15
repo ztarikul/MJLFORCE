@@ -52,16 +52,18 @@ class SoldToPartySync extends Command
         }
 
         $json = json_decode($response->getBody(), true);
-        $records = collect($json['RESPONSE'])->unique('Customer_Code')->sortBy('Customer_Code')->values()->all();
+        $last_sold_to_party = SoldToParty::select('id', 'customer_code')->latest()->first();
+        $records = collect($json['RESPONSE'])->unique('Customer_Code')->where('Customer_Code', '>', $last_sold_to_party->customer_code)->sortBy('Customer_Code')->values()->all();
+        // print_r($records);
+        // die();
 
         foreach ($records as $data) {
 
             try {
-                $soldToParty =  SoldToParty::firstOrNew(
+                $soldToParty =  SoldToParty::create(
+
                     [
                         'customer_code' => trim($data['Customer_Code'] ?? '') === '' ? null : $data['Customer_Code'],
-                    ],
-                    [
                         'customer_acc_group' => trim($data['Account_Group'] ?? '') === '' ? null : $data['Account_Group'],
                         'company_code' => trim($data['Company_Code'] ?? '') === '' ? null : $data['Company_Code'],
                         'sales_org' => trim($data['Sales_Organization'] ?? '') === '' ? null : $data['Sales_Organization'],
@@ -124,7 +126,6 @@ class SoldToPartySync extends Command
 
                     ]
                 );
-                $soldToParty->save();
             } catch (Exception $e) {
                 print($e->getMessage());
                 continue;
