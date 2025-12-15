@@ -470,7 +470,7 @@ class CmaController extends Controller
                 ];
 
                 $pdf = Pdf::loadView('pdf.cmaForm', $data);
-                $filePath = 'Customer_Master_Advise_' .$soldToParty->employee->sap_code .'_'. $soldToParty->id . '.pdf';
+                $filePath = 'Customer_Master_Advise_' . $soldToParty->employee->sap_code . '_' . $soldToParty->id . '.pdf';
                 Storage::put('cma_forms/' . $filePath, $pdf->output());
 
                 $mail_data = [
@@ -729,7 +729,7 @@ class CmaController extends Controller
             'loc_division' => 'required',
             'loc_district' => 'required',
             'loc_thana' => 'required',
-            'post_office' => 'required',
+            'post_office' => 'nullable',
             'remarks' => 'nullable|string|max:500',
             'long' => 'required',
             'lat' => 'required',
