@@ -67,12 +67,19 @@
                             @csrf
                             <h4>MIS Login</h4>
                             <h6>Welcome back! Log in to your account.</h6>
+                            @error('username')
+                                <p><span class="text-danger">{{ $message }}</span></p>
+                            @enderror
+                            @error('password')
+                                <p><span class="text-danger">{{ $message }}</span></p>
+                            @enderror 
                             <div class="form-group">
                                 <label>Username</label>
                                 <div class="input-group"><span class="input-group-text"><i
                                             class="icon-email"></i></span>
                                     <input id="username" class="form-control" name="username" type="username"
                                         placeholder="Only MIS username" required autofocus autocomplete="username">
+                                       
                                 </div>
                             </div>
                             <div class="form-group">
@@ -88,6 +95,8 @@
                                     <input id="checkbox1" type="checkbox">
                                     <label class="text-muted" for="checkbox1">Remember password</label>
                                 </div><a class="link" href="forget-password.html">Forgot password?</a>
+
+                                
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block" type="submit">Sign in</button>
