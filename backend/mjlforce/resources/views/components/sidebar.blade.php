@@ -79,7 +79,8 @@
                                 data-feather="layout"></i><span>Reports</span></a>
                         <ul class="nav-submenu menu-content">
                             <li><a href="{{route('reports.complaintIndex')}}">Complaint</a></li>
-                      
+                            <li><a href="{{route('reports.visitsIndex')}}">Visits</a></li>
+                            
                         </ul>
                     </li>
 

@@ -135,6 +135,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'reports', 'as' => 'reports.',], function () {
         Route::get('/fileDownload', [ReportController::class, 'fileDownload'])->name('fileDownload');
         Route::get('/complaint_index', [ReportController::class, 'complaint_index'])->name('complaintIndex');
+        Route::get('/visits_index', [ReportController::class, 'visits_index'])->name('visitsIndex');
+        Route::post('/visits_log', [ReportController::class, 'visits_log'])->name('visitsLog');
     });
 });
 

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\BusinessTeam;
 use App\Models\Complaint;
+use App\Models\Employee;
+use App\Models\EmployeeActivityLog;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -36,5 +39,35 @@ class ReportController extends Controller
             ];
         })->toArray();
         return view('reports.complaint.index', compact('complaints'));
+    }
+
+    public function visits_index(Request $request)
+    {
+        if($request->ajax()){
+            $employees = [];
+            if($request->has('business_team_id') && !empty($request->business_team_id)){
+                $employees = Employee::select('id', 'name')->where('business_team_id', $request->business_team_id)->orderBy('name', 'asc')->get();
+            }else{
+                $employees = Employee::select('id', 'name')->orderBy('name', 'asc')->get();
+            }
+            $business_teams = BusinessTeam::select('id', 'name')->orderBy('name', 'asc')->get();
+
+            return response()->json(['employees' => $employees, 'business_teams' => $business_teams], 200);
+        }
+        return view('reports.visits.index');
+    }
+
+    public function visits_log(Request $request){
+        $visitLogs = false;
+        if($request->employee_id){
+            $employee = Employee::find($request->employee_id);
+            $visitLogs = EmployeeActivityLog::with('employee:id,name')->where('employee_id', $employee->id)->where('log_type', 2)
+                    ->whereBetween('date', [$request->start_date, $request->end_date])
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+        }else{
+            $business_teams = BusinessTeam::find($request->business_team_id);
+        }
+        return response()->json(['visitLogs' => $visitLogs], 200);
     }
 }
