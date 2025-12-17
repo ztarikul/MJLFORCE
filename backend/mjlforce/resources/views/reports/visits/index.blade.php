@@ -9,55 +9,54 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                           
-                                     <form class="theme-form mega-form" id="reportForm">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label class="col-form-label">Business Team</label>
-                                                <select class="form-select" id="business_team_id" name="business_team_id">
-                                                 
-                                                  
-                                                </select>
+                            <form class="theme-form mega-form" id="reportForm">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">Business Team</label>
+                                        <select class="form-select" id="business_team_id" name="business_team_id">
+                                            
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="col-form-label">Employee</label>
+                                        <select class="form-select" id="employee_id" name="employee_id">
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">From</label>
+                                        <input type="text" class="form-control datepicker" name="start_date"
+                                            id="start_date">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">To</label>
+                                        <input type="text" class="form-control datepicker" name="end_date"
+                                            id="end_date">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">Report</label>
+                                        <div class="form-group m-checkbox-inline mb-0 custom-radio-ml">
+                                            <div class="radio radio-primary">
+                                                <input id="radio1" type="radio" name="report_type" value="activity" checked="">
+                                                <label for="radio1">Activity Log</label>
                                             </div>
-                                            <div class="col-md-8">
-                                                <label class="col-form-label">Employee</label>
-                                                <select class="form-select" id="employee_id" name="employee_id">
-                                                    
-                                                </select>
+                                            <div class="radio radio-primary">
+                                                <input id="radio4" type="radio" name="report_type" value="visit">
+                                                <label for="radio4">Visit Log</label>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label class="col-form-label">From</label>
-                                                <input type="text" class="form-control datepicker" name="start_date"
-                                                    id="start_date">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="col-form-label">To</label>
-                                                <input type="text" class="form-control datepicker" name="end_date"
-                                                    id="end_date">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="col-form-label">Report</label>
-                                                <div class="form-group m-checkbox-inline mb-0 custom-radio-ml">
-                                                   <div class="radio radio-primary">
-                                                        <input id="radio1" type="radio" name="report_type" value="activity" checked="">
-                                                        <label for="radio1">Activity Log</label>
-                                                    </div>
-                                                    <div class="radio radio-primary">
-                                                        <input id="radio4" type="radio" name="report_type" value="visit">
-                                                        <label for="radio4">Visit Log</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                           
                                         </div>
-                                       <div class="card-footer text-end mt-5">
-                                            <div class="btn-group">
-                                                <button class="btn btn-secondary" type="reset">Reset</button>
-                                                <button class="btn btn-primary" type="submit">Search</button>
-                                            </div>
-                                       </div>
-                                </form>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-footer text-end mt-5">
+                                    <div class="btn-group">
+                                        <button class="btn btn-secondary" type="reset">Reset</button>
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </div>
+                                </div>
+                            </form>
 
                         </div>
                     </div>
@@ -199,6 +198,27 @@
                 },
                 success: function(res) {
                     console.log(res);
+                    var table = $('#basic-1').DataTable();
+                    table.clear().draw();
+                    var logs = res.logs;
+                    $.each(logs, function(index, log){
+                        var sl = index+1;
+                        var date = log.date;
+                        var emp = log.employee_name;
+                        var action = log.action;
+                        var remarks = log.remarks;
+                        var address = log.address;
+                        table.row.add([
+                            sl,
+                            date,
+                            emp,
+                            action,
+                            remarks,
+                            address,
+                        ]).draw(false);
+                    }); 
+
+
                 }
             })
         });

@@ -12,13 +12,14 @@ use App\Http\Controllers\Web\RoleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
+
 Route::get('/', function () {
-    // if(Auth::user()){
-    //    return redirect()->route('dashboard');
-    // }
+    if (Auth::user()) {
+        return redirect()->route('dashboard');
+    }
     return view('auth.login');
 });
-
 
 
 Route::group(['middleware' => ['auth']], function () {

@@ -43,11 +43,11 @@ class ReportController extends Controller
 
     public function visits_index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             $employees = [];
-            if($request->has('business_team_id') && !empty($request->business_team_id)){
+            if ($request->has('business_team_id') && !empty($request->business_team_id)) {
                 $employees = Employee::select('id', 'name')->where('business_team_id', $request->business_team_id)->orderBy('name', 'asc')->get();
-            }else{
+            } else {
                 $employees = Employee::select('id', 'name')->orderBy('name', 'asc')->get();
             }
             $business_teams = BusinessTeam::select('id', 'name')->orderBy('name', 'asc')->get();
@@ -57,17 +57,45 @@ class ReportController extends Controller
         return view('reports.visits.index');
     }
 
-    public function visits_log(Request $request){
-        $visitLogs = false;
-        if($request->employee_id){
-            $employee = Employee::find($request->employee_id);
-            $visitLogs = EmployeeActivityLog::with('employee:id,name')->where('employee_id', $employee->id)->where('log_type', 2)
-                    ->whereBetween('date', [$request->start_date, $request->end_date])
-                    ->orderBy('created_at', 'asc')
-                    ->get();
-        }else{
-            $business_teams = BusinessTeam::find($request->business_team_id);
+    public function visits_log(Request $request)
+    {
+        $logs = [];
+        $report_type = $request->report_type == "visit" ? 2 : null;
+        $employeeActivityLogs = EmployeeActivityLog::query()->whereBetween('date', [$request->start_date, $request->end_date])->orderBy('created_at', 'asc');
+        if ($report_type) {
+            $employeeActivityLogs->where('log_type', $report_type);
         }
-        return response()->json(['visitLogs' => $visitLogs], 200);
+        if ($request->employee_id) {
+            // $business_teams = BusinessTeam::find($request->business_team_id);
+            $logs = $employeeActivityLogs->with('employee:id,name')->where('employee_id', $request->employee_id)
+                ->get();
+        } else if ($request->business_team_id) {
+            $business_teams = BusinessTeam::find($request->business_team_id);
+            $employees = Employee::where('business_team_id', $business_teams->id)->pluck('id');
+            $logs = $employeeActivityLogs->with('employee:id,name')->whereIn('employee_id', $employees)->get();
+        } else {
+            $logs = $employeeActivityLogs->with('employee:id,name')->get();
+        }
+
+        $logs = $logs->map(function ($log) {
+            return [
+                'id'             => $log->id,
+                'employee_id'    => $log->employee_id,
+                'employee_name'  => $log->employee->name ?? null,
+                'date'           => $log->created_at->toDateTimeString(),
+                'action'         => $log->action,
+                'remarks'        => $log->remarks,
+                'log_type'      => $log->log_type,
+                'lat'            => $log->lat,
+                'long'           => $log->long,
+                'address'       => $log->address,
+                'hostname'      => $log->hostname,
+                'created_at'    => $log->created_at->toDateTimeString(),
+
+            ];
+        });
+
+        $logs = collect($logs)->groupBy('employee_name')->collapse()->values()->toArray();
+        return response()->json(['logs' => $logs], 200);
     }
 }
