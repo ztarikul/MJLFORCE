@@ -116,9 +116,9 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script> --}}
 
-    <script src="../assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/datatable/datatables/datatable.custom.js"></script>
-    <script src="../assets/js/tooltip-init.js"></script>
+    <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
+    <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
  
 
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
