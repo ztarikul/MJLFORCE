@@ -29,10 +29,10 @@
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="home"></i><span>Master
+                        <a class="nav-link menu-title active" href="javascript:void(0)"><i data-feather="home"></i><span>Master
                                 Data</span></a>
                         <ul class="nav-submenu menu-content">
-                            <li><a href="{{ route('locations.index') }}">Locations</a></li>
+                            <li><a class="{{ request()->routeIs('locations.index') ? 'active' : '' }}" href="{{ route('locations.index') }}">Locations</a></li>
                             <li><a href="{{ route('employees.index') }}">Employees</a></li>
                             <li><a href="{{ route('masterData.customerGroupIndex') }}">Customer Groups</a></li>
                             <li><a href="{{ route('masterData.businessTeamIndex') }}">Business Team</a></li>

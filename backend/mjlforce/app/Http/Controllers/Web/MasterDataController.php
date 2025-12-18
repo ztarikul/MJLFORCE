@@ -23,6 +23,7 @@ use Exception;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Yajra\DataTables\Facades\DataTables;
 
 class MasterDataController extends Controller
 {
@@ -411,11 +412,30 @@ class MasterDataController extends Controller
         $tradeSubCategories = TradeSubCategory::orderBy('trade_category_id', 'asc')->get();
         return view('masterData.tradeCategories.index', compact('tradeSubCategories'));
     }
-    public function soldToParties()
+    public function soldToParties(Request $request)
     {
-        $soldToParties = SoldToParty::where('activeStatus', true)->orderBy('acc_name', 'asc')->get();
+        if ($request->ajax()) {
+            $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'address', 'employee_id', 'omera_employee_id', 'activeStatus')->where('activeStatus', true)->orderBy('acc_name', 'asc');
+            return DataTables::eloquent($soldToParties)
+                ->addIndexColumn()
+                ->addColumn('employee', function ($data) {
+                    return $data->employee ? $data->employee->name : '';
+                })
+                ->addColumn('omera_employee', function ($data) {
+                    return $data->omeraEmployee ? $data->omeraEmployee->name : '';
+                })
+                ->addColumn('action', function ($row) {
+                    return ' <div class="btn-group">
+                        <a type="button" href="' . route('masterData.detailsSoldToParties', $row->id) . '" class="btn btn-sm btn-primary"><i class="fa fa-folder-open-o"></i></a>
+                        <button class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Sync with SAP" onclick="element_sync(' . $row->id . ')"><i class="fa fa-spin fa-refresh"></i></button></div>
+                    ';
+                })
+                ->rawColumns(['employee', 'omera_employee', 'action'])
+                ->make(true);
+        }
 
-        return view('masterData.soldToParties.index', compact('soldToParties'));
+
+        return view('masterData.soldToParties.index');
     }
     public function shipToParties()
     {

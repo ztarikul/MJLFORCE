@@ -16,9 +16,10 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="display" id="basic-1">
+                            <table class="display" id="dataTable">
                                 <thead>
                                     <tr>
+                                        <th scope="col">#</th>
                                         <th>Name</th>
                                         <th>Cust. Code</th>
                                         <th>Address</th>
@@ -28,24 +29,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($soldToParties as $idx => $soldToParty)
-                                        <tr>
-                                            <td>{{ $soldToParty->acc_name }}</td>
-                                            <td>{{ $soldToParty->customer_code ? $soldToParty->customer_code : 'NA' }}</td>
-                                            <td>{{ $soldToParty->address }}</td>
-                                            <td>{{  $soldToParty->employee?->name }}</td>
-                                            <td>{{  $soldToParty->omeraEmployee?->name }}</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a type="button"
-                                                    href="{{ route('masterData.detailsSoldToParties', $soldToParty->id) }}"
-                                                    class="btn btn-secondary"><i class="fa fa-folder-open-o"></i>
-                                                    </a>
-                                                    <button class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Sync with SAP" onclick="element_sync('{{ $soldToParty->id }}')"><i class="fa fa-spin fa-refresh"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -59,6 +43,32 @@
 
 
 <script>
+
+    $(function() {
+        $('#dataTable').DataTable({
+            searching: true,
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('masterData.soldToParties') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: true, searchable: false },
+                { data: 'acc_name', name: 'acc_name'},
+                { data: 'customer_code', name: 'customer_code'},
+                { data: 'address', name: 'address' },
+                { data: 'employee', name: 'employee'},
+                { data: 'omera_employee', name: 'omera_employee'},
+                { data: 'action', name: 'action'},
+            ],
+            bSort: false,
+            dom: 'lBfrtip',
+            buttons: [
+                'excel', 'pdf', 
+            ],
+            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, 'All'] ],
+            responsive: true,
+                });
+            });
+
     function element_sync(id) {
             $.confirm({
                 title: 'Confirm Delete!',
