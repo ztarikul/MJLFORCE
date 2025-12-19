@@ -46,20 +46,21 @@
 
     $(function() {
         $('#dataTable').DataTable({
-            searching: true,
+    
             processing: true,
             serverSide: true,
             ajax: "{{ route('masterData.soldToParties') }}",
+            order: [[1, 'asc']],   // default order
             columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: true, searchable: false },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'acc_name', name: 'acc_name'},
                 { data: 'customer_code', name: 'customer_code'},
                 { data: 'address', name: 'address' },
                 { data: 'employee', name: 'employee'},
                 { data: 'omera_employee', name: 'omera_employee'},
-                { data: 'action', name: 'action'},
+                { data: 'action', name: 'action', orderable: false, searchable: false},
             ],
-            bSort: false,
+            ordering: true, 
             dom: 'lBfrtip',
             buttons: [
                 'excel', 'pdf', 

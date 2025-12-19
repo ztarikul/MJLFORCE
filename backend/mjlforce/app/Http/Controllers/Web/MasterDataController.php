@@ -415,7 +415,7 @@ class MasterDataController extends Controller
     public function soldToParties(Request $request)
     {
         if ($request->ajax()) {
-            $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'address', 'employee_id', 'omera_employee_id', 'activeStatus')->where('activeStatus', true)->orderBy('acc_name', 'asc');
+            $soldToParties = SoldToParty::select('id', 'acc_name', 'customer_code', 'address', 'employee_id', 'omera_employee_id', 'activeStatus')->where('activeStatus', true);
             return DataTables::eloquent($soldToParties)
                 ->addIndexColumn()
                 ->addColumn('employee', function ($data) {
