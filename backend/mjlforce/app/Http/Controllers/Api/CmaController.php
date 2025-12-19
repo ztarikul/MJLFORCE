@@ -183,7 +183,7 @@ class CmaController extends Controller
                 $activityLog = [
                     'user' => auth()->id(),
                     'action' => "visit",
-                    'remarks' => "New Visit/New Client enlist",
+                    'remarks' => "New Visit. Site Name: " . $request->account_name,
                     'address' => $locationResponse['display_name'],
                     'log_type' => 2, // General actions
                     'lat' => $request->lat,
