@@ -52,7 +52,7 @@ return new class extends Migration
 
             $table->string('group')->nullable()->comment('BUT020-ADEXT');
             $table->string('payment_mode')->nullable()->comment('KNA1-KATRA'); //1G default
-            $table->string('bin_no')->nullable()->unique()->comment('KNA1-BAHN5');
+            $table->string('bin_no')->nullable()->comment('KNA1-BAHN5');
             $table->string('vat_reg_num')->nullable()->comment('KNA1-BAHNE');
 
             $table->string('recon_acc')->nullable()->comment('KNB1-AKONT'); //Reconcillation Account

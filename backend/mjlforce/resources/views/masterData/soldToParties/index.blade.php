@@ -46,11 +46,9 @@
 
     $(function() {
         $('#dataTable').DataTable({
-    
             processing: true,
             serverSide: true,
             ajax: "{{ route('masterData.soldToParties') }}",
-            order: [[1, 'asc']],   // default order
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 { data: 'acc_name', name: 'acc_name'},
