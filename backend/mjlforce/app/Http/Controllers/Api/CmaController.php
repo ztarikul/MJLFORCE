@@ -182,8 +182,8 @@ class CmaController extends Controller
             } else {
                 $activityLog = [
                     'user' => auth()->id(),
-                    'action' => "visit",
-                    'remarks' => "New Visit. Site Name: " . $request->account_name,
+                    'action' => "New Visit",
+                    'remarks' => "Site Name: " . $request->account_name . "Address: " . $request->office_address,
                     'address' => $locationResponse['display_name'],
                     'log_type' => 2, // General actions
                     'lat' => $request->lat,
@@ -498,7 +498,7 @@ class CmaController extends Controller
                 $activityLog = [
                     'user' => auth()->id(),
                     'action' => "Lead Change",
-                    'remarks' => "Own Lead change",
+                    'remarks' => "Site Name: " . $request->account_name . "Address: " . $request->office_address,
                     'address' => $locationResponse['display_name'],
                     'log_type' => 2, // Visit
                     'lat' => $request->lat,
@@ -697,8 +697,8 @@ class CmaController extends Controller
             } else {
                 $activityLog = [
                     'user' => auth()->id(),
-                    'action' => "visit",
-                    'remarks' => "Existing visit for customer- " . $soldToParty->acc_name,
+                    'action' => "Existing Visit",
+                    'remarks' => "Site Name: " . $soldToParty->acc_name . "Address: " . $soldToParty->address . " " . $soldToParty->address_2 . " " . $soldToParty->address_3,
                     'address' => $locationResponse['display_name'],
                     'log_type' => 2, // Visit
                     'lat' => $request->lat,
@@ -795,8 +795,8 @@ class CmaController extends Controller
             } else {
                 $activityLog = [
                     'user' => auth()->id(),
-                    'action' => "visit",
-                    'remarks' => "Other visit, site name: " . $request->site_name,
+                    'action' => "Other Visit",
+                    'remarks' => "Site Name: " . $request->site_name . "Address: " . $request->address,
                     'address' => $locationResponse['display_name'],
                     'log_type' => 2, // General actions
                     'lat' => $request->lat,

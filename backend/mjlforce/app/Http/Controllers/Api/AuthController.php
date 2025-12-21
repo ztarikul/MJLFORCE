@@ -40,17 +40,17 @@ class AuthController extends Controller
             return response()->json(['error' => 'Wrong Credentials'], 401);
         }
 
-        
+
         $activityLog = [
             'user' => auth()->id(),
             'action' => "Login",
             'remarks' => "App login",
-            'log_type' => 1,//authenticate
+            'log_type' => 1, //authenticate
             'lat' => $request->lat,
             'long' => $request->long,
 
         ];
-        
+
         storeEmployeeActivityLog($activityLog);
 
         return $this->respondWithToken($token);
@@ -70,7 +70,6 @@ class AuthController extends Controller
             'user' => $user,
             'employee' => $employee,
         ]);
-        
     }
 
     /**
@@ -112,7 +111,7 @@ class AuthController extends Controller
             'user_roles' => auth()->user()->getRoleNames(),
             'user_permissions' => auth()->user()->getAllPermissions()->pluck('name'),
             'is_supervisor' => auth()->user()->employee ? (auth()->user()->employee->employeesOfSupervisor->count() > 0 ? true : false) : false,
-           
+
         ]);
     }
 
@@ -136,45 +135,45 @@ class AuthController extends Controller
         return response()->json(['message' => 'Password changed successfully']);
     }
 
-   
 
-    public function checkIn(Request $request){
+
+    public function checkIn(Request $request)
+    {
         //  return response()->json($request->all());
         $lat = $request->lat;
         $long = $request->long;
 
-        if($lat == null || $long == null){
+        if ($lat == null || $long == null) {
             return response()->json(['msg' => "Location is not found, Turn on your location and try again"], 422);
         }
 
         $locationResponse = getReverseGeoLocation($lat, $long);
-        if(isset($locationResponse->original) && $locationResponse->original['error']){
-             return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
-        }else{
-            
+        if (isset($locationResponse->original) && $locationResponse->original['error']) {
+            return response()->json(['msg' => $locationResponse->original['status'] . "api error"], 422);
+        } else {
+
             $activityLog = [
                 'user' => auth()->id(),
-                'action' => "checked-in",
-                'remarks' => "Checked-in "  . Carbon::now()->toDateTimeString(),
+                'action' => "Checked In",
+                'remarks' => "Checked-In "  . Carbon::now()->toDateTimeString(),
                 'address' => $locationResponse['display_name'],
-                'log_type' => 2,// General actions
+                'log_type' => 2, // visit type
                 'lat' => $request->lat,
                 'long' => $request->long,
 
             ];
         }
         storeEmployeeActivityLog($activityLog);
-
-
     }
 
-     /**
+    /**
      * Get the guard to be used during authentication.
      *
      * @return \Illuminate\Contracts\Auth\Guard
      */
 
-    public function guard(){
+    public function guard()
+    {
         return Auth::guard('api');
     }
 }

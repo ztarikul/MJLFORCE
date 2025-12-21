@@ -70,7 +70,7 @@
                                         <th>EMP</th>
                                         <th>Action</th>
                                         <th>Remarks</th>
-                                        <th>Address</th>
+                                        <th>GPS</th>
                                     </tr>
                                 </thead>
                                 <tbody>

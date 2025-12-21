@@ -101,8 +101,8 @@ class HomeController extends Controller
 
             $activityLog = [
                 'user' => auth()->id(),
-                'action' => "attendance",
-                'remarks' => "Day Started" . Carbon::now()->toDateTimeString(),
+                'action' => "Attendance",
+                'remarks' => "Day Started " . Carbon::now()->toDateTimeString(),
                 'log_type' => 2, // General actions
                 'lat' => $request->lat,
                 'long' => $request->long,
@@ -324,8 +324,8 @@ class HomeController extends Controller
 
                 $activityLog = [
                     'user' => auth()->id(),
-                    'action' => "complaint",
-                    'remarks' => "New complaint noted, customer name: " . $site_name,
+                    'action' => "Complaint",
+                    'remarks' => "Site Name: " . $site_name . "Address: " . $site_address,
                     'address' => $locationResponse['display_name'],
                     'log_type' => 3, // Form entry
                     'lat' => $request->lat,
